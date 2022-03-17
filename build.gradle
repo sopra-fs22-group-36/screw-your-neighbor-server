@@ -101,4 +101,8 @@ springBoot {
     mainClass.set 'ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.ScrewYourNeighborServerApplication'
 }
 
+jar {
+    enabled = false
+}
+
 defaultTasks 'bootJar', 'build'
