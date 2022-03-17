@@ -39,4 +39,4 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           check-regexp: (check-format|build)
 
-      - run: git push heroku HEAD:refs/heads/master
+      - run: git push -f heroku HEAD:refs/heads/master
