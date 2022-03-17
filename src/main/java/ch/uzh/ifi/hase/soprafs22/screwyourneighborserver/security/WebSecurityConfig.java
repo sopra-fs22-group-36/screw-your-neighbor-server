@@ -18,7 +18,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.exceptionHandling();
 
     http.logout().disable();
-
-    http.headers().frameOptions().sameOrigin();
   }
 }
