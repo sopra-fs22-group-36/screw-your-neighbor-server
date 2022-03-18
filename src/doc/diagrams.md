@@ -7,4 +7,4 @@
 ![Source](https://raw.githubusercontent.com/sopra-fs22-group-36/screw-your-neighbor-server/feature_diagrams/src/doc/screw_your_neighbor_overall_workflow.puml)
 
 Conversion Tool: http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
-Howto include diagram in md: https://gist.github.com/emaldonadot/ff6c422f7963fb3a2144328400bb67ff
+\nHowto include diagram in md: https://gist.github.com/emaldonadot/ff6c422f7963fb3a2144328400bb67ff
