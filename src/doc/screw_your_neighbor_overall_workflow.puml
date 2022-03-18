@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:PersonEntersStartingPage();
+:RegisterByEnteringName();
+:ClickOk();
+:EnterLobby();
+if (EnterRoom) then (CreateNewRoom)
+    :CreateNewRoom;
+else (ExistingRoom)
+    :EnterExistingRoom;
+endif
+repeat
+    if(PlayersInRoom) then (>1 and <max)
+        :StartGame;
+        repeat
+        :StartMatch;
+        :DistributeCards;
+        :AnnounceTricks;
+        :PlayRound;
+        backward: PlayAgain;
+        repeat while (ThatWasFun)
+        :LeaveRoom;
+        stop
+    else (<2 or >max)
+        :WaitForMorePlayers;
+    endif
+repeat while (PlayersInRoom)
+
+
+@enduml
