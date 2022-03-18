@@ -37,7 +37,7 @@ repeat
         :LeaveRoom;
         stop
     endif
-repeat while (MorePlayers)
+repeat while (MorePlayersJoin)
 repeat while (SomeoneClickStart)
 
 @enduml
