@@ -1,0 +1,80 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+package "Client - Frontend" {
+    folder "views" {
+        [Lobby]
+        [Game]
+        [Match]
+        [Player]
+    }
+    folder "ui" {
+        [Button]
+        [Cards]
+    }
+}
+
+package "External Video Chat API" {
+    API - [Video Framework]
+}
+
+package "Server - Backend" {
+    folder "DTO Layer" {
+        [DTO Player]
+        [DTO Game]
+        [DTO Lobby]
+        [DTO Match]
+    }
+    folder "Controllers" {
+        [Controller Player]
+        [Controller Game]
+        [Controller Lobby]
+        [Controller Match]
+    }
+    folder "Service" {
+        [Service Player]
+        [Service Game]
+        [Service Lobby]
+        [Service Match]
+    }
+}
+
+node "JPA" {
+    [JPA API]
+}
+database "H2 Hibernate" {
+  folder "Database" {
+    [Game Repository]
+  }
+}
+
+[Service Game] <..> [JPA API]
+[Service Player] <..> [JPA API]
+[Service Match] <..> [JPA API]
+[Service Lobby] <..> [JPA API]
+[JPA API] <..> [Game Repository]
+
+[Match] <..> HTTP : REST
+HTTP <..> [DTO Match]
+[Game] <..> HTTP
+HTTP <..> [DTO Game] : REST
+[Lobby] <..> HTTP
+HTTP <..> [DTO Lobby]
+[Player] <..> HTTP
+HTTP <..> [DTO Player]
+
+[Game] - API
+[Match] - API
+
+[DTO Player] <--> [Controller Player]
+[DTO Game] <--> [Controller Game]
+[DTO Lobby] <--> [Controller Lobby]
+[DTO Match] <--> [Controller Match]
+
+
+[Controller Player] <--> [Service Player]
+[Controller Game]   <--> [Service Game]
+[Controller Lobby]  <--> [Service Lobby]
+[Controller Match]  <--> [Service Match]
+
+@enduml
