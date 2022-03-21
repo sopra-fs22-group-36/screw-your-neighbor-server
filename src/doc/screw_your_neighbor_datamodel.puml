@@ -1,0 +1,119 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface UserDTO
+interface PlayerDTO
+interface GameDTO
+interface LobbyDTO
+interface RuleDTO
+interface ScoreDTO
+
+PlayerDTO <|- Player
+UserDTO <|- User
+GameDTO <|- Game
+LobbyDTO <|- Lobby
+RuleDTO <|- Rule
+ScoreDTO <|- Score
+
+Game *-- Match
+Game *-- ScoreBoard
+Match *-- AnnouncementRound
+Match *-- PlayRound
+Round *-- Turn
+PlayRound *-- Card
+ScoreBoard *-- Score
+Turn o-- Points
+PlayRound o-- ScoreAchieved
+AnnouncementRound o-- ScoreAnnounced
+User <|-- Player
+Round <|-- AnnouncementRound
+Round <|-- PlayRound
+Score <|-- ScoreAnnounced
+Score <|-- ScoreAchieved
+
+Player "1" - "1" Game
+Player "1" - "1" CardStack
+Player "1" - "1" AnnouncementRound
+ScoreAchieved "1..*" - "1..*" Rule
+Lobby "1" - "1..*" Player
+
+class Player {
+
+}
+
+class Game {
+
+}
+
+class Lobby {
+
+}
+
+class Rule {
+
+}
+
+class ScoreBoard {
+
+}
+
+abstract class Score {
+- pointsPerPlayer: Points[]
+}
+
+class ScoreAnnounced {
+
+}
+
+class ScoreAchieved {
+
+}
+
+class Match {
+
+}
+
+abstract class Round {
+
+}
+
+class AnnouncementRound {
+
+}
+
+class PlayRound {
+
+}
+
+class Points {
+
+}
+
+enum Card {
+ASS
+KING
+OBER
+UNDER
+BANNER
+NINE
+EIGHT
+SEVEN
+SIX
+}
+
+enum Action {
+ANNOUNCE
+PLAY
+}
+
+class Turn {
++ Turn (Action action)
+}
+
+
+class CardStack{
++ cards: Card[]
+}
+
+
+@enduml
