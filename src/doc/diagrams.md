@@ -11,7 +11,7 @@
 ## Data Model
 
 ![Data Model](http://www.plantuml.com/plantuml/svg/RPB1ZjCm48RlynJMNe15QSMruh3fRbGg5hTgMWH275p7q8h4gMm7QGMyE_PuL6EybyJ-Plp_undVMIUCcuOUNfoSkzZ5V7xfXGva9iTXBdjXRTMTnNSZ1e2pTify4rAnWrNcOR_vXsnxyVG_Mub1vUHnF1wVShIRUfMJLeu64Ln5sTlV5La0UXCAQq0R0c4DqOK8RW1TY8GrH1CYk04KOhTLnJu89qzfY-7bA4m7645OQprEMgf1QRVpgnIBbKQ6NsJxoMYW0A7xe9Z4anU4P3O6fT7tnQPp236dbgUp-gawo0l9SoZKOTF2LQzTnCn82e4KJ5UXGX7cuYbIb4O3P3TlRbY5tz3JWc8ZMYVaZp9K5fTP-9pPx3OaqmA7YpCd4U9qRS0dJJls2-0F8Qmi0oYIaQ2TWJGxmk9edH7IiHGF9ofsmJbkbOdE2nhibwz9B6zgwKDNpYFuvfutnsvboKKlAPfwKb2gav3Iqu33ylkwRU7zcgzWisnsSE0F_hkiEVS_lkODDElLkpsqpSU6Gxl-T3rUItSUTH3WV7FWzmri7-lFoT0__H1z7HSlALtWxvLFexpqPaAkz1kxG1PR2dTATzFG_mK0)
-![Source]()
+![Source](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/feature_diagrams/src/doc/screw_your_neighbor_datamodel.puml)
 
 Conversion Tool: http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000 <br/>
 Howto include diagram in md: https://gist.github.com/emaldonadot/ff6c422f7963fb3a2144328400bb67ff
