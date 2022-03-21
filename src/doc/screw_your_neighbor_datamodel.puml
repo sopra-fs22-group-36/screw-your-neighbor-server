@@ -20,7 +20,7 @@ Game *-- ScoreBoard
 Match *-- AnnouncementRound
 Match *-- PlayRound
 Round *-- Turn
-PlayRound *-- Card
+/'PlayRound *-- Card'/
 ScoreBoard *-- Score
 Turn o-- Points
 PlayRound o-- ScoreAchieved
@@ -30,18 +30,25 @@ Round <|-- AnnouncementRound
 Round <|-- PlayRound
 Score <|-- ScoreAnnounced
 Score <|-- ScoreAchieved
+CardStack <|-- CardStackPlayer
+CardStack <|-- CardStackTable
 
-Player "1" - "1" Game
-Player "1" - "1" CardStack
-Player "1" - "1" AnnouncementRound
+Player "1..*" - "1" Game
+Player "1" - "1" CardStackPlayer
+Game "1" - "1..*" CardStackGame
+CardStack "1" - "1..*" Card
+/'Player "1..*" - "1" AnnouncementRound '/
 ScoreAchieved "1..*" - "1..*" Rule
 Lobby "1" - "1..*" Player
+Turn "1..*" - "1" Action
 
 class Player {
 
 }
 
 class Game {
+
+Game(players: Player[]) {
 
 }
 
@@ -51,6 +58,11 @@ class Lobby {
 
 class Rule {
 
+/'+ DetermineHighestCard (cardStack: CardStack)
++ CalculateAchievedPointsPlayer (player: Player)
++ /'GetScoreBoard (round: Round)
++ ValidateAnnouncedPoints (round: Round, score: Score)'/
+
 }
 
 class ScoreBoard {
@@ -58,7 +70,7 @@ class ScoreBoard {
 }
 
 abstract class Score {
-- pointsPerPlayer: Points[]
+/'- pointsPerPlayer: Points[]'/
 }
 
 class ScoreAnnounced {
@@ -86,7 +98,7 @@ class PlayRound {
 }
 
 class Points {
-
+Rule
 }
 
 enum Card {
@@ -111,8 +123,18 @@ class Turn {
 }
 
 
-class CardStack{
-+ cards: Card[]
+abstract class CardStack{
+
++ getHighestCard()
+
+}
+
+class CardStackPlayer {
+
+}
+
+class CardStackTable {
+
 }
 
 
