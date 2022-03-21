@@ -55,3 +55,10 @@ jobs:
           artifacts: |
             ${{ steps.artifacts.outputs.paths }}
 
+      - name: create release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            **/*.svg
+            **/*.pdf
