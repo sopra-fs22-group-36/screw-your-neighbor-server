@@ -1,3 +1,11 @@
-# Screw your neighbor
+## Diagrams
 
-![pacman-project-structure](uml/component_diagram.svg)
+### Component Diagram
+
+![Component diagram](uml/component_diagram.svg)
+
+### Class Diagram
+
+### Activity Diagram
+
+## UI Mockups
