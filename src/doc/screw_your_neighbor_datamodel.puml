@@ -4,43 +4,41 @@
 interface UserDTO
 interface PlayerDTO
 interface GameDTO
-interface LobbyDTO
-interface RuleDTO
-interface ScoreDTO
+/'interface LobbyDTO'/
+interface ScoreBoardDTO
 
 PlayerDTO <|- Player
 UserDTO <|- User
 GameDTO <|- Game
-LobbyDTO <|- Lobby
-RuleDTO <|- Rule
-ScoreDTO <|- Score
+/'LobbyDTO <|- Lobby'/
+ScoreBoardDTO <|- ScoreBoard
 
-Game *-- Match
+Game "1" *-- "1..*" Match
 Game *-- ScoreBoard
-Match *-- AnnouncementRound
-Match *-- PlayRound
-Round *-- Turn
-/'PlayRound *-- Card'/
-ScoreBoard *-- Score
-Turn o-- Points
-PlayRound o-- ScoreAchieved
-AnnouncementRound o-- ScoreAnnounced
+Score "1" - "1..*" Player
+Match "1" *-- "1" AnnouncementRound
+Match "1" *-- "1..*" PlayRound
+/'Round "1" *-- "1..*" Turn
+Turn *-- CardCollectionPlayer'/
+Round "1" *-- "1..n" CardCollectionPlayer
+ScoreBoard "1" *-- "1..*" Score
+PlayRound "1" o-- "1..*" ScoreAchieved
+AnnouncementRound "1" o-- "1..*" ScoreAnnounced
 User <|-- Player
 Round <|-- AnnouncementRound
 Round <|-- PlayRound
 Score <|-- ScoreAnnounced
 Score <|-- ScoreAchieved
-CardStack <|-- CardStackPlayer
-CardStack <|-- CardStackTable
+CardCollection <|-- CardCollectionPlayer
+CardCollection <|-- CardCollectionTable
 
 Player "1..*" - "1" Game
-Player "1" - "1" CardStackPlayer
-Game "1" - "1..*" CardStackGame
-CardStack "1" - "1..*" Card
-/'Player "1..*" - "1" AnnouncementRound '/
-ScoreAchieved "1..*" - "1..*" Rule
-Lobby "1" - "1..*" Player
-Turn "1..*" - "1" Action
+Player "1" - "1" CardCollectionPlayer
+PlayRound "1" *-- "1" CardCollectionTable
+Game "1" - "1..*" RuleSet
+CardCollection "1" - "1..*" Card
+/'Lobby "1" - "1..*" Player'/
+Round "1" - "1" Action
 
 class Player {
 
@@ -48,20 +46,22 @@ class Player {
 
 class Game {
 
-Game(players: Player[]) {
+Game(players: Player[])
 
 }
 
 class Lobby {
 
 }
+note right of Lobby: do we need this class at all?
 
-class Rule {
+class RuleSet {
 
-/'+ DetermineHighestCard (cardStack: CardStack)
++ DetermineHighestCard (cardCollection: CardCollection)
 + CalculateAchievedPointsPlayer (player: Player)
-+ /'GetScoreBoard (round: Round)
-+ ValidateAnnouncedPoints (round: Round, score: Score)'/
++ GetScoreBoard (round: Round)
++ ValidateAnnouncedPoints (round: Round, score: Score)
++ GetNextPlayersTurn()
 
 }
 
@@ -69,8 +69,8 @@ class ScoreBoard {
 
 }
 
-abstract class Score {
-/'- pointsPerPlayer: Points[]'/
+class Score {
+points: int
 }
 
 class ScoreAnnounced {
@@ -97,13 +97,9 @@ class PlayRound {
 
 }
 
-class Points {
-Rule
-}
-
 enum Card {
 ASS
-KING
+KOENIG
 OBER
 UNDER
 BANNER
@@ -118,24 +114,23 @@ ANNOUNCE
 PLAY
 }
 
-class Turn {
-+ Turn (Action action)
+/'class Turn {
++ Turn (player: Player)
++ announceScore()
++ playCard()
+}'/
+
+abstract class CardCollection{
++ playCard()
 }
 
-
-abstract class CardStack{
-
-+ getHighestCard()
+class CardCollectionPlayer {
 
 }
+note right of CardCollectionPlayer: known as "Hand"
 
-class CardStackPlayer {
-
+class CardCollectionTable {
++getHighestCard()
 }
-
-class CardStackTable {
-
-}
-
 
 @enduml
