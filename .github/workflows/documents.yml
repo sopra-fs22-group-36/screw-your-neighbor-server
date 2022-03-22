@@ -1,0 +1,64 @@
+name: Render PlantUML and generate PDF
+on:
+  push:
+    paths:
+      - '**/*.md'
+      - '**/*.puml'
+      - '.github/workflows/documents.yml'
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.puml'
+      - '.github/workflows/documents.yml'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          sudo apt update
+          sudo apt install -y \
+                              graphviz
+
+      - run: ./render-puml.sh
+
+      - run: |
+          sudo apt install -y \
+                              pandoc \
+                              texlive-latex-base \
+                              texlive-latex-extra \
+                              texlive-fonts-recommended \
+                              texlive-fonts-extra \
+                              librsvg2-bin
+
+
+      - run: ./generate-pdf.sh
+
+      - name: Match svg and pdf files
+        uses: tj-actions/glob@v7.10
+        id: artifacts
+        with:
+          files: |
+            **/*.svg
+            **/*.pdf
+
+      - name: Pull request artifacts
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: gavv/pull-request-artifacts@v1.0.0
+        with:
+          commit: ${{ github.event.pull_request.head.sha }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts-branch: artifacts
+          artifacts: |
+            ${{ steps.artifacts.outputs.paths }}
+
+      - name: create release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            **/*.svg
+            **/*.pdf

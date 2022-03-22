@@ -22,3 +22,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Render Puml
+/plantuml.jar
+*.svg
+*.pdf
