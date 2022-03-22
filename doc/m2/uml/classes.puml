@@ -4,13 +4,13 @@
 interface UserDTO
 interface PlayerDTO
 interface GameDTO
-/'interface LobbyDTO'/
+'interface LobbyDTO
 interface ScoreBoardDTO
 
 PlayerDTO <|- Player
 UserDTO <|- User
 GameDTO <|- Game
-/'LobbyDTO <|- Lobby'/
+'LobbyDTO <|- Lobby
 ScoreBoardDTO <|- ScoreBoard
 
 Game "1" *-- "1..*" Match
@@ -44,6 +44,9 @@ class Player {
 + playCard()
 + setNewScore()
 + getNewScore()
++ getAnnouncedTricks()
++ getCurrentNumberOfTricks()
++ addTrick()
 }
 
 class Game {
@@ -55,7 +58,7 @@ Game(players: Player[])
 class Lobby {
 
 }
-note right of Lobby: do we need this class at all?
+note right of Lobby: do we need this\nclass at all?
 
 class RuleSet {
 + DetermineHighestCard (cardCollection: CardCollection)
@@ -85,17 +88,19 @@ class ScoreAchieved {
 class Match {
 
 }
+'note left of Match: not sure,\nif needed
 
 abstract class Round {
-
++ countTricks()
 }
 
 class AnnouncementRound {
-
++ AnnounceTricks()
 }
 
 class PlayRound {
-
++ playCard()
++ calculateScorePerPlayer()
 }
 
 enum Card {
@@ -114,6 +119,7 @@ enum Action {
 ANNOUNCE
 PLAY
 }
+note top of Action: not sure,\nif needed
 
 /'class Turn {
 + Turn (player: Player)
@@ -126,9 +132,9 @@ abstract class CardCollection{
 }
 
 class CardCollectionPlayer {
-
++ CardCollectionPlayer(cards: Card[])
 }
-note right of CardCollectionPlayer: known as "Hand"
+note right of CardCollectionPlayer: "Hand"
 
 class CardCollectionTable {
 +getHighestCard()
