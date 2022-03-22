@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="819px" preserveAspectRatio="none" style="width:1410px;height:819px;background:#FFFFFF;" version="1.1" viewBox="0 0 1410 819" width="1410px" zoomAndPan="magnify"><defs/><g><!--MD5=[a5b40ab6867253cbae57d257f30bbbb8]
+class UserDTO--><g id="elem_UserDTO"><rect codeLine="3" fill="#F1F1F1" height="48" id="UserDTO" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94" x="424" y="47.5"/><ellipse cx="439" cy="63.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M434.9219,59.2656 L434.9219,57.1094 L442.3125,57.1094 L442.3125,59.2656 L439.8438,59.2656 L439.8438,67.3438 L442.3125,67.3438 L442.3125,69.5 L434.9219,69.5 L434.9219,67.3438 L437.3906,67.3438 L437.3906,59.2656 L434.9219,59.2656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="62" x="453" y="68.3467">UserDTO</text><line style="stroke:#181818;stroke-width:0.5;" x1="425" x2="517" y1="79.5" y2="79.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="425" x2="517" y1="87.5" y2="87.5"/></g><!--MD5=[533f86f0cf6781a25489f1e595616591]
+class PlayerDTO--><g id="elem_PlayerDTO"><rect codeLine="4" fill="#F1F1F1" height="48" id="PlayerDTO" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="104" x="381" y="228.5"/><ellipse cx="396" cy="244.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M391.9219,240.2656 L391.9219,238.1094 L399.3125,238.1094 L399.3125,240.2656 L396.8438,240.2656 L396.8438,248.3438 L399.3125,248.3438 L399.3125,250.5 L391.9219,250.5 L391.9219,248.3438 L394.3906,248.3438 L394.3906,240.2656 L391.9219,240.2656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="72" x="410" y="249.3467">PlayerDTO</text><line style="stroke:#181818;stroke-width:0.5;" x1="382" x2="484" y1="260.5" y2="260.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="382" x2="484" y1="268.5" y2="268.5"/></g><!--MD5=[614cf3e0e480c6df6cac7b5d32793a99]
+class GameDTO--><g id="elem_GameDTO"><rect codeLine="5" fill="#F1F1F1" height="48" id="GameDTO" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="104" x="685" y="228.5"/><ellipse cx="700" cy="244.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M695.9219,240.2656 L695.9219,238.1094 L703.3125,238.1094 L703.3125,240.2656 L700.8438,240.2656 L700.8438,248.3438 L703.3125,248.3438 L703.3125,250.5 L695.9219,250.5 L695.9219,248.3438 L698.3906,248.3438 L698.3906,240.2656 L695.9219,240.2656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="72" x="714" y="249.3467">GameDTO</text><line style="stroke:#181818;stroke-width:0.5;" x1="686" x2="788" y1="260.5" y2="260.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="686" x2="788" y1="268.5" y2="268.5"/></g><!--MD5=[dae694c32564d39aa7ccf9378639aea7]
+class ScoreBoardDTO--><g id="elem_ScoreBoardDTO"><rect codeLine="7" fill="#F1F1F1" height="48" id="ScoreBoardDTO" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="144" x="590" y="442.5"/><ellipse cx="605" cy="458.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M600.9219,454.2656 L600.9219,452.1094 L608.3125,452.1094 L608.3125,454.2656 L605.8438,454.2656 L605.8438,462.3438 L608.3125,462.3438 L608.3125,464.5 L600.9219,464.5 L600.9219,462.3438 L603.3906,462.3438 L603.3906,454.2656 L600.9219,454.2656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="112" x="619" y="463.3467">ScoreBoardDTO</text><line style="stroke:#181818;stroke-width:0.5;" x1="591" x2="733" y1="474.5" y2="474.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="591" x2="733" y1="482.5" y2="482.5"/></g><!--MD5=[2cb47ba637a0d19583e6199456f6ad0b]
+class Player--><g id="elem_Player"><rect codeLine="41" fill="#F1F1F1" height="113.1875" id="Player" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="129" x="520.5" y="196"/><ellipse cx="560.7" cy="212" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M563.6688,217.6406 Q563.0906,217.9375 562.45,218.0781 Q561.8094,218.2344 561.1063,218.2344 Q558.6063,218.2344 557.2781,216.5938 Q555.9656,214.9375 555.9656,211.8125 Q555.9656,208.6875 557.2781,207.0313 Q558.6063,205.375 561.1063,205.375 Q561.8094,205.375 562.45,205.5313 Q563.1063,205.6875 563.6688,205.9844 L563.6688,208.7031 Q563.0438,208.125 562.45,207.8594 Q561.8563,207.5781 561.2313,207.5781 Q559.8875,207.5781 559.2,208.6563 Q558.5125,209.7188 558.5125,211.8125 Q558.5125,213.9063 559.2,214.9844 Q559.8875,216.0469 561.2313,216.0469 Q561.8563,216.0469 562.45,215.7813 Q563.0438,215.5 563.6688,214.9219 L563.6688,217.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="580.3" y="216.8467">Player</text><line style="stroke:#181818;stroke-width:0.5;" x1="521.5" x2="648.5" y1="228" y2="228"/><line style="stroke:#181818;stroke-width:0.5;" x1="521.5" x2="648.5" y1="236" y2="236"/><ellipse cx="531.5" cy="247" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="540.5" y="252.9951">receiveCards()</text><ellipse cx="531.5" cy="263.2969" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="540.5" y="269.292">playCard()</text><ellipse cx="531.5" cy="279.5938" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="540.5" y="285.5889">setNewScore()</text><ellipse cx="531.5" cy="295.8906" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103" x="540.5" y="301.8857">getNewScore()</text></g><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
+class User--><g id="elem_User"><rect fill="#F1F1F1" height="48" id="User" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64" x="553" y="47.5"/><ellipse cx="568" cy="63.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M570.9688,69.1406 Q570.3906,69.4375 569.75,69.5781 Q569.1094,69.7344 568.4063,69.7344 Q565.9063,69.7344 564.5781,68.0938 Q563.2656,66.4375 563.2656,63.3125 Q563.2656,60.1875 564.5781,58.5313 Q565.9063,56.875 568.4063,56.875 Q569.1094,56.875 569.75,57.0313 Q570.4063,57.1875 570.9688,57.4844 L570.9688,60.2031 Q570.3438,59.625 569.75,59.3594 Q569.1563,59.0781 568.5313,59.0781 Q567.1875,59.0781 566.5,60.1563 Q565.8125,61.2188 565.8125,63.3125 Q565.8125,65.4063 566.5,66.4844 Q567.1875,67.5469 568.5313,67.5469 Q569.1563,67.5469 569.75,67.2813 Q570.3438,67 570.9688,66.4219 L570.9688,69.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="582" y="68.3467">User</text><line style="stroke:#181818;stroke-width:0.5;" x1="554" x2="616" y1="79.5" y2="79.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="554" x2="616" y1="87.5" y2="87.5"/></g><!--MD5=[b6dcce5e5ef3c84b0b048d11301373dd]
+class Game--><g id="elem_Game"><rect codeLine="48" fill="#F1F1F1" height="64.2969" id="Game" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="172" x="824" y="220.5"/><ellipse cx="885.25" cy="236.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M888.2188,242.1406 Q887.6406,242.4375 887,242.5781 Q886.3594,242.7344 885.6563,242.7344 Q883.1563,242.7344 881.8281,241.0938 Q880.5156,239.4375 880.5156,236.3125 Q880.5156,233.1875 881.8281,231.5313 Q883.1563,229.875 885.6563,229.875 Q886.3594,229.875 887,230.0313 Q887.6563,230.1875 888.2188,230.4844 L888.2188,233.2031 Q887.5938,232.625 887,232.3594 Q886.4063,232.0781 885.7813,232.0781 Q884.4375,232.0781 883.75,233.1563 Q883.0625,234.2188 883.0625,236.3125 Q883.0625,238.4063 883.75,239.4844 Q884.4375,240.5469 885.7813,240.5469 Q886.4063,240.5469 887,240.2813 Q887.5938,240 888.2188,239.4219 L888.2188,242.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="905.75" y="241.3467">Game</text><line style="stroke:#181818;stroke-width:0.5;" x1="825" x2="995" y1="252.5" y2="252.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="825" x2="995" y1="260.5" y2="260.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160" x="830" y="277.4951">Game(players: Player[])</text></g><!--MD5=[96754845d0aafd9798ab5fd3359fa039]
+class ScoreBoard--><g id="elem_ScoreBoard"><rect codeLine="68" fill="#F1F1F1" height="64.2969" id="ScoreBoard" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="131" x="949.5" y="434.5"/><ellipse cx="972.6" cy="450.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M975.5688,456.1406 Q974.9906,456.4375 974.35,456.5781 Q973.7094,456.7344 973.0063,456.7344 Q970.5063,456.7344 969.1781,455.0938 Q967.8656,453.4375 967.8656,450.3125 Q967.8656,447.1875 969.1781,445.5313 Q970.5063,443.875 973.0063,443.875 Q973.7094,443.875 974.35,444.0313 Q975.0063,444.1875 975.5688,444.4844 L975.5688,447.2031 Q974.9438,446.625 974.35,446.3594 Q973.7563,446.0781 973.1313,446.0781 Q971.7875,446.0781 971.1,447.1563 Q970.4125,448.2188 970.4125,450.3125 Q970.4125,452.4063 971.1,453.4844 Q971.7875,454.5469 973.1313,454.5469 Q973.7563,454.5469 974.35,454.2813 Q974.9438,454 975.5688,453.4219 L975.5688,456.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="988.4" y="455.3467">ScoreBoard</text><line style="stroke:#181818;stroke-width:0.5;" x1="950.5" x2="1079.5" y1="466.5" y2="466.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="950.5" x2="1079.5" y1="474.5" y2="474.5"/><ellipse cx="960.5" cy="485.5" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="969.5" y="491.4951">displayScores()</text></g><!--MD5=[5f0899136ed8f523b18ed05779c24112]
+class Match--><g id="elem_Match"><rect codeLine="84" fill="#F1F1F1" height="48" id="Match" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="74" x="769" y="442.5"/><ellipse cx="784" cy="458.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M786.9688,464.1406 Q786.3906,464.4375 785.75,464.5781 Q785.1094,464.7344 784.4063,464.7344 Q781.9063,464.7344 780.5781,463.0938 Q779.2656,461.4375 779.2656,458.3125 Q779.2656,455.1875 780.5781,453.5313 Q781.9063,451.875 784.4063,451.875 Q785.1094,451.875 785.75,452.0313 Q786.4063,452.1875 786.9688,452.4844 L786.9688,455.2031 Q786.3438,454.625 785.75,454.3594 Q785.1563,454.0781 784.5313,454.0781 Q783.1875,454.0781 782.5,455.1563 Q781.8125,456.2188 781.8125,458.3125 Q781.8125,460.4063 782.5,461.4844 Q783.1875,462.5469 784.5313,462.5469 Q785.1563,462.5469 785.75,462.2813 Q786.3438,462 786.9688,461.4219 L786.9688,464.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42" x="798" y="463.3467">Match</text><line style="stroke:#181818;stroke-width:0.5;" x1="770" x2="842" y1="474.5" y2="474.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="770" x2="842" y1="482.5" y2="482.5"/></g><!--MD5=[107af66394bf1ebaa045812c9c475148]
+class Score--><g id="elem_Score"><rect codeLine="72" fill="#F1F1F1" height="64.2969" id="Score" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="914.5" y="624"/><ellipse cx="933.55" cy="640" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M936.5188,645.6406 Q935.9406,645.9375 935.3,646.0781 Q934.6594,646.2344 933.9563,646.2344 Q931.4563,646.2344 930.1281,644.5938 Q928.8156,642.9375 928.8156,639.8125 Q928.8156,636.6875 930.1281,635.0313 Q931.4563,633.375 933.9563,633.375 Q934.6594,633.375 935.3,633.5313 Q935.9563,633.6875 936.5188,633.9844 L936.5188,636.7031 Q935.8938,636.125 935.3,635.8594 Q934.7063,635.5781 934.0813,635.5781 Q932.7375,635.5781 932.05,636.6563 Q931.3625,637.7188 931.3625,639.8125 Q931.3625,641.9063 932.05,642.9844 Q932.7375,644.0469 934.0813,644.0469 Q934.7063,644.0469 935.3,643.7813 Q935.8938,643.5 936.5188,642.9219 L936.5188,645.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="948.45" y="644.8467">Score</text><line style="stroke:#181818;stroke-width:0.5;" x1="915.5" x2="994.5" y1="656" y2="656"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="920.5" y="672.9951">points: int</text><line style="stroke:#181818;stroke-width:0.5;" x1="915.5" x2="994.5" y1="680.2969" y2="680.2969"/></g><!--MD5=[ec0faf56e3ab24cb057dcbc4ec4d17b8]
+class AnnouncementRound--><g id="elem_AnnouncementRound"><rect codeLine="92" fill="#F1F1F1" height="48" id="AnnouncementRound" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="185" x="694.5" y="632"/><ellipse cx="709.5" cy="648" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M712.4688,653.6406 Q711.8906,653.9375 711.25,654.0781 Q710.6094,654.2344 709.9063,654.2344 Q707.4063,654.2344 706.0781,652.5938 Q704.7656,650.9375 704.7656,647.8125 Q704.7656,644.6875 706.0781,643.0313 Q707.4063,641.375 709.9063,641.375 Q710.6094,641.375 711.25,641.5313 Q711.9063,641.6875 712.4688,641.9844 L712.4688,644.7031 Q711.8438,644.125 711.25,643.8594 Q710.6563,643.5781 710.0313,643.5781 Q708.6875,643.5781 708,644.6563 Q707.3125,645.7188 707.3125,647.8125 Q707.3125,649.9063 708,650.9844 Q708.6875,652.0469 710.0313,652.0469 Q710.6563,652.0469 711.25,651.7813 Q711.8438,651.5 712.4688,650.9219 L712.4688,653.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="723.5" y="652.8467">AnnouncementRound</text><line style="stroke:#181818;stroke-width:0.5;" x1="695.5" x2="878.5" y1="664" y2="664"/><line style="stroke:#181818;stroke-width:0.5;" x1="695.5" x2="878.5" y1="672" y2="672"/></g><!--MD5=[fc07016acbc13ee4bd2c34ae602fef07]
+class PlayRound--><g id="elem_PlayRound"><rect codeLine="96" fill="#F1F1F1" height="48" id="PlayRound" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="105" x="554.5" y="632"/><ellipse cx="569.5" cy="648" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M572.4688,653.6406 Q571.8906,653.9375 571.25,654.0781 Q570.6094,654.2344 569.9063,654.2344 Q567.4063,654.2344 566.0781,652.5938 Q564.7656,650.9375 564.7656,647.8125 Q564.7656,644.6875 566.0781,643.0313 Q567.4063,641.375 569.9063,641.375 Q570.6094,641.375 571.25,641.5313 Q571.9063,641.6875 572.4688,641.9844 L572.4688,644.7031 Q571.8438,644.125 571.25,643.8594 Q570.6563,643.5781 570.0313,643.5781 Q568.6875,643.5781 568,644.6563 Q567.3125,645.7188 567.3125,647.8125 Q567.3125,649.9063 568,650.9844 Q568.6875,652.0469 570.0313,652.0469 Q570.6563,652.0469 571.25,651.7813 Q571.8438,651.5 572.4688,650.9219 L572.4688,653.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="583.5" y="652.8467">PlayRound</text><line style="stroke:#181818;stroke-width:0.5;" x1="555.5" x2="658.5" y1="664" y2="664"/><line style="stroke:#181818;stroke-width:0.5;" x1="555.5" x2="658.5" y1="672" y2="672"/></g><!--MD5=[d75b0a238b734941260681f0026bbb88]
+class Round--><g id="elem_Round"><rect codeLine="88" fill="#F1F1F1" height="48" id="Round" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="78" x="350" y="442.5"/><ellipse cx="365" cy="458.5" fill="#A9DCDF" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M365.1094,453.8438 L363.9531,458.9219 L366.2813,458.9219 L365.1094,453.8438 Z M363.625,451.6094 L366.6094,451.6094 L369.9688,464 L367.5156,464 L366.75,460.9375 L363.4688,460.9375 L362.7188,464 L360.2813,464 L363.625,451.6094 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="46" x="379" y="463.3467">Round</text><line style="stroke:#181818;stroke-width:0.5;" x1="351" x2="427" y1="474.5" y2="474.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="351" x2="427" y1="482.5" y2="482.5"/></g><!--MD5=[3b80863fe285152c5f995a0988d9c33d]
+class CardCollectionPlayer--><g id="elem_CardCollectionPlayer"><rect codeLine="127" fill="#F1F1F1" height="48" id="CardCollectionPlayer" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="182.5" y="632"/><ellipse cx="197.5" cy="648" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M200.4688,653.6406 Q199.8906,653.9375 199.25,654.0781 Q198.6094,654.2344 197.9063,654.2344 Q195.4063,654.2344 194.0781,652.5938 Q192.7656,650.9375 192.7656,647.8125 Q192.7656,644.6875 194.0781,643.0313 Q195.4063,641.375 197.9063,641.375 Q198.6094,641.375 199.25,641.5313 Q199.9063,641.6875 200.4688,641.9844 L200.4688,644.7031 Q199.8438,644.125 199.25,643.8594 Q198.6563,643.5781 198.0313,643.5781 Q196.6875,643.5781 196,644.6563 Q195.3125,645.7188 195.3125,647.8125 Q195.3125,649.9063 196,650.9844 Q196.6875,652.0469 198.0313,652.0469 Q198.6563,652.0469 199.25,651.7813 Q199.8438,651.5 200.4688,650.9219 L200.4688,653.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="211.5" y="652.8467">CardCollectionPlayer</text><line style="stroke:#181818;stroke-width:0.5;" x1="183.5" x2="354.5" y1="664" y2="664"/><line style="stroke:#181818;stroke-width:0.5;" x1="183.5" x2="354.5" y1="672" y2="672"/></g><!--MD5=[8e75db8e426309d2db0afd2887371429]
+class ScoreAchieved--><g id="elem_ScoreAchieved"><rect codeLine="80" fill="#F1F1F1" height="48" id="ScoreAchieved" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="135" x="539.5" y="756"/><ellipse cx="554.5" cy="772" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M557.4688,777.6406 Q556.8906,777.9375 556.25,778.0781 Q555.6094,778.2344 554.9063,778.2344 Q552.4063,778.2344 551.0781,776.5938 Q549.7656,774.9375 549.7656,771.8125 Q549.7656,768.6875 551.0781,767.0313 Q552.4063,765.375 554.9063,765.375 Q555.6094,765.375 556.25,765.5313 Q556.9063,765.6875 557.4688,765.9844 L557.4688,768.7031 Q556.8438,768.125 556.25,767.8594 Q555.6563,767.5781 555.0313,767.5781 Q553.6875,767.5781 553,768.6563 Q552.3125,769.7188 552.3125,771.8125 Q552.3125,773.9063 553,774.9844 Q553.6875,776.0469 555.0313,776.0469 Q555.6563,776.0469 556.25,775.7813 Q556.8438,775.5 557.4688,774.9219 L557.4688,777.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103" x="568.5" y="776.8467">ScoreAchieved</text><line style="stroke:#181818;stroke-width:0.5;" x1="540.5" x2="673.5" y1="788" y2="788"/><line style="stroke:#181818;stroke-width:0.5;" x1="540.5" x2="673.5" y1="796" y2="796"/></g><!--MD5=[1823204e07e173c7352b03c3cd8f5407]
+class ScoreAnnounced--><g id="elem_ScoreAnnounced"><rect codeLine="76" fill="#F1F1F1" height="48" id="ScoreAnnounced" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152" x="795" y="756"/><ellipse cx="810" cy="772" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M812.9688,777.6406 Q812.3906,777.9375 811.75,778.0781 Q811.1094,778.2344 810.4063,778.2344 Q807.9063,778.2344 806.5781,776.5938 Q805.2656,774.9375 805.2656,771.8125 Q805.2656,768.6875 806.5781,767.0313 Q807.9063,765.375 810.4063,765.375 Q811.1094,765.375 811.75,765.5313 Q812.4063,765.6875 812.9688,765.9844 L812.9688,768.7031 Q812.3438,768.125 811.75,767.8594 Q811.1563,767.5781 810.5313,767.5781 Q809.1875,767.5781 808.5,768.6563 Q807.8125,769.7188 807.8125,771.8125 Q807.8125,773.9063 808.5,774.9844 Q809.1875,776.0469 810.5313,776.0469 Q811.1563,776.0469 811.75,775.7813 Q812.3438,775.5 812.9688,774.9219 L812.9688,777.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="824" y="776.8467">ScoreAnnounced</text><line style="stroke:#181818;stroke-width:0.5;" x1="796" x2="946" y1="788" y2="788"/><line style="stroke:#181818;stroke-width:0.5;" x1="796" x2="946" y1="796" y2="796"/></g><!--MD5=[614efbda66111f6e37cb9552d183a0f6]
+class CardCollection--><g id="elem_CardCollection"><rect codeLine="123" fill="#F1F1F1" height="64.2969" id="CardCollection" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="132" x="7" y="434.5"/><ellipse cx="22" cy="450.5" fill="#A9DCDF" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M22.1094,445.8438 L20.9531,450.9219 L23.2813,450.9219 L22.1094,445.8438 Z M20.625,443.6094 L23.6094,443.6094 L26.9688,456 L24.5156,456 L23.75,452.9375 L20.4688,452.9375 L19.7188,456 L17.2813,456 L20.625,443.6094 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="100" x="36" y="455.3467">CardCollection</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="138" y1="466.5" y2="466.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="138" y1="474.5" y2="474.5"/><ellipse cx="18" cy="485.5" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="27" y="491.4951">playCard()</text></g><!--MD5=[416987fe1c2e00077f94875e1acb917f]
+class CardCollectionTable--><g id="elem_CardCollectionTable"><rect codeLine="132" fill="#F1F1F1" height="64.2969" id="CardCollectionTable" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="170" x="180" y="748"/><ellipse cx="195" cy="764" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M197.9688,769.6406 Q197.3906,769.9375 196.75,770.0781 Q196.1094,770.2344 195.4063,770.2344 Q192.9063,770.2344 191.5781,768.5938 Q190.2656,766.9375 190.2656,763.8125 Q190.2656,760.6875 191.5781,759.0313 Q192.9063,757.375 195.4063,757.375 Q196.1094,757.375 196.75,757.5313 Q197.4063,757.6875 197.9688,757.9844 L197.9688,760.7031 Q197.3438,760.125 196.75,759.8594 Q196.1563,759.5781 195.5313,759.5781 Q194.1875,759.5781 193.5,760.6563 Q192.8125,761.7188 192.8125,763.8125 Q192.8125,765.9063 193.5,766.9844 Q194.1875,768.0469 195.5313,768.0469 Q196.1563,768.0469 196.75,767.7813 Q197.3438,767.5 197.9688,766.9219 L197.9688,769.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="209" y="768.8467">CardCollectionTable</text><line style="stroke:#181818;stroke-width:0.5;" x1="181" x2="349" y1="780" y2="780"/><line style="stroke:#181818;stroke-width:0.5;" x1="181" x2="349" y1="788" y2="788"/><ellipse cx="191" cy="799" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="200" y="804.9951">getHighestCard()</text></g><!--MD5=[5e305716458bbdabbd2d7f572ed2bae2]
+class Card--><g id="elem_Card"><rect codeLine="100" fill="#F1F1F1" height="194.6719" id="Card" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="70" x="174" y="369"/><ellipse cx="191.7" cy="385" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M195.8094,391 L188.0906,391 L188.0906,378.6094 L195.8094,378.6094 L195.8094,380.7656 L190.5438,380.7656 L190.5438,383.4375 L195.3094,383.4375 L195.3094,385.5938 L190.5438,385.5938 L190.5438,388.8438 L195.8094,388.8438 L195.8094,391 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="206.3" y="389.8467">Card</text><line style="stroke:#181818;stroke-width:0.5;" x1="175" x2="243" y1="401" y2="401"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="27" x="180" y="417.9951">ASS</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="53" x="180" y="434.292">KOENIG</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="180" y="450.5889">OBER</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="180" y="466.8857">UNDER</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="180" y="483.1826">BANNER</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="180" y="499.4795">NINE</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42" x="180" y="515.7764">EIGHT</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="180" y="532.0732">SEVEN</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="180" y="548.3701">SIX</text><line style="stroke:#181818;stroke-width:0.5;" x1="175" x2="243" y1="555.6719" y2="555.6719"/></g><!--MD5=[f8e7078f77c005d15b486c0c98deb1e6]
+class Action--><g id="elem_Action"><rect codeLine="112" fill="#F1F1F1" height="80.5938" id="Action" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="91" x="463.5" y="426"/><ellipse cx="485.7" cy="442" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M489.8094,448 L482.0906,448 L482.0906,435.6094 L489.8094,435.6094 L489.8094,437.7656 L484.5438,437.7656 L484.5438,440.4375 L489.3094,440.4375 L489.3094,442.5938 L484.5438,442.5938 L484.5438,445.8438 L489.8094,445.8438 L489.8094,448 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="501.3" y="446.8467">Action</text><line style="stroke:#181818;stroke-width:0.5;" x1="464.5" x2="553.5" y1="458" y2="458"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="469.5" y="474.9951">ANNOUNCE</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="469.5" y="491.292">PLAY</text><line style="stroke:#181818;stroke-width:0.5;" x1="464.5" x2="553.5" y1="498.5938" y2="498.5938"/></g><!--MD5=[3a8c45a416d57f012f894325536755c1]
+class Lobby--><g id="elem_Lobby"><rect codeLine="54" fill="#F1F1F1" height="48" id="Lobby" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="73" x="652.5" y="47.5"/><ellipse cx="667.5" cy="63.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M670.4688,69.1406 Q669.8906,69.4375 669.25,69.5781 Q668.6094,69.7344 667.9063,69.7344 Q665.4063,69.7344 664.0781,68.0938 Q662.7656,66.4375 662.7656,63.3125 Q662.7656,60.1875 664.0781,58.5313 Q665.4063,56.875 667.9063,56.875 Q668.6094,56.875 669.25,57.0313 Q669.9063,57.1875 670.4688,57.4844 L670.4688,60.2031 Q669.8438,59.625 669.25,59.3594 Q668.6563,59.0781 668.0313,59.0781 Q666.6875,59.0781 666,60.1563 Q665.3125,61.2188 665.3125,63.3125 Q665.3125,65.4063 666,66.4844 Q666.6875,67.5469 668.0313,67.5469 Q668.6563,67.5469 669.25,67.2813 Q669.8438,67 670.4688,66.4219 L670.4688,69.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="681.5" y="68.3467">Lobby</text><line style="stroke:#181818;stroke-width:0.5;" x1="653.5" x2="724.5" y1="79.5" y2="79.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="653.5" x2="724.5" y1="87.5" y2="87.5"/></g><g id="elem_GMN48"><path d="M760.5,59 L760.5,67.5 L725.74,71.5 L760.5,75.5 L760.5,84.1328 A0,0 0 0 0 760.5,84.1328 L959.5,84.1328 A0,0 0 0 0 959.5,84.1328 L959.5,69 L949.5,59 L760.5,59 A0,0 0 0 0 760.5,59 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M949.5,59 L949.5,69 L959.5,69 L949.5,59 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="178" x="766.5" y="76.0669">do we need this class at all?</text></g><!--MD5=[7ee2d55aacd2ee63bf235ae41267d830]
+class RuleSet--><g id="elem_RuleSet"><rect codeLine="59" fill="#F1F1F1" height="129.4844" id="RuleSet" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="409" x="994.5" y="7"/><ellipse cx="1167.75" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M1170.7188,28.6406 Q1170.1406,28.9375 1169.5,29.0781 Q1168.8594,29.2344 1168.1563,29.2344 Q1165.6563,29.2344 1164.3281,27.5938 Q1163.0156,25.9375 1163.0156,22.8125 Q1163.0156,19.6875 1164.3281,18.0313 Q1165.6563,16.375 1168.1563,16.375 Q1168.8594,16.375 1169.5,16.5313 Q1170.1563,16.6875 1170.7188,16.9844 L1170.7188,19.7031 Q1170.0938,19.125 1169.5,18.8594 Q1168.9063,18.5781 1168.2813,18.5781 Q1166.9375,18.5781 1166.25,19.6563 Q1165.5625,20.7188 1165.5625,22.8125 Q1165.5625,24.9063 1166.25,25.9844 Q1166.9375,27.0469 1168.2813,27.0469 Q1168.9063,27.0469 1169.5,26.7813 Q1170.0938,26.5 1170.7188,25.9219 L1170.7188,28.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="1188.25" y="27.8467">RuleSet</text><line style="stroke:#181818;stroke-width:0.5;" x1="995.5" x2="1402.5" y1="39" y2="39"/><line style="stroke:#181818;stroke-width:0.5;" x1="995.5" x2="1402.5" y1="47" y2="47"/><ellipse cx="1005.5" cy="58" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="379" x="1014.5" y="63.9951">DetermineHighestCard (cardCollection: CardCollection)</text><ellipse cx="1005.5" cy="74.2969" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="315" x="1014.5" y="80.292">CalculateAchievedPointsPlayer (player: Player)</text><ellipse cx="1005.5" cy="90.5938" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="216" x="1014.5" y="96.5889">GetScoreBoard (round: Round)</text><ellipse cx="1005.5" cy="106.8906" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="383" x="1014.5" y="112.8857">ValidateAnnouncedPoints (round: Round, score: Score)</text><ellipse cx="1005.5" cy="123.1875" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="1014.5" y="129.1826">GetNextPlayersTurn()</text></g><g id="elem_GMN52"><path d="M1110,232.5 L1110,272.7656 A0,0 0 0 0 1110,272.7656 L1288,272.7656 A0,0 0 0 0 1288,272.7656 L1288,242.5 L1278,232.5 L1203,232.5 L1199,136.11 L1195,232.5 L1110,232.5 A0,0 0 0 0 1110,232.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1278,232.5 L1278,242.5 L1288,242.5 L1278,232.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="153" x="1116" y="249.5669">HelperClass with Check-</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="151" x="1116" y="264.6997">and validation functions</text></g><g id="elem_GMN55"><path d="M391,643.5 L391,652 L355.82,656 L391,660 L391,668.6328 A0,0 0 0 0 391,668.6328 L519,668.6328 A0,0 0 0 0 519,668.6328 L519,653.5 L509,643.5 L391,643.5 A0,0 0 0 0 391,643.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M509,643.5 L509,653.5 L519,653.5 L509,643.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107" x="397" y="660.5669">known as "Hand"</text></g><!--MD5=[b99f730109473af0821ae47ac0edb1cd]
+reverse link PlayerDTO to Player--><g id="link_PlayerDTO_Player"><path codeLine="9" d="M505.52,252.5 C510.46,252.5 515.39,252.5 520.32,252.5 " fill="none" id="PlayerDTO-backto-Player" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="505.25,259.5,485.25,252.5,505.25,245.5,505.25,259.5" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b78271563ead144da318fa4b074c1bef]
+reverse link UserDTO to User--><g id="link_UserDTO_User"><path codeLine="10" d="M538.27,71.5 C543.15,71.5 548.03,71.5 552.91,71.5 " fill="none" id="UserDTO-backto-User" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="538.2,78.5,518.2,71.5,538.2,64.5,538.2,78.5" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9155ed2006e49b85aba5d98e3ca8e492]
+reverse link GameDTO to Game--><g id="link_GameDTO_Game"><path codeLine="11" d="M809.25,252.5 C814.01,252.5 818.77,252.5 823.53,252.5 " fill="none" id="GameDTO-backto-Game" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="809.04,259.5,789.04,252.5,809.04,245.5,809.04,259.5" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c480d01ddb6781eb8cd80a83939b2733]
+reverse link ScoreBoardDTO to ScoreBoard--><g id="link_ScoreBoardDTO_ScoreBoard"><path codeLine="13" d="M683.82,425.05 C702.2,394.99 731.56,356.64 769.5,339 C823.91,313.71 849.92,314.08 904.5,339 C947.13,358.47 979.64,403.41 998.02,434.37 " fill="none" id="ScoreBoardDTO-backto-ScoreBoard" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="689.86,428.59,673.82,442.44,677.72,421.61,689.86,428.59" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f63570cca729e3796f728931014680ef]
+reverse link Game to Match--><g id="link_Game_Match"><path codeLine="15" d="M888.88,296.55 C867.29,340.57 834.55,407.31 817.39,442.27 " fill="none" id="Game-backto-Match" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="894.65,284.78,888.4156,288.4038,889.3627,295.5524,895.5971,291.9286,894.65,284.78" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="882.6591" y="305.0346">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="794.3632" y="431.6189">1..*</text></g><!--MD5=[3f980a12e5a0e078523f34a5a6e7a721]
+reverse link Game to ScoreBoard--><g id="link_Game_ScoreBoard"><path codeLine="16" d="M931.32,296.54 C951.59,337.47 981.58,398.02 999.61,434.44 " fill="none" id="Game-backto-ScoreBoard" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="925.49,284.78,924.571,291.9323,930.8196,295.5315,931.7386,288.3792,925.49,284.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ea89496fd3d3964332614f6d4dd31ed9]
+link Score to Player--><g id="link_Score_Player"><path codeLine="17" d="M946.51,623.88 C927.11,553.64 879.74,387.44 861,369 C796.97,306 749.06,347.7 668,309 C661.9,306.09 655.73,302.77 649.66,299.25 " fill="none" id="Score-Player" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="935.9339" y="612.7584">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="657.514" y="300.3617">1..*</text></g><!--MD5=[5cd0fd87969e27f75c503a629b8534fb]
+reverse link Match to AnnouncementRound--><g id="link_Match_AnnouncementRound"><path codeLine="18" d="M802.32,503.81 C798.48,541.69 792.58,599.91 789.34,631.93 " fill="none" id="Match-backto-AnnouncementRound" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="803.63,490.87,799.0443,496.4352,802.4177,502.8086,807.0034,497.2434,803.63,490.87" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="794.0773" y="510.7214">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="780.9146" y="620.9241">1</text></g><!--MD5=[679acd4c7c200acce8a7f023cfdf2b35]
+reverse link Match to PlayRound--><g id="link_Match_PlayRound"><path codeLine="19" d="M791.65,502.51 C782.38,522.16 768.9,546.23 752,564 C724.86,592.54 686.97,615.91 656.73,631.82 " fill="none" id="Match-backto-PlayRound" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="796.99,490.64,790.882,494.4731,792.0711,501.5855,798.1791,497.7524,796.99,490.64" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="785.8188" y="510.4353">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="643.5264" y="620.7859">1..*</text></g><!--MD5=[8699f9ef4321ac560737602c925ac1da]
+reverse link Round to CardCollectionPlayer--><g id="link_Round_CardCollectionPlayer"><path codeLine="22" d="M367.02,501.84 C342.83,539.64 304.62,599.35 283.77,631.93 " fill="none" id="Round-backto-CardCollectionPlayer" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="374.04,490.87,367.4363,493.7667,367.5702,500.9765,374.174,498.0799,374.04,490.87" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="361.4185" y="510.7214">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="24" x="290.6298" y="620.9241">1..n</text></g><!--MD5=[b962dd83ec798f157c3e851c88d410fa]
+reverse link ScoreBoard to Score--><g id="link_ScoreBoard_Score"><path codeLine="23" d="M1000.94,511.42 C989.9,545.93 974.8,593.12 964.98,623.83 " fill="none" id="ScoreBoard-backto-Score" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1004.96,498.88,999.3237,503.378,1001.308,510.3108,1006.9442,505.8127,1004.96,498.88" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="994.1959" y="518.7821">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="941.6665" y="612.698">1..*</text></g><!--MD5=[5c450e5f3d4f2213e2fd9d406983ad9b]
+reverse link PlayRound to ScoreAchieved--><g id="link_PlayRound_ScoreAchieved"><path codeLine="24" d="M607,693.42 C607,713.66 607,738.24 607,755.85 " fill="none" id="PlayRound-backto-ScoreAchieved" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="607,680.23,603,686.23,607,692.23,611,686.23,607,680.23" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="598.025" y="700.0473">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="581.0531" y="744.8236">1..*</text></g><!--MD5=[2731bedb56f3786c716a2117a3b01615]
+reverse link AnnouncementRound to ScoreAnnounced--><g id="link_AnnouncementRound_ScoreAnnounced"><path codeLine="25" d="M810.48,691.1 C824.7,711.76 842.47,737.56 855.06,755.85 " fill="none" id="AnnouncementRound-backto-ScoreAnnounced" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="803,680.23,803.1055,687.4403,809.8017,690.1162,809.6962,682.9059,803,680.23" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="797.925" y="700.0473">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="825.0285" y="744.8236">1..*</text></g><!--MD5=[702f68b2ad22fef5191ac7472ca929ab]
+reverse link User to Player--><g id="link_User_Player"><path codeLine="26" d="M585,115.61 C585,139.71 585,169.99 585,195.86 " fill="none" id="User-backto-Player" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="578,115.53,585,95.53,592,115.53,578,115.53" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[00668ba7aeb67630fac8dd522e60bc68]
+reverse link Round to AnnouncementRound--><g id="link_Round_AnnouncementRound"><path codeLine="27" d="M404.7,509.04 C413.97,528.37 427.56,550.11 446,564 C530.72,627.83 574.61,596.28 677,624 C686.38,626.54 696.21,629.24 705.95,631.96 " fill="none" id="Round-backto-AnnouncementRound" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="398.21,511.68,396.71,490.55,411.07,506.13,398.21,511.68" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b1096eba23a33f197ebbf20c8b845f41]
+reverse link Round to PlayRound--><g id="link_Round_PlayRound"><path codeLine="28" d="M407.43,509.09 C417.03,527.47 430.11,548.41 446,564 C463.76,581.43 519.04,611.11 559.89,631.82 " fill="none" id="Round-backto-PlayRound" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="401.01,511.89,398.56,490.85,413.6,505.77,401.01,511.89" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[984aa3b936d222ff488857ba703358e7]
+reverse link Score to ScoreAnnounced--><g id="link_Score_ScoreAnnounced"><path codeLine="29" d="M922.06,704.84 C910.04,722.3 896.97,741.28 887.07,755.66 " fill="none" id="Score-backto-ScoreAnnounced" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="916.48,700.6,933.59,688.1,928.01,708.54,916.48,700.6" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[55b04fd9afe4440d52cbfdc1f81bdd50]
+reverse link Score to ScoreAchieved--><g id="link_Score_ScoreAchieved"><path codeLine="30" d="M895.59,687.83 C810.95,722.65 730.31,746.5 674.79,761.6 " fill="none" id="Score-backto-ScoreAchieved" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="893.12,681.27,914.27,679.99,898.54,694.18,893.12,681.27" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1bfdda4716db63c9eadd20b5aa87700a]
+reverse link CardCollection to CardCollectionPlayer--><g id="link_CardCollection_CardCollectionPlayer"><path codeLine="31" d="M110.32,514.33 C124.07,530.63 140.16,548.67 156,564 C181.7,588.88 213.65,614.16 237.02,631.74 " fill="none" id="CardCollection-backto-CardCollectionPlayer" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="104.8,518.64,97.45,498.77,115.59,509.72,104.8,518.64" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[edbfa4fdc4e5868d0f11fdf0829d28a5]
+reverse link CardCollection to CardCollectionTable--><g id="link_CardCollection_CardCollectionTable"><path codeLine="32" d="M87.2,518.32 C101.86,565.18 127.83,635.25 165,688 C180.96,710.64 203.45,731.74 223.06,747.92 " fill="none" id="CardCollection-backto-CardCollectionTable" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="80.41,520.04,81.35,498.87,93.82,516.01,80.41,520.04" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[86fb2dafc5e601216a471b22a40ae449]
+link Player to Game--><g id="link_Player_Game"><path codeLine="34" d="M636.91,195.82 C651.33,183.67 667.91,172.53 685.5,166 C728.83,149.92 745.5,151.84 789.5,166 C822.84,176.73 854.76,200.47 877.37,220.37 " fill="none" id="Player-Game" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="618.835" y="185.0616">1..*</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="861.8151" y="209.2463">1</text></g><!--MD5=[732a67a9d609fa8ca9c2abc2ee851e47]
+link Player to CardCollectionPlayer--><g id="link_Player_CardCollectionPlayer"><path codeLine="35" d="M520.22,299 C514.17,302.58 508.04,305.97 502,309 C430.36,344.88 385.08,308.98 332,369 C264.3,445.55 264.07,578.2 267.1,631.67 " fill="none" id="Player-CardCollectionPlayer" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="504.6972" y="300.3295">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="257.6619" y="620.9945">1</text></g><!--MD5=[d6ca05f9177df181236beba911584cb8]
+reverse link PlayRound to CardCollectionTable--><g id="link_PlayRound_CardCollectionTable"><path codeLine="36" d="M543.6,685.01 C541.04,686.04 538.5,687.04 536,688 C474.52,711.69 403.93,735.28 350.21,752.51 " fill="none" id="PlayRound-backto-CardCollectionTable" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="555.64,680.05,548.5699,678.6307,544.5406,684.611,551.6106,686.0303,555.64,680.05" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="538.471" y="697.3534">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="357.8765" y="746.5629">1</text></g><!--MD5=[be599d53a4463bdb392a94b1badc8b45]
+link CardCollection to Card--><g id="link_CardCollection_Card"><path codeLine="37" d="M139.14,466.5 C150.69,466.5 162.25,466.5 173.8,466.5 " fill="none" id="CardCollection-Card" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="146.8116" y="462.7376">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="143.0653" y="462.3629">1..*</text></g><!--MD5=[ae751761df5674e2144909e510325978]
+link Round to Action--><g id="link_Round_Action"><path codeLine="39" d="M428.38,466.5 C440.03,466.5 451.68,466.5 463.33,466.5 " fill="none" id="Round-Action" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="436.1071" y="462.2428">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="447.4138" y="462.4145">1</text></g><!--MD5=[05fcfcad2e7ae64c6cb870ed7609815e]
+@startuml
+'https://plantuml.com/class-diagram
+
+interface UserDTO
+interface PlayerDTO
+interface GameDTO
+/'interface LobbyDTO'/
+interface ScoreBoardDTO
+
+PlayerDTO <|- Player
+UserDTO <|- User
+GameDTO <|- Game
+/'LobbyDTO <|- Lobby'/
+ScoreBoardDTO <|- ScoreBoard
+
+Game "1" *- - "1..*" Match
+Game *- - ScoreBoard
+Score "1" - "1..*" Player
+Match "1" *- - "1" AnnouncementRound
+Match "1" *- - "1..*" PlayRound
+/'Round "1" *- - "1..*" Turn
+Turn *- - CardCollectionPlayer'/
+Round "1" *- - "1..n" CardCollectionPlayer
+ScoreBoard "1" *- - "1..*" Score
+PlayRound "1" o- - "1..*" ScoreAchieved
+AnnouncementRound "1" o- - "1..*" ScoreAnnounced
+User <|- - Player
+Round <|- - AnnouncementRound
+Round <|- - PlayRound
+Score <|- - ScoreAnnounced
+Score <|- - ScoreAchieved
+CardCollection <|- - CardCollectionPlayer
+CardCollection <|- - CardCollectionTable
+
+Player "1..*" - "1" Game
+Player "1" - "1" CardCollectionPlayer
+PlayRound "1" *- - "1" CardCollectionTable
+CardCollection "1" - "1..*" Card
+/'Lobby "1" - "1..*" Player'/
+Round "1" - "1" Action
+
+class Player {
++ receiveCards()
++ playCard()
++ setNewScore()
++ getNewScore()
+}
+
+class Game {
+
+Game(players: Player[])
+
+}
+
+class Lobby {
+
+}
+note right of Lobby: do we need this class at all?
+
+class RuleSet {
++ DetermineHighestCard (cardCollection: CardCollection)
++ CalculateAchievedPointsPlayer (player: Player)
++ GetScoreBoard (round: Round)
++ ValidateAnnouncedPoints (round: Round, score: Score)
++ GetNextPlayersTurn()
+}
+note bottom of RuleSet: HelperClass with Check- \nand validation functions
+
+class ScoreBoard {
++displayScores()
+}
+
+class Score {
+points: int
+}
+
+class ScoreAnnounced {
+
+}
+
+class ScoreAchieved {
+
+}
+
+class Match {
+
+}
+
+abstract class Round {
+
+}
+
+class AnnouncementRound {
+
+}
+
+class PlayRound {
+
+}
+
+enum Card {
+ASS
+KOENIG
+OBER
+UNDER
+BANNER
+NINE
+EIGHT
+SEVEN
+SIX
+}
+
+enum Action {
+ANNOUNCE
+PLAY
+}
+
+/'class Turn {
++ Turn (player: Player)
++ announceScore()
++ playCard()
+}'/
+
+abstract class CardCollection{
++ playCard()
+}
+
+class CardCollectionPlayer {
+
+}
+note right of CardCollectionPlayer: known as "Hand"
+
+class CardCollectionTable {
++getHighestCard()
+}
+
+@enduml
+
+@startuml
+
+interface UserDTO
+interface PlayerDTO
+interface GameDTO
+interface ScoreBoardDTO
+
+PlayerDTO <|- Player
+UserDTO <|- User
+GameDTO <|- Game
+ScoreBoardDTO <|- ScoreBoard
+
+Game "1" *- - "1..*" Match
+Game *- - ScoreBoard
+Score "1" - "1..*" Player
+Match "1" *- - "1" AnnouncementRound
+Match "1" *- - "1..*" PlayRound
+Round "1" *- - "1..n" CardCollectionPlayer
+ScoreBoard "1" *- - "1..*" Score
+PlayRound "1" o- - "1..*" ScoreAchieved
+AnnouncementRound "1" o- - "1..*" ScoreAnnounced
+User <|- - Player
+Round <|- - AnnouncementRound
+Round <|- - PlayRound
+Score <|- - ScoreAnnounced
+Score <|- - ScoreAchieved
+CardCollection <|- - CardCollectionPlayer
+CardCollection <|- - CardCollectionTable
+
+Player "1..*" - "1" Game
+Player "1" - "1" CardCollectionPlayer
+PlayRound "1" *- - "1" CardCollectionTable
+CardCollection "1" - "1..*" Card
+Round "1" - "1" Action
+
+class Player {
++ receiveCards()
++ playCard()
++ setNewScore()
++ getNewScore()
+}
+
+class Game {
+
+Game(players: Player[])
+
+}
+
+class Lobby {
+
+}
+note right of Lobby: do we need this class at all?
+
+class RuleSet {
++ DetermineHighestCard (cardCollection: CardCollection)
++ CalculateAchievedPointsPlayer (player: Player)
++ GetScoreBoard (round: Round)
++ ValidateAnnouncedPoints (round: Round, score: Score)
++ GetNextPlayersTurn()
+}
+note bottom of RuleSet: HelperClass with Check- \nand validation functions
+
+class ScoreBoard {
++displayScores()
+}
+
+class Score {
+points: int
+}
+
+class ScoreAnnounced {
+
+}
+
+class ScoreAchieved {
+
+}
+
+class Match {
+
+}
+
+abstract class Round {
+
+}
+
+class AnnouncementRound {
+
+}
+
+class PlayRound {
+
+}
+
+enum Card {
+ASS
+KOENIG
+OBER
+UNDER
+BANNER
+NINE
+EIGHT
+SEVEN
+SIX
+}
+
+enum Action {
+ANNOUNCE
+PLAY
+}
+
+
+abstract class CardCollection{
++ playCard()
+}
+
+class CardCollectionPlayer {
+
+}
+note right of CardCollectionPlayer: known as "Hand"
+
+class CardCollectionTable {
++getHighestCard()
+}
+
+@enduml
+
+PlantUML version 1.2022.2(Sat Mar 05 16:30:19 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>
