@@ -1,7 +1,10 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
+CardSource <|.. Deck
+Iterable <|.. Deck
+Card "1" *-- Rank
+Card "1" *-- Suit
 Game "1" *-- "1..*" Match
 Game *-- ScoreBoard
 Score "1" - "1..*" Player
@@ -18,13 +21,13 @@ Round <|-- AnnouncementRound
 Round <|-- PlayRound
 Score <|-- ScoreAnnounced
 Score <|-- ScoreAchieved
-CardCollection <|-- CardCollectionPlayer
-CardCollection <|-- CardCollectionTable
+CardSource <|-- CardCollectionPlayer
+CardSource <|-- CardCollectionTable
 
 Player "1..*" - "1" Game
 Player "1" - "1" CardCollectionPlayer
 PlayRound "1" *-- "1" CardCollectionTable
-CardCollection "1" - "1..*" Card
+Deck "1" - "1..*" Card
 /'Lobby "1" - "1..*" Player'/
 Round "1" - "1" Action
 
@@ -59,11 +62,11 @@ class RuleSet {
 note bottom of RuleSet: HelperClass with check- \nand validation methods
 
 class ScoreBoard {
-+displayScores()
+    +displayScores()
 }
 
 class Score {
-points: int
+    points: int
 }
 
 class ScoreAnnounced {
@@ -80,33 +83,48 @@ class Match {
 'note left of Match: not sure,\nif needed
 
 abstract class Round {
-+ countTricks()
+    + countTricks()
 }
 
 class AnnouncementRound {
-+ AnnounceTricks()
+    + AnnounceTricks()
 }
 
 class PlayRound {
-+ playCard()
-+ calculateScorePerPlayer()
+    + playCard()
+    + calculateScorePerPlayer()
 }
 
-enum Card {
-ASS
-KOENIG
-OBER
-UNDER
-BANNER
-NINE
-EIGHT
-SEVEN
-SIX
+enum Rank {
+    ASS
+    KOENIG
+    OBER
+    UNDER
+    BANNER
+    NINE
+    EIGHT
+    SEVEN
+    SIX
 }
+
+enum Suit {
+    EICHEL
+    SCHILTEN
+    SCHELLEN
+    ROSEN
+}
+
+class Card {
+    - Rank aRank
+    - Suid aSuit
+    + Rank getRank()
+    + Suit getSuit()
+}
+note top of Card: This class is immutable
 
 enum Action {
-ANNOUNCE
-PLAY
+    ANNOUNCE
+    PLAY
 }
 note right of Action: not sure,\nif needed
 
@@ -116,17 +134,31 @@ note right of Action: not sure,\nif needed
 + playCard()
 }'/
 
-abstract class CardCollection{
-+ playCard(card: Card)
+interface CardSource {
+    Card draw()
+    boolean isEmpty()
+    void shuffle() {Collections.shuffle(aDeck)}
+    getCards()
+}
+note top of CardSource: We can change the source\n by different decks, for example:\n CardSource source = new Deck2()
+
+interface Iterable<Card> {
+    + Iterator<Card> iterator()
 }
 
+class Deck {
+    - List<Card> aDeck: ArrayList
+}
+note left of Deck: provide Cards as a copy\n not as a pointer
+
 class CardCollectionPlayer {
-+ CardCollectionPlayer(cards: Card[])
+    + CardCollectionPlayer(cards: Card[])
 }
 note right of CardCollectionPlayer: "Hand"
 
 class CardCollectionTable {
-+getHighestCard()
+    + getHighestCard()
+
 }
 
 @enduml
