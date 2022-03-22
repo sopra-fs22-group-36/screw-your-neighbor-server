@@ -3,7 +3,7 @@
 
 start
 :PersonEntersStartingPage;
-:RegisterByEnteringName;
+:EnterPlayersName;
 :ClickOk;
 :EnterLobby;
 if (EnterRoom) then (CreateNewRoom)
@@ -30,7 +30,7 @@ repeat
             repeat while (NotEveryonePlayed)
             :DisplayScore;
             backward: PlayNextRound;
-        repeat while (RoundsPlayed < 10)
+        repeat while (MatchesPlayed < 9)
         :DisplayScoreBoard;
         backward: PlayAgain;
         repeat while (ThatWasFun)

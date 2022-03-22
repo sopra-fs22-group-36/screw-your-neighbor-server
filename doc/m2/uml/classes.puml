@@ -1,17 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-interface UserDTO
-interface PlayerDTO
-interface GameDTO
-'interface LobbyDTO
-interface ScoreBoardDTO
-
-PlayerDTO <|- Player
-UserDTO <|- User
-GameDTO <|- Game
-'LobbyDTO <|- Lobby
-ScoreBoardDTO <|- ScoreBoard
 
 Game "1" *-- "1..*" Match
 Game *-- ScoreBoard
@@ -58,7 +47,7 @@ Game(players: Player[])
 class Lobby {
 
 }
-note right of Lobby: do we need this\nclass at all?
+note right of Lobby: not sure,\nif needed
 
 class RuleSet {
 + DetermineHighestCard (cardCollection: CardCollection)
@@ -67,7 +56,7 @@ class RuleSet {
 + ValidateAnnouncedPoints (round: Round, score: Score)
 + GetNextPlayersTurn()
 }
-note bottom of RuleSet: HelperClass with Check- \nand validation functions
+note bottom of RuleSet: HelperClass with check- \nand validation methods
 
 class ScoreBoard {
 +displayScores()
@@ -119,7 +108,7 @@ enum Action {
 ANNOUNCE
 PLAY
 }
-note top of Action: not sure,\nif needed
+note right of Action: not sure,\nif needed
 
 /'class Turn {
 + Turn (player: Player)
@@ -128,7 +117,7 @@ note top of Action: not sure,\nif needed
 }'/
 
 abstract class CardCollection{
-+ playCard()
++ playCard(card: Card)
 }
 
 class CardCollectionPlayer {
