@@ -30,7 +30,8 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /cards  | GET  | gameID: String, numberOfCards: int | Body  | ... | cards  | get (distribute) cards to players |
+| /cards/distribute  | GET  | gameID: String, numberOfCards: int | Body  | ... | list of playerIDs + cards | get (distribute) cards to players in a game |
+| /cards/draw  | GET  | playerID: String | Body  | ... | card | get (draw) one card to one player |
 | /cards/{playerID}  | GET  | gameID: String | Query  | ... | ...  | get a players current cards collection |
 | /cards/{collectionID}  | DELETE  | cards: Card | Body  | ... | ...  | remove a card of cards collection |
 | /cards/{collectionID}  | PUT  | cards: Card | Body  | ... | ...  | add a card to cards collection |
