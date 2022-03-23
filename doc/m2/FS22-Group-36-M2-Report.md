@@ -16,14 +16,14 @@
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /game  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
 | /scoreboard/{gameID}  | GET  | gameID: String | Query  | ...  | ... | retrieve a list of scores  |
-| /players  | POST  | playerName: String  | Content Cell  | ...  | ... | create a new player  |
+| /players  | POST  | playerName: String  | ... | ...  | ... | create a new player  |
 | /players/{gameID}  | GET  | gameID: String  | Query  | ... | ... | retrieve a list of players in a game  |
 | /players/{playerID}  | GET  | userID: long  | Query  | ...  | ... | retrieve a player by ID  |
 | /users  | POST  | userName: String, password: String  | Body  | ... | ...  | register a new user  |
-| /users/{userID} | GET  | userID: String  | Query | Content Cell  | ... | retrieve a user by ID  |
-| /users/{userName} | GET  | userName: String  | Query | Content Cell  | ... | retrieve a user by their username  |
+| /users/{userID} | GET  | userID: String  | Query | ... | ... | retrieve a user by ID  |
+| /users/{userName} | GET  | userName: String  | Query | ... | ... | retrieve a user by their username  |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | ... | login with username and password  |
-| /logout/ | POST  | ?  | Body  | Content Cell  | Content Cell  | terminate user session by logging out  |
+| /logout/ | POST  | ?  | Body  | ... | ... | terminate user session by logging out  |
 
 
 
