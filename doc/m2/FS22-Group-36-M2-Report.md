@@ -23,14 +23,14 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /matches  | POST  | gameID: String, numberOfCards: int | Body  | ... | ...  | initiate a new match  |
+| /matches  | POST  | gameID: String | Body  | ... | numberOfRounds: int  | initiate a new match  |
 | /matches/{matchID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a running match |
 
 #### /cards endpoint
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /cards  | GET  | gameID: String, numberOfCards: int | Body  | ... | ...  | get (distribute) cards to players |
+| /cards  | GET  | gameID: String, numberOfCards: int | Body  | ... | cards  | get (distribute) cards to players |
 | /cards/{playerID}  | GET  | gameID: String | Query  | ... | ...  | get a players current cards collection |
 | /cards/{collectionID}  | DELETE  | cards: Card | Body  | ... | ...  | remove a card of cards collection |
 | /cards/{collectionID}  | PUT  | cards: Card | Body  | ... | ...  | add a card to cards collection |
