@@ -14,11 +14,14 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /game  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | initiate a new game  |
-| /scoreboard  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | retrieve a list of scores  |
-| /players  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | creata a new player  |
+| /game  | POST  | ... | ...  | ... | ...  | initiate a new game  |
+| /scoreboard/{gameID}  | GET  | gameid <string>  | Content Cell  | Content Cell  | Content Cell  | retrieve a list of scores  |
+| /players  | POST  | playername <string>  | Content Cell  | Content Cell  | Content Cell  | create a new player  |
 | /players/{playerID}  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | retrieve a player by ID  |
-| /users  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | register a new user  |
-| /users/{userID}  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | retrieve a user by ID  |
+| /users  | POST  | username <string>, password <string>  | Content Cell  | Content Cell  | Content Cell  | register a new user  |
+| /users/ | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | retrieve a user by ID  |
+| /login/ | POST  | username <string>, password <string>  | Body  | Content Cell  | Content Cell  | retrieve a user by ID  |
+| /logout/ | POST  | ?  | Body  | Content Cell  | Content Cell  | retrieve a user by ID  |
+
 
 
