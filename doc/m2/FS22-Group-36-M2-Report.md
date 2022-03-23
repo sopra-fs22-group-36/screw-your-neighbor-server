@@ -88,14 +88,18 @@
 |  | noOfTricksPerPlayer | int | Number of tricks per player in this match |
 | MatchGetDTO | gameID | String | ID of the game this match belongs |
 
+
 #### Cards
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
+| CardGetDTO | ------------- | ------------- | ------------- |
+|  | cardID | String | Unique identifier of card |
+|  | rank | int | Rank of a card |
+|  | name | String | Name of a card |
 | CardsGetDTO | cardsCollectionID | String | Unique identifier of the cards collection |
-| | cards | Cards[] | List of cards |
+| | cards | CardGetDTO[] | List of cards |
 | | playerID | String | String of cards holding player |
-| CardsPostDTO | card | Card | one card |
-
+| CardsPostDTO | cardID | String | ID of a card |
 
 
 #### Player
