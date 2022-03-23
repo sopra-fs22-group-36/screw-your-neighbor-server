@@ -13,11 +13,14 @@
 
 ## REST Interfaces
 
+### Endpoints
+
 #### /games endpoint
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /games  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
+| /games/{gameID}  | GET  | - | Query  | ... | ...  | retrieve all information of a game |
 | /games/{gameID}  | PUT  | matchesPlayed: int, ... | Body  | ... | ...  | change state of a running game |
 
 #### /matches endpoint
@@ -66,5 +69,39 @@
 | /logout/ | POST  | ?  | Body  | ? | ? | terminate user session by logging out  |
 | /scoreboard/{gameID}  | GET  | gameID: String | Query  | 200<br>404 | list of scores<br>no such game or no players found | retrieve a list of scores |
 
+
+### Detailed Interface Specification
+
+#### Game
+| Interface Name  | Fieldname  | Type | Description  |
+| ------------- | ------------- | ------------- | ------------- |
+| GamePostDTO | playersIDs | String[] | IDs of players that participate in that game |
+| ------------- | ------------- | ------------- | ------------- |
+| GameGetDTO | players | PlayersGetDTO[] | List of players that participate in that game |
+
+
+#### Match
+
+#### CardsDTO
+
+#### PlayerDTO
+
+| Interface Name  | Fieldname  | Type | Description  |
+| ------------- | ------------- | ------------- | ------------- |
+| PlayerPostDTO | playersName | String | Name of the player (must be unique) |
+| ------------- | ------------- | ------------- | ------------- |
+| PlayerGetDTO | playerID | String | Players unique identifier |
+|  | gameID | String | Unique identifier of game, a player is (or was?) participating |
+|  | playersName | String | Name of the player |
+|  | score | int | Players score in a running game |
+
+
+#### UserDTO
+
+#### LoginDTO
+
+#### LogoutDTO
+
+#### ScoreBoardDTO (?)
 
 
