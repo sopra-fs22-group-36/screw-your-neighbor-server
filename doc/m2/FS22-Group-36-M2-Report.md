@@ -12,3 +12,7 @@
 
 ## REST Interfaces
 
+| Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Content Cell  | Content Cell  || Content Cell  | Content Cell  || Content Cell  | Content Cell  || Content Cell  |
+| Content Cell  | Content Cell  || Content Cell  | Content Cell  || Content Cell  | Content Cell  || Content Cell  |
