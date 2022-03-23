@@ -12,12 +12,19 @@
 
 ## REST Interfaces
 
-#### /game endpoint
+#### /games endpoint
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /game  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
-| /game/{gameID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a new game  |
+| /games  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
+| /games/{gameID}  | PUT  | matchesPlayed: int, ... | Body  | ... | ...  | change state of a new game |
+
+#### /matches endpoint
+
+| Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| /matches  | POST  | gameID: String[], numberOfCards: int | Body  | ... | ...  | initiate a new game  |
+| /matches/{matchID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a new game |
 
 #### /players endpoint
 
@@ -26,7 +33,7 @@
 | /players  | POST  | playerName: String  | Body | 201<br>409  | Player<br>duplicate playerName | create a new player  |
 | /players/{gameID}  | GET  | gameID: String  | Query  | 200<br>404 | list of users<br>no such game or no players found | retrieve a list of players in a game |
 | /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | player<br>player not found | retrieve a player by ID  |
-| /players/{playerID} | PUT | currentScore: integer | Body | 204<br>404 | <br>player not found<br> | change players score during game |
+| /players/{playerID} | PUT | currentScore: int | Body | 204<br>404 | <br>player not found<br> | change players score during game |
 
 
 #### /users endpoint
@@ -37,7 +44,9 @@
 | /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | player<br>player not found | retrieve a player by ID  |
 | /users/{userID} | GET  | userID: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by ID  |
 | /users/{userName} | GET  | userName: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by their username  |
-| /users/{userID} | PUT | newGameScore: integer | Body | 204<br>404 |  <br>user not found<br> | change users overall game score |
+| /users/{userID} | PUT | newGameScore: int
+
+| Body | 204<br>404 |  <br>user not found<br> | change users overall game score |
 
 #### other endpoints
 
