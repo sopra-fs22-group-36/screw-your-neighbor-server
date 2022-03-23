@@ -15,9 +15,9 @@
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /game  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
-| /scoreboard/{gameID}  | GET  | gameID: String | Query  | ...  | ... | retrieve a list of scores  |
-| /players  | POST  | playerName: String  | Body | ...  | ... | create a new player  |
-| /players/{gameID}  | GET  | gameID: String  | Query  | 200<br>404 | list of userse<br>no such game or no users found | retrieve a list of players in a game  |
+| /scoreboard/{gameID}  | GET  | gameID: String | Query  | 200<br>404 | list of scores<br>no such game orno players found | retrieve a list of scores (not sure if we need this endpoint, or if we interact via players endpoint where we also get the score of a player? |
+| /players  | POST  | playerName: String  | Body | 201<br>409  | Player<br>duplicate playerName | create a new player  |
+| /players/{gameID}  | GET  | gameID: String  | Query  | 200<br>404 | list of users<br>no such game or no players found | retrieve a list of players in a game  |
 | /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | user<br>user not found | retrieve a player by ID  |
 | /users  | POST  | userName: String, password: String  | Body  | ... | ...  | register a new user  |
 | /users/{userID} | GET  | userID: String  | Query | ... | ... | retrieve a user by ID  |
