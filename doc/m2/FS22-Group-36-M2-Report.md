@@ -24,8 +24,8 @@
 | /users/{userName} | GET  | userName: String  | Query | ... | ... | retrieve a user by their username  |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | ... | login with username and password  |
 | /logout/ | POST  | ?  | Body  | ... | ... | terminate user session by logging out  |
-| /players/{playerID} | PUT | currentScore: integer | Body | - | - | - |
-| /users/{userID} | PUT | newGameScore: integer | Body | - | - | - |
+| /players/{playerID} | PUT | currentScore: integer | Body | - | - | change players score during game |
+| /users/{userID} | PUT | newGameScore: integer | Body | - | - | change users overall game score |
 
 
 
