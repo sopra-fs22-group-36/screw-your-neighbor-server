@@ -27,7 +27,8 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /matches  | POST  | gameID: String | Body  | ... | numberOfRounds: int  | initiate a new match  |
+| /matches  | POST  | gameID: String | Body  | ... | matchID: String, numberOfRounds: int  | initiate a new match  |
+| /matches{matchID}  | GET  | - | Query  | ... |  | retrieve all information of a match  |
 | /matches/{matchID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a running match |
 
 #### /cards endpoint
@@ -76,33 +77,40 @@
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
 | GamePostDTO | playersIDs | String[] | IDs of players that participate in that game |
-
-| ------------- | ------------- | ------------- | ------------- |
 | GameGetDTO | players | PlayersGetDTO[] | List of players that participate in that game |
 
 
 #### Match
+| Interface Name  | Fieldname  | Type | Description  |
+| ------------- | ------------- | ------------- | ------------- |
+| MatchPostDTO | gameID | String | IDs of the game this match belongs |
+| MatchGetDTO | noOfRounds | int | Number of rounds (i.e. cards per player) in this match |
+|  | noOfTricksPerPlayer | int | Number of tricks per player in this match |
 
-#### CardsDTO
+#### Cards
+| Interface Name  | Fieldname  | Type | Description  |
+| ------------- | ------------- | ------------- | ------------- |
+| CardsGetDTO | playerID | String | String of cards holding player |
+| | cards | Cards[] | List of cards |
 
-#### PlayerDTO
+
+#### Player
 
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
 | PlayerPostDTO | playersName | String | Name of the player (must be unique) |
-| ------------- | ------------- | ------------- | ------------- |
 | PlayerGetDTO | playerID | String | Players unique identifier |
 |  | gameID | String | Unique identifier of game, a player is (or was?) participating |
 |  | playersName | String | Name of the player |
 |  | score | int | Players score in a running game |
 
 
-#### UserDTO
+#### User
 
-#### LoginDTO
+#### Login
 
-#### LogoutDTO
+#### Logout
 
-#### ScoreBoardDTO (?)
+#### ScoreBoard (?)
 
 
