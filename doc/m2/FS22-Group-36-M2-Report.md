@@ -14,8 +14,8 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /game  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  || Content Cell  |
-| /scoreboard  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | Content Cell  |
+| /game  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | initiate a new game  |
+| /scoreboard  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | retrieve a list of scores  |
 | /players  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | Content Cell  |
 | /players/{playerID}  | GET  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | Content Cell  |
 | /users  | POST  | Content Cell  | Content Cell  | Content Cell  | Content Cell  | Content Cell  |
