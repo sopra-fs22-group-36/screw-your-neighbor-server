@@ -46,7 +46,6 @@
 | /users/{userName} | GET  | userName: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by their username  |
 | /users/{userID} | PUT | newGameScore: int
 
-| Body | 204<br>404 |  <br>user not found<br> | change users overall game score |
 
 #### other endpoints
 
