@@ -68,7 +68,6 @@
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | user<br>user not found | login with username and password  |
 | /logout/ | POST  | ?  | Body  | ? | ? | terminate user session by logging out  |
-| /scoreboard/{gameID}  | GET  | gameID: String | Query  | 200<br>404 | list of scores<br>no such game or no players found | retrieve a list of scores |
 
 
 ### Detailed Interface Specification
@@ -106,9 +105,9 @@
 | PlayerPostDTO | playersName | String | Name of the player (must be unique) |
 | PlayerGetDTO | playerID | String | Players unique identifier |
 |  | playerid | String | Unique identifier of player |
-|  | gameID | String | Unique identifier of game, a player is (or was?) participating |
 |  | playersName | String | Name of the player |
 |  | score | int | Players score in a running game |
+|  | gameID | String | Unique identifier of game, a player is (or was?) participating |
 
 
 #### User
@@ -116,7 +115,5 @@
 #### Login
 
 #### Logout
-
-#### ScoreBoard (?)
 
 
