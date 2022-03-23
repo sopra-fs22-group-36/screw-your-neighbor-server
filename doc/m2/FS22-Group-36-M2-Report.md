@@ -24,8 +24,8 @@
 | /users/{userName} | GET  | userName: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by their username  |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | user<br>user not found | login with username and password  |
 | /logout/ | POST  | ?  | Body  | ? | ? | terminate user session by logging out  |
-| /players/{playerID} | PUT | currentScore: integer | Body | 200<br>404 | player<br>player not found<br> | change players score during game |
-| /users/{userID} | PUT | newGameScore: integer | Body | 200<br>404 | user<br>user not found<br> | change users overall game score |
+| /players/{playerID} | PUT | currentScore: integer | Body | 204<br>404 | <br>player not found<br> | change players score during game |
+| /users/{userID} | PUT | newGameScore: integer | Body | 204<br>404 |  <br>user not found<br> | change users overall game score |
 
 
 
