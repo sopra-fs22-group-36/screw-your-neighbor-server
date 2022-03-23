@@ -76,6 +76,7 @@
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
 | GamePostDTO | playersIDs | String[] | IDs of players that participate in that game |
+
 | ------------- | ------------- | ------------- | ------------- |
 | GameGetDTO | players | PlayersGetDTO[] | List of players that participate in that game |
 
