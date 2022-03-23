@@ -18,7 +18,7 @@
 | /scoreboard/{gameID}  | GET  | gameID: String | Query  | ...  | ... | retrieve a list of scores  |
 | /players  | POST  | playerName: String  | Body | ...  | ... | create a new player  |
 | /players/{gameID}  | GET  | gameID: String  | Query  | ... | ... | retrieve a list of players in a game  |
-| /players/{playerID}  | GET  | userID: long  | Query  | ...  | ... | retrieve a player by ID  |
+| /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | ...<br>... | retrieve a player by ID  |
 | /users  | POST  | userName: String, password: String  | Body  | ... | ...  | register a new user  |
 | /users/{userID} | GET  | userID: String  | Query | ... | ... | retrieve a user by ID  |
 | /users/{userName} | GET  | userName: String  | Query | ... | ... | retrieve a user by their username  |
