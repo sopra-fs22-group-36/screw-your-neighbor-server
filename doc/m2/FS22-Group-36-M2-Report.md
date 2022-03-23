@@ -116,8 +116,12 @@
 
 #### User
 
-#### Login
+#### Login, Logout
 
-#### Logout
+| Interface Name  | Fieldname  | Type | Description  |
+| ------------- | ------------- | ------------- | ------------- |
+| LoginPostDTO | userName | String | User's name (must be unique) |
+| | password | String | User's password |
+| LogoutPostDTO | userSessinID ? | String | ID of the user login session ? |
 
 
