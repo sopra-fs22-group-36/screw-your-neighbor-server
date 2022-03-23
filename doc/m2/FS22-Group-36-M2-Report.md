@@ -122,6 +122,6 @@
 | ------------- | ------------- | ------------- | ------------- |
 | LoginPostDTO | userName | String | User's name (must be unique) |
 | | password | String | User's password |
-| LogoutPostDTO | userSessinID ? | String | ID of the user login session ? |
+| LogoutPostDTO | userSessionID ? | String | ID of the user login session ? |
 
 
