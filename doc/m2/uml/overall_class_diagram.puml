@@ -1,0 +1,212 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Model" #DDDDDD {
+    package "ServiceWorker" #CFFFFF {
+        class PlayerService{
+        }
+
+        class TableViewService {
+        }
+
+        class HandService {
+        }
+
+        class UserService {
+        }
+    }
+    package "Logic" #FFCFFF{
+    }
+}
+
+"Logic" -- "GameLogic"
+
+package "GameLogic" #FFCFFF {
+    class Game {
+        - CardSource deck
+        - MatchState matchState
+        - GameContext gameContext
+        - setState(): void
+    }
+    interface MatchState {
+        + handle(Round): void
+        + store(Round): void
+    }
+    class AnnouncingState {
+        + action(Round): void
+    }
+    class DealingState {
+        + action(Cards): void
+    }
+    class PlayingState {
+        + action(Round): void
+    }
+    class Round {
+        + announcing(Players): void
+        + dealing(Tick, Players): void
+        + playing(tickNumber, Players): void
+        + lastRound(Players): void
+        + tie(): void
+        + calculating(Players): void
+        + ending(): void
+        + highScore(Players): void
+    }
+
+    MatchState <|.. AnnouncingState
+    MatchState <|.. DealingState
+    MatchState <|.. PlayingState
+
+    Game -- Round
+    Game -- MatchState
+
+    class Player {
+        - Int highScore
+        - Hand hand
+        - String name
+        - User user
+        + announce(): short
+        + playACard(): void
+        + grabTick(): void
+        + stopGame(): void
+        + pray(): void
+        + hurra(): void
+        + earnHighScore(highScore):void
+    }
+    class GameContext {
+        - ArrayList[] players
+        - state
+        setState(PlayerState): void
+        gameAction(): void
+        getPlayers(): void
+    }
+    note top of GameContext: State design pattern
+    interface PlayerState {
+        + action(Player):void
+        + store(Player):void
+    }
+    class AnnounceState {
+        action(Player):void
+    }
+    class PlayState {
+        action(Player):void
+    }
+    class GrabState {
+        action(Player):void
+    }
+    class StopState {
+        action(Player):void
+    }
+
+    GameContext -- Game
+    Game -- CardSource
+    GameContext -- PlayerState
+
+    PlayerState <|.. AnnounceState
+    PlayerState <|.. PlayState
+    PlayerState <|.. GrabState
+    PlayerState <|.. StopState
+
+    GameContext -- Player
+
+    interface CardSource {
+        Card draw()
+        boolean isEmpty()
+        void shuffle() {Collections.shuffle(aDeck)}
+        getCards()
+    }
+    note top of CardSource: We can change the source\n by different decks, for example:\n CardSource source = new Deck2()
+
+    interface Iterable<Card> {
+        + Iterator<Card> iterator()
+    }
+
+    class Deck {
+        - List<Card> aDeck: ArrayList
+    }
+    note left of Deck: provide Cards as a copy\n not as a pointer
+
+    enum Rank {
+        ASS
+        KOENIG
+        OBER
+        UNDER
+        BANNER
+        NINE
+        EIGHT
+        SEVEN
+        SIX
+    }
+
+    enum Suit {
+        EICHEL
+        SCHILTEN
+        SCHELLEN
+        ROSEN
+    }
+
+    class Card {
+        - Rank aRank
+        - Suid aSuit
+        + Rank getRank()
+        + Suit getSuit()
+    }
+    note top of Card: This class is immutable
+
+    Deck "1" - "1..*" Card
+    CardSource <|.. Deck
+    Iterable <|.. Deck
+    Card "1" *-- Rank
+    Card "1" *-- Suit
+}
+
+package "Controller" #DDDDDD {
+    class PlayerController {
+    }
+
+    class HandController {
+    }
+
+    class TableViewController {
+    }
+
+    class UserController{
+    }
+
+    Interface Mapper {
+        DTOMapper Instance
+    }
+
+}
+
+PlayerService "1" --o "1" PlayerController
+TableViewService "1" --o "1" TableViewController
+HandService "1" --o "1" HandController
+UserService "1" --o "1" UserController
+
+interface PlayerRepository {
+    findById()
+}
+interface TableViewRepository {
+}
+interface HandRepository {
+}
+interface UserRepository {
+}
+interface JpaRepository {
+}
+
+PlayerRepository "1" --o "1" PlayerService
+TableViewRepository "1" --o "1" TableViewService
+HandRepository "1" --o "1" HandService
+UserRepository "1" --o "1" UserService
+
+JpaRepository <|.. PlayerRepository
+JpaRepository <|.. TableViewRepository
+JpaRepository <|.. HandRepository
+JpaRepository <|.. UserRepository
+
+Player "..." --o "1" PlayerService
+Round "..." --o "1" RoundService
+
+
+@enduml
