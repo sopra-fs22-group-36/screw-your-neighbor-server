@@ -17,14 +17,23 @@
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /games  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
-| /games/{gameID}  | PUT  | matchesPlayed: int, ... | Body  | ... | ...  | change state of a new game |
+| /games/{gameID}  | PUT  | matchesPlayed: int, ... | Body  | ... | ...  | change state of a running game |
 
 #### /matches endpoint
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /matches  | POST  | gameID: String[], numberOfCards: int | Body  | ... | ...  | initiate a new game  |
-| /matches/{matchID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a new game |
+| /matches  | POST  | gameID: String, numberOfCards: int | Body  | ... | ...  | initiate a new match  |
+| /matches/{matchID}  | PUT  | roundsPlayed: int, ... | Body  | ... | ...  | change state of a running match |
+
+#### /cards endpoint
+
+| Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| /cards  | GET  | gameID: String, numberOfCards: int | Body  | ... | ...  | get (distribute) cards to players |
+| /cards/{playerID}  | GET  | gameID: String, String| Body  | ... | ...  | get a players current cards collection |
+| /cards/{collectionID}  | DELETE  | cards: Card | Body  | ... | ...  | remove a card of cards collection |
+| /cards/{collectionID}  | PUT  | cards: Card | Body  | ... | ...  | add a card to cards collection |
 
 #### /players endpoint
 
