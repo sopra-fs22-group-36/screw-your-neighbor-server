@@ -39,7 +39,7 @@
 | /cards/draw  | GET  | playerID: String | Body  | ... | card | get (draw) one card to one player |
 | /cards/{playerID}  | GET  | gameID: String | Query  | ... | ...  | get a players current cards collection |
 | /cards/{collectionID}  | DELETE  | cards: Card | Body  | ... | ...  | remove a card of cards collection |
-| /cards/{collectionID}  | PUT  | cards: Card | Body  | ... | ...  | add a card to cards collection |
+| /cards/{collectionID}  | PUT/POST?  | cards: Card | Body  | ... | ...  | add a card to cards collection |
 
 #### /players endpoint
 
@@ -76,22 +76,27 @@
 #### Game
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
-| GamePostDTO | playersIDs | String[] | IDs of players that participate in that game |
-| GameGetDTO | players | PlayersGetDTO[] | List of players that participate in that game |
+| GameGetDTO | gameID | String | Unique identifier of the game |
+|  | players | PlayersGetDTO[] | List of players that participate in that game |
 
 
 #### Match
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
 | MatchPostDTO | gameID | String | IDs of the game this match belongs |
-| MatchGetDTO | noOfRounds | int | Number of rounds (i.e. cards per player) in this match |
+| MatchGetDTO | matchID | String | Unique identifier of the match |
+|  | noOfRounds | int | Number of rounds (i.e. cards per player) in this match |
 |  | noOfTricksPerPlayer | int | Number of tricks per player in this match |
+| MatchGetDTO | gameID | String | ID of the game this match belongs |
 
 #### Cards
 | Interface Name  | Fieldname  | Type | Description  |
 | ------------- | ------------- | ------------- | ------------- |
-| CardsGetDTO | playerID | String | String of cards holding player |
+| CardsGetDTO | cardsCollectionID | String | Unique identifier of the cards collection |
 | | cards | Cards[] | List of cards |
+| | playerID | String | String of cards holding player |
+| CardsPostDTO | card | Card | one card |
+
 
 
 #### Player
@@ -100,6 +105,7 @@
 | ------------- | ------------- | ------------- | ------------- |
 | PlayerPostDTO | playersName | String | Name of the player (must be unique) |
 | PlayerGetDTO | playerID | String | Players unique identifier |
+|  | playerid | String | Unique identifier of player |
 |  | gameID | String | Unique identifier of game, a player is (or was?) participating |
 |  | playersName | String | Name of the player |
 |  | score | int | Players score in a running game |
