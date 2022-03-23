@@ -33,8 +33,8 @@
 
 | Mapping  | Method | Parameter  | Parameter Type | Status Code  | Response | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | player<br>player not found | retrieve a player by ID  |
 | /users  | POST  | userName: String, password: String  | Body  | ... | ...  | register a new user  |
+| /players/{playerID}  | GET  | userID: long  | Query  | 200<br>404  | player<br>player not found | retrieve a player by ID  |
 | /users/{userID} | GET  | userID: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by ID  |
 | /users/{userName} | GET  | userName: String  | Query | 200<br>404  | user<br>user not found | retrieve a user by their username  |
 | /users/{userID} | PUT | newGameScore: integer | Body | 204<br>404 |  <br>user not found<br> | change users overall game score |
