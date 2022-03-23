@@ -5,7 +5,7 @@
 ![Component diagram](uml/component_diagram.svg)
 
 ### Class Diagram
-![Class diagram](uml/classes.svg)
+
 
 ### Activity Diagram
 
@@ -64,7 +64,7 @@
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | user<br>user not found | login with username and password  |
 | /logout/ | POST  | ?  | Body  | ? | ? | terminate user session by logging out  |
-| /scoreboard/{gameID}  | GET  | gameID: String | Query  | 200<br>404 | list of scores<br>no such game or no players found | retrieve a list of scores (not sure if we need this endpoint, or if we interact via players endpoint where we also get the score of a player? |
+| /scoreboard/{gameID}  | GET  | gameID: String | Query  | 200<br>404 | list of scores<br>no such game or no players found | retrieve a list of scores |
 
 
 
