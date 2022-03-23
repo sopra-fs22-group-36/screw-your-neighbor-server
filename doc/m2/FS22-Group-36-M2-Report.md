@@ -16,7 +16,7 @@
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | /game  | POST  | playerIDs: String[] | Body  | ... | ...  | initiate a new game  |
 | /scoreboard/{gameID}  | GET  | gameID: String | Query  | ...  | ... | retrieve a list of scores  |
-| /players  | POST  | playerName: String  | ... | ...  | ... | create a new player  |
+| /players  | POST  | playerName: String  | Body | ...  | ... | create a new player  |
 | /players/{gameID}  | GET  | gameID: String  | Query  | ... | ... | retrieve a list of players in a game  |
 | /players/{playerID}  | GET  | userID: long  | Query  | ...  | ... | retrieve a player by ID  |
 | /users  | POST  | userName: String, password: String  | Body  | ... | ...  | register a new user  |
@@ -24,6 +24,9 @@
 | /users/{userName} | GET  | userName: String  | Query | ... | ... | retrieve a user by their username  |
 | /login/ | POST  | userName: String, password: String  | Body  | ...  | ... | login with username and password  |
 | /logout/ | POST  | ?  | Body  | ... | ... | terminate user session by logging out  |
+| /players/{playerID} | PUT | currentScore: integer | Body | - | - | - |
+| /users/{userID} | PUT | newGameScore: integer | Body | - | - | - |
+
 
 
 
