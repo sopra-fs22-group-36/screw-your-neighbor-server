@@ -1,0 +1,38 @@
+POST {{host}}/players
+Content-Type: application/hal+json
+
+{
+  "name": "test"
+}
+
+###
+
+POST {{host}}/games
+Content-Type: application/hal+json
+
+{
+  "name": "test"
+}
+
+
+###
+
+POST {{host}}/participations
+Content-Type: application/hal+json
+
+{
+  "player": "/players/1",
+  "game": "/games/2"
+}
+
+###
+
+GET {{host}}/players
+Accept: application/hal+json
+
+###
+
+GET {{host}}/games?projection=embed
+Accept: application/hal+json
+
+###
