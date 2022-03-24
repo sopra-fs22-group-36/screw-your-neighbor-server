@@ -1,0 +1,89 @@
+@startuml
+
+class Player {
+    - long id
+    - String name
+}
+
+class User {
+    - long id
+    - String username
+    - String passwordHash
+}
+
+enum GameState {
+    FINDING_PLAYERS,
+    PLAYING,
+    CLOSED
+}
+
+class Game {
+    - long id
+    - GameState state
+    - String name
+}
+
+class Match {
+    - long id
+    - int matchNumber
+}
+
+class ScoreAnnouncement {
+    - int announcedScore
+}
+
+class Hand {
+}
+
+class Turn {
+
+}
+
+class Round {
+    - long id
+    - int roundNumber
+}
+
+class Card {
+    - Suit suit
+    - Rank rank
+}
+
+enum Suit {
+    CLUBS,
+    DIAMONDS,
+    HEARTS,
+    SPADES
+}
+
+enum Rank {
+  ACE,
+  SIX,
+  SEVEN,
+  EIGHT,
+  NINE,
+  TEN,
+  JACK,
+  QUEEN,
+  KING
+}
+
+Player "*" -- "1" User
+Player "*" -- "*" Game
+Player "1" -- "*" ScoreAnnouncement
+Player "1" -- "*" Hand
+
+ScoreAnnouncement "*" -- "1" Match
+
+Hand "*" -- "1" Match
+Hand "1" -- "1..5" Card
+
+Game "1" -- "1..9" Match
+
+Match "1" -- "1..5" Round
+
+Round "1" -- "*" Turn
+
+Turn "1" -- "1" Card
+
+@enduml
