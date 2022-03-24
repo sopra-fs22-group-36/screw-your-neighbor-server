@@ -7,6 +7,6 @@
 ### Class Diagram
 
 ### Activity Diagram
-![Component diagram](uml/activity_diagram.svg)
+![Activity diagram](uml/activity_diagram.svg)
 
 ## UI Mockups
