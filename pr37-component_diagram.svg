@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1181px" preserveAspectRatio="none" style="width:1203px;height:1181px;background:#FFFFFF;" version="1.1" viewBox="0 0 1203 1181" width="1203px" zoomAndPan="magnify"><defs/><g><!--MD5=[4115b4b4da1c53f805189a226bd82592]
+cluster Client - Frontend--><g id="cluster_Client - Frontend"><path d="M275.5,45.96 L409.5,45.96 A3.75,3.75 0 0 1 412,48.46 L419,68.2569 L1041.5,68.2569 A2.5,2.5 0 0 1 1044,70.7569 L1044,207.46 A2.5,2.5 0 0 1 1041.5,209.96 L275.5,209.96 A2.5,2.5 0 0 1 273,207.46 L273,48.46 A2.5,2.5 0 0 1 275.5,45.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="273" x2="419" y1="68.2569" y2="68.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="133" x="277" y="60.9551">Client - Frontend</text></g><!--MD5=[e2a75efa8a0f57c2afae8bf75386f79c]
+cluster views--><g id="cluster_views"><path d="M558.5,88.96 L605.5,88.96 A3.75,3.75 0 0 1 608,91.46 L615,111.2569 L1017.5,111.2569 A2.5,2.5 0 0 1 1020,113.7569 L1020,183.46 A2.5,2.5 0 0 1 1017.5,185.96 L558.5,185.96 A2.5,2.5 0 0 1 556,183.46 L556,91.46 A2.5,2.5 0 0 1 558.5,88.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="556" x2="615" y1="111.2569" y2="111.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="46" x="560" y="103.9551">views</text></g><!--MD5=[64e2e010ba86d7988e5cd73bd64f61f9]
+cluster ui--><g id="cluster_ui"><path d="M299.5,88.96 L314.5,88.96 A3.75,3.75 0 0 1 317,91.46 L324,111.2569 L529.5,111.2569 A2.5,2.5 0 0 1 532,113.7569 L532,183.46 A2.5,2.5 0 0 1 529.5,185.96 L299.5,185.96 A2.5,2.5 0 0 1 297,183.46 L297,91.46 A2.5,2.5 0 0 1 299.5,88.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="297" x2="324" y1="111.2569" y2="111.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="14" x="301" y="103.9551">ui</text></g><!--MD5=[589f2530fc58410ec5baad9d3288805f]
+cluster External Video Chat API--><g id="cluster_External Video Chat API"><path d="M8.5,88.96 L194.5,88.96 A3.75,3.75 0 0 1 197,91.46 L204,111.2569 L246.5,111.2569 A2.5,2.5 0 0 1 249,113.7569 L249,183.46 A2.5,2.5 0 0 1 246.5,185.96 L8.5,185.96 A2.5,2.5 0 0 1 6,183.46 L6,91.46 A2.5,2.5 0 0 1 8.5,88.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="6" x2="204" y1="111.2569" y2="111.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="185" x="10" y="103.9551">External Video Chat API</text></g><!--MD5=[7620e4796d67501c8ffb7479f635e4bf]
+cluster Server - Backend--><g id="cluster_Server - Backend"><path d="M403.5,393.96 L540.5,393.96 A3.75,3.75 0 0 1 543,396.46 L550,416.2569 L1193.5,416.2569 A2.5,2.5 0 0 1 1196,418.7569 L1196,815.46 A2.5,2.5 0 0 1 1193.5,817.96 L403.5,817.96 A2.5,2.5 0 0 1 401,815.46 L401,396.46 A2.5,2.5 0 0 1 403.5,393.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="401" x2="550" y1="416.2569" y2="416.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="136" x="405" y="408.9551">Server - Backend</text></g><!--MD5=[52d1b0ded86e1ba6bb37efb966c50f67]
+cluster DTO Layer--><g id="cluster_DTO Layer"><path d="M490.5,436.96 L573.5,436.96 A3.75,3.75 0 0 1 576,439.46 L583,459.2569 L1088.5,459.2569 A2.5,2.5 0 0 1 1091,461.7569 L1091,531.46 A2.5,2.5 0 0 1 1088.5,533.96 L490.5,533.96 A2.5,2.5 0 0 1 488,531.46 L488,439.46 A2.5,2.5 0 0 1 490.5,436.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="488" x2="583" y1="459.2569" y2="459.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="82" x="492" y="451.9551">DTO Layer</text></g><!--MD5=[ed1d20ea533a2a0e7df5ba3c35e56ced]
+cluster Controllers--><g id="cluster_Controllers"><path d="M427.5,566.96 L516.5,566.96 A3.75,3.75 0 0 1 519,569.46 L526,589.2569 L1169.5,589.2569 A2.5,2.5 0 0 1 1172,591.7569 L1172,661.46 A2.5,2.5 0 0 1 1169.5,663.96 L427.5,663.96 A2.5,2.5 0 0 1 425,661.46 L425,569.46 A2.5,2.5 0 0 1 427.5,566.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="425" x2="526" y1="589.2569" y2="589.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="88" x="429" y="581.9551">Controllers</text></g><!--MD5=[9dd75fd92da113d30380b27734fd2f01]
+cluster Service--><g id="cluster_Service"><path d="M464.5,696.96 L524.5,696.96 A3.75,3.75 0 0 1 527,699.46 L534,719.2569 L1138.5,719.2569 A2.5,2.5 0 0 1 1141,721.7569 L1141,791.46 A2.5,2.5 0 0 1 1138.5,793.96 L464.5,793.96 A2.5,2.5 0 0 1 462,791.46 L462,699.46 A2.5,2.5 0 0 1 464.5,696.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="462" x2="534" y1="719.2569" y2="719.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="59" x="466" y="711.9551">Service</text></g><!--MD5=[e78dd1d205f03728e9db11601b2280bc]
+cluster JPA--><g id="cluster_JPA"><polygon points="742,860.96,752,850.96,860,850.96,860,942.96,850,952.96,742,952.96,742,860.96" style="stroke:#181818;stroke-width:1.0;fill:none;"/><line style="stroke:#181818;stroke-width:1.0;fill:none;" x1="850" x2="860" y1="860.96" y2="850.96"/><line style="stroke:#181818;stroke-width:1.0;fill:none;" x1="742" x2="850" y1="860.96" y2="860.96"/><line style="stroke:#181818;stroke-width:1.0;fill:none;" x1="850" x2="850" y1="860.96" y2="952.96"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="25" x="784.5" y="876.9551">JPA</text></g><!--MD5=[ee20526a7307f2bfe7b93288a6fa4063]
+cluster H2 Hibernate--><g id="cluster_H2 Hibernate"><path d="M682,995.96 C682,985.96 801,985.96 801,985.96 C801,985.96 920,985.96 920,995.96 L920,1154.96 C920,1164.96 801,1164.96 801,1164.96 C801,1164.96 682,1164.96 682,1154.96 L682,995.96 " style="stroke:#181818;stroke-width:1.0;fill:none;"/><path d="M682,995.96 C682,1005.96 801,1005.96 801,1005.96 C801,1005.96 920,1005.96 920,995.96 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="103" x="749.5" y="1020.9551">H2 Hibernate</text></g><!--MD5=[815249f79c2c08157ac02b3106e03757]
+cluster Database--><g id="cluster_Database"><path d="M708.5,1043.96 L782.5,1043.96 A3.75,3.75 0 0 1 785,1046.46 L792,1066.2569 L893.5,1066.2569 A2.5,2.5 0 0 1 896,1068.7569 L896,1138.46 A2.5,2.5 0 0 1 893.5,1140.96 L708.5,1140.96 A2.5,2.5 0 0 1 706,1138.46 L706,1046.46 A2.5,2.5 0 0 1 708.5,1043.96 " style="stroke:#000000;stroke-width:1.5;fill:none;"/><line style="stroke:#000000;stroke-width:1.5;fill:none;" x1="706" x2="792" y1="1066.2569" y2="1066.2569"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="73" x="710" y="1058.9551">Database</text></g><!--MD5=[bf2717d3ccdef46aef5fc8eb5c088d18]
+entity Lobby--><g id="elem_Lobby"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="806.5" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="867.5" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="865.5" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="865.5" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="821.5" y="156.9551">Lobby</text></g><!--MD5=[e528c6ab46f6025ca6b6e890355e65a8]
+entity Game--><g id="elem_Game"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="572.5" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="633.5" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="631.5" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="631.5" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="587.5" y="156.9551">Game</text></g><!--MD5=[ab23e76dd41ca38b19f75eccd9d963a3]
+entity Match--><g id="elem_Match"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="82" x="689" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="751" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="749" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="749" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42" x="704" y="156.9551">Match</text></g><!--MD5=[de2effd8dc5bf946a609466312d0f75f]
+entity Player--><g id="elem_Player"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="922.5" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="983.5" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="981.5" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="981.5" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="937.5" y="156.9551">Player</text></g><!--MD5=[0d7f6108bf18c049dbeddcb93a0698de]
+entity Button--><g id="elem_Button"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="87" x="428.5" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="495.5" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="493.5" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="493.5" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="443.5" y="156.9551">Button</text></g><!--MD5=[cb22b69a699a8ccb347b5b28387d0bba]
+entity Cards--><g id="elem_Cards"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="80" x="313" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="373" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="371" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="371" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="328" y="156.9551">Cards</text></g><!--MD5=[645d8587175d8f7ad110cd370775931d]
+entity API--><g id="elem_API"><ellipse cx="31" cy="146.96" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="20.5" y="176.9551">API</text></g><!--MD5=[64bc29a8454851f98748c545ba8307ac]
+entity Video Framework--><g id="elem_Video Framework"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="74.5" y="123.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="213.5" y="128.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="211.5" y="130.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="211.5" y="134.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="89.5" y="156.9551">Video Framework</text></g><!--MD5=[ee851f3c147f4f148c78bddc221f8de1]
+entity DTO Player--><g id="elem_DTO Player"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="116" x="504" y="471.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="600" y="476.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="598" y="478.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="598" y="482.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="519" y="504.9551">DTO Player</text></g><!--MD5=[188550d2bdabf7154ba2c4adfb4d5954]
+entity DTO Game--><g id="elem_DTO Game"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="116" x="655" y="471.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="751" y="476.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="749" y="478.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="749" y="482.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="670" y="504.9551">DTO Game</text></g><!--MD5=[fc4dee7452d6c112412fac48f76f6a88]
+entity DTO Lobby--><g id="elem_DTO Lobby"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="116" x="806" y="471.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="902" y="476.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="900" y="478.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="900" y="482.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="821" y="504.9551">DTO Lobby</text></g><!--MD5=[3f16b9ecd327f460dedff142ff3073c5]
+entity DTO Match--><g id="elem_DTO Match"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="117" x="957.5" y="471.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="1054.5" y="476.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1052.5" y="478.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1052.5" y="482.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="972.5" y="504.9551">DTO Match</text></g><!--MD5=[ef46931d28e6eed7fc01b113bee1badf]
+entity Controller Player--><g id="elem_Controller Player"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152" x="441" y="601.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="573" y="606.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="571" y="608.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="571" y="612.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112" x="456" y="634.9551">Controller Player</text></g><!--MD5=[0684adb7fe18f163732e263ca865dab2]
+entity Controller Game--><g id="elem_Controller Game"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152" x="628" y="601.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="760" y="606.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="758" y="608.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="758" y="612.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112" x="643" y="634.9551">Controller Game</text></g><!--MD5=[51aa49697b4d1b0439db6d471a3569c2]
+entity Controller Lobby--><g id="elem_Controller Lobby"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152" x="815" y="601.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="947" y="606.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="945" y="608.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="945" y="612.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112" x="830" y="634.9551">Controller Lobby</text></g><!--MD5=[b43346aadc0629335c7b472327f959b7]
+entity Controller Match--><g id="elem_Controller Match"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="153" x="1002.5" y="601.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="1135.5" y="606.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1133.5" y="608.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1133.5" y="612.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="1017.5" y="634.9551">Controller Match</text></g><!--MD5=[2dea6d90bc96b122b18e36523d32de90]
+entity Service Player--><g id="elem_Service Player"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="135" x="478.5" y="731.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="593.5" y="736.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="591.5" y="738.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="591.5" y="742.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="493.5" y="764.9551">Service Player</text></g><!--MD5=[bf17cc0b6a4318b8c72fcad4fb90f23c]
+entity Service Game--><g id="elem_Service Game"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="135" x="648.5" y="731.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="763.5" y="736.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="761.5" y="738.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="761.5" y="742.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="663.5" y="764.9551">Service Game</text></g><!--MD5=[9fef60f32a4745e705c774701708d10d]
+entity Service Lobby--><g id="elem_Service Lobby"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="135" x="818.5" y="731.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="933.5" y="736.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="931.5" y="738.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="931.5" y="742.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="833.5" y="764.9551">Service Lobby</text></g><!--MD5=[54c0b8ff914a7d0f60a6fdc5c817ce14]
+entity Service Match--><g id="elem_Service Match"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="989" y="731.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="1105" y="736.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1103" y="738.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1103" y="742.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="1004" y="764.9551">Service Match</text></g><!--MD5=[96ab39653667f214f69f6f105fdce372]
+entity JPA API--><g id="elem_JPA API"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="86" x="758" y="890.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="824" y="895.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="822" y="897.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="822" y="901.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="773" y="923.9551">JPA API</text></g><!--MD5=[5e4da22a90242e4b46cdd9e967aea817]
+entity Game Repository--><g id="elem_Game Repository"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="721.5" y="1078.96"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="860.5" y="1083.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="858.5" y="1085.96"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="858.5" y="1089.96"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="736.5" y="1111.9551">Game Repository</text></g><!--MD5=[96f7e1299d4a43069e6ed32352fcac20]
+entity HTTP--><g id="elem_HTTP"><ellipse cx="788" cy="301.96" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="769.5" y="331.9551">HTTP</text></g><!--MD5=[175ffb791362a4cbde78bdbb5f02a724]
+link API to Video Framework--><g id="link_API_Video Framework"><path d="M40.13,146.96 C51.55,146.96 62.96,146.96 74.38,146.96 " fill="none" id="API-Video Framework" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[76a2c3a4e64db0a5f5869571e31cfc5f]
+link Service Game to JPA API--><g id="link_Service Game_JPA API"><path d="M730.56,782.85 C746.24,811.82 771.04,857.62 786.64,886.44 " fill="none" id="Service Game-JPA API" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="789.06,890.91,788.2865,881.0916,786.6767,886.5145,781.2538,884.9048,789.06,890.91" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="728,778.12,728.7488,787.9404,730.3722,782.5214,735.7911,784.1448,728,778.12" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2473e0a4ac96384c5814aa26c2610026]
+link Service Player to JPA API--><g id="link_Service Player_JPA API"><path d="M574.16,781.76 C590.17,795.75 610.96,812.81 631,825.96 C670.26,851.73 718.11,875.62 753.04,891.82 " fill="none" id="Service Player-JPA API" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="757.66,893.95,751.1587,886.5518,753.1185,891.8583,747.812,893.8182,757.66,893.95" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="570.19,778.28,574.2932,787.2334,573.9396,781.5876,579.5854,781.2341,570.19,778.28" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[bdfd77d006d8165b549f6471c0f402e0]
+link Service Match to JPA API--><g id="link_Service Match_JPA API"><path d="M1028.47,781.73 C1012.26,795.71 991.21,812.77 971,825.96 C931.67,851.62 883.82,875.52 848.92,891.75 " fill="none" id="Service Match-JPA API" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="844.3,893.89,854.1478,893.7444,848.8385,891.792,850.791,886.4828,844.3,893.89" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1032.48,778.25,1023.0603,781.1257,1028.703,781.5263,1028.3024,787.1689,1032.48,778.25" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[7fc62c62edfe39430a08082a35540f93]
+link Service Lobby to JPA API--><g id="link_Service Lobby_JPA API"><path d="M871.44,782.85 C855.76,811.82 830.96,857.62 815.36,886.44 " fill="none" id="Service Lobby-JPA API" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="812.94,890.91,820.7462,884.9048,815.3233,886.5145,813.7135,881.0916,812.94,890.91" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="874,778.12,866.2089,784.1448,871.6278,782.5214,873.2512,787.9404,874,778.12" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b4a24b396186378f0981208da768ff0a]
+link JPA API to Game Repository--><g id="link_JPA API_Game Repository"><path d="M801,942.28 C801,977.46 801,1038.24 801,1073.49 " fill="none" id="JPA API-Game Repository" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="801,1078.92,805,1069.92,801,1073.92,797,1069.92,801,1078.92" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="801,937.03,797,946.03,801,942.03,805,946.03,801,937.03" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[5f67e0f467f4175751da5947d38a2f66]
+link Match to HTTP--><g id="link_Match_HTTP"><path d="M740.35,175.27 C752.95,208.51 773.7,263.25 783.1,288.04 " fill="none" id="Match-HTTP" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="784.93,292.86,785.479,283.0265,783.1572,288.1848,777.9988,285.863,784.93,292.86" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="738.43,170.21,737.881,180.0435,740.2028,174.8852,745.3612,177.207,738.43,170.21" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="766" y="239.0269">REST</text></g><!--MD5=[d1868cf09672ca323e9772c513a03a2d]
+link HTTP to DTO Match--><g id="link_HTTP_DTO Match"><path d="M801.97,308.07 C830.42,318.97 896.08,346.76 940,385.96 C966.3,409.43 988.42,443.67 1001.9,467.27 " fill="none" id="HTTP-DTO Match" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="1004.48,471.84,1003.5433,462.0358,1002.0239,467.4848,996.5749,465.9655,1004.48,471.84" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="797.11,306.23,804.1255,313.1425,801.7899,307.9903,806.942,305.6547,797.11,306.23" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[26ff85bd2257d52ed0aa444924f57555]
+link Game to HTTP--><g id="link_Game_HTTP"><path d="M632.53,174.18 C643.4,187.95 657.61,204.67 672,217.96 C705.96,249.33 752.09,279.1 774.57,292.91 " fill="none" id="Game-HTTP" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="779,295.61,773.392,287.5137,774.729,293.0103,769.2324,294.3473,779,295.61" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="629.27,170.01,631.6668,179.5628,632.3515,173.9475,637.9668,174.6323,629.27,170.01" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[92df3515b3e129d8e40f560369c8187a]
+link HTTP to DTO Game--><g id="link_HTTP_DTO Game"><path d="M782.93,315.86 C770.82,346.7 739.98,425.24 723.6,466.96 " fill="none" id="HTTP-DTO Game" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="721.68,471.86,728.6998,464.9519,723.5122,467.2078,721.2563,462.0203,721.68,471.86" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="784.78,311.17,777.7674,318.0855,782.9526,315.8241,785.214,321.0093,784.78,311.17" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="764" y="374.0269">REST</text></g><!--MD5=[23a87aa6b9b6a98bc9e54a5a575ad1cf]
+link Lobby to HTTP--><g id="link_Lobby_HTTP"><path d="M836.47,175.27 C823.65,208.51 802.54,263.25 792.98,288.04 " fill="none" id="Lobby-HTTP" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="791.12,292.86,798.0885,285.9001,792.9178,288.1944,790.6235,283.0237,791.12,292.86" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="838.42,170.21,831.4444,177.1627,836.6174,174.8738,838.9064,180.0468,838.42,170.21" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0c14d3de5231351e6996ba48403677a3]
+link HTTP to DTO Lobby--><g id="link_HTTP_DTO Lobby"><path d="M793.13,315.86 C805.41,346.7 836.66,425.24 853.26,466.96 " fill="none" id="HTTP-DTO Lobby" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="855.21,471.86,855.6075,462.0192,853.3654,467.2127,848.1718,464.9706,855.21,471.86" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="791.27,311.17,790.8725,321.0108,793.1146,315.8173,798.3082,318.0594,791.27,311.17" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3d36e72f836ab6950ca9c79c0c837e59]
+link Player to HTTP--><g id="link_Player_HTTP"><path d="M943.89,174.23 C933.23,188.01 919.26,204.73 905,217.96 C870.91,249.59 824.31,279.23 801.58,292.96 " fill="none" id="Player-HTTP" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="797.1,295.65,806.8772,294.4639,801.3912,293.0838,802.7713,287.5979,797.1,295.65" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="947.09,170.06,938.4518,174.791,944.0581,174.0358,944.8132,179.6421,947.09,170.06" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e58acd92d5ff5f1d70c8165c0e0cdf9f]
+link HTTP to DTO Player--><g id="link_HTTP_DTO Player"><path d="M773.81,308.27 C745.53,319.36 681.16,347.22 638,385.96 C611.77,409.51 589.63,443.73 576.13,467.3 " fill="none" id="HTTP-DTO Player" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="573.55,471.87,581.4633,466.0066,576.0122,467.5183,574.5005,462.0671,573.55,471.87" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="778.66,306.4,768.8232,305.9136,773.9962,308.2026,771.7073,313.3756,778.66,306.4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d2ec996a51a9aa620634a0c2bc0c0be0]
+link Game to API--><g id="link_Game_API"><path d="M603.81,123.91 C589.92,92.96 560.27,39.89 514.5,22.96 C468.65,6 120.35,6 74.5,22.96 C29.78,39.5 29.09,111.68 30.34,137.63 " fill="none" id="Game-API" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[67f1eb7009d1fb322bc39133e00694dd]
+link Match to API--><g id="link_Match_API"><path d="M724.78,123.79 C716.22,92.43 695.73,38.58 653.5,22.96 C623.33,11.8 104.67,11.8 74.5,22.96 C29.78,39.5 29.09,111.68 30.34,137.63 " fill="none" id="Match-API" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[92e01c9f81af15ae3979ea01875ea3ec]
+link DTO Player to Controller Player--><g id="link_DTO Player_Controller Player"><path d="M552.56,522.8 C544.9,544.6 534.14,575.2 526.47,597.02 " fill="none" id="DTO Player-Controller Player" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="524.79,601.81,531.5483,594.6458,526.4481,597.0929,524.001,591.9928,524.79,601.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="554.26,517.96,547.5085,525.1306,552.6063,522.6786,555.0583,527.7764,554.26,517.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[7914998f733f070e1e4ec205a4d2d590]
+link DTO Game to Controller Game--><g id="link_DTO Game_Controller Game"><path d="M711.09,523.1 C709.57,544.79 707.44,575.06 705.91,596.77 " fill="none" id="DTO Game-Controller Game" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="705.56,601.81,710.1928,593.1188,705.9173,596.8228,702.2133,592.5472,705.56,601.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="711.45,517.96,706.842,526.6644,711.107,522.9482,714.8231,527.2132,711.45,517.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fd8fe369f521061a08ad4df326e8af79]
+link DTO Lobby to Controller Lobby--><g id="link_DTO Lobby_Controller Lobby"><path d="M869.72,523.1 C874.3,544.79 880.69,575.06 885.26,596.77 " fill="none" id="DTO Lobby-Controller Lobby" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="886.33,601.81,888.3958,592.1802,885.3028,596.9166,880.5664,593.8237,886.33,601.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="868.64,517.96,866.5742,527.5898,869.6672,522.8534,874.4036,525.9463,868.64,517.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[07d27dd00f70a3056e13773aeeb9928b]
+link DTO Match to Controller Match--><g id="link_DTO Match_Controller Match"><path d="M1029.07,522.51 C1039.85,544.41 1055.07,575.34 1065.87,597.28 " fill="none" id="DTO Match-Controller Match" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1068.1,601.81,1067.7283,591.9682,1065.8983,597.3208,1060.5456,595.4909,1068.1,601.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1026.83,517.96,1027.2017,527.8018,1029.0317,522.4492,1034.3844,524.2791,1026.83,517.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[47c687e1a84d715b5014a71256cff2c7]
+link Controller Player to Service Player--><g id="link_Controller Player_Service Player"><path d="M523.15,653.1 C528.06,674.79 534.92,705.06 539.84,726.77 " fill="none" id="Controller Player-Service Player" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="540.98,731.81,542.8725,722.1447,539.8651,726.9359,535.0739,723.9285,540.98,731.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="521.99,647.96,520.0914,657.6241,523.1018,652.8348,527.8911,655.8452,521.99,647.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9a20f3b5bd108765ecd3189df8aa0143]
+link Controller Game to Service Game--><g id="link_Controller Game_Service Game"><path d="M706.54,653.1 C708.58,674.79 711.42,705.06 713.45,726.77 " fill="none" id="Controller Game-Service Game" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="713.92,731.81,717.055,722.4734,713.4493,726.8322,709.0905,723.2265,713.92,731.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="706.06,647.96,702.9275,657.2974,706.532,652.9377,710.8918,656.5422,706.06,647.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[80c133d21508215c3c805bf532b7e5a3]
+link Controller Lobby to Service Lobby--><g id="link_Controller Lobby_Service Lobby"><path d="M889.94,653.1 C889.09,674.79 887.91,705.06 887.06,726.77 " fill="none" id="Controller Lobby-Service Lobby" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="886.87,731.81,891.2265,722.9771,887.0698,726.814,883.2329,722.6573,886.87,731.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="890.14,647.96,885.7825,656.7924,889.9396,652.956,893.776,657.1131,890.14,647.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[51b6ded9c7b16ace44c783b2ffcc0c4a]
+link Controller Match to Service Match--><g id="link_Controller Match_Service Match"><path d="M1074.34,653.1 C1070.61,674.79 1065.4,705.06 1061.67,726.77 " fill="none" id="Controller Match-Service Match" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1060.81,731.81,1066.2699,723.6131,1061.6528,726.8815,1058.3843,722.2645,1060.81,731.81" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1075.22,647.96,1069.7601,656.1569,1074.3772,652.8885,1077.6457,657.5055,1075.22,647.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e7481ff5b7063ac9fb302183292ad1ff]
+@startuml
+'https://plantuml.com/component-diagram
+
+package "Client - Frontend" {
+    folder "views" {
+        [Lobby]
+        [Game]
+        [Match]
+        [Player]
+    }
+    folder "ui" {
+        [Button]
+        [Cards]
+    }
+}
+
+package "External Video Chat API" {
+    API - [Video Framework]
+}
+
+package "Server - Backend" {
+    folder "DTO Layer" {
+        [DTO Player]
+        [DTO Game]
+        [DTO Lobby]
+        [DTO Match]
+    }
+    folder "Controllers" {
+        [Controller Player]
+        [Controller Game]
+        [Controller Lobby]
+        [Controller Match]
+    }
+    folder "Service" {
+        [Service Player]
+        [Service Game]
+        [Service Lobby]
+        [Service Match]
+    }
+}
+
+node "JPA" {
+    [JPA API]
+}
+database "H2 Hibernate" {
+  folder "Database" {
+    [Game Repository]
+  }
+}
+
+[Service Game] <..> [JPA API]
+[Service Player] <..> [JPA API]
+[Service Match] <..> [JPA API]
+[Service Lobby] <..> [JPA API]
+[JPA API] <..> [Game Repository]
+
+[Match] <..> HTTP : REST
+HTTP <..> [DTO Match]
+[Game] <..> HTTP
+HTTP <..> [DTO Game] : REST
+[Lobby] <..> HTTP
+HTTP <..> [DTO Lobby]
+[Player] <..> HTTP
+HTTP <..> [DTO Player]
+
+[Game] - API
+[Match] - API
+
+[DTO Player] <- -> [Controller Player]
+[DTO Game] <- -> [Controller Game]
+[DTO Lobby] <- -> [Controller Lobby]
+[DTO Match] <- -> [Controller Match]
+
+
+[Controller Player] <- -> [Service Player]
+[Controller Game]   <- -> [Service Game]
+[Controller Lobby]  <- -> [Service Lobby]
+[Controller Match]  <- -> [Service Match]
+
+@enduml
+
+@startuml
+
+package "Client - Frontend" {
+    folder "views" {
+        [Lobby]
+        [Game]
+        [Match]
+        [Player]
+    }
+    folder "ui" {
+        [Button]
+        [Cards]
+    }
+}
+
+package "External Video Chat API" {
+    API - [Video Framework]
+}
+
+package "Server - Backend" {
+    folder "DTO Layer" {
+        [DTO Player]
+        [DTO Game]
+        [DTO Lobby]
+        [DTO Match]
+    }
+    folder "Controllers" {
+        [Controller Player]
+        [Controller Game]
+        [Controller Lobby]
+        [Controller Match]
+    }
+    folder "Service" {
+        [Service Player]
+        [Service Game]
+        [Service Lobby]
+        [Service Match]
+    }
+}
+
+node "JPA" {
+    [JPA API]
+}
+database "H2 Hibernate" {
+  folder "Database" {
+    [Game Repository]
+  }
+}
+
+[Service Game] <..> [JPA API]
+[Service Player] <..> [JPA API]
+[Service Match] <..> [JPA API]
+[Service Lobby] <..> [JPA API]
+[JPA API] <..> [Game Repository]
+
+[Match] <..> HTTP : REST
+HTTP <..> [DTO Match]
+[Game] <..> HTTP
+HTTP <..> [DTO Game] : REST
+[Lobby] <..> HTTP
+HTTP <..> [DTO Lobby]
+[Player] <..> HTTP
+HTTP <..> [DTO Player]
+
+[Game] - API
+[Match] - API
+
+[DTO Player] <- -> [Controller Player]
+[DTO Game] <- -> [Controller Game]
+[DTO Lobby] <- -> [Controller Lobby]
+[DTO Match] <- -> [Controller Match]
+
+
+[Controller Player] <- -> [Service Player]
+[Controller Game]   <- -> [Service Game]
+[Controller Lobby]  <- -> [Service Lobby]
+[Controller Match]  <- -> [Service Match]
+
+@enduml
+
+PlantUML version 1.2022.2(Sat Mar 05 16:30:19 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>
