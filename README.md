@@ -7,7 +7,7 @@ By group 36 of the course "Software Praktikum"@UZH in FS 22.
 [![Checks](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/actions/workflows/checks.yml/badge.svg)](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/actions/workflows/checks.yml)
 [![Deploy](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/actions/workflows/deploy-heroku.yml/badge.svg)](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/actions/workflows/deploy-heroku.yml)
 
-## SonarCloud Badges:
+## SonarCloud Badges: 
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sopra-fs22-group-36_screw-your-neighbor-server&metric=bugs)](https://sonarcloud.io/summary/new_code?id=sopra-fs22-group-36_screw-your-neighbor-server)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sopra-fs22-group-36_screw-your-neighbor-server&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=sopra-fs22-group-36_screw-your-neighbor-server)
