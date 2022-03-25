@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/component-diagram
 
-package "Client - Frontend" {
+package "Client_Frontend" {
     folder "views" {
         [Lobby]
         [Game]
@@ -13,29 +13,29 @@ package "Client - Frontend" {
         [Cards]
     }
 }
+note bottom of Client_Frontend: React components\n-Material UI\n- React Router\n-Grommet\n-Video
 
 package "External Video Chat API" {
     API - [Video Framework]
 }
 
 package "Server - Backend" {
-    folder "DTO Layer" {
-        [DTO Player]
-        [DTO Game]
-        [DTO Lobby]
-        [DTO Match]
+    folder "Entity_Layer" {
+        [Entity Player]
+        [Entity Lobby]
+        [Entity Participation]
     }
-    folder "Controllers" {
-        [Controller Player]
-        [Controller Game]
-        [Controller Lobby]
-        [Controller Match]
+    folder "Game_Logic" {
+            [Player State Pattern]
+        [Game State Pattern]
     }
-    folder "Service" {
-        [Service Player]
-        [Service Game]
-        [Service Lobby]
-        [Service Match]
+    note top of Game_Logic: Game Logic with two state machines\n more information in the class diagram
+    folder "Repositories" {
+        [Repository Game]
+        [Repository Lobby]
+        [Repository Match]
+        [Repository Player]
+        [Repository Participation]
     }
 }
 
@@ -48,33 +48,36 @@ database "H2 Hibernate" {
   }
 }
 
-[Service Game] <..> [JPA API]
-[Service Player] <..> [JPA API]
-[Service Match] <..> [JPA API]
-[Service Lobby] <..> [JPA API]
+node "SpringDataRest" {
+    [SpringDataREST]
+}
+note top of SpringDataRest: Spring Data Rest framework\nReplace controller and service components
+
+[Lobby] <--> [Game]
+[Player] <--> [Lobby]
+[Player] <--> [Game]
+[Match] <--> [Game]
+views <--> ui
+
+
+[Repository Game] <..> [JPA API]
+[Repository Player] <..> [JPA API]
+[Repository Match] <..> [JPA API]
+[Repository Lobby] <..> [JPA API]
+[Repository Participation] <..> [JPA API]
 [JPA API] <..> [Game Repository]
 
-[Match] <..> HTTP : REST
-HTTP <..> [DTO Match]
-[Game] <..> HTTP
-HTTP <..> [DTO Game] : REST
-[Lobby] <..> HTTP
-HTTP <..> [DTO Lobby]
-[Player] <..> HTTP
-HTTP <..> [DTO Player]
+Client_Frontend <..> SpringDataREST
+Entity_Layer <..> SpringDataREST
+views <--> API
 
-[Game] - API
-[Match] - API
+[Repository Participation] <--> [Entity Participation]
+[Entity Participation] <--> Game_Logic
+[Game State Pattern] <--> [Player State Pattern]
 
-[DTO Player] <--> [Controller Player]
-[DTO Game] <--> [Controller Game]
-[DTO Lobby] <--> [Controller Lobby]
-[DTO Match] <--> [Controller Match]
+Entity_Layer <--> Game_Logic
 
-
-[Controller Player] <--> [Service Player]
-[Controller Game]   <--> [Service Game]
-[Controller Lobby]  <--> [Service Lobby]
-[Controller Match]  <--> [Service Match]
+[Entity Player] <--> [Repository Player]
+[Entity Lobby]  <--> [Repository Lobby]
 
 @enduml
