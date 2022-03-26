@@ -69,7 +69,7 @@ left out that the diagram stays simple.
 
 ### Description of the notation
 
-We specify the endpoints as follows:
+How the endpoints specification is structured:
 
 ### Endpoint /endpoints
 
@@ -114,6 +114,7 @@ Player
 
 - int id
 - String name
+- String sessionID
 
 | Method           | Response Codes                                                                   | Description                                     |
 |------------------|----------------------------------------------------------------------------------|-------------------------------------------------|
@@ -122,7 +123,7 @@ Player
 | GET /{id}        | 200 <br> 403 (Not allowed to see player) <br> 404 <br>                           |                                                 |
 | PATCH /{id} <br> | 200 <br> 400 <br> 404 <br> 422 <br> 403 (Not allowed to patch other player) <br> | Set player name                                 |
 
-Side effect: creates a session that we can identify which player performs the request.
+Side effect: creates a player session so that all the player's further requests can be identified.
 
 \newpage
 
