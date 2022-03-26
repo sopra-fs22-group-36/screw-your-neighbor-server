@@ -17,6 +17,7 @@ are depicted as package.
 ![Class diagram](uml/class_diagram.svg)
 
 ### Activity Diagram
+![Activity diagram](uml/activity_diagram.svg)
 
 ## UI Mockups
 
