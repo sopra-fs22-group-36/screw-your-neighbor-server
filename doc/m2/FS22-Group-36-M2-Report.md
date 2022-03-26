@@ -2,7 +2,9 @@
 
 ### Component Diagram
 
-![Component diagram](uml/component_diagram.svg)
+![Component diagram](uml/component_diagram.svg){height=70%}
+
+\newpage
 
 ### Class Diagram
 
@@ -14,10 +16,15 @@ in the diagram, because that tells the relations between the main concepts in th
 Validation, the spring data rest resources (implemented with PagingAndSortingRepositories) and the event handlers
 are depicted as package.
 
-![Class diagram](uml/class_diagram.svg)
+![Class diagram](uml/class_diagram.svg){height=60%}
+
+\newpage
 
 ### Activity Diagram
-![Activity diagram](uml/activity_diagram.svg)
+
+![Activity diagram](uml/activity_diagram.svg){height=70%}
+
+\newpage
 
 ## UI Mockups
 
