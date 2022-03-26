@@ -1,80 +1,66 @@
 @startuml
 'https://plantuml.com/component-diagram
 
-package "Client - Frontend" {
+component "Client_Frontend" {
     folder "views" {
         [Lobby]
+        [Room]
+        [Announcement]
         [Game]
-        [Match]
-        [Player]
+        [Game finished]
     }
-    folder "ui" {
-        [Button]
-        [Cards]
-    }
+    component [ui-components]
+
+    [Lobby] --> [ui-components]
+    [Room] --> [ui-components]
+    [Game] --> [ui-components]
+    [Announcement] --> [ui-components]
+    [Game] --> [ui-components]
+    [Game finished] --> [ui-components]
+}
+note top of Client_Frontend: React components\n-Material UI\n- React Router\n-Grommet\n-Video
+
+component [External Video chat api]
+
+component "Server - Backend" {
+    component [api]
+    note right of api: implemented with spring data rest. \n spring data rest provides the controllers and services
+
+    component [bean validation]
+
+    component [access control]
+
+    component [state validation]
+
+    component [spring data rest resources]
+
+    component [entities]
+
+    component [JPA]
+
+    component [event handlers for side effects]
+
+    component [GameLogic]
+
+    api --> [bean validation]
+    api --> [access control]
+    api --> [state validation]
+    api --> [spring data rest resources]
+    api --> [event handlers for side effects]
+
+    [spring data rest resources] --> [entities]
+    [spring data rest resources] --> [JPA]
+
+    [access control] --> [GameLogic]
+    [state validation] --> [GameLogic]
+    [event handlers for side effects] --> [GameLogic]
 }
 
-package "External Video Chat API" {
-    API - [Video Framework]
-}
+database Database
 
-package "Server - Backend" {
-    folder "DTO Layer" {
-        [DTO Player]
-        [DTO Game]
-        [DTO Lobby]
-        [DTO Match]
-    }
-    folder "Controllers" {
-        [Controller Player]
-        [Controller Game]
-        [Controller Lobby]
-        [Controller Match]
-    }
-    folder "Service" {
-        [Service Player]
-        [Service Game]
-        [Service Lobby]
-        [Service Match]
-    }
-}
+Client_Frontend ..> [api]: REST
+[External Video chat api] <-- Client_Frontend
 
-node "JPA" {
-    [JPA API]
-}
-database "H2 Hibernate" {
-  folder "Database" {
-    [Game Repository]
-  }
-}
-
-[Service Game] <..> [JPA API]
-[Service Player] <..> [JPA API]
-[Service Match] <..> [JPA API]
-[Service Lobby] <..> [JPA API]
-[JPA API] <..> [Game Repository]
-
-[Match] <..> HTTP : REST
-HTTP <..> [DTO Match]
-[Game] <..> HTTP
-HTTP <..> [DTO Game] : REST
-[Lobby] <..> HTTP
-HTTP <..> [DTO Lobby]
-[Player] <..> HTTP
-HTTP <..> [DTO Player]
-
-[Game] - API
-[Match] - API
-
-[DTO Player] <--> [Controller Player]
-[DTO Game] <--> [Controller Game]
-[DTO Lobby] <--> [Controller Lobby]
-[DTO Match] <--> [Controller Match]
-
-
-[Controller Player] <--> [Service Player]
-[Controller Game]   <--> [Service Game]
-[Controller Lobby]  <--> [Service Lobby]
-[Controller Match]  <--> [Service Match]
+[JPA] --> Database
 
 @enduml
