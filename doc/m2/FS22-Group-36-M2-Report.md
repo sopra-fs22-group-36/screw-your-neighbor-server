@@ -63,6 +63,8 @@ Modelname
 | PATCH /{id} <br>  | PATCH Request to /endpoints/{id}           |
 | DELETE /{id} <br> | DELETE Request to /endpoints/{id}          |
 
+\newpage
+
 We don't use the PUT Request, because all functionality  we need of a PUT
 Request can be done with a PATCH request, and the PATCH request is easier.
 
@@ -96,6 +98,8 @@ Player
 | PATCH /{id} <br> | 200 <br> 400 <br> 404 <br> 422 <br> 403 (Not Allowed to patch other player) <br> | Set Player name                                 |
 
 Side effect: creates a session that we can identify which player performs the request.
+
+\newpage
 
 #### Endpoint /games
 
