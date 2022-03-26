@@ -1,0 +1,119 @@
+@startuml
+
+package validation {
+}
+note left of validation: Spring event handler validating the requests
+
+package restresources {
+}
+note right of restresources: Spring data rest repositories which provide the endpoints
+
+package sideeffects {
+}
+note right of sideeffects: Spring event handler executing side effects
+
+package "domain classes" {
+    class Player {
+        - long id
+        - String name
+        - String sessionId
+    }
+
+    class User {
+        - long id
+        - String username
+        - String passwordHash
+    }
+
+    enum GameState {
+        FINDING_PLAYERS,
+        PLAYING,
+        CLOSED
+    }
+
+    class Game {
+        - long id
+        - GameState state
+        - String name
+    }
+
+    class Participation {
+        - long id
+        - boolean active
+        - Integer playerOrder
+    }
+
+    class Match {
+        - long id
+        - int matchNumber
+    }
+
+    class ScoreAnnouncement {
+        - int announcedScore
+    }
+
+    class Hand {
+    }
+
+    class Turn {
+
+    }
+
+    class Round {
+        - long id
+        - int roundNumber
+    }
+
+    class Card {
+        - Suit suit
+        - Rank rank
+    }
+
+    enum Suit {
+        CLUBS,
+        DIAMONDS,
+        HEARTS,
+        SPADES
+    }
+
+    enum Rank {
+      ACE,
+      SIX,
+      SEVEN,
+      EIGHT,
+      NINE,
+      TEN,
+      JACK,
+      QUEEN,
+      KING
+    }
+
+    Player "*" -- "1" User
+    Player "1" -- "*" Participation
+
+    Participation "*" -- "1" Game
+    Participation "1" -- "*" ScoreAnnouncement
+    Participation "1" -- "*" Hand
+
+    ScoreAnnouncement "*" -- "1" Match
+
+    Hand "*" -- "1" Match
+    Hand "1" -- "1..5" Card
+
+    Game "1" -- "1..9" Match
+
+    Match "1" -- "1..5" Round
+
+    Round "1" -- "*" Turn
+
+    Turn "1" -- "1" Card
+
+}
+
+restresources --> "domain classes"
+
+validation --> restresources
+
+sideeffects --> restresources
+
+@enduml
