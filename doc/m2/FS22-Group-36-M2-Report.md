@@ -21,6 +21,25 @@ are depicted as package.
 
 ## UI Mockups
 
+![Landing Page](mockupPNGS/Landing%20Page.png)
+
+![Lobby](mockupPNGS/Lobby%20without%20the%20_logged%20in%20users_%20feature.png)
+
+![Room](mockupPNGS/Room%20Page.png)
+
+![Trick announcement](mockupPNGS/announcement.png)
+
+![Game](mockupPNGS/game_2.png)
+
+![Game when it's your turn](mockupPNGS/game_2.png)
+
+![Display rules](mockupPNGS/rule%20overview.png)
+
+![Game End](mockupPNGS/Game%20End%20Screen.png)
+
+\newpage
+\newpage
+
 ## Rest Specification
 
 ### Description of the notation
