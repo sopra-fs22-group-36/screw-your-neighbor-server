@@ -35,12 +35,11 @@ class CardTest {
     assertTrue(card_1.isGreaterThan(card_2));
   }
 
-    @Test
-    public void compare_smaller_test() {
-        cardRank = CardRank.ACE;
-        cardSuit = CardSuit.DIAMOND;
-        Card card_2 = new Card(cardRank, cardSuit);
-        assertFalse(card_1.isGreaterThan(card_2));
-    }
-
+  @Test
+  public void compare_smaller_test() {
+    cardRank = CardRank.ACE;
+    cardSuit = CardSuit.DIAMOND;
+    Card card_2 = new Card(cardRank, cardSuit);
+    assertFalse(card_1.isGreaterThan(card_2));
+  }
 }

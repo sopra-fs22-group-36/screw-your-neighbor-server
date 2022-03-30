@@ -37,8 +37,7 @@ class StandardCardDeckTest {
     CardSuit cardSuit = CardSuit.SPADE;
     Card last_card = new Card(cardRank, cardSuit);
     // In very rare cases it may happen, that accidentally after shuffling, the top card is still
-    // the same as
-    // before the shuffling, then we shuffle again, before doing the assertion.
+    // the same as before the shuffling, then we shuffle again, before doing the assertion.
     if (card.getCardRank().equals(last_card.getCardRank())
         && card.getCardSuit().equals(last_card.getCardSuit())) {
       standardCardDeck.shuffle();
