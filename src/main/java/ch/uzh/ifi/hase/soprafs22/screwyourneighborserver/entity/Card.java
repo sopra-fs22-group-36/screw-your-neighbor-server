@@ -23,7 +23,7 @@ public class Card implements Comparable<Card> {
   }
 
   public int compareTo(Card c) {
-    if (c.cardRank.getValue() == this.cardRank.getValue()) {
+    if (c.cardRank.getValue().equals(this.cardRank.getValue())) {
       return 0;
     } else if (c.cardRank.getValue() < this.cardRank.getValue()) {
       return 1;
