@@ -16,6 +16,9 @@ public class Game {
   @OneToMany(mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
 
+  @OneToMany(mappedBy = "game")
+  private Collection<Match> matches = new ArrayList<>();
+
   @OneToOne(targetEntity = Game.class)
   private Game nextGame;
 
