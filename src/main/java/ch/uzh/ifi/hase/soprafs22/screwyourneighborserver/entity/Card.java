@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class Card {
+public class Card implements Comparable<Card> {
   @Id @GeneratedValue private Long id;
 
   private CardRank cardRank;
@@ -20,6 +20,31 @@ public class Card {
   public Card(CardRank cardRank, CardSuit cardSuit) {
     this.cardRank = cardRank;
     this.cardSuit = cardSuit;
+  }
+
+  public int compareTo(Card c) {
+    if (c.cardRank.getValue() == this.cardRank.getValue()) {
+      return 0;
+    } else if (c.cardRank.getValue() < this.cardRank.getValue()) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  public boolean isGreaterThan(Card c) {
+    if (this.compareTo(c) == 1) {
+      // this object is greater than specified object
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isEqualTo(Card c) {
+    if (c.compareTo(this) == 0) {
+      return true;
+    }
+    return false;
   }
 
   public Long getId() {
