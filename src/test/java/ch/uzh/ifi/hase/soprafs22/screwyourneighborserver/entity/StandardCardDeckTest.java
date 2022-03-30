@@ -39,11 +39,14 @@ class StandardCardDeckTest {
     // In very rare cases it may happen, that accidentally after shuffling, the top card is still
     // the same as
     // before the shuffling, then we shuffle again, before doing the assertion.
-    if (card.getCardRank().equals(last_card.getCardRank())) {
+    if (card.getCardRank().equals(last_card.getCardRank())
+        && card.getCardSuit().equals(last_card.getCardSuit())) {
       standardCardDeck.shuffle();
       card = standardCardDeck.drawCard();
     }
-    assertNotEquals(card.getCardRank(), last_card.getCardRank());
-    assertNotEquals(card.getCardSuit(), last_card.getCardSuit());
+    // either Rank or Suit should not be the same as before anymore.
+    assertTrue(
+        card.getCardRank() != last_card.getCardRank()
+            || card.getCardSuit() != last_card.getCardSuit());
   }
 }
