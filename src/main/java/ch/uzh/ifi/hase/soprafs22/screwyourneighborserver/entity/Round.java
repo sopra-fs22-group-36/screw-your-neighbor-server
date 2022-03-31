@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Round {
   @Id @GeneratedValue private Long id;
 
-  private int round_number;
+  private int roundNumber;
 
   @OneToMany(mappedBy = "round")
   private Collection<Turn> turns = new ArrayList<>();
@@ -21,8 +21,8 @@ public class Round {
     return id;
   }
 
-  public int getRound_number() {
-    return round_number;
+  public int getRoundNumber() {
+    return roundNumber;
   }
 
   public Collection<Turn> getTurns() {
@@ -38,8 +38,8 @@ public class Round {
     this.id = id;
   }
 
-  public void setRound_number(int round_number) {
-    this.round_number = round_number;
+  public void setRoundNumber(int roundNumber) {
+    this.roundNumber = roundNumber;
   }
 
   public void setTurns(Collection<Turn> turns) {

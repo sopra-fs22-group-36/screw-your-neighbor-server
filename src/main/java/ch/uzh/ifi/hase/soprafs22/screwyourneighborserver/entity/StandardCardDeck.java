@@ -14,14 +14,14 @@ public class StandardCardDeck implements CardDeck {
     for (CardSuit cardSuit : CardSuit.values()) {
       for (CardRank cardRank : cardRank.values()) {
         Card card = new Card(cardRank, cardSuit);
-        this.cardDeck.push(card);
+        cardDeck.push(card);
       }
     }
   }
 
   @Override
   public Card drawCard() {
-    return this.cardDeck.pop();
+    return cardDeck.pop();
   }
 
   public void shuffle() {

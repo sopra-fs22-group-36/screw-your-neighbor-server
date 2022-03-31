@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Match {
   @Id @GeneratedValue private Long id;
 
-  private int match_number;
+  private int matchNumber;
 
   @OneToMany(mappedBy = "match")
   private Collection<Round> rounds = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Match {
   }
 
   public int getMatch_number() {
-    return match_number;
+    return matchNumber;
   }
 
   public Collection<Round> getRounds() {
@@ -41,8 +41,8 @@ public class Match {
     this.id = id;
   }
 
-  public void setMatch_number(int match_number) {
-    this.match_number = match_number;
+  public void setMatch_number(int matchNumber) {
+    this.matchNumber = matchNumber;
   }
 
   public void setRounds(Collection<Round> rounds) {

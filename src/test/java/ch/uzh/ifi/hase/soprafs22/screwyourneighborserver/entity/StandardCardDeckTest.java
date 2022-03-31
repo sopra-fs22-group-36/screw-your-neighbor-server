@@ -22,10 +22,10 @@ class StandardCardDeckTest {
     // are ordered, we see that SIX/SPADE will be the top card (because it was added last)
     CardRank cardRank = CardRank.SIX;
     CardSuit cardSuit = CardSuit.SPADE;
-    Card last_card = new Card(cardRank, cardSuit);
+    Card lastCard = new Card(cardRank, cardSuit);
 
-    assertEquals(card.getCardRankName(), last_card.getCardRankName());
-    assertEquals(card.getCardSuitName(), last_card.getCardSuitName());
+    assertEquals(card.getCardRankName(), lastCard.getCardRankName());
+    assertEquals(card.getCardSuitName(), lastCard.getCardSuitName());
   }
 
   @Test
