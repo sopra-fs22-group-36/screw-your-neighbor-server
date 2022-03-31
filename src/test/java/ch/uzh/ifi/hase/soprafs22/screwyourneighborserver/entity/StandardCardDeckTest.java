@@ -24,8 +24,8 @@ class StandardCardDeckTest {
     CardSuit cardSuit = CardSuit.SPADE;
     Card last_card = new Card(cardRank, cardSuit);
 
-    assertEquals(card.getCardRank(), last_card.getCardRank());
-    assertEquals(card.getCardSuit(), last_card.getCardSuit());
+    assertEquals(card.getCardRankName(), last_card.getCardRankName());
+    assertEquals(card.getCardSuitName(), last_card.getCardSuitName());
   }
 
   @Test
@@ -38,14 +38,14 @@ class StandardCardDeckTest {
     Card last_card = new Card(cardRank, cardSuit);
     // In very rare cases it may happen, that accidentally after shuffling, the top card is still
     // the same as before the shuffling, then we shuffle again, before doing the assertion.
-    if (card.getCardRank().equals(last_card.getCardRank())
-        && card.getCardSuit().equals(last_card.getCardSuit())) {
+    if (card.getCardRankName().equals(last_card.getCardRankName())
+        && card.getCardSuitName().equals(last_card.getCardSuitName())) {
       standardCardDeck.shuffle();
       card = standardCardDeck.drawCard();
     }
     // either Rank or Suit should not be the same as before anymore.
     assertTrue(
-        card.getCardRank() != last_card.getCardRank()
-            || card.getCardSuit() != last_card.getCardSuit());
+        card.getCardRankName() != last_card.getCardRankName()
+            || card.getCardSuitName() != last_card.getCardSuitName());
   }
 }

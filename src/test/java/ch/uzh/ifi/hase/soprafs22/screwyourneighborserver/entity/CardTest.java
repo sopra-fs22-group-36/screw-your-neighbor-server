@@ -28,6 +28,15 @@ class CardTest {
   }
 
   @Test
+  public void compare_not_equal_test() {
+    cardRank = CardRank.NINE;
+    cardSuit = CardSuit.CLUB;
+    Card card_2 = new Card(cardRank, cardSuit);
+    assertFalse(card_1.isEqualTo(card_2));
+    assertFalse(card_2.isEqualTo(card_1));
+  }
+
+  @Test
   public void compare_greater_test() {
     cardRank = CardRank.EIGHT;
     cardSuit = CardSuit.HEART;
@@ -36,10 +45,11 @@ class CardTest {
   }
 
   @Test
-  public void compare_smaller_test() {
+  public void compare_smaller_greater_test() {
     cardRank = CardRank.ACE;
     cardSuit = CardSuit.DIAMOND;
     Card card_2 = new Card(cardRank, cardSuit);
     assertFalse(card_1.isGreaterThan(card_2));
+    assertTrue(card_2.isGreaterThan(card_1));
   }
 }
