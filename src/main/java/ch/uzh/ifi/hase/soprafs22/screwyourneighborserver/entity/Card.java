@@ -33,11 +33,7 @@ public class Card implements Comparable<Card> {
   }
 
   public boolean isGreaterThan(Card c) {
-    if (this.compareTo(c) > 0) {
-      // this object is greater than specified object
-      return true;
-    }
-    return false;
+    return (this.compareTo(c) > 0);
   }
 
   public boolean isEqualTo(Card c) {
