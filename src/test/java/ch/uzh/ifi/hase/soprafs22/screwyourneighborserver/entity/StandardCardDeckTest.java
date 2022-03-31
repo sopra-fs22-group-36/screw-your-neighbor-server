@@ -19,8 +19,8 @@ class StandardCardDeckTest {
     Card card = standardCardDeck.drawCard();
     // StandardCardSet is filled up by iterating over the Enum CardSuit and CardRank, by looking how
     // Suits and Ranks
-    // are ordered, we see that SIX/SPADE will be the top card (because it was added last)
-    CardRank cardRank = CardRank.SIX;
+    // are ordered, we see that ACE/SPADE will be the top card (because it was added last)
+    CardRank cardRank = CardRank.ACE;
     CardSuit cardSuit = CardSuit.SPADE;
     Card lastCard = new Card(cardRank, cardSuit);
 
@@ -33,7 +33,7 @@ class StandardCardDeckTest {
     StandardCardDeck previous = this.standardCardDeck;
     standardCardDeck.shuffle();
     Card card = standardCardDeck.drawCard();
-    CardRank cardRank = CardRank.SIX;
+    CardRank cardRank = CardRank.ACE;
     CardSuit cardSuit = CardSuit.SPADE;
     Card last_card = new Card(cardRank, cardSuit);
     // In very rare cases it may happen, that accidentally after shuffling, the top card is still
