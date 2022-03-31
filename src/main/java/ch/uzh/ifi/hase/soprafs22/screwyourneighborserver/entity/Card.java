@@ -37,10 +37,7 @@ public class Card implements Comparable<Card> {
   }
 
   public boolean isEqualTo(Card c) {
-    if (c.compareTo(this) == 0) {
-      return true;
-    }
-    return false;
+    return (c.compareTo(this) == 0);
   }
 
   public Long getId() {
