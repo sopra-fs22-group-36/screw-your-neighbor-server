@@ -33,7 +33,7 @@ public class Card implements Comparable<Card> {
   }
 
   public boolean isGreaterThan(Card c) {
-    if (this.compareTo(c) == 1) {
+    if (this.compareTo(c) > 0) {
       // this object is greater than specified object
       return true;
     }
@@ -51,11 +51,27 @@ public class Card implements Comparable<Card> {
     return this.id;
   }
 
-  public String getCardRank() {
+  public Hand getHand() {
+    return hand;
+  }
+
+  public Turn getTurn() {
+    return turn;
+  }
+
+  public CardRank getCardRank() {
+    return this.cardRank;
+  }
+
+  public CardSuit getCardSuit() {
+    return this.cardSuit;
+  }
+
+  public String getCardRankName() {
     return this.cardRank.name().toString();
   }
 
-  public String getCardSuit() {
+  public String getCardSuitName() {
     return this.cardSuit.name().toString();
   }
 
@@ -70,5 +86,13 @@ public class Card implements Comparable<Card> {
 
   public void setCardSuit(CardSuit cardSuit) {
     this.cardSuit = cardSuit;
+  }
+
+  public void setHand(Hand hand) {
+    this.hand = hand;
+  }
+
+  public void setTurn(Turn turn) {
+    this.turn = turn;
   }
 }
