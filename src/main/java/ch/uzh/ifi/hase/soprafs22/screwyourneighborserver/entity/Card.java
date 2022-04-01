@@ -17,6 +17,8 @@ public class Card implements Comparable<Card> {
   @OneToOne(cascade = {CascadeType.PERSIST})
   private Turn turn;
 
+  public Card() {}
+
   public Card(CardRank cardRank, CardSuit cardSuit) {
     this.cardRank = cardRank;
     this.cardSuit = cardSuit;
@@ -61,11 +63,11 @@ public class Card implements Comparable<Card> {
   }
 
   public String getCardRankName() {
-    return this.cardRank.name().toString();
+    return this.cardRank.name();
   }
 
   public String getCardSuitName() {
-    return this.cardSuit.name().toString();
+    return this.cardSuit.name();
   }
 
   @JsonIgnore
