@@ -9,8 +9,6 @@ import javax.persistence.Id;
 public class Player {
   @Id @GeneratedValue private Long id;
 
-  private String sessionId;
-
   private String name;
 
   public Long getId() {

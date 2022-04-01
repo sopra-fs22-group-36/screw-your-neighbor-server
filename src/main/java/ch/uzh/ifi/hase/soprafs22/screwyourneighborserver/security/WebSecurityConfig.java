@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -36,7 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .frameOptions()
         .sameOrigin();
 
-    http.authorizeRequests().anyRequest().permitAll();
+    http.sessionManagement(
+        sessionConfig -> {
+          sessionConfig.maximumSessions(1);
+          sessionConfig.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+          sessionConfig.enableSessionUrlRewriting(false);
+        });
 
     http.exceptionHandling();
 
