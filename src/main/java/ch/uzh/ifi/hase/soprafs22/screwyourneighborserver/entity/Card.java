@@ -14,8 +14,8 @@ public class Card implements Comparable<Card> {
   @ManyToOne(cascade = {CascadeType.PERSIST})
   private Hand hand;
 
-  @OneToOne(cascade = {CascadeType.PERSIST})
-  private Turn turn;
+  @ManyToOne(cascade = {CascadeType.PERSIST})
+  private Round round;
 
   public Card() {}
 
@@ -50,8 +50,8 @@ public class Card implements Comparable<Card> {
     return hand;
   }
 
-  public Turn getTurn() {
-    return turn;
+  public Round getRound() {
+    return round;
   }
 
   public CardRank getCardRank() {
@@ -87,7 +87,7 @@ public class Card implements Comparable<Card> {
     this.hand = hand;
   }
 
-  public void setTurn(Turn turn) {
-    this.turn = turn;
+  public void setRound(Round round) {
+    this.round = round;
   }
 }

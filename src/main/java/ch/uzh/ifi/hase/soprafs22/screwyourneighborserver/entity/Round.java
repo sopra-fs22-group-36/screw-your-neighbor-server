@@ -12,7 +12,7 @@ public class Round {
   private int roundNumber;
 
   @OneToMany(mappedBy = "round")
-  private Collection<Turn> turns = new ArrayList<>();
+  private Collection<Card> cards = new ArrayList<>();
 
   @ManyToOne(cascade = {CascadeType.PERSIST})
   private Match match;
@@ -25,8 +25,8 @@ public class Round {
     return roundNumber;
   }
 
-  public Collection<Turn> getTurns() {
-    return turns;
+  public Collection<Card> getCards() {
+    return cards;
   }
 
   public Match getMatch() {
@@ -42,8 +42,8 @@ public class Round {
     this.roundNumber = roundNumber;
   }
 
-  public void setTurns(Collection<Turn> turns) {
-    this.turns = turns;
+  public void setCards(Collection<Card> cards) {
+    this.cards = cards;
   }
 
   public void setMatch(Match match) {

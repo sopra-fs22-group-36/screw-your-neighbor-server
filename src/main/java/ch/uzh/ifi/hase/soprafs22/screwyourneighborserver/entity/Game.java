@@ -3,7 +3,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -13,23 +12,12 @@ public class Game {
   private String name;
 
   private GameState gameState = GameState.FINDING_PLAYERS;
-  /*
+
   @OneToMany(mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
 
   @OneToMany(mappedBy = "game")
   private Collection<Match> matches = new ArrayList<>();
-
-  @OneToOne(targetEntity = Game.class)
-  private Game nextGame;
-
-   */
-
-  @OneToMany(mappedBy = "game")
-  private List<Participation> participations = new ArrayList<>();
-
-  @OneToMany(mappedBy = "game")
-  private List<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)
   private Game nextGame;
