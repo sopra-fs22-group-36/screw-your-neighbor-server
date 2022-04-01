@@ -24,7 +24,7 @@ public class Match {
     return id;
   }
 
-  public int getMatch_number() {
+  public int getMatchNumber() {
     return matchNumber;
   }
 
@@ -41,7 +41,7 @@ public class Match {
     this.id = id;
   }
 
-  public void setMatch_number(int matchNumber) {
+  public void setMatchNumber(int matchNumber) {
     this.matchNumber = matchNumber;
   }
 
