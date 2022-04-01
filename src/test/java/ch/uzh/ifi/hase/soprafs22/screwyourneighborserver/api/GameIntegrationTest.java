@@ -57,10 +57,13 @@ public class GameIntegrationTest {
 
     assertTrue(insertedGame.getName().equals("game_1"));
 
+    Long id = gameRepository.findAllByName("game_1").get(0).getId();
+    String uri = "games/" + id.toString();
+
     var game1 =
         webTestClient
             .get()
-            .uri("/games/1")
+            .uri(uri)
             .exchange()
             .expectStatus()
             .isOk()
@@ -79,10 +82,13 @@ public class GameIntegrationTest {
     game.setName("My_Game");
     gameRepository.save(game);
 
+    Long id = gameRepository.findAllByName("My_Game").get(0).getId();
+    String uri = "games/" + id.toString();
+
     var game1 =
         webTestClient
             .get()
-            .uri("/games/1")
+            .uri(uri)
             .exchange()
             .expectStatus()
             .isOk()
@@ -120,7 +126,6 @@ public class GameIntegrationTest {
             .expectBody()
             .jsonPath("_embedded.games")
             .value(hasSize(3));
-
   }
 
   private void assertTrue(boolean game_1) {}
