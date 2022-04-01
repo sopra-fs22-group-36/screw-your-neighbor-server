@@ -55,7 +55,7 @@ public class GameIntegrationTest {
             .returnResult()
             .getResponseBody();
 
-    assertTrue(insertedGame.getName().equals("game_1"));
+    assertThat(insertedGame.getName(), equalTo(game.getName()));
 
     Long id = gameRepository.findAllByName("game_1").get(0).getId();
     String uri = "games/" + id.toString();
@@ -72,7 +72,7 @@ public class GameIntegrationTest {
             .getResponseBody();
 
     assertThat(game1, notNullValue());
-    assertTrue(game1.getName().equals(insertedGame.getName()));
+    assertThat(game1.getName(), equalTo(insertedGame.getName()));
   }
 
   @Test
@@ -97,8 +97,7 @@ public class GameIntegrationTest {
             .getResponseBody();
 
     assertThat(game1, notNullValue());
-    // Equals funktioniert auch, wenn ich einen falschen Wert im String habe --> überprüfen.
-    assertTrue(game1.getName().equals("My_Game"));
+    assertThat(game1.getName(), equalTo(game.getName()));
   }
 
   @Test
@@ -127,6 +126,4 @@ public class GameIntegrationTest {
             .jsonPath("_embedded.games")
             .value(hasSize(3));
   }
-
-  private void assertTrue(boolean game_1) {}
 }
