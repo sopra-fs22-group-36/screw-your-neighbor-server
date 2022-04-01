@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               corsConfiguration.setAllowedMethods(List.of(CorsConfiguration.ALL));
               corsConfiguration.setAllowedOrigins(
                   List.of("http://localhost:3000", "screw-your-neighbor-react.herokuapp.com"));
+              corsConfiguration.setAllowedHeaders(List.of(CorsConfiguration.ALL));
               return corsConfiguration;
             });
 
