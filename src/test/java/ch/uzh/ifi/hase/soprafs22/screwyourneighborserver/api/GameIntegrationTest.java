@@ -41,13 +41,13 @@ public class GameIntegrationTest {
 
   @Test
   public void create_game_and_return_created_game_by_ID() {
-    Game game = new Game();
-    game.setName("game_1");
+    GAME_1.setName("game_1");
+
     var insertedGame =
         webTestClient
             .post()
             .uri("/games")
-            .body(Mono.just(game), Game.class)
+            .body(Mono.just(GAME_1), Game.class)
             .exchange()
             .expectStatus()
             .isCreated()
@@ -55,7 +55,7 @@ public class GameIntegrationTest {
             .returnResult()
             .getResponseBody();
 
-    assertThat(insertedGame.getName(), equalTo(game.getName()));
+    assertThat(insertedGame.getName(), equalTo(GAME_1.getName()));
 
     Long id = gameRepository.findAllByName("game_1").get(0).getId();
     String uri = "games/" + id.toString();
@@ -71,16 +71,15 @@ public class GameIntegrationTest {
             .returnResult()
             .getResponseBody();
 
-    assertThat(game1, notNullValue());
-    assertThat(game1.getName(), equalTo(insertedGame.getName()));
+    assertThat(GAME_1, notNullValue());
+    assertThat(GAME_1.getName(), equalTo(insertedGame.getName()));
   }
 
   @Test
   public void return_found_game_by_ID() {
 
-    Game game = new Game();
-    game.setName("My_Game");
-    gameRepository.save(game);
+    GAME_1.setName("My_Game");
+    gameRepository.save(GAME_1);
 
     Long id = gameRepository.findAllByName("My_Game").get(0).getId();
     String uri = "games/" + id.toString();
@@ -97,7 +96,7 @@ public class GameIntegrationTest {
             .getResponseBody();
 
     assertThat(game1, notNullValue());
-    assertThat(game1.getName(), equalTo(game.getName()));
+    assertThat(game1.getName(), equalTo(GAME_1.getName()));
   }
 
   @Test
