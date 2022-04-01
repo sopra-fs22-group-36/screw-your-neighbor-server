@@ -1,0 +1,210 @@
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
+
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
+import java.time.Duration;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Streamable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class PlayerIntegrationTest {
+  private static final String ENDPOINT = "/players";
+
+  private static final Player PLAYER_1 = new Player();
+  private static final Player PLAYER_2 = new Player();
+
+  @LocalServerPort private int port;
+
+  @Autowired private PlayerRepository playerRepository;
+
+  private WebTestClient webTestClient;
+
+  @BeforeEach
+  public void setup() {
+    webTestClient =
+        WebTestClient.bindToServer()
+            .responseTimeout(Duration.ofMinutes(1))
+            .baseUrl(createBaseUrl())
+            .build();
+
+    PLAYER_1.setName("test");
+    PLAYER_2.setName("test2");
+
+    playerRepository.deleteAll();
+  }
+
+  @Test
+  public void create_a_player() {
+    HttpHeaders headers =
+        webTestClient
+            .post()
+            .uri(ENDPOINT)
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .jsonPath("name")
+            .isEqualTo(PLAYER_1.getName())
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(headers);
+
+    Iterable<Player> allPlayers = playerRepository.findAll();
+    Player player = Streamable.of(allPlayers).stream().findFirst().orElseThrow();
+
+    String playerUri = "%s%s/%s".formatted(createBaseUrl(), ENDPOINT, player.getId());
+    webTestClient
+        .get()
+        .uri(playerUri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(PLAYER_1.getName())
+        .jsonPath("_links.self.href")
+        .isEqualTo(playerUri);
+  }
+
+  @Test
+  public void create_2_players_with_the_same_session_fails() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri(ENDPOINT)
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .jsonPath("name")
+            .isEqualTo(PLAYER_1.getName())
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    webTestClient
+        .post()
+        .uri(ENDPOINT)
+        .body(BodyInserters.fromValue(PLAYER_2))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+  }
+
+  @Test
+  public void patch_own_player() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri(ENDPOINT)
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .jsonPath("name")
+            .isEqualTo(PLAYER_1.getName())
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    Iterable<Player> allPlayers = playerRepository.findAll();
+    Player player = Streamable.of(allPlayers).stream().findFirst().orElseThrow();
+    String anotherName = "another name";
+    PLAYER_1.setName(anotherName);
+
+    webTestClient
+        .patch()
+        .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, player.getId()))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .body(BodyInserters.fromValue(PLAYER_1))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(PLAYER_1.getName());
+
+    allPlayers = playerRepository.findAll();
+    player = Streamable.of(allPlayers).stream().findFirst().orElseThrow();
+
+    assertThat(player.getName(), is(PLAYER_1.getName()));
+  }
+
+  @Test
+  public void patch_player_when_unauthorized_fails() {
+    playerRepository.save(PLAYER_1);
+
+    PLAYER_1.setName("another name");
+    Iterable<Player> allPlayers = playerRepository.findAll();
+    Player player = Streamable.of(allPlayers).stream().findFirst().orElseThrow();
+
+    webTestClient
+        .patch()
+        .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, player.getId()))
+        .body(BodyInserters.fromValue(PLAYER_1))
+        .exchange()
+        .expectStatus()
+        .isUnauthorized();
+  }
+
+  @Test
+  public void patch_other_player_fails() {
+    playerRepository.save(PLAYER_2);
+
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri(ENDPOINT)
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .jsonPath("name")
+            .isEqualTo(PLAYER_1.getName())
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    String anotherName = "another name";
+    PLAYER_1.setName(anotherName);
+    Iterable<Player> player2Collection =
+        playerRepository.findAllByName(PLAYER_2.getName(), Pageable.unpaged());
+    Player player = Streamable.of(player2Collection).stream().findFirst().orElseThrow();
+
+    webTestClient
+        .patch()
+        .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, player.getId()))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .body(BodyInserters.fromValue(PLAYER_1))
+        .exchange()
+        .expectStatus()
+        .isForbidden();
+  }
+
+  private String createBaseUrl() {
+    return "http://localhost:" + port;
+  }
+}
