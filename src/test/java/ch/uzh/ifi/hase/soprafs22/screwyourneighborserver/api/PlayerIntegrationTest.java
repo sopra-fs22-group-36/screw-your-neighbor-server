@@ -2,7 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
@@ -44,6 +44,45 @@ public class PlayerIntegrationTest {
     PLAYER_2.setName("test2");
 
     playerRepository.deleteAll();
+  }
+
+  @Test
+  public void get_all_players_is_empty_without_players() {
+    webTestClient
+        .get()
+        .uri(ENDPOINT)
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.players")
+        .value(is(emptyCollectionOf(Player.class)));
+  }
+
+  @Test
+  public void get_all_players_from_repository() {
+    playerRepository.save(PLAYER_1);
+    playerRepository.save(PLAYER_2);
+
+    webTestClient
+        .get()
+        .uri(ENDPOINT)
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.players")
+        .value(hasSize(2));
+  }
+
+  @Test
+  public void get_not_existing_player_fails() {
+    webTestClient
+        .get()
+        .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, "1"))
+        .exchange()
+        .expectStatus()
+        .isNotFound();
   }
 
   @Test
