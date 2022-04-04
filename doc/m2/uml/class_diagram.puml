@@ -32,6 +32,13 @@ class Participation {
 class Match {
     - long id
     - int matchNumber
+    - MatchState matchstate
+}
+
+enum MatchState {
+    ANNOUNCING_TRICKS,
+    PLAYING_CARDS,
+    FINISHED
 }
 
 class ScoreAnnouncement {
