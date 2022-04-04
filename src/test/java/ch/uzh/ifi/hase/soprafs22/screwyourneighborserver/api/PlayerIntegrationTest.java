@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import java.time.Duration;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
@@ -61,8 +61,8 @@ public class PlayerIntegrationTest {
 
   @Test
   public void get_all_players_from_repository() {
-    playerRepository.save(PLAYER_1);
-    playerRepository.save(PLAYER_2);
+    playerRepository.saveAll(List.of(PLAYER_1));
+    playerRepository.saveAll(List.of(PLAYER_2));
 
     webTestClient
         .get()
@@ -146,7 +146,7 @@ public class PlayerIntegrationTest {
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
-        .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+        .isForbidden();
   }
 
   @Test
@@ -192,7 +192,7 @@ public class PlayerIntegrationTest {
 
   @Test
   public void patch_player_when_unauthorized_fails() {
-    playerRepository.save(PLAYER_1);
+    playerRepository.saveAll(List.of(PLAYER_1));
 
     PLAYER_1.setName("another name");
     Iterable<Player> allPlayers = playerRepository.findAll();
@@ -204,12 +204,12 @@ public class PlayerIntegrationTest {
         .body(BodyInserters.fromValue(PLAYER_1))
         .exchange()
         .expectStatus()
-        .isUnauthorized();
+        .isForbidden();
   }
 
   @Test
   public void patch_other_player_fails() {
-    playerRepository.save(PLAYER_2);
+    playerRepository.saveAll(List.of(PLAYER_2));
 
     HttpHeaders responseHeaders =
         webTestClient
