@@ -53,4 +53,8 @@ public class Participation {
   public void setPlayer(Player player) {
     this.player = player;
   }
+
+  public void setParticipationNumber(Integer participationNumber) {
+    this.participationNumber = participationNumber;
+  }
 }
