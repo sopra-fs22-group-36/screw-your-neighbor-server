@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:PersonEntersStartingPage;
+:EnterPlayersName
+POST /players
+;
+:ClickPlay;
+:EnterLobby
+GET /games
+;
+'if (EnterRoom) then (CreateNewRoom)
+    ':CreateNewRoom;
+'else (ExistingRoom)
+    ':EnterExistingRoom;
+'endif
+:EnterRoom
+POST /participations
+(Oder POST /games)
+;
+repeat
+repeat
+repeat
+    if (PlayersInRoom) then (else)
+        :Wait;
+    else (NoOfPlayers > 1 and SomeoneClickStart)
+        :start game
+        PATCH /games/1 {gameState: "PLAYING"};
+        repeat
+        :StartGame;
+        repeat
+            :StartMatch;
+            :DistributeCards;
+            : GET /games/1 pollen;
+            :AnnounceTricks
+            POST /scoreannouncements {announcedScore: 3, participations: /participations/1, game: /games/1};
+            :DisplayAnnouncements
+            GET /games/1 pollen
+            ;
+            :PlayRound;
+            repeat
+            :PlayerPlaysCard
+            PATCH /cards/1 {round: /rounds/1};
+            repeat while (NotEveryonePlayed)
+            :DisplayScore;
+            backward: PlayNextRound;
+        repeat while (MatchesPlayed < 9)
+        :DisplayScoreBoard;
+        backward: PlayAgain;
+        repeat while (ThatWasFun)
+        :LeaveRoom;
+        stop
+    endif
+repeat while (MorePlayersJoin)
+repeat while (SomeoneClickStart)
+
+@enduml
