@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Player {
   @Id @GeneratedValue private Long id;
 
+  @NotBlank
+  @Size(min = 3, max = 50)
   private String name;
 
   public Long getId() {

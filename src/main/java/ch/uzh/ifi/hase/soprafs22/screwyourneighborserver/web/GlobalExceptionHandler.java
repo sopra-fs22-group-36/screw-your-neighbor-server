@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.web;
 
+import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ public class GlobalExceptionHandler {
       })
   private ResponseEntity<String> handleConflict(HttpClientErrorException e) {
     return logResponse(e, ResponseEntity.status(e.getStatusCode()).body(e.getMessage()));
+  }
+
+  @ExceptionHandler(value = {ConstraintViolationException.class})
+  private ResponseEntity<String> handleConstraintViolation(ConstraintViolationException e) {
+    return ResponseEntity.badRequest().body(e.getMessage());
   }
 
   private static <T> ResponseEntity<T> logResponse(Throwable e, ResponseEntity<T> response) {
