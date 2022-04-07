@@ -160,52 +160,52 @@ public class GameIntegrationTest {
   }
 
   @Test
-  //Patch method on gameState change to PLAYING
-  public void change_game_and_return_changed_game_by_ID(){
-    //First create a player for a SessionID
+  // Patch method on gameState change to PLAYING
+  public void change_game_and_return_changed_game_by_ID() {
+    // First create a player for a SessionID
     HttpHeaders responseHeaders =
-            webTestClient
-                    .post()
-                    .uri("/players")
-                    .body(BodyInserters.fromValue(PLAYER_1))
-                    .exchange()
-                    .expectStatus()
-                    .isCreated()
-                    .expectBody()
-                    .returnResult()
-                    .getResponseHeaders();
-
-    String sessionId = getSessionIdOf(responseHeaders);
-    GAME_1.setName("game_1");
-
-    //Create a new game
-    webTestClient
+        webTestClient
             .post()
-            .uri("/games")
-            .body(Mono.just(GAME_1), Game.class)
-            .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
             .exchange()
             .expectStatus()
             .isCreated()
             .expectBody()
-            .jsonPath("name")
-            .isEqualTo(GAME_1.getName())
-            .jsonPath("_embedded.participations")
-            .isNotEmpty()
-            .jsonPath("_embedded.participations[0].player.name")
-            .isEqualTo(PLAYER_1.getName());
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    GAME_1.setName("game_1");
+
+    // Create a new game
+    webTestClient
+        .post()
+        .uri("/games")
+        .body(Mono.just(GAME_1), Game.class)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isCreated()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(GAME_1.getName())
+        .jsonPath("_embedded.participations")
+        .isNotEmpty()
+        .jsonPath("_embedded.participations[0].player.name")
+        .isEqualTo(PLAYER_1.getName());
 
     Long id = gameRepository.findAllByName("game_1").get(0).getId();
     String uri = "games/" + id.toString();
 
-    //Without check whether the game exists (no get()) change the gameState with patch() request
+    // Without check whether the game exists (no get()) change the gameState with patch() request
     webTestClient
-            .patch()
-            .uri(uri)
-            .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-            .body(BodyInserters.fromValue(GAME_2)) //Game 2 has different gameState = PLAYING
-            .exchange()
-            .expectStatus()
-            .isOk();
+        .patch()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .body(BodyInserters.fromValue(GAME_2)) // Game 2 has different gameState = PLAYING
+        .exchange()
+        .expectStatus()
+        .isOk();
   }
 }

@@ -18,7 +18,8 @@ public class GameEventHandler {
   private final ParticipationRepository participationRepository;
   private final ScoreAnnouncementRepository scoreAnnRepo;
 
-  public GameEventHandler(ParticipationRepository participationRepository, ScoreAnnouncementRepository scoreAnnRepo) {
+  public GameEventHandler(
+      ParticipationRepository participationRepository, ScoreAnnouncementRepository scoreAnnRepo) {
     this.participationRepository = participationRepository;
     this.scoreAnnRepo = scoreAnnRepo;
   }
@@ -42,13 +43,12 @@ public class GameEventHandler {
 
   @SuppressWarnings("unsued")
   @HandleAfterSave
-  public void handleAfterSave(Game game){
+  public void handleAfterSave(Game game) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (!(authentication.getPrincipal() instanceof Player)) {
       throw new HttpClientErrorException(
-              HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
-    }
-    else {
+          HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
+    } else {
       if (game.getGameState().equals(GameState.PLAYING)) {
         ScoreAnnouncement scoreAnn = new ScoreAnnouncement();
         scoreAnn.setAnnouncedScore(5);
