@@ -7,9 +7,7 @@ import static org.hamcrest.Matchers.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -33,6 +31,8 @@ public class GameIntegrationTest {
   @Autowired private GameRepository gameRepository;
   @Autowired private ParticipationRepository participationRepository;
   @Autowired private PlayerRepository playerRepository;
+  @Autowired private MatchRepository matchRepo;
+  @Autowired private HandRepository handRepo;
 
   private static final Player PLAYER_1 = new Player();
   private static final Game GAME_1 = new Game();
@@ -52,6 +52,8 @@ public class GameIntegrationTest {
     GAME_1.setGameState(GameState.FINDING_PLAYERS);
     GAME_2.setGameState(GameState.PLAYING);
     participationRepository.deleteAll();
+    handRepo.deleteAll();
+    matchRepo.deleteAll();
     gameRepository.deleteAll();
     playerRepository.deleteAll();
   }
@@ -161,7 +163,7 @@ public class GameIntegrationTest {
 
   @Test
   // Patch method on gameState change to PLAYING
-  public void change_game_and_return_changed_game_by_ID() {
+  public void change_gameState_and_return_changed_gameState_by_ID() {
     // First create a player for a SessionID
     HttpHeaders responseHeaders =
         webTestClient
@@ -208,5 +210,66 @@ public class GameIntegrationTest {
         .exchange()
         .expectStatus()
         .isOk();
+  }
+
+  @Test
+  // Patch method on gameState change to PLAYING: A match should be created
+  public void change_gameState_and_return_and_check_matchContent_by_ID() {
+    // First create a player for a SessionID
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    GAME_1.setName("game_1");
+
+    // Create a new game
+    webTestClient
+        .post()
+        .uri("/games")
+        .body(Mono.just(GAME_1), Game.class)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isCreated()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(GAME_1.getName())
+        .jsonPath("_embedded.participations")
+        .isNotEmpty()
+        .jsonPath("_embedded.participations[0].player.name")
+        .isEqualTo(PLAYER_1.getName());
+
+    Long id = gameRepository.findAllByName("game_1").get(0).getId();
+    String uri = "games/" + id.toString();
+    GAME_1.setGameState(GameState.PLAYING);
+
+    // Without check whether the game exists (no get()) change the gameState with patch() request
+    webTestClient
+        .patch()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .body(BodyInserters.fromValue(GAME_1)) // Game 2 has different gameState = PLAYING
+        .exchange()
+        .expectStatus()
+        .isOk();
+
+    var result =
+        webTestClient
+            .get()
+            .uri("/games")
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody()
+            .jsonPath("_embedded.games");
   }
 }

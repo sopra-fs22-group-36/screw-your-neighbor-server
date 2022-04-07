@@ -15,6 +15,8 @@ public class Hand {
   @ManyToOne(cascade = {CascadeType.PERSIST})
   private Match match;
 
+  @ManyToOne private Participation participation;
+
   public Long getId() {
     return id;
   }
@@ -38,5 +40,13 @@ public class Hand {
 
   public void setMatch(Match match) {
     this.match = match;
+  }
+
+  public Participation getParticipation() {
+    return participation;
+  }
+
+  public void setParticipation(Participation participation) {
+    this.participation = participation;
   }
 }

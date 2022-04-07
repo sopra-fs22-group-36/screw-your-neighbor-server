@@ -16,7 +16,9 @@ public class Game {
   @OneToMany(mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
 
-  @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST})
+  @OneToMany(
+      mappedBy = "game",
+      cascade = {CascadeType.PERSIST})
   private Collection<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)
