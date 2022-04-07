@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ScoreAnnouncementRepository;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
@@ -16,12 +17,12 @@ import org.springframework.web.client.HttpClientErrorException;
 @RepositoryEventHandler
 public class GameEventHandler {
   private final ParticipationRepository participationRepository;
-  private final ScoreAnnouncementRepository scoreAnnRepo;
+  private final MatchRepository matchRepo;
 
   public GameEventHandler(
-      ParticipationRepository participationRepository, ScoreAnnouncementRepository scoreAnnRepo) {
+      ParticipationRepository participationRepository, MatchRepository matchRepo) {
     this.participationRepository = participationRepository;
-    this.scoreAnnRepo = scoreAnnRepo;
+    this.matchRepo = matchRepo;
   }
 
   @SuppressWarnings("unused")
@@ -50,9 +51,10 @@ public class GameEventHandler {
           HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
     } else {
       if (game.getGameState().equals(GameState.PLAYING)) {
-        ScoreAnnouncement scoreAnn = new ScoreAnnouncement();
-        scoreAnn.setAnnouncedScore(5);
-        scoreAnnRepo.save(scoreAnn);
+        Match match = new Match();
+        //match.setGame(game);
+        match.setMatchState(MatchState.ANNOUNCING);
+        matchRepo.save(match);
       }
     }
   }

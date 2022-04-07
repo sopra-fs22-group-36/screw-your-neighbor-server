@@ -20,6 +20,8 @@ public class Match {
   @ManyToOne(cascade = {CascadeType.PERSIST})
   private Game game;
 
+  private MatchState matchState;
+
   public Long getId() {
     return id;
   }
@@ -34,6 +36,10 @@ public class Match {
 
   public Game getGame() {
     return game;
+  }
+
+  public MatchState getMatchState() {
+    return matchState;
   }
 
   @JsonIgnore
@@ -51,5 +57,9 @@ public class Match {
 
   public void setGame(Game game) {
     this.game = game;
+  }
+
+  public void setMatchState(MatchState matchState) {
+    this.matchState = matchState;
   }
 }

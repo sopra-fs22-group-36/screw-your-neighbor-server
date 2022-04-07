@@ -197,13 +197,14 @@ public class GameIntegrationTest {
 
     Long id = gameRepository.findAllByName("game_1").get(0).getId();
     String uri = "games/" + id.toString();
+    GAME_1.setGameState(GameState.PLAYING);
 
     // Without check whether the game exists (no get()) change the gameState with patch() request
     webTestClient
         .patch()
         .uri(uri)
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .body(BodyInserters.fromValue(GAME_2)) // Game 2 has different gameState = PLAYING
+        .body(BodyInserters.fromValue(GAME_1)) // Game 2 has different gameState = PLAYING
         .exchange()
         .expectStatus()
         .isOk();
