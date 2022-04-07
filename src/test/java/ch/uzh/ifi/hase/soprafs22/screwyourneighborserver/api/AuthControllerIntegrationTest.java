@@ -40,6 +40,11 @@ class AuthControllerIntegrationTest {
   }
 
   @Test
+  public void return_unauthorized_if_no_session_active() {
+    webTestClient.get().uri("/auth/session").exchange().expectStatus().isUnauthorized();
+  }
+
+  @Test
   void return_player_if_session_is_active() {
     HttpHeaders responseHeaders =
         webTestClient
@@ -69,6 +74,71 @@ class AuthControllerIntegrationTest {
         .isEqualTo(PLAYER_1.getName())
         .jsonPath("_links.self.href")
         .isEqualTo("%s/players/%s".formatted(createBaseUrl(), createdPlayer.getId()));
+  }
+
+  @Test
+  void return_not_found_if_player_was_deleted_in_database() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    playerRepository.deleteAll();
+
+    webTestClient
+        .get()
+        .uri("/auth/session")
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isNotFound();
+  }
+
+  @Test
+  void clear_principal_on_logout() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    webTestClient
+        .post()
+        .uri("/auth/logout")
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isNoContent();
+
+    webTestClient
+        .get()
+        .uri("/auth/session")
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isUnauthorized();
+  }
+
+  @Test
+  public void return_unauthorized_if_there_was_no_principal_to_clear() {
+    webTestClient.post().uri("/auth/logout").exchange().expectStatus().isUnauthorized();
   }
 
   private String createBaseUrl() {
