@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:StartGameWith4Players;
+:PlaySomeRoundsAndMatches;
+#Pink:PlayersTurnButNoReaction;
+:What happens?;
+switch (When?)
+case ( case 1 )
+    :WhilePlayingRound;
+case ( case 2 )
+    :WhileAnnouncingRound;
+endswitch
+
+
+stop
+
+@enduml

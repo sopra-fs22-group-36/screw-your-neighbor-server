@@ -1,7 +1,5 @@
 \usepackage{etoolbox}
 \usepackage{xstring}
-\setlength{\aboverulesep}{0pt}
-\setlength{\belowrulesep}{0pt}
 \renewcommand{\arraystretch}{1.8}
 \makeatletter
 \patchcmd{\LT@array}{\@mkpream{#2}}{\StrGobbleLeft{#2}{2}[\pream]\StrGobbleRight{\pream}{2}[\pream]\StrSubstitute{\pream}{l}{|l}[\pream]\@mkpream{@{}\pream|@{}}}{}{}

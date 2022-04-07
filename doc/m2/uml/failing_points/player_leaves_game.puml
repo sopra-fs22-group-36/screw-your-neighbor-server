@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:StartGameWithNPlayers;
+:PlaySomeRoundsAndMatches;
+#Pink:OnePlayerLeavesGameByClosingBrowserWindow;
+switch (What happens?)
+case ( case 1 )
+    :WhilePlayingRound;
+        switch(When?)
+        case (case 1.1)
+            :PlayersTurn;
+            :Wait?;
+        case (case 1.2)
+             :OtherPlayersTurn;
+             :ContinuePlayingUntil...;
+        endswitch
+case ( case 2 )
+    :BetweenTwoMatches;
+    switch(When?)
+    case (case 2.1)
+        :BeforeCardsDistribution;
+    case (case 2.2)
+         :AfterCardsDistribution;
+    endswitch
+case ( case 3 )
+    :AnnouncingRound;
+        switch(When?)
+            case (case 3.1)
+            :WhileAnnouncements;
+        case (case 3.1)
+            :BeforeAnnouncements;
+        case (case 3.3)
+             :AfterAnnouncements;
+        endswitch
+endswitch
+
+stop
+
+@enduml
