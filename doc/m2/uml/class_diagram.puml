@@ -48,9 +48,6 @@ class ScoreAnnouncement {
 class Hand {
 }
 
-class Turn {
-
-}
 
 class Round {
     - long id
@@ -63,10 +60,10 @@ class Card {
 }
 
 enum Suit {
-    CLUBS,
-    DIAMONDS,
-    HEARTS,
-    SPADES
+    CLUB,
+    DIAMOND,
+    HEART,
+    SPADE
 }
 
 enum Rank {
@@ -97,8 +94,7 @@ Game "1" -- "1..9" Match
 
 Match "1" -- "1..5" Round
 
-Round "1" -- "*" Turn
+Round "1" -- "1..7" Card
 
-Turn "1" -- "1" Card
 
 @enduml
