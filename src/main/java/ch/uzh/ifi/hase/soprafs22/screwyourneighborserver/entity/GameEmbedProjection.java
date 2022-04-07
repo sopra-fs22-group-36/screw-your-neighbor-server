@@ -15,5 +15,7 @@ public interface GameEmbedProjection {
 
   Collection<ParticipationEmbedProjection> getParticipations();
 
+  Collection<MatchEmbedProjection> getMatches();
+
   Game getNextGame();
 }

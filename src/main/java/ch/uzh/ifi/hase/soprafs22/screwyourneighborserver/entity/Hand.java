@@ -15,7 +15,8 @@ public class Hand {
   @ManyToOne(cascade = {CascadeType.PERSIST})
   private Match match;
 
-  @ManyToOne private Participation participation;
+  @ManyToOne(cascade = {CascadeType.PERSIST})
+  private Participation participation;
 
   public Long getId() {
     return id;

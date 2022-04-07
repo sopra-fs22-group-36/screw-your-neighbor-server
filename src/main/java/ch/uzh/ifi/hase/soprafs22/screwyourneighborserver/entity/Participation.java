@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,9 @@ public class Participation {
   private Game game;
 
   @ManyToOne private Player player;
+
+  @OneToMany(mappedBy = "participation")
+  private Collection<Hand> hands = new ArrayList<>();
 
   public Long getId() {
     return id;
@@ -56,5 +61,9 @@ public class Participation {
 
   public void setParticipationNumber(Integer participationNumber) {
     this.participationNumber = participationNumber;
+  }
+
+  public Collection<Hand> getHands() {
+    return hands;
   }
 }
