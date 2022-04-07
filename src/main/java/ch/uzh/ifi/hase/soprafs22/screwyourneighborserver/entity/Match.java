@@ -17,7 +17,7 @@ public class Match {
   @OneToMany(mappedBy = "match")
   private Collection<Hand> hands = new ArrayList<>();
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
+  @ManyToOne(fetch = FetchType.LAZY)
   private Game game;
 
   private MatchState matchState;
