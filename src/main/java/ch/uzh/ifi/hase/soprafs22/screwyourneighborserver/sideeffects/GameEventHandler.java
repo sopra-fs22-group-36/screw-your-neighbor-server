@@ -21,17 +21,20 @@ public class GameEventHandler {
   private final MatchRepository matchRepo;
   private final HandRepository handRepo;
   private final CardRepository cardRepo;
+  private final RoundRepository roundRepo;
   private CardDeck myDeck;
 
   public GameEventHandler(
       ParticipationRepository participationRepository,
       MatchRepository matchRepo,
       HandRepository handRepo,
-      CardRepository cardRepo) {
+      CardRepository cardRepo,
+      RoundRepository roundRepo) {
     this.participationRepository = participationRepository;
     this.matchRepo = matchRepo;
     this.handRepo = handRepo;
     this.cardRepo = cardRepo;
+    this.roundRepo = roundRepo;
     myDeck = new StandardCardDeck();
   }
 
@@ -61,10 +64,14 @@ public class GameEventHandler {
           HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
     } else {
       if (game.getGameState().equals(GameState.PLAYING)) {
-        // Create a match
+        // Create a match and Round
         Match match = new Match();
+        Round round = new Round();
+        round.setRoundNumber(1986);
+
         match.setGame(game);
-        match.setRounds(Arrays.asList(new Round()));
+        match.setMatchNumber(123);
+        match.setRounds(Arrays.asList(round));
         match.setMatchState(MatchState.DISTRIBUTE);
         matchRepo.save(match);
 
@@ -82,10 +89,14 @@ public class GameEventHandler {
           for (int j = 0; j < numOfCards; j++) {
             Card card = myDeck.drawCard();
             cardsPerHand.add(card);
+            card.setRound(round);
             cardRepo.save(card);
           }
           hand.setCards(cardsPerHand);
           handRepo.save(hand);
+
+          round.setCards(cardsPerHand);
+          roundRepo.save(round);
         }
       }
     }

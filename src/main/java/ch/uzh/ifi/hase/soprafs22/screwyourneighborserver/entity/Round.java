@@ -14,7 +14,7 @@ public class Round {
   @OneToMany(mappedBy = "round")
   private Collection<Card> cards = new ArrayList<>();
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
+  @ManyToOne(fetch = FetchType.LAZY)
   private Match match;
 
   public Long getId() {

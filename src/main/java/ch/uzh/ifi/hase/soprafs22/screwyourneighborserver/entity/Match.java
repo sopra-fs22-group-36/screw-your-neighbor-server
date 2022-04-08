@@ -11,7 +11,9 @@ public class Match {
 
   private int matchNumber;
 
-  @OneToMany(mappedBy = "match")
+  @OneToMany(
+      mappedBy = "match",
+      cascade = {CascadeType.PERSIST})
   private Collection<Round> rounds = new ArrayList<>();
 
   @OneToMany(mappedBy = "match")
