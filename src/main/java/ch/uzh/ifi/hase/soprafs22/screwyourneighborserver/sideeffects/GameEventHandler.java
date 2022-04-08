@@ -5,6 +5,9 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -46,6 +49,7 @@ public class GameEventHandler {
       throw new HttpClientErrorException(
           HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
     }
+    long partNum = 1;
     Player player = (Player) authentication.getPrincipal();
     Participation participation = new Participation();
     participation.setGame(game);
@@ -58,47 +62,93 @@ public class GameEventHandler {
   @SuppressWarnings("unsued")
   @HandleAfterSave
   public void handleAfterSave(Game game) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (!(authentication.getPrincipal() instanceof Player)) {
-      throw new HttpClientErrorException(
-          HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
-    } else {
-      if (game.getGameState().equals(GameState.PLAYING)) {
-        // Create a match and Round
-        Match match = new Match();
-        Round round = new Round();
-        round.setRoundNumber(1986);
+    if (game.getGameState().equals(GameState.PLAYING)) {
+      reorganizeParticipationNumber(game);
+      // Create a match and Round
+      Round round = createRound();
+      Match match = createMatch(game, round);
 
-        match.setGame(game);
-        match.setMatchNumber(123);
-        match.setRounds(Arrays.asList(round));
-        match.setMatchState(MatchState.DISTRIBUTE);
-        matchRepo.save(match);
+      // Create Hands according number of players
+      int numOfCards = 2;
+      Collection<Card> cardsPerHand = new ArrayList<>();
 
-        // Create Hands according number of players
-        int numOfCards = 2;
-        Collection<Card> cardsPerHand = new ArrayList<>();
+      // for each player
+      for (var el : game.getParticipations()) {
+        Hand hand = createHand(match, el);
+        handRepo.save(hand);
 
-        // for each player
-        for (var el : game.getParticipations()) {
-          Hand hand = new Hand();
-          hand.setMatch(match);
-          // Link hand to player
-          hand.setParticipation(el);
-          // draw a number of cards
-          for (int j = 0; j < numOfCards; j++) {
-            Card card = myDeck.drawCard();
-            cardsPerHand.add(card);
-            card.setRound(round);
-            cardRepo.save(card);
-          }
-          hand.setCards(cardsPerHand);
-          handRepo.save(hand);
-
-          round.setCards(cardsPerHand);
-          roundRepo.save(round);
+        // draw a number of cards
+        for (int j = 0; j < numOfCards; j++) {
+          Card card = createCard(round);
+          cardsPerHand.add(card);
+          card.setHand(hand);
+          cardRepo.save(card);
         }
+        hand.setCards(cardsPerHand);
+
+        round.setCards(cardsPerHand);
+        roundRepo.save(round);
       }
+      match.setMatchState(MatchState.ANNOUNCING);
     }
+  }
+
+  /**
+   * Create a new card, drawn from a deck
+   * @param round
+   * @return random drawn card
+   */
+  private Card createCard(Round round) {
+    Card card = myDeck.drawCard();
+    card.setRound(round);
+    return card;
+  }
+
+  /**
+   * Create a hand and add the hand to a player
+   * @param match
+   * @param participation
+   * @return player hand
+   */
+  private Hand createHand(Match match, Participation participation) {
+    Hand hand = new Hand();
+    hand.setMatch(match);
+    // Link hand to player
+    hand.setParticipation(participation);
+    return hand;
+  }
+
+  /**
+   *
+   * @return
+   */
+  private Round createRound() {
+    Round round = new Round();
+    round.setRoundNumber(1986);
+    return round;
+  }
+
+  /**
+   * After a Game is started, each player which joined to the game will reorganize in which order the player is
+   * in the
+   * @param game
+   */
+  private void reorganizeParticipationNumber(Game game){
+    Page<Participation> part = participationRepository.findAllByGame(game, Pageable.unpaged());
+    int i = 0;
+    for (var el : part){
+      el.setParticipationNumber(i);
+      i++;
+    }
+  }
+
+  private Match createMatch(Game game, Round round){
+    Match match = new Match();
+    match.setGame(game);
+    match.setMatchNumber(123);
+    match.setRounds(Arrays.asList(round));
+    match.setMatchState(MatchState.DISTRIBUTE);
+    matchRepo.save(match);
+    return match;
   }
 }
