@@ -10,5 +10,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(excerptProjection = ParticipationEmbedProjection.class)
 public interface ParticipationRepository extends PagingAndSortingRepository<Participation, Long> {
-    Page<Participation> findAllByGame(Game game, Pageable page);
+  Page<Participation> findAllByGame(Game game, Pageable page);
 }

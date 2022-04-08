@@ -33,6 +33,8 @@ public class GameIntegrationTest {
   @Autowired private PlayerRepository playerRepository;
   @Autowired private MatchRepository matchRepo;
   @Autowired private HandRepository handRepo;
+  @Autowired private RoundRepository roundRepo;
+  @Autowired private CardRepository cardRepo;
 
   private static final Player PLAYER_1 = new Player();
   private static final Game GAME_1 = new Game();
@@ -52,7 +54,9 @@ public class GameIntegrationTest {
     GAME_1.setGameState(GameState.FINDING_PLAYERS);
     GAME_2.setGameState(GameState.PLAYING);
     participationRepository.deleteAll();
+    cardRepo.deleteAll();
     handRepo.deleteAll();
+    roundRepo.deleteAll();
     matchRepo.deleteAll();
     gameRepository.deleteAll();
     playerRepository.deleteAll();
