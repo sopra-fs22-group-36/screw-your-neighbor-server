@@ -122,6 +122,18 @@ public class PlayerIntegrationTest {
   }
 
   @Test
+  public void create_a_player_with_too_short_name_fails() {
+    PLAYER_1.setName("a");
+    webTestClient
+        .post()
+        .uri(ENDPOINT)
+        .body(BodyInserters.fromValue(PLAYER_1))
+        .exchange()
+        .expectStatus()
+        .isBadRequest();
+  }
+
+  @Test
   public void create_2_players_with_the_same_session_fails() {
     HttpHeaders responseHeaders =
         webTestClient
