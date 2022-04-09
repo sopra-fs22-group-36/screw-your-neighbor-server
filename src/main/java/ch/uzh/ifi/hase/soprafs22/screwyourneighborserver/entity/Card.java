@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
@@ -11,11 +12,9 @@ public class Card implements Comparable<Card> {
 
   private CardSuit cardSuit;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
-  private Hand hand;
+  @JsonBackReference @ManyToOne() private Hand hand;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
-  private Round round;
+  @ManyToOne() private Round round;
 
   public Card() {}
 
@@ -60,14 +59,6 @@ public class Card implements Comparable<Card> {
 
   public CardSuit getCardSuit() {
     return this.cardSuit;
-  }
-
-  public String getCardRankName() {
-    return this.cardRank.name();
-  }
-
-  public String getCardSuitName() {
-    return this.cardSuit.name();
   }
 
   @JsonIgnore

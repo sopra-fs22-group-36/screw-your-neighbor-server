@@ -20,7 +20,9 @@ public class Game {
   @OneToMany(mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
 
-  @OneToMany(mappedBy = "game")
+  @OneToMany(
+      mappedBy = "game",
+      cascade = {CascadeType.ALL})
   private Collection<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)
@@ -57,5 +59,9 @@ public class Game {
 
   public Game getNextGame() {
     return nextGame;
+  }
+
+  public Collection<Match> getMatches() {
+    return matches;
   }
 }

@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +12,12 @@ public class Round {
 
   private int roundNumber;
 
-  @OneToMany(mappedBy = "round")
+  @OneToMany(
+      mappedBy = "round",
+      cascade = {CascadeType.ALL})
   private Collection<Card> cards = new ArrayList<>();
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
-  private Match match;
+  @JsonBackReference @ManyToOne private Match match;
 
   public Long getId() {
     return id;

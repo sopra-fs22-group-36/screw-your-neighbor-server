@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,10 +15,11 @@ public class Participation {
 
   private Integer participationNumber;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
   private Game game;
 
-  @ManyToOne private Player player;
+  @JsonBackReference @ManyToOne private Player player;
 
   @OneToMany(mappedBy = "participation")
   private Collection<Hand> hands = new ArrayList<>();
