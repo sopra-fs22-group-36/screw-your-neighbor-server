@@ -17,7 +17,6 @@ public class Hand {
   @ManyToOne(fetch = FetchType.LAZY)
   private Match match;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   private Participation participation;
 

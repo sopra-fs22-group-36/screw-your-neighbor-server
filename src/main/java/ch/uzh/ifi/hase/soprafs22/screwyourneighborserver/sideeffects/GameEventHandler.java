@@ -4,8 +4,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -23,7 +21,7 @@ public class GameEventHandler {
   private final HandRepository handRepo;
   private final CardRepository cardRepo;
   private final RoundRepository roundRepo;
-  private CardDeck myDeck;
+  private CardDeck cardDeck;
 
   public GameEventHandler(
       ParticipationRepository participationRepository,
@@ -36,7 +34,6 @@ public class GameEventHandler {
     this.handRepo = handRepo;
     this.cardRepo = cardRepo;
     this.roundRepo = roundRepo;
-    myDeck = new StandardCardDeck();
   }
 
   @SuppressWarnings("unused")
@@ -74,7 +71,9 @@ public class GameEventHandler {
       Match match = createMatch(game);
       Round round = createRound(match);
 
-      // In the first round 5 cards per player are distributed.
+      // Create a standard card deck (currently there's only this one)
+      cardDeck = new StandardCardDeck();
+      // In the first round, 5 cards per player are distributed.
       int numOfCards = 5;
       Collection<Card> cardsPerHand = new ArrayList<>();
 
@@ -96,7 +95,7 @@ public class GameEventHandler {
    * @return random drawn card
    */
   private Card createCard(Hand hand) {
-    Card card = myDeck.drawCard();
+    Card card = cardDeck.drawCard();
     card.setHand(hand);
     cardRepo.save(card);
     return card;
@@ -134,10 +133,10 @@ public class GameEventHandler {
    * @param game
    */
   private void reorganizeParticipationNumber(Game game) {
-    Page<Participation> part = participationRepository.findAllByGame(game, Pageable.unpaged());
+    Collection<Participation> part = game.getParticipations();
     int i = 0;
-    for (var el : part) {
-      el.setParticipationNumber(i);
+    for (var p : part) {
+      p.setParticipationNumber(i);
       i++;
     }
   }

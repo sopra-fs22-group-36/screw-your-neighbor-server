@@ -113,7 +113,6 @@ public class GameIntegrationTest {
         .isEqualTo(PLAYER_1.getName());
   }
 
-  /* --> to be rewritten
   @Test
   public void return_found_game_by_ID() {
 
@@ -123,20 +122,18 @@ public class GameIntegrationTest {
     Long id = gameRepository.findAllByName("My_Game").get(0).getId();
     String uri = "games/" + id.toString();
 
-    var game1 =
-        webTestClient
-            .get()
-            .uri(uri)
-            .exchange()
-            .expectStatus()
-            .isOk()
-            .expectBody(Game.class)
-            .returnResult()
-            .getResponseBody();
-
-    assertThat(game1, notNullValue());
-    assertThat(game1.getName(), equalTo(GAME_1.getName()));
-  }*/
+    webTestClient
+        .get()
+        .uri(uri)
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(GAME_1.getName())
+        .jsonPath("_links.self.href")
+        .isEqualTo(createBaseUrl() + "/" + uri);
+  }
 
   @Test
   public void return_not_found_game() {
@@ -275,5 +272,9 @@ public class GameIntegrationTest {
             .isOk()
             .expectBody()
             .jsonPath("_embedded.games");
+  }
+
+  private String createBaseUrl() {
+    return "http://localhost:" + port;
   }
 }

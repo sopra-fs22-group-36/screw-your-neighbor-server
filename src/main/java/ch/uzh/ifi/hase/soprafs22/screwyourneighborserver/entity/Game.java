@@ -56,4 +56,8 @@ public class Game {
   public Game getNextGame() {
     return nextGame;
   }
+
+  public Collection<Match> getMatch() {
+    return matches;
+  }
 }

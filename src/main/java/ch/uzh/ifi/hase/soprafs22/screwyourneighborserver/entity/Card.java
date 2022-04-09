@@ -12,13 +12,9 @@ public class Card implements Comparable<Card> {
 
   private CardSuit cardSuit;
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Hand hand;
+  @JsonBackReference @ManyToOne() private Hand hand;
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Round round;
+  @ManyToOne() private Round round;
 
   public Card() {}
 
