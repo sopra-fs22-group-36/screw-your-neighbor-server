@@ -13,12 +13,10 @@ public class Hand {
   @OneToMany(mappedBy = "hand")
   private Collection<Card> cards = new ArrayList<>();
 
-  // @ManyToOne(cascade = {CascadeType.PERSIST})
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   private Match match;
 
-  // @ManyToOne(cascade = {CascadeType.PERSIST})
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   private Participation participation;

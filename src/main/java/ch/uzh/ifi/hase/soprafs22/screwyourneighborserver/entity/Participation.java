@@ -15,7 +15,6 @@ public class Participation {
 
   private Integer participationNumber;
 
-  // @ManyToOne(cascade = {CascadeType.PERSIST})
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   private Game game;

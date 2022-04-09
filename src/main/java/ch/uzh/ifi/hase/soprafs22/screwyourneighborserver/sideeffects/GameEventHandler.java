@@ -60,6 +60,14 @@ public class GameEventHandler {
   @SuppressWarnings("unused")
   @HandleAfterSave
   public void handleAfterSave(Game game) {
+    /*
+    Important Notes:
+    - This part of the method is for the game initiation --> only when GameState changes from FINDING_PLAYERS to PLAYING.
+    - There must be an additional check, whether the game was already in state PLAYING before. If that is the case, we
+      should not enter this first section.
+    - To be clarified: is there any case where the game is saved when it was already in state PLAYING at all? If not:
+      the below check may be enough.
+     */
     if (game.getGameState().equals(GameState.PLAYING)) {
       reorganizeParticipationNumber(game);
 
@@ -67,11 +75,11 @@ public class GameEventHandler {
       Match match = createMatch(game);
       Round round = createRound(match);
 
-      // Create Hands according number of players
-      int numOfCards = 2;
+      // In the first round 5 cards per player are distributed.
+      int numOfCards = 5;
       Collection<Card> cardsPerHand = new ArrayList<>();
 
-      // for each player that participates in the game
+      // for each player that participates in the game we create a hand
       for (var participation : game.getParticipations()) {
         Hand hand = createHand(match, participation);
 
