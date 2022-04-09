@@ -7,8 +7,7 @@ import static org.hamcrest.Matchers.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -18,11 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestExecutionListeners(
+    value = {ClearDBAfterTestListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 public class GameIntegrationTest {
 
   @LocalServerPort private int port;
@@ -30,8 +33,6 @@ public class GameIntegrationTest {
   private WebTestClient webTestClient;
 
   @Autowired private GameRepository gameRepository;
-  @Autowired private ParticipationRepository participationRepository;
-  @Autowired private PlayerRepository playerRepository;
 
   private static final Player PLAYER_1 = new Player();
   private static final Game GAME_1 = new Game();
@@ -48,9 +49,6 @@ public class GameIntegrationTest {
             .build();
 
     PLAYER_1.setName("player1");
-    participationRepository.deleteAll();
-    gameRepository.deleteAll();
-    playerRepository.deleteAll();
   }
 
   @Test

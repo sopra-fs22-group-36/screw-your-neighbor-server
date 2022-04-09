@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,10 +17,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestExecutionListeners(
+    value = {ClearDBAfterTestListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 public class PlayerIntegrationTest {
   private static final String ENDPOINT = "/players";
 
@@ -42,8 +47,6 @@ public class PlayerIntegrationTest {
 
     PLAYER_1.setName("test");
     PLAYER_2.setName("test2");
-
-    playerRepository.deleteAll();
   }
 
   @Test
