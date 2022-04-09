@@ -10,6 +10,8 @@ import javax.persistence.*;
 public class Hand {
   @Id @GeneratedValue private Long id;
 
+  private Integer announcedScore;
+
   @OneToMany(mappedBy = "hand", cascade = CascadeType.ALL)
   private Collection<Card> cards = new ArrayList<>();
 
@@ -19,6 +21,14 @@ public class Hand {
 
   public Long getId() {
     return id;
+  }
+
+  public Integer getAnnouncedScore() {
+    return announcedScore;
+  }
+
+  public void setAnnouncedScore(Integer announcedScore) {
+    this.announcedScore = announcedScore;
   }
 
   public Collection<Card> getCards() {

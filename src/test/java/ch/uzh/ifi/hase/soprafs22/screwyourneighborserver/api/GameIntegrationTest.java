@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
@@ -208,9 +209,11 @@ public class GameIntegrationTest {
         .value(hasSize(1))
         .jsonPath("matches[0].rounds")
         .value(hasSize(1))
-        .jsonPath("matches[0].hands")
+        .jsonPath("matches[0]._embedded.hands")
         .value(hasSize(1))
-        .jsonPath("matches[0].hands[0]._embedded.cards")
+        .jsonPath("matches[0]._embedded.hands[0].announcedScore")
+        .value(nullValue())
+        .jsonPath("matches[0]._embedded.hands[0].cards")
         .value(hasSize(5));
   }
 

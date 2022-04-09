@@ -8,5 +8,7 @@ import org.springframework.data.rest.core.config.Projection;
     types = {Hand.class})
 public interface HandEmbedProjection {
 
+  Integer getAnnouncedScore();
+
   Collection<CardEmbedProjection> getCards();
 }
