@@ -47,7 +47,6 @@ public class GameEventHandler {
       throw new HttpClientErrorException(
           HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
     }
-    long partNum = 1;
     Player player = (Player) authentication.getPrincipal();
     Participation participation = new Participation();
     participation.setGame(game);
