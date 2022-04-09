@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
-import java.util.Collection;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(
@@ -13,12 +12,5 @@ public interface ParticipationEmbedProjection {
 
   Integer getParticipationNumber();
 
-  Game getGame();
-
   Player getPlayer();
-
-  Collection<HandEmbedProjection> getHands();
-
-  // todo:Collection<ScoreAnnouncements> getScoreAnnouncements();
-
 }
