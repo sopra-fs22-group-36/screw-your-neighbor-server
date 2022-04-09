@@ -61,14 +61,6 @@ public class Card implements Comparable<Card> {
     return this.cardSuit;
   }
 
-  public String getCardRankName() {
-    return this.cardRank.name();
-  }
-
-  public String getCardSuitName() {
-    return this.cardSuit.name();
-  }
-
   @JsonIgnore
   public void setId(Long id) {
     this.id = id;
