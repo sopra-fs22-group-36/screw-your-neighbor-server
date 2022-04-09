@@ -15,7 +15,9 @@ public class Hand {
   @OneToMany(mappedBy = "hand", cascade = CascadeType.ALL)
   private Collection<Card> cards = new ArrayList<>();
 
-  @JsonBackReference @ManyToOne private Match match;
+  @JsonBackReference("hand-match")
+  @ManyToOne
+  private Match match;
 
   @ManyToOne private Participation participation;
 

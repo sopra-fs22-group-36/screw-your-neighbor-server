@@ -22,7 +22,7 @@ public class Match {
       cascade = {CascadeType.ALL})
   private Collection<Hand> hands = new ArrayList<>();
 
-  @JsonBackReference
+  @JsonBackReference("match-game")
   @ManyToOne(fetch = FetchType.LAZY)
   private Game game;
 
