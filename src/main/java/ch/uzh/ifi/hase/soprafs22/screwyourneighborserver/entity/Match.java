@@ -12,13 +12,11 @@ public class Match {
 
   private int matchNumber;
 
-  @JsonBackReference
   @OneToMany(
       mappedBy = "match",
       cascade = {CascadeType.PERSIST})
   private Collection<Round> rounds = new ArrayList<>();
 
-  @JsonBackReference
   @OneToMany(mappedBy = "match")
   private Collection<Hand> hands = new ArrayList<>();
 

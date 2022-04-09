@@ -63,7 +63,7 @@ public class GameEventHandler {
     if (game.getGameState().equals(GameState.PLAYING)) {
       reorganizeParticipationNumber(game);
 
-      // Create a match and round and save them
+      // Create first match with first round and save them
       Match match = createMatch(game);
       Round round = createRound(match);
 
@@ -114,7 +114,7 @@ public class GameEventHandler {
   /** @return */
   private Round createRound(Match match) {
     Round round = new Round();
-    round.setRoundNumber(1986);
+    round.setRoundNumber(1);
     round.setMatch(match);
     roundRepo.save(round);
     return round;
@@ -138,7 +138,7 @@ public class GameEventHandler {
   private Match createMatch(Game game) {
     Match match = new Match();
     match.setGame(game);
-    match.setMatchNumber(123);
+    match.setMatchNumber(1);
     // match.setRounds(Arrays.asList(round));
     // wenn wir Karten in derselben Transaktion verteilen, wie wir den Match erstellen, dann wird
     // der Status DISTRIBUTE
