@@ -21,19 +21,21 @@ public class GameEventHandler {
   private final HandRepository handRepo;
   private final CardRepository cardRepo;
   private final RoundRepository roundRepo;
+  private final GameRepository gameRepo;
   private CardDeck cardDeck;
 
   public GameEventHandler(
-      ParticipationRepository participationRepository,
-      MatchRepository matchRepo,
-      HandRepository handRepo,
-      CardRepository cardRepo,
-      RoundRepository roundRepo) {
+          ParticipationRepository participationRepository,
+          MatchRepository matchRepo,
+          HandRepository handRepo,
+          CardRepository cardRepo,
+          RoundRepository roundRepo, GameRepository gameRepo) {
     this.participationRepository = participationRepository;
     this.matchRepo = matchRepo;
     this.handRepo = handRepo;
     this.cardRepo = cardRepo;
     this.roundRepo = roundRepo;
+    this.gameRepo = gameRepo;
   }
 
   @SuppressWarnings("unused")
@@ -87,6 +89,7 @@ public class GameEventHandler {
         }
       }
     }
+    gameRepo.save(game);
   }
 
   /**
@@ -97,6 +100,8 @@ public class GameEventHandler {
   private Card createCard(Hand hand) {
     Card card = cardDeck.drawCard();
     card.setHand(hand);
+    hand.getCards().add(card);
+    handRepo.save(hand);
     cardRepo.save(card);
     return card;
   }
@@ -113,6 +118,8 @@ public class GameEventHandler {
     hand.setMatch(match);
     // Link hand to player
     hand.setParticipation(participation);
+    match.getHands().add(hand);
+    matchRepo.save(match);
     handRepo.save(hand);
     return hand;
   }

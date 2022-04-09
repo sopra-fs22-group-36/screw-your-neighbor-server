@@ -66,4 +66,8 @@ public class Match {
   public void setMatchState(MatchState matchState) {
     this.matchState = matchState;
   }
+
+  public Collection<Hand> getHands() {
+    return hands;
+  }
 }
