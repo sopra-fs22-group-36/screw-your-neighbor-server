@@ -18,7 +18,7 @@ public class Game {
 
   @OneToMany(
       mappedBy = "game",
-      cascade = {CascadeType.PERSIST})
+      cascade = {CascadeType.ALL})
   private Collection<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)
@@ -57,7 +57,7 @@ public class Game {
     return nextGame;
   }
 
-  public Collection<Match> getMatch() {
+  public Collection<Match> getMatches() {
     return matches;
   }
 }

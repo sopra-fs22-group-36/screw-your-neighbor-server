@@ -12,12 +12,12 @@ public class Round {
 
   private int roundNumber;
 
-  @OneToMany(mappedBy = "round")
+  @OneToMany(
+      mappedBy = "round",
+      cascade = {CascadeType.ALL})
   private Collection<Card> cards = new ArrayList<>();
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Match match;
+  @JsonBackReference @ManyToOne private Match match;
 
   public Long getId() {
     return id;
