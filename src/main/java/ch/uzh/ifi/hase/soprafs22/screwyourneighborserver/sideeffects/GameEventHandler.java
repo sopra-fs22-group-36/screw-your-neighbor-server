@@ -25,11 +25,12 @@ public class GameEventHandler {
   private CardDeck cardDeck;
 
   public GameEventHandler(
-          ParticipationRepository participationRepository,
-          MatchRepository matchRepo,
-          HandRepository handRepo,
-          CardRepository cardRepo,
-          RoundRepository roundRepo, GameRepository gameRepo) {
+      ParticipationRepository participationRepository,
+      MatchRepository matchRepo,
+      HandRepository handRepo,
+      CardRepository cardRepo,
+      RoundRepository roundRepo,
+      GameRepository gameRepo) {
     this.participationRepository = participationRepository;
     this.matchRepo = matchRepo;
     this.handRepo = handRepo;
@@ -83,7 +84,6 @@ public class GameEventHandler {
       for (var participation : game.getParticipations()) {
         Hand hand = createHand(match, participation);
 
-        // draw a number of cards
         for (int j = 0; j < numOfCards; j++) {
           Card card = createCard(hand);
         }
@@ -152,11 +152,6 @@ public class GameEventHandler {
     Match match = new Match();
     match.setGame(game);
     match.setMatchNumber(1);
-    // match.setRounds(Arrays.asList(round));
-    // wenn wir Karten in derselben Transaktion verteilen, wie wir den Match erstellen, dann wird
-    // der Status DISTRIBUTE
-    // gar nie relevant sein. Darum lasse ich ihn mal weg und geh direkt auf ANNOUNCING
-    // match.setMatchState(MatchState.DISTRIBUTE);
     match.setMatchState(MatchState.ANNOUNCING);
     matchRepo.save(match);
     return match;
