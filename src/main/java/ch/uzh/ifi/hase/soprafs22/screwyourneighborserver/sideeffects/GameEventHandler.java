@@ -78,6 +78,7 @@ public class GameEventHandler {
           Card card = createCard(hand);
         }
       }
+      // Because we configured CascadeType.ALL from game downwards, we only need one save.
       gameRepo.save(game);
     }
   }
