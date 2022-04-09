@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
@@ -9,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
@@ -52,9 +54,9 @@ public class GameIntegrationTest {
     PLAYER_1.setName("player1");
     GAME_1.setGameState(GameState.FINDING_PLAYERS);
     GAME_2.setGameState(GameState.PLAYING);
-    participationRepository.deleteAll();
     cardRepo.deleteAll();
     handRepo.deleteAll();
+    participationRepository.deleteAll();
     roundRepo.deleteAll();
     matchRepo.deleteAll();
     gameRepository.deleteAll();
@@ -163,9 +165,7 @@ public class GameIntegrationTest {
   }
 
   @Test
-  // Patch method on gameState change to PLAYING
-  public void change_gameState_and_return_changed_gameState_by_ID() {
-    // First create a player for a SessionID
+  public void change_gameState_to_playing() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -202,76 +202,26 @@ public class GameIntegrationTest {
     String uri = "games/" + id.toString();
     GAME_1.setGameState(GameState.PLAYING);
 
+    Map<String, GameState> patchBody = Map.of("gameState", GameState.PLAYING);
     // Without check whether the game exists (no get()) change the gameState with patch() request
     webTestClient
         .patch()
         .uri(uri)
+        .contentType(MediaType.APPLICATION_JSON)
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .body(BodyInserters.fromValue(GAME_1)) // Game 2 has different gameState = PLAYING
+        .body(BodyInserters.fromValue(patchBody)) // Game 2 has different gameState = PLAYING
         .exchange()
         .expectStatus()
-        .isOk();
-  }
-
-  @Test
-  // Patch method on gameState change to PLAYING: A match should be created
-  public void change_gameState_and_return_and_check_matchContent_by_ID() {
-    // First create a player for a SessionID
-    HttpHeaders responseHeaders =
-        webTestClient
-            .post()
-            .uri("/players")
-            .body(BodyInserters.fromValue(PLAYER_1))
-            .exchange()
-            .expectStatus()
-            .isCreated()
-            .expectBody()
-            .returnResult()
-            .getResponseHeaders();
-
-    String sessionId = getSessionIdOf(responseHeaders);
-    GAME_1.setName("game_1");
-
-    // Create a new game
-    webTestClient
-        .post()
-        .uri("/games")
-        .body(Mono.just(GAME_1), Game.class)
-        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .exchange()
-        .expectStatus()
-        .isCreated()
+        .isOk()
         .expectBody()
-        .jsonPath("name")
-        .isEqualTo(GAME_1.getName())
-        .jsonPath("_embedded.participations")
-        .isNotEmpty()
-        .jsonPath("_embedded.participations[0].player.name")
-        .isEqualTo(PLAYER_1.getName());
-
-    Long id = gameRepository.findAllByName("game_1").get(0).getId();
-    String uri = "games/" + id.toString();
-    GAME_1.setGameState(GameState.PLAYING);
-
-    // Without check whether the game exists (no get()) change the gameState with patch() request
-    webTestClient
-        .patch()
-        .uri(uri)
-        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .body(BodyInserters.fromValue(GAME_1)) // Game 2 has different gameState = PLAYING
-        .exchange()
-        .expectStatus()
-        .isOk();
-
-    var result =
-        webTestClient
-            .get()
-            .uri("/games")
-            .exchange()
-            .expectStatus()
-            .isOk()
-            .expectBody()
-            .jsonPath("_embedded.games");
+        .jsonPath("matches")
+        .value(hasSize(1))
+        .jsonPath("matches[0].rounds")
+        .value(hasSize(1))
+        .jsonPath("matches[0].hands")
+        .value(hasSize(1))
+        .jsonPath("matches[0].hands[0]._embedded.cards")
+        .value(hasSize(5));
   }
 
   private String createBaseUrl() {

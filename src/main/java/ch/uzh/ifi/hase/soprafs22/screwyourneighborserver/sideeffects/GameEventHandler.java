@@ -2,7 +2,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -59,8 +58,7 @@ public class GameEventHandler {
   @SuppressWarnings("unused")
   @HandleAfterSave
   public void handleAfterSave(Game game) {
-
-    if (game.getGameState().equals(GameState.PLAYING)) {
+    if (game.getGameState().equals(GameState.PLAYING) && game.getMatches().isEmpty()) {
       reorganizeParticipationNumber(game);
 
       // Create first match with first round and save them
@@ -71,7 +69,6 @@ public class GameEventHandler {
       cardDeck = new StandardCardDeck();
       // In the first round, 5 cards per player are distributed.
       int numOfCards = 5;
-      Collection<Card> cardsPerHand = new ArrayList<>();
 
       // for each player that participates in the game we create a hand
       for (var participation : game.getParticipations()) {
@@ -81,8 +78,8 @@ public class GameEventHandler {
           Card card = createCard(hand);
         }
       }
+      gameRepo.save(game);
     }
-    gameRepo.save(game);
   }
 
   /**
@@ -94,8 +91,6 @@ public class GameEventHandler {
     Card card = cardDeck.drawCard();
     card.setHand(hand);
     hand.getCards().add(card);
-    handRepo.save(hand);
-    cardRepo.save(card);
     return card;
   }
 
@@ -108,12 +103,10 @@ public class GameEventHandler {
    */
   private Hand createHand(Match match, Participation participation) {
     Hand hand = new Hand();
-    hand.setMatch(match);
-    // Link hand to player
     hand.setParticipation(participation);
+    participation.getHands().add(hand);
+    hand.setMatch(match);
     match.getHands().add(hand);
-    matchRepo.save(match);
-    handRepo.save(hand);
     return hand;
   }
 
@@ -122,7 +115,7 @@ public class GameEventHandler {
     Round round = new Round();
     round.setRoundNumber(1);
     round.setMatch(match);
-    roundRepo.save(round);
+    match.getRounds().add(round);
     return round;
   }
 
@@ -143,10 +136,10 @@ public class GameEventHandler {
 
   private Match createMatch(Game game) {
     Match match = new Match();
-    match.setGame(game);
     match.setMatchNumber(1);
     match.setMatchState(MatchState.ANNOUNCING);
-    matchRepo.save(match);
+    match.setGame(game);
+    game.getMatches().add(match);
     return match;
   }
 }
