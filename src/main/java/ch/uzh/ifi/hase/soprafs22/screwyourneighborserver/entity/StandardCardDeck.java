@@ -4,15 +4,11 @@ import java.util.*;
 
 public class StandardCardDeck implements CardDeck {
 
-  private static CardSuit cardSuit;
-
-  private static CardRank cardRank;
-
   private Stack<Card> cardDeck = new Stack<>();
 
   public StandardCardDeck() {
     for (CardSuit cardSuit : CardSuit.values()) {
-      for (CardRank cardRank : cardRank.values()) {
+      for (CardRank cardRank : CardRank.values()) {
         Card card = new Card(cardRank, cardSuit);
         cardDeck.push(card);
       }
