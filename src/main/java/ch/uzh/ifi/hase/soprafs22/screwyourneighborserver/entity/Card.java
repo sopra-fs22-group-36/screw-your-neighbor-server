@@ -12,6 +12,8 @@ public class Card implements Comparable<Card> {
 
   private CardSuit cardSuit;
 
+  @Transient private Participation trickWinner;
+
   @JsonBackReference @ManyToOne() private Hand hand;
 
   @ManyToOne() private Round round;
@@ -80,15 +82,5 @@ public class Card implements Comparable<Card> {
 
   public void setRound(Round round) {
     this.round = round;
-  }
-
-  public Player getTrickWinner() {
-    Card highestCard = new Card(cardRank.SIX, cardSuit.HEART);
-    for (Card card : this.round.getCards()) {
-      if (card.isGreaterThan(highestCard)) {
-        highestCard = card;
-      }
-    }
-    return highestCard.getHand().getParticipation().getPlayer();
   }
 }

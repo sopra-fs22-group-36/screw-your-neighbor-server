@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.*;
@@ -11,6 +12,8 @@ public class Round {
   @Id @GeneratedValue private Long id;
 
   private int roundNumber;
+
+  @Transient Participation TrickWinner;
 
   @OneToMany(
       mappedBy = "round",
@@ -50,5 +53,22 @@ public class Round {
 
   public void setMatch(Match match) {
     this.match = match;
+  }
+
+  public void setTrickWinner() {
+    CardRank cardRank = CardRank.SIX;
+    CardSuit cardSuit = CardSuit.HEART;
+    Card highestCard = new Card(cardRank, cardSuit);
+    for (Card card : this.cards) {
+      if (card.isGreaterThan(highestCard)) {
+        highestCard = card;
+      }
+    }
+    this.TrickWinner = highestCard.getHand().getParticipation();
+  }
+
+  @JsonProperty
+  public Participation getTrickWinner() {
+    return this.TrickWinner;
   }
 }
