@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Game {
   @Id @GeneratedValue private Long id;
 
+  @NotBlank
+  @Size(min = 3, max = 50)
   private String name;
 
   private GameState gameState = GameState.FINDING_PLAYERS;

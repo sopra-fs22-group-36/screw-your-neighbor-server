@@ -6,7 +6,8 @@ import static org.hamcrest.Matchers.hasSize;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +19,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestExecutionListeners(
+    value = {ClearDBAfterTestListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 public class GameIntegrationTest {
 
   @LocalServerPort private int port;
@@ -30,12 +35,6 @@ public class GameIntegrationTest {
   private WebTestClient webTestClient;
 
   @Autowired private GameRepository gameRepository;
-  @Autowired private ParticipationRepository participationRepository;
-  @Autowired private PlayerRepository playerRepository;
-  @Autowired private MatchRepository matchRepo;
-  @Autowired private HandRepository handRepo;
-  @Autowired private RoundRepository roundRepo;
-  @Autowired private CardRepository cardRepo;
 
   private static final Player PLAYER_1 = new Player();
   private static final Game GAME_1 = new Game();
@@ -52,15 +51,6 @@ public class GameIntegrationTest {
             .build();
 
     PLAYER_1.setName("player1");
-    GAME_1.setGameState(GameState.FINDING_PLAYERS);
-    GAME_2.setGameState(GameState.PLAYING);
-    cardRepo.deleteAll();
-    handRepo.deleteAll();
-    participationRepository.deleteAll();
-    roundRepo.deleteAll();
-    matchRepo.deleteAll();
-    gameRepository.deleteAll();
-    playerRepository.deleteAll();
   }
 
   @Test
