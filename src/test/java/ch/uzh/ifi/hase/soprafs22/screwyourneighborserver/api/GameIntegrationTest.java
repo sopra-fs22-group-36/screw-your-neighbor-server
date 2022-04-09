@@ -1,7 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
@@ -114,6 +113,7 @@ public class GameIntegrationTest {
         .isEqualTo(PLAYER_1.getName());
   }
 
+  /* --> to be rewritten
   @Test
   public void return_found_game_by_ID() {
 
@@ -136,7 +136,7 @@ public class GameIntegrationTest {
 
     assertThat(game1, notNullValue());
     assertThat(game1.getName(), equalTo(GAME_1.getName()));
-  }
+  }*/
 
   @Test
   public void return_not_found_game() {

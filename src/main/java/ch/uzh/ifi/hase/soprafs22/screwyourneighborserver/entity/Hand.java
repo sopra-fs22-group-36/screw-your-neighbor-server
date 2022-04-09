@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,10 +13,14 @@ public class Hand {
   @OneToMany(mappedBy = "hand")
   private Collection<Card> cards = new ArrayList<>();
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
+  // @ManyToOne(cascade = {CascadeType.PERSIST})
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
   private Match match;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST})
+  // @ManyToOne(cascade = {CascadeType.PERSIST})
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
   private Participation participation;
 
   public Long getId() {

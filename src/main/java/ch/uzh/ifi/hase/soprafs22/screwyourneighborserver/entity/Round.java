@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +15,7 @@ public class Round {
   @OneToMany(mappedBy = "round")
   private Collection<Card> cards = new ArrayList<>();
 
+  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   private Match match;
 

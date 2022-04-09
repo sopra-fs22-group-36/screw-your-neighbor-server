@@ -57,53 +57,41 @@ public class GameEventHandler {
     participationRepository.save(participation);
   }
 
-  @SuppressWarnings("unsued")
+  @SuppressWarnings("unused")
   @HandleAfterSave
   public void handleAfterSave(Game game) {
     if (game.getGameState().equals(GameState.PLAYING)) {
       reorganizeParticipationNumber(game);
 
-      // Create a match and Round
+      // Create a match and round and save them
       Match match = createMatch(game);
-      // matchRepo.save(match); (machen wir schon in create Methode)
       Round round = createRound(match);
-      // roundRepo.save(round); (machen wir schon in create Methode)
 
       // Create Hands according number of players
       int numOfCards = 2;
       Collection<Card> cardsPerHand = new ArrayList<>();
 
-      // for each player
+      // for each player that participates in the game
       for (var participation : game.getParticipations()) {
         Hand hand = createHand(match, participation);
 
         // draw a number of cards
         for (int j = 0; j < numOfCards; j++) {
           Card card = createCard(hand);
-          // cardsPerHand.add(card);
-          // card.setHand(hand);
-          cardRepo.save(card);
         }
-        // hand.setCards(cardsPerHand);
-
-        // round.setCards(cardsPerHand);
-        // roundRepo.save(round);
       }
-      // match.setMatchState(MatchState.ANNOUNCING);
-      // matchRepo.save(match);
     }
   }
 
   /**
    * Create a new card, drawn from a deck
    *
-   * @param round
    * @return random drawn card
    */
   private Card createCard(Hand hand) {
     Card card = myDeck.drawCard();
     card.setHand(hand);
-    // card.setRound(round);
+    cardRepo.save(card);
     return card;
   }
 
@@ -133,8 +121,8 @@ public class GameEventHandler {
   }
 
   /**
-   * After a Game is started, each player which joined to the game will reorganize in which order
-   * the player is in the
+   * After a Game is started numbers are distributed to each player, to define the playing order
+   * (who's turn it is, who's next etc.)
    *
    * @param game
    */
