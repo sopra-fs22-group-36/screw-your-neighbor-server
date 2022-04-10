@@ -13,7 +13,8 @@ public class Round {
 
   private int roundNumber;
 
-  @Transient Participation TrickWinner;
+  // ID(s) of the player(s) that played the highest card(s)
+  @Transient Collection<Long> TrickWinnerIds = new ArrayList<>();
 
   @OneToMany(
       mappedBy = "round",
@@ -55,20 +56,27 @@ public class Round {
     this.match = match;
   }
 
-  public void setTrickWinner() {
+  public void setTrickWinnerIds() {
     CardRank cardRank = CardRank.SIX;
     CardSuit cardSuit = CardSuit.HEART;
-    Card highestCard = new Card(cardRank, cardSuit);
+    Collection<Card> highestCard = new ArrayList<>();
+    highestCard.add(new Card(cardRank, cardSuit));
     for (Card card : this.cards) {
-      if (card.isGreaterThan(highestCard)) {
-        highestCard = card;
+      Card currentHighestCard = highestCard.iterator().next();
+      if (card.isGreaterThan(currentHighestCard)) {
+        highestCard.clear();
+        highestCard.add(card);
+      } else if (card.isEqualTo(currentHighestCard)) {
+        highestCard.add(card);
       }
     }
-    this.TrickWinner = highestCard.getHand().getParticipation();
+    for (Card card : highestCard) {
+      this.TrickWinnerIds.add(card.getHand().getParticipation().getPlayer().getId());
+    }
   }
 
   @JsonProperty
-  public Participation getTrickWinner() {
-    return this.TrickWinner;
+  public Collection<Long> getTrickWinnerIds() {
+    return this.TrickWinnerIds;
   }
 }
