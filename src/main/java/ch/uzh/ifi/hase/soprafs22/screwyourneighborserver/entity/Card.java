@@ -12,8 +12,6 @@ public class Card implements Comparable<Card> {
 
   private CardSuit cardSuit;
 
-  @Transient private Participation trickWinner;
-
   @JsonBackReference @ManyToOne() private Hand hand;
 
   @ManyToOne() private Round round;

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +63,6 @@ public class RoundTest {
   @Test
   public void get_trick_winner_test() {
     round.setCards(cards);
-    round.setTrickWinnerIds();
     assertEquals(round.getTrickWinnerIds().size(), 1);
     assertTrue(round.getTrickWinnerIds().contains(player_1.getId()));
   }
@@ -82,7 +82,6 @@ public class RoundTest {
     cards.add(c_4);
 
     round.setCards(cards);
-    round.setTrickWinnerIds();
     assertEquals(round.getTrickWinnerIds().size(), 2);
     assertTrue(round.getTrickWinnerIds().contains(player_1.getId()));
     assertTrue(round.getTrickWinnerIds().contains(player_4.getId()));
@@ -117,8 +116,13 @@ public class RoundTest {
     cards.add(c_5);
 
     round.setCards(cards);
-    round.setTrickWinnerIds();
     assertEquals(round.getTrickWinnerIds().size(), 1);
     assertTrue(round.getTrickWinnerIds().contains(player_5.getId()));
+  }
+
+  @Test
+  public void empty_cards_list_returns_empty_winner_list() {
+    Round emptyRound = new Round();
+    assertEquals(emptyRound.getTrickWinnerIds(), List.of());
   }
 }

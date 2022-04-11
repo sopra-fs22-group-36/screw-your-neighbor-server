@@ -13,9 +13,6 @@ public class Round {
 
   private int roundNumber;
 
-  // ID(s) of the player(s) that played the highest card(s)
-  @Transient Collection<Long> TrickWinnerIds = new ArrayList<>();
-
   @OneToMany(
       mappedBy = "round",
       cascade = {CascadeType.ALL})
@@ -56,7 +53,9 @@ public class Round {
     this.match = match;
   }
 
-  public void setTrickWinnerIds() {
+  @JsonProperty
+  public Collection<Long> getTrickWinnerIds() {
+    Collection<Long> trickWinnerIds = new ArrayList<>();
     CardRank cardRank = CardRank.SIX;
     CardSuit cardSuit = CardSuit.HEART;
     Collection<Card> highestCard = new ArrayList<>();
@@ -71,12 +70,12 @@ public class Round {
       }
     }
     for (Card card : highestCard) {
-      this.TrickWinnerIds.add(card.getHand().getParticipation().getPlayer().getId());
+      // if only cards with rank 6 are played, the dummy card with no references is still available
+      // and must be overjumped
+      if (card.getHand() != null) {
+        trickWinnerIds.add(card.getHand().getParticipation().getPlayer().getId());
+      }
     }
-  }
-
-  @JsonProperty
-  public Collection<Long> getTrickWinnerIds() {
-    return this.TrickWinnerIds;
+    return trickWinnerIds;
   }
 }
