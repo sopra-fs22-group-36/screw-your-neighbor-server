@@ -9,4 +9,6 @@ import org.springframework.data.rest.core.config.Projection;
 public interface RoundEmbedProjection {
 
   Collection<Card> getCards();
+
+  Collection<Long> getTrickWinnerIds();
 }
