@@ -34,7 +34,7 @@ repeat
             :DistributeCards;
             : GET /games/1 pollen;
             :AnnounceTricks
-            POST /scoreannouncements {announcedScore: 3, participations: /participations/1, game: /games/1};
+            PATCH /hands/1 {announcedScore: 3};
             :DisplayAnnouncements
             GET /games/1 pollen
             ;

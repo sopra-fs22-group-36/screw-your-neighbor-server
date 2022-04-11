@@ -10,15 +10,27 @@ import javax.persistence.*;
 public class Hand {
   @Id @GeneratedValue private Long id;
 
+  private Integer announcedScore;
+
   @OneToMany(mappedBy = "hand", cascade = CascadeType.ALL)
   private Collection<Card> cards = new ArrayList<>();
 
-  @JsonBackReference @ManyToOne private Match match;
+  @JsonBackReference("hand-match")
+  @ManyToOne
+  private Match match;
 
   @ManyToOne private Participation participation;
 
   public Long getId() {
     return id;
+  }
+
+  public Integer getAnnouncedScore() {
+    return announcedScore;
+  }
+
+  public void setAnnouncedScore(Integer announcedScore) {
+    this.announcedScore = announcedScore;
   }
 
   public Collection<Card> getCards() {

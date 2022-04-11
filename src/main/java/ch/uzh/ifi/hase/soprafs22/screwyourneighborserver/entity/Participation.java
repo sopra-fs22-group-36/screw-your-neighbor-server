@@ -15,11 +15,13 @@ public class Participation {
 
   private Integer participationNumber;
 
-  @JsonBackReference
+  @JsonBackReference("participation-game")
   @ManyToOne(fetch = FetchType.LAZY)
   private Game game;
 
-  @JsonBackReference @ManyToOne private Player player;
+  @JsonBackReference("participation-player")
+  @ManyToOne
+  private Player player;
 
   @OneToMany(mappedBy = "participation")
   private Collection<Hand> hands = new ArrayList<>();

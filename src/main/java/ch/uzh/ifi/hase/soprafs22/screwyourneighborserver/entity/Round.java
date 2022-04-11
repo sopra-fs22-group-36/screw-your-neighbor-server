@@ -18,7 +18,9 @@ public class Round {
       cascade = {CascadeType.ALL})
   private Collection<Card> cards = new ArrayList<>();
 
-  @JsonBackReference @ManyToOne private Match match;
+  @JsonBackReference("round-match")
+  @ManyToOne
+  private Match match;
 
   public Long getId() {
     return id;

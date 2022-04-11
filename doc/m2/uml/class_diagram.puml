@@ -41,9 +41,8 @@ enum MatchState {
     FINISHED
 }
 
-
 class Hand {
-    - integer announcedScore
+    int announcedScore
 }
 
 
@@ -81,7 +80,6 @@ Player "1" -- "*" Participation
 
 Participation "*" -- "1" Game
 Participation "1" -- "*" Hand
-
 
 Hand "*" -- "1" Match
 Hand "1" -- "1..5" Card
