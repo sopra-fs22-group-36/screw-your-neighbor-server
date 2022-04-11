@@ -11,6 +11,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.web.client.HttpClientErrorException;
 
 class GameValidatorTest {
@@ -27,6 +28,16 @@ class GameValidatorTest {
 
     GAME_BEFORE.setId(1L);
     NEW_GAME.setId(1L);
+  }
+
+  @ParameterizedTest
+  @EnumSource(GameState.class)
+  public void accepts_changing_name(GameState gameState) {
+    GAME_BEFORE.setGameState(gameState);
+    NEW_GAME.setGameState(gameState);
+    NEW_GAME.setName("another name");
+
+    assertDoesNotThrow(() -> gameValidator.onUpdateGame(NEW_GAME));
   }
 
   @ParameterizedTest
