@@ -8,6 +8,10 @@ import org.springframework.data.rest.core.config.Projection;
     types = {Match.class})
 public interface MatchEmbedProjection {
 
+  int getMatchNumber();
+
+  MatchState getMatchState();
+
   Collection<RoundEmbedProjection> getRounds();
 
   Collection<HandEmbedProjection> getHands();

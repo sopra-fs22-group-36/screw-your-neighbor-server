@@ -1,11 +1,11 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
@@ -211,6 +211,10 @@ public class GameIntegrationTest {
         .value(hasSize(1))
         .jsonPath("matches[0].rounds")
         .value(hasSize(1))
+        .jsonPath("matches[0].matchNumber")
+        .isEqualTo(1)
+        .jsonPath("matches[0].matchState")
+        .isEqualTo(MatchState.ANNOUNCING.name())
         .jsonPath("matches[0]._embedded.hands")
         .value(hasSize(1))
         .jsonPath("matches[0]._embedded.hands[0].announcedScore")
