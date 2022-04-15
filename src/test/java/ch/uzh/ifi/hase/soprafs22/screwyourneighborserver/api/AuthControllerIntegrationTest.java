@@ -77,7 +77,9 @@ class AuthControllerIntegrationTest {
         .jsonPath("name")
         .isEqualTo(PLAYER_1.getName())
         .jsonPath("_links.self.href")
-        .isEqualTo("%s/players/%s".formatted(createBaseUrl(), createdPlayer.getId()));
+        .isEqualTo("%s/players/%s{?projection}".formatted(createBaseUrl(), createdPlayer.getId()))
+        .jsonPath("_links.player.href")
+        .isEqualTo("%s/players/%s{?projection}".formatted(createBaseUrl(), createdPlayer.getId()));
   }
 
   @Test
