@@ -103,7 +103,9 @@ public class GameIntegrationTest {
         .jsonPath("_embedded.participations")
         .isNotEmpty()
         .jsonPath("_embedded.participations[0].player.name")
-        .isEqualTo(PLAYER_1.getName());
+        .isEqualTo(PLAYER_1.getName())
+        .jsonPath("_embedded.participations[0].active")
+        .isEqualTo(true);
   }
 
   @Test
