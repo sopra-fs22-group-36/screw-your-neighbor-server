@@ -4,25 +4,18 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Card;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Round;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.CardRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.RoundRepository;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 @RepositoryEventHandler
 public class CardEventHandler {
-
-  private final RoundRepository roundRepo;
   private final CardRepository cardRepo;
-  private final ParticipationRepository participationRepo;
+  private final RoundRepository roundRepo;
 
-  public CardEventHandler(
-      RoundRepository roundRepo,
-      CardRepository cardRepo,
-      ParticipationRepository participationRepo) {
+  public CardEventHandler(RoundRepository roundRepo, CardRepository cardRepo) {
     this.roundRepo = roundRepo;
     this.cardRepo = cardRepo;
-    this.participationRepo = participationRepo;
   }
 
   @HandleAfterSave
