@@ -39,9 +39,9 @@ public class AuthController {
             .findById(((Player) principal).getId())
             .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
     EntityModel<Player> entityModel = EntityModel.of(player);
-    Link link =
-        repositoryEntityLinks.forType(Player::getId).linkToItemResource(player).withSelfRel();
-    entityModel.add(link);
+    Link linkToPlayer = repositoryEntityLinks.forType(Player::getId).linkToItemResource(player);
+    entityModel.add(linkToPlayer.withSelfRel());
+    entityModel.add(linkToPlayer.withRel("player"));
     return ResponseEntity.ok(entityModel);
   }
 

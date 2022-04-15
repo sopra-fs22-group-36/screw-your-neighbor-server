@@ -104,6 +104,8 @@ public class GameIntegrationTest {
         .isNotEmpty()
         .jsonPath("_embedded.participations[0].player.name")
         .isEqualTo(PLAYER_1.getName())
+        .jsonPath("_embedded.participations[0].player._links.self")
+        .value(notNullValue())
         .jsonPath("_embedded.participations[0].active")
         .isEqualTo(true);
   }
