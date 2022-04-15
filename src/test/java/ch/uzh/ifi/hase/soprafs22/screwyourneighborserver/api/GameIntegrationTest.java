@@ -220,7 +220,9 @@ public class GameIntegrationTest {
         .jsonPath("matches[0]._embedded.hands[0].announcedScore")
         .value(nullValue())
         .jsonPath("matches[0]._embedded.hands[0].cards")
-        .value(hasSize(5));
+        .value(hasSize(5))
+        .jsonPath("matches[0]._embedded.hands[0].participation")
+        .value(notNullValue());
   }
 
   private String createBaseUrl() {
