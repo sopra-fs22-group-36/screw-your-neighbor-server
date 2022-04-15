@@ -18,6 +18,7 @@ public class CardEventHandler {
     this.cardRepo = cardRepo;
   }
 
+  @SuppressWarnings("unused")
   @HandleAfterSave
   public void handleAfterSave(Card card) {
     Round currentRound = card.getRound();
