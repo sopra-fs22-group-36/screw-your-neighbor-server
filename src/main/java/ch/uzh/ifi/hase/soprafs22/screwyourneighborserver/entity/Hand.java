@@ -12,6 +12,8 @@ public class Hand {
 
   private Integer announcedScore;
 
+  private boolean active = true;
+
   @OneToMany(mappedBy = "hand", cascade = CascadeType.ALL)
   private Collection<Card> cards = new ArrayList<>();
 
@@ -60,5 +62,13 @@ public class Hand {
 
   public void setParticipation(Participation participation) {
     this.participation = participation;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
 }
