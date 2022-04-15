@@ -11,7 +11,7 @@ public class Participation {
 
   @Id @GeneratedValue private Long id;
 
-  private boolean active;
+  private boolean active = true;
 
   private Integer participationNumber;
 

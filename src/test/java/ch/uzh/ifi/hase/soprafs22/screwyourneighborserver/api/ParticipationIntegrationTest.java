@@ -79,6 +79,9 @@ public class ParticipationIntegrationTest {
         .body(BodyInserters.fromValue(participation))
         .exchange()
         .expectStatus()
-        .isCreated();
+        .isCreated()
+        .expectBody()
+        .jsonPath("active")
+        .isEqualTo(true);
   }
 }
