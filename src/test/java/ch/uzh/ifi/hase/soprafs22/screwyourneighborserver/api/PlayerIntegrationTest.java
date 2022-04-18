@@ -25,7 +25,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-public class PlayerIntegrationTest {
+class PlayerIntegrationTest {
   private static final String ENDPOINT = "/players";
 
   private static final Player PLAYER_1 = new Player();

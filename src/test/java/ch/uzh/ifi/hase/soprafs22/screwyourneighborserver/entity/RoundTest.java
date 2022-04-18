@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RoundTest {
+class RoundTest {
 
   private Game game = new Game();
   private Player player_1 = new Player();
