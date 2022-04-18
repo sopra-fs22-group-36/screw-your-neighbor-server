@@ -27,7 +27,7 @@ public class H2ConsoleIntegrationTest {
   }
 
   @Test
-  public void h2_console_is_available() {
+  void h2_console_is_available() {
     webTestClient.get().uri(h2ConsolePath).exchange().expectStatus().isFound();
   }
 }

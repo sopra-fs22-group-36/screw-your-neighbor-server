@@ -14,7 +14,7 @@ public class OpenApiDocsIntegrationTest {
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -23,7 +23,7 @@ public class OpenApiDocsIntegrationTest {
   }
 
   @Test
-  public void swagger_ui_is_available() {
+  void swagger_ui_is_available() {
     webTestClient.get().uri("/swagger-ui.html").exchange().expectStatus().isFound();
   }
 }
