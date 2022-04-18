@@ -12,7 +12,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestLi
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ public class GameIntegrationTest {
   private static final Game GAME_3 = new Game();
 
   @BeforeEach
-  @AfterEach
   void setup() {
     webTestClient =
         WebTestClient.bindToServer()

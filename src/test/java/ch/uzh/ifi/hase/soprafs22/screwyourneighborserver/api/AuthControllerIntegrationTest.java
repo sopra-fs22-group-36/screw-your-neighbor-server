@@ -6,7 +6,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ class AuthControllerIntegrationTest {
   private Player PLAYER_1;
 
   @BeforeEach
-  @AfterEach
   void setup() {
     webTestClient =
         WebTestClient.bindToServer()
