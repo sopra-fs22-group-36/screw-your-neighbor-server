@@ -2,8 +2,8 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
@@ -71,5 +71,32 @@ public class Match {
 
   public Collection<Hand> getHands() {
     return hands;
+  }
+
+  @JsonIgnore
+  public List<Hand> getSortedHands() {
+    return hands.stream()
+        .sorted(Comparator.comparingInt(hand -> hand.getParticipation().getParticipationNumber()))
+        .collect(Collectors.toList());
+  }
+
+  public List<Round> getSortedRounds() {
+    return rounds.stream()
+        .sorted(Comparator.comparingInt(Round::getRoundNumber))
+        .collect(Collectors.toList());
+  }
+
+  @JsonIgnore
+  public boolean allScoresAnnounced() {
+    return hands.stream().allMatch(hand -> hand.getAnnouncedScore() != null);
+  }
+
+  @JsonIgnore
+  public Optional<Round> getLastRound() {
+    List<Round> roundsSorted = getSortedRounds();
+    if (roundsSorted.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(roundsSorted.get(roundsSorted.size() - 1));
   }
 }
