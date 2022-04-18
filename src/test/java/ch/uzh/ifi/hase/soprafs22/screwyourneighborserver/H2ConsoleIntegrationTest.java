@@ -9,7 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class H2ConsoleIntegrationTest {
+class H2ConsoleIntegrationTest {
   @LocalServerPort private int port;
 
   @Value("${spring.h2.console.path}")
