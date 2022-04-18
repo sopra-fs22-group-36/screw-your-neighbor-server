@@ -48,7 +48,7 @@ public class ParticipationIntegrationTest {
   }
 
   @Test
-  public void join_existing_game() {
+  void join_existing_game() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()

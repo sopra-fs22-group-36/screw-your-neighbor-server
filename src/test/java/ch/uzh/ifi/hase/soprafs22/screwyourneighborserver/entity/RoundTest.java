@@ -30,7 +30,7 @@ public class RoundTest {
   Card c_5 = new Card(CardRank.ACE, CardSuit.CLUB);
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     player_1.setName("player_1");
     player_1.setId(1L);
     player_2.setName("player_2");
@@ -61,14 +61,14 @@ public class RoundTest {
   }
 
   @Test
-  public void get_trick_winner_test() {
+  void get_trick_winner_test() {
     round.setCards(cards);
     assertEquals(round.getTrickWinnerIds().size(), 1);
     assertTrue(round.getTrickWinnerIds().contains(player_1.getId()));
   }
 
   @Test
-  public void get_multiple_trick_winner_test() {
+  void get_multiple_trick_winner_test() {
     Player player_4 = new Player();
     player_4.setName("player_4");
     player_4.setId(4L);
@@ -89,7 +89,7 @@ public class RoundTest {
   }
 
   @Test
-  public void get_multiple_same_cards_with_one_trick_winner_test() {
+  void get_multiple_same_cards_with_one_trick_winner_test() {
 
     Player player_4 = new Player();
     player_4.setName("player_4");
@@ -121,7 +121,7 @@ public class RoundTest {
   }
 
   @Test
-  public void empty_cards_list_returns_empty_winner_list() {
+  void empty_cards_list_returns_empty_winner_list() {
     Round emptyRound = new Round();
     assertEquals(emptyRound.getTrickWinnerIds(), List.of());
   }
