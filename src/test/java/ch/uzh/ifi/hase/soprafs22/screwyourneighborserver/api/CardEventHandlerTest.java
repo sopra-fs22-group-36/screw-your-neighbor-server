@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +52,10 @@ public class CardEventHandlerTest {
 
   @BeforeEach
   @AfterEach
-  public void setup() {}
+  public void setup() {
+    roundRepository.deleteAll();
+    cardRepository.deleteAll();
+  }
 
   @Test
   public void play_not_last_card_no_new_round() {
@@ -110,28 +114,60 @@ public class CardEventHandlerTest {
     Card card2 = new Card(cardRank, cardSuit);
     card2.setRound(round);
     cardRepository.save(card2);
-    card.setRound(round);
     cardRank = CardRank.TEN;
     cardSuit = CardSuit.HEART;
     Card card3 = new Card(cardRank, cardSuit);
     card3.setRound(round);
+    cardRepository.save(card3);
     // a fourth round which is not assigned to this round (and therefore shall not be counted)
     cardRank = CardRank.TEN;
     cardSuit = CardSuit.SPADE;
     Card card4 = new Card(cardRank, cardSuit);
-    cardRepository.save(card3);
+    cardRepository.save(card4);
     CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
     assertEquals(3, cardEventHandler.getNumberOfPlayedCards(round));
   }
 
   @Test
-  public void set_old_round_to_inactive() {
+  public void set_old_round_to_inactive()
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     setUpRelatedEntities();
     CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    /*
+    Accessing private Methods for testing:
+    Method privateMethod = CardEventHandler.class.getDeclaredMethod("setOldRoundToInactive", Round.class);
+    privateMethod.setAccessible(true);
+    privateMethod.invoke(cardEventHandler, round);
+     */
     cardEventHandler.setOldRoundToInactive(round);
     Collection<Round> savedRounds = roundRepository.findAll();
     assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+    // and no remaining round which is active (as we did not create a new round in this test)
+    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == true));
   }
+
+  /* How do I have to setup the security context correctly to create/save a game?
+  @Test
+  @WithMockUser(username="player1", roles={"ROLE_PLAYER"})
+  public void get_number_of_players() {
+    game.setName("game1");
+    gameRepository.save(game);
+    participation_1.setParticipationNumber(1);
+    participation_1.setGame(game);
+    participation_2.setParticipationNumber(2);
+    participation_2.setGame(game);
+    participationRepository.save(participation_1);
+    participationRepository.save(participation_2);
+    match.setGame(game);
+    matchRepository.save(match);
+    round.setMatch(match);
+    round.setRoundNumber(1);
+    roundRepository.save(round);
+    card.setRound(round);
+    cardRepository.save(card);
+    Round savedRound = roundRepository.findAll().get(0);
+    assertEquals(2, cardEventHandler.getNumberOfPlayers(savedRound));
+  }*/
 
   public void setUpRelatedEntities() {
     matchRepository.save(match);
