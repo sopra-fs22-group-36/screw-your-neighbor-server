@@ -26,12 +26,8 @@ public class CardEventHandler {
     Round currentRound = card.getRound();
     // card has been played:
     if (currentRound != null) {
-      // check if every player has played his card i.e. as many cards are assigned to the current
-      // round as we
-      // have players in the game
-      int numberOfPlayers = getNumberOfPlayers(currentRound);
-      int numberOfPlayedCards = getNumberOfPlayedCards(currentRound);
-      if (numberOfPlayedCards == numberOfPlayers) {
+      // check if every player has played their card
+      if (getNumberOfPlayedCards(currentRound) >= getNumberOfPlayers(currentRound)) {
         Round newRound = createRound(currentRound.getMatch(), currentRound.getRoundNumber());
       }
       setOldRoundToInactive(currentRound);
@@ -48,6 +44,7 @@ public class CardEventHandler {
     round.setRoundNumber(lastRoundNumber + 1);
     round.setMatch(match);
     match.getRounds().add(round);
+    roundRepo.save(round);
     return round;
   }
 
