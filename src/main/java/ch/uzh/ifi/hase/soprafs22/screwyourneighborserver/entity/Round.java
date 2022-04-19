@@ -13,6 +13,8 @@ public class Round {
 
   private int roundNumber;
 
+  private boolean active = true;
+
   @OneToMany(
       mappedBy = "round",
       cascade = {CascadeType.ALL})
@@ -79,5 +81,13 @@ public class Round {
       }
     }
     return trickWinnerIds;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
 }
