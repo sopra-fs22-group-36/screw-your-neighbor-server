@@ -6,13 +6,9 @@ import static org.mockito.Mockito.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,152 +25,108 @@ public class CardEventHandlerTest {
   @Autowired private ParticipationRepository participationRepository;
 
   @Spy
-  private CardEventHandler cardEventHandler = new CardEventHandler(roundRepoMock, cardRepoMock);
-  // @Mock
-  // private CardEventHandler cardEventHandler = new CardEventHandler(roundRepo, cardRepo);
-  // private CardEventHandler cardEventHandler =
-  //        Mockito.mock(CardEventHandler.class, withSettings().useConstructor(roundRepo,
-  // cardRepo));
+  private CardEventHandler cardEventHandlerSpy = new CardEventHandler(roundRepoMock, cardRepoMock);
 
-  Match matchMock = Mockito.mock(Match.class);
-  Round roundMock = Mockito.mock(Round.class);
-  CardRank cardRank = CardRank.ACE;
-  CardSuit cardSuit = CardSuit.DIAMOND;
-  Card cardMock = Mockito.mock(Card.class, withSettings().useConstructor(cardRank, cardSuit));
-
-  Participation participation_1 = new Participation();
-  Participation participation_2 = new Participation();
-  Collection<Participation> participations = new ArrayList<>();
-  Game game = new Game();
-  Match match = new Match();
-  Round round = new Round();
-  Card card = new Card(cardRank, cardSuit);
+  private Participation participation1;
+  private Participation participation2;
+  private Participation participation3;
+  private Game game;
+  private Match match;
+  private Round round;
+  private Card card1;
+  private Card card2;
+  private Card card3;
+  private CardEventHandler cardEventHandler;
 
   @BeforeEach
-  @AfterEach
-  public void setup() {
+  void setup() {
     roundRepository.deleteAll();
     cardRepository.deleteAll();
-  }
-
-  @Test
-  public void play_not_last_card_no_new_round() {
-    Mockito.doReturn(roundMock).when(cardMock).getRound();
-    Mockito.doReturn(matchMock).when(roundMock).getMatch();
-    Mockito.doReturn(1).when(cardEventHandler).getNumberOfPlayedCards(any(Round.class));
-    Mockito.doReturn(2).when(cardEventHandler).getNumberOfPlayers(any(Round.class));
-    cardEventHandler.handleAfterSave(cardMock);
-    verify(cardEventHandler, never()).createRound(any(Match.class), anyInt());
-    verify(cardEventHandler, never()).setOldRoundToInactive(any(Round.class));
-  }
-
-  @Test
-  public void play_last_card_new_round() {
-    Mockito.doReturn(roundMock).when(cardMock).getRound();
-    Mockito.doReturn(matchMock).when(roundMock).getMatch();
-    Mockito.doReturn(2).when(cardEventHandler).getNumberOfPlayedCards(any(Round.class));
-    Mockito.doReturn(2).when(cardEventHandler).getNumberOfPlayers(any(Round.class));
-    cardEventHandler.handleAfterSave(cardMock);
-    verify(cardEventHandler, times(1)).createRound(any(Match.class), anyInt());
-    verify(cardEventHandler, times(1)).setOldRoundToInactive(any(Round.class));
-  }
-
-  @Test
-  public void create_new_round() {
-    setUpRelatedEntities();
-    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
-    Round newRound = cardEventHandler.createRound(match, round.getRoundNumber());
-    assertEquals(2, newRound.getRoundNumber());
-    Collection<Round> savedRounds = roundRepository.findAll();
-    assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
-  }
-
-  @Test
-  public void get_number_of_played_cards_one_card() {
-    setUpRelatedEntities();
-    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
-    assertEquals(1, cardEventHandler.getNumberOfPlayedCards(round));
-  }
-
-  @Test
-  public void get_number_of_played_cards_no_card() {
-    matchRepository.save(match);
-    round.setMatch(match);
-    round.setRoundNumber(1);
-    roundRepository.save(round);
-    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
-    assertEquals(0, cardEventHandler.getNumberOfPlayedCards(round));
-  }
-
-  @Test
-  public void get_number_of_played_cards_multiple_cards() {
-    setUpRelatedEntities();
+    participation1 = new Participation();
+    participation2 = new Participation();
+    participation3 = new Participation();
+    game = new Game();
+    match = new Match();
+    round = new Round();
+    CardRank cardRank = CardRank.ACE;
+    CardSuit cardSuit = CardSuit.DIAMOND;
+    card1 = new Card(cardRank, cardSuit);
+    cardRank = CardRank.EIGHT;
+    cardSuit = CardSuit.DIAMOND;
+    card2 = new Card(cardRank, cardSuit);
     cardRank = CardRank.EIGHT;
     cardSuit = CardSuit.HEART;
-    Card card2 = new Card(cardRank, cardSuit);
+    card3 = new Card(cardRank, cardSuit);
+    cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    matchRepository.save(match);
+    round.setMatch(match);
+    round.setRoundNumber(1);
+    roundRepository.save(round);
+
+    participation1.setParticipationNumber(1);
+    participation1.setGame(game);
+    game.getParticipations().add(participation1);
+    participation2.setParticipationNumber(2);
+    participation2.setGame(game);
+    game.getParticipations().add(participation2);
+    participation3.setParticipationNumber(3);
+    participation3.setGame(game);
+    game.getParticipations().add(participation3);
+    match.setGame(game);
+    round.setMatch(match);
+    round.setRoundNumber(1);
+  }
+
+  @Test
+  void play_first_card_no_new_round() {
+    card1.setRound(round);
+    cardRepository.save(card1);
+    // there's a random second card, with no round set (i.e. not played)
+    cardRepository.save(card2);
+    cardEventHandler.handleAfterSave(card1);
+    Collection<Round> savedRounds = roundRepository.findAll();
+    // no new round will be created, as there are there players in the game, but only one card
+    // played
+    assertEquals(1, savedRounds.size());
+    // current round still active
+    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
+    // no round set to inactive yet
+    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+  }
+
+  @Test
+  void play_not_last_card_no_new_round() {
+    // two cards are already played
+    card1.setRound(round);
+    cardRepository.save(card1);
     card2.setRound(round);
     cardRepository.save(card2);
-    cardRank = CardRank.TEN;
-    cardSuit = CardSuit.HEART;
-    Card card3 = new Card(cardRank, cardSuit);
+    // there's a random third card, with no round set (i.e. not played)
+    cardRepository.save(card3);
+    cardEventHandler.handleAfterSave(card2);
+    Collection<Round> savedRounds = roundRepository.findAll();
+    assertEquals(1, savedRounds.size());
+    // current round still active
+    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
+    // no round set to inactive yet
+    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+  }
+
+  @Test
+  void play_last_card_new_round() {
+    // the cards of all three players are already assigned to the round too (i.e. has been played)
+    card1.setRound(round);
+    cardRepository.save(card1);
+    card2.setRound(round);
+    cardRepository.save(card2);
     card3.setRound(round);
     cardRepository.save(card3);
-    // a fourth round which is not assigned to this round (and therefore shall not be counted)
-    cardRank = CardRank.TEN;
-    cardSuit = CardSuit.SPADE;
-    Card card4 = new Card(cardRank, cardSuit);
-    cardRepository.save(card4);
-    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
-    assertEquals(3, cardEventHandler.getNumberOfPlayedCards(round));
-  }
-
-  @Test
-  public void set_old_round_to_inactive()
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    setUpRelatedEntities();
-    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
-    /*
-    Accessing private Methods for testing:
-    Method privateMethod = CardEventHandler.class.getDeclaredMethod("setOldRoundToInactive", Round.class);
-    privateMethod.setAccessible(true);
-    privateMethod.invoke(cardEventHandler, round);
-     */
-    cardEventHandler.setOldRoundToInactive(round);
+    cardEventHandler.handleAfterSave(card3);
     Collection<Round> savedRounds = roundRepository.findAll();
+    assertEquals(2, savedRounds.size());
+    // old round was set to inactive
     assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == false));
-    // and no remaining round which is active (as we did not create a new round in this test)
-    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == true));
-  }
-
-  /* How do I have to setup the security context correctly to create/save a game?
-  @Test
-  @WithMockUser(username="player1", roles={"ROLE_PLAYER"})
-  public void get_number_of_players() {
-    game.setName("game1");
-    gameRepository.save(game);
-    participation_1.setParticipationNumber(1);
-    participation_1.setGame(game);
-    participation_2.setParticipationNumber(2);
-    participation_2.setGame(game);
-    participationRepository.save(participation_1);
-    participationRepository.save(participation_2);
-    match.setGame(game);
-    matchRepository.save(match);
-    round.setMatch(match);
-    round.setRoundNumber(1);
-    roundRepository.save(round);
-    card.setRound(round);
-    cardRepository.save(card);
-    Round savedRound = roundRepository.findAll().get(0);
-    assertEquals(2, cardEventHandler.getNumberOfPlayers(savedRound));
-  }*/
-
-  public void setUpRelatedEntities() {
-    matchRepository.save(match);
-    round.setMatch(match);
-    round.setRoundNumber(1);
-    roundRepository.save(round);
-    card.setRound(round);
-    cardRepository.save(card);
+    // the new round is now active
+    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
   }
 }

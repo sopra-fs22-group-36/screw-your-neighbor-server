@@ -34,12 +34,12 @@ public class CardEventHandler {
     }
   }
 
-  public void setOldRoundToInactive(Round round) {
+  private void setOldRoundToInactive(Round round) {
     round.setActive(false);
     roundRepo.save(round);
   }
 
-  public Round createRound(Match match, int lastRoundNumber) {
+  private Round createRound(Match match, int lastRoundNumber) {
     Round round = new Round();
     round.setRoundNumber(lastRoundNumber + 1);
     round.setMatch(match);
@@ -48,11 +48,11 @@ public class CardEventHandler {
     return round;
   }
 
-  public int getNumberOfPlayers(Round round) {
+  private int getNumberOfPlayers(Round round) {
     return round.getMatch().getGame().getParticipations().size();
   }
 
-  public int getNumberOfPlayedCards(Round round) {
+  private int getNumberOfPlayedCards(Round round) {
     return cardRepo.countByRound(round).intValue();
   }
 }
