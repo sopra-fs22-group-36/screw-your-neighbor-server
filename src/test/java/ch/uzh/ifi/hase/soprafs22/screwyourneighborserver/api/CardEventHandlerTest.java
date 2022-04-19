@@ -47,7 +47,7 @@ public class CardEventHandlerTest {
   Game game = new Game();
   Match match = new Match();
   Round round = new Round();
-  Card card = new Card();
+  Card card = new Card(cardRank, cardSuit);
 
   @BeforeEach
   @AfterEach
@@ -61,6 +61,7 @@ public class CardEventHandlerTest {
     Mockito.doReturn(2).when(cardEventHandler).getNumberOfPlayers(any(Round.class));
     cardEventHandler.handleAfterSave(cardMock);
     verify(cardEventHandler, never()).createRound(any(Match.class), anyInt());
+    verify(cardEventHandler, never()).setOldRoundToInactive(any(Round.class));
   }
 
   @Test
@@ -71,16 +72,12 @@ public class CardEventHandlerTest {
     Mockito.doReturn(2).when(cardEventHandler).getNumberOfPlayers(any(Round.class));
     cardEventHandler.handleAfterSave(cardMock);
     verify(cardEventHandler, times(1)).createRound(any(Match.class), anyInt());
+    verify(cardEventHandler, times(1)).setOldRoundToInactive(any(Round.class));
   }
 
   @Test
   public void create_new_round() {
-    matchRepository.save(match);
-    round.setMatch(match);
-    round.setRoundNumber(1);
-    roundRepository.save(round);
-    card.setRound(round);
-    cardRepository.save(card);
+    setUpRelatedEntities();
     CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
     Round newRound = cardEventHandler.createRound(match, round.getRoundNumber());
     assertEquals(2, newRound.getRoundNumber());
@@ -89,8 +86,59 @@ public class CardEventHandlerTest {
   }
 
   @Test
-  public void get_number_of_played_cards() {
-
+  public void get_number_of_played_cards_one_card() {
+    setUpRelatedEntities();
+    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    assertEquals(1, cardEventHandler.getNumberOfPlayedCards(round));
   }
 
+  @Test
+  public void get_number_of_played_cards_no_card() {
+    matchRepository.save(match);
+    round.setMatch(match);
+    round.setRoundNumber(1);
+    roundRepository.save(round);
+    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    assertEquals(0, cardEventHandler.getNumberOfPlayedCards(round));
+  }
+
+  @Test
+  public void get_number_of_played_cards_multiple_cards() {
+    setUpRelatedEntities();
+    cardRank = CardRank.EIGHT;
+    cardSuit = CardSuit.HEART;
+    Card card2 = new Card(cardRank, cardSuit);
+    card2.setRound(round);
+    cardRepository.save(card2);
+    card.setRound(round);
+    cardRank = CardRank.TEN;
+    cardSuit = CardSuit.HEART;
+    Card card3 = new Card(cardRank, cardSuit);
+    card3.setRound(round);
+    // a fourth round which is not assigned to this round (and therefore shall not be counted)
+    cardRank = CardRank.TEN;
+    cardSuit = CardSuit.SPADE;
+    Card card4 = new Card(cardRank, cardSuit);
+    cardRepository.save(card3);
+    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    assertEquals(3, cardEventHandler.getNumberOfPlayedCards(round));
+  }
+
+  @Test
+  public void set_old_round_to_inactive() {
+    setUpRelatedEntities();
+    CardEventHandler cardEventHandler = new CardEventHandler(roundRepository, cardRepository);
+    cardEventHandler.setOldRoundToInactive(round);
+    Collection<Round> savedRounds = roundRepository.findAll();
+    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+  }
+
+  public void setUpRelatedEntities() {
+    matchRepository.save(match);
+    round.setMatch(match);
+    round.setRoundNumber(1);
+    roundRepository.save(round);
+    card.setRound(round);
+    cardRepository.save(card);
+  }
 }
