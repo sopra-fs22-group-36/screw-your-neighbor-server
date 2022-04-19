@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CardIntegrationTest {
+public class CardEventHandlerTest {
 
   private RoundRepository roundRepoMock = mock(RoundRepository.class);
   private CardRepository cardRepoMock = mock(CardRepository.class);
@@ -87,4 +87,10 @@ public class CardIntegrationTest {
     Collection<Round> savedRounds = roundRepository.findAll();
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
   }
+
+  @Test
+  public void get_number_of_played_cards() {
+
+  }
+
 }
