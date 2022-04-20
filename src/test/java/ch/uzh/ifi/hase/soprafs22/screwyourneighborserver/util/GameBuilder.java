@@ -100,7 +100,6 @@ public class GameBuilder {
     for (MatchBuilder matchBuilder : matches) {
       Match match = matchBuilder.build(participationMap);
       match.setMatchNumber(matchNumber++);
-      match.setMatchState(MatchState.FINISH);
       match.setGame(game);
       game.getMatches().add(match);
     }
