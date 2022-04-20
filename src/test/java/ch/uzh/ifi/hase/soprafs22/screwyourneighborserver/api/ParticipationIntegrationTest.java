@@ -37,7 +37,7 @@ class ParticipationIntegrationTest {
   private static final Game GAME_1 = new Game();
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))

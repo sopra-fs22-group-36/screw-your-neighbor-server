@@ -18,7 +18,7 @@ class H2ConsoleIntegrationTest {
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))

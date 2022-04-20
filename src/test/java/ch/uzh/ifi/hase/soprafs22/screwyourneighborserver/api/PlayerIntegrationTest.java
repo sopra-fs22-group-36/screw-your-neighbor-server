@@ -38,7 +38,7 @@ class PlayerIntegrationTest {
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
