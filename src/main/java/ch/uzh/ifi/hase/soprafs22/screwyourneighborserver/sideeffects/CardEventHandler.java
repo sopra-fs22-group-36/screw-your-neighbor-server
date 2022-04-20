@@ -11,8 +11,8 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 @RepositoryEventHandler
 public class CardEventHandler {
-  private CardRepository cardRepo;
-  private RoundRepository roundRepo;
+  private final CardRepository cardRepo;
+  private final RoundRepository roundRepo;
 
   public CardEventHandler(RoundRepository roundRepo, CardRepository cardRepo) {
     this.roundRepo = roundRepo;
