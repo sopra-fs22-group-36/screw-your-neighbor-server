@@ -3,7 +3,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -64,15 +63,5 @@ public class Game {
 
   public Collection<Match> getMatches() {
     return matches;
-  }
-
-  @JsonIgnore
-  public Match getPlayingMatch() {
-    for (Match match : matches) {
-      if (match.getMatchState() == MatchState.PLAYING) {
-        return match;
-      }
-    }
-    throw new NoSuchElementException();
   }
 }

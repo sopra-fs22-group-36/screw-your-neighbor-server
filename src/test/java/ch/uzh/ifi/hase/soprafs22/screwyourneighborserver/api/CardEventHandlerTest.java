@@ -6,26 +6,25 @@ import static org.mockito.Mockito.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.util.Collection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CardEventHandlerTest {
+@TestExecutionListeners(
+    value = {ClearDBAfterTestListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
+class CardEventHandlerTest {
 
-  private RoundRepository roundRepoMock = mock(RoundRepository.class);
-  private CardRepository cardRepoMock = mock(CardRepository.class);
   @Autowired private RoundRepository roundRepository;
   @Autowired private MatchRepository matchRepository;
   @Autowired private CardRepository cardRepository;
   @Autowired private GameRepository gameRepository;
   @Autowired private ParticipationRepository participationRepository;
-
-  @Spy
-  private CardEventHandler cardEventHandlerSpy = new CardEventHandler(roundRepoMock, cardRepoMock);
 
   private Participation participation1;
   private Participation participation2;
@@ -40,8 +39,6 @@ public class CardEventHandlerTest {
 
   @BeforeEach
   void setup() {
-    roundRepository.deleteAll();
-    cardRepository.deleteAll();
     participation1 = new Participation();
     participation2 = new Participation();
     participation3 = new Participation();
@@ -85,13 +82,9 @@ public class CardEventHandlerTest {
     cardRepository.save(card2);
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
-    // no new round will be created, as there are there players in the game, but only one card
-    // played
     assertEquals(1, savedRounds.size());
-    // current round still active
-    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
-    // no round set to inactive yet
-    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+    assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
+    assertFalse(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
   }
 
   @Test
@@ -106,15 +99,13 @@ public class CardEventHandlerTest {
     cardEventHandler.handleAfterSave(card2);
     Collection<Round> savedRounds = roundRepository.findAll();
     assertEquals(1, savedRounds.size());
-    // current round still active
-    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
-    // no round set to inactive yet
-    assertFalse(savedRounds.stream().anyMatch(r -> r.isActive() == false));
+    assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
+    assertFalse(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
   }
 
   @Test
   void play_last_card_new_round() {
-    // the cards of all three players are already assigned to the round too (i.e. has been played)
+    // the cards of all three players are already assigned to the round (i.e. has been played)
     card1.setRound(round);
     cardRepository.save(card1);
     card2.setRound(round);
@@ -124,9 +115,7 @@ public class CardEventHandlerTest {
     cardEventHandler.handleAfterSave(card3);
     Collection<Round> savedRounds = roundRepository.findAll();
     assertEquals(2, savedRounds.size());
-    // old round was set to inactive
-    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == false));
-    // the new round is now active
-    assertTrue(savedRounds.stream().anyMatch(r -> r.isActive() == true));
+    assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
+    assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
   }
 }

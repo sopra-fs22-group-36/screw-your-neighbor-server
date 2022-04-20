@@ -11,6 +11,4 @@ public interface HandEmbedProjection {
   Integer getAnnouncedScore();
 
   Collection<CardEmbedProjection> getCards();
-
-  boolean isActive();
 }

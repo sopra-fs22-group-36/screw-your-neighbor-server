@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import javax.persistence.*;
 
 @Entity
@@ -72,15 +71,5 @@ public class Match {
 
   public Collection<Hand> getHands() {
     return hands;
-  }
-
-  @JsonIgnore
-  public Round getActiveRound() {
-    for (Round round : rounds) {
-      if (round.isActive()) {
-        return round;
-      }
-    }
-    throw new NoSuchElementException();
   }
 }

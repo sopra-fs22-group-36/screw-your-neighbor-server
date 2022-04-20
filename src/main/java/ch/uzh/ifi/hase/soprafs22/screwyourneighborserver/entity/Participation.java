@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import javax.persistence.*;
 
 @Entity
@@ -70,15 +69,5 @@ public class Participation {
 
   public Collection<Hand> getHands() {
     return hands;
-  }
-
-  @JsonIgnore
-  public Hand getActiveHand() {
-    for (Hand hand : hands) {
-      if (hand.isActive()) {
-        return hand;
-      }
-    }
-    throw new NoSuchElementException();
   }
 }

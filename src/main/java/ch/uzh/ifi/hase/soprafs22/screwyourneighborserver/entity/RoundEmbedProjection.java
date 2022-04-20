@@ -8,8 +8,6 @@ import org.springframework.data.rest.core.config.Projection;
     types = {Round.class})
 public interface RoundEmbedProjection {
 
-  boolean isActive();
-
   Collection<Card> getCards();
 
   Collection<Long> getTrickWinnerIds();

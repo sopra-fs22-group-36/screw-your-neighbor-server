@@ -29,14 +29,8 @@ public class CardEventHandler {
       // check if every player has played their card
       if (getNumberOfPlayedCards(currentRound) >= getNumberOfPlayers(currentRound)) {
         Round newRound = createRound(currentRound.getMatch(), currentRound.getRoundNumber());
-        setOldRoundToInactive(currentRound);
       }
     }
-  }
-
-  private void setOldRoundToInactive(Round round) {
-    round.setActive(false);
-    roundRepo.save(round);
   }
 
   private Round createRound(Match match, int lastRoundNumber) {
