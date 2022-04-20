@@ -8,13 +8,13 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class OpenApiDocsIntegrationTest {
+class OpenApiDocsIntegrationTest {
   @LocalServerPort private int port;
 
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -23,7 +23,7 @@ public class OpenApiDocsIntegrationTest {
   }
 
   @Test
-  public void swagger_ui_is_available() {
+  void swagger_ui_is_available() {
     webTestClient.get().uri("/swagger-ui.html").exchange().expectStatus().isFound();
   }
 }

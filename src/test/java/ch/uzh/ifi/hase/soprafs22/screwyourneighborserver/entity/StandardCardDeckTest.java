@@ -10,12 +10,12 @@ class StandardCardDeckTest {
   private StandardCardDeck standardCardDeck;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     standardCardDeck = new StandardCardDeck();
   }
 
   @Test
-  public void draw_card_not_shuffled_test() {
+  void draw_card_not_shuffled_test() {
     Card card = standardCardDeck.drawCard();
     // StandardCardSet is filled up by iterating over the Enum CardSuit and CardRank, by looking how
     // Suits and Ranks
@@ -29,7 +29,7 @@ class StandardCardDeckTest {
   }
 
   @Test
-  public void shuffle_test() {
+  void shuffle_test() {
     StandardCardDeck previous = this.standardCardDeck;
     standardCardDeck.shuffle();
     Card card = standardCardDeck.drawCard();

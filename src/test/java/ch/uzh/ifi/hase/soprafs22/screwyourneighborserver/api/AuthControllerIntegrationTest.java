@@ -32,7 +32,7 @@ class AuthControllerIntegrationTest {
 
   @BeforeEach
   @AfterEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -44,7 +44,7 @@ class AuthControllerIntegrationTest {
   }
 
   @Test
-  public void return_unauthorized_if_no_session_active() {
+  void return_unauthorized_if_no_session_active() {
     webTestClient.get().uri("/auth/session").exchange().expectStatus().isUnauthorized();
   }
 
@@ -141,7 +141,7 @@ class AuthControllerIntegrationTest {
   }
 
   @Test
-  public void return_unauthorized_if_there_was_no_principal_to_clear() {
+  void return_unauthorized_if_there_was_no_principal_to_clear() {
     webTestClient.post().uri("/auth/logout").exchange().expectStatus().isUnauthorized();
   }
 

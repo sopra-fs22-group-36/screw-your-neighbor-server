@@ -9,7 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class H2ConsoleIntegrationTest {
+class H2ConsoleIntegrationTest {
   @LocalServerPort private int port;
 
   @Value("${spring.h2.console.path}")
@@ -18,7 +18,7 @@ public class H2ConsoleIntegrationTest {
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -27,7 +27,7 @@ public class H2ConsoleIntegrationTest {
   }
 
   @Test
-  public void h2_console_is_available() {
+  void h2_console_is_available() {
     webTestClient.get().uri(h2ConsolePath).exchange().expectStatus().isFound();
   }
 }

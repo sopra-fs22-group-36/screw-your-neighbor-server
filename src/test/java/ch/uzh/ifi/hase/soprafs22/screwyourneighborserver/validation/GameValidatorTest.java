@@ -20,7 +20,7 @@ class GameValidatorTest {
   private GameValidator gameValidator;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     OldStateFetcher oldStateFetcher = mock(OldStateFetcher.class);
     when(oldStateFetcher.getPreviousStateOf(notNull(), notNull())).thenReturn(GAME_BEFORE);
 
@@ -32,7 +32,7 @@ class GameValidatorTest {
 
   @ParameterizedTest
   @EnumSource(GameState.class)
-  public void accepts_changing_name(GameState gameState) {
+  void accepts_changing_name(GameState gameState) {
     GAME_BEFORE.setGameState(gameState);
     NEW_GAME.setGameState(gameState);
     NEW_GAME.setName("another name");
@@ -42,7 +42,7 @@ class GameValidatorTest {
 
   @ParameterizedTest
   @CsvSource({"FINDING_PLAYERS, PLAYING", "FINDING_PLAYERS, CLOSED", "PLAYING, CLOSED"})
-  public void accept_valid_state_changes(GameState gameStateBefore, GameState newGameState) {
+  void accept_valid_state_changes(GameState gameStateBefore, GameState newGameState) {
     GAME_BEFORE.setGameState(gameStateBefore);
     NEW_GAME.setGameState(newGameState);
 
@@ -55,8 +55,7 @@ class GameValidatorTest {
     "CLOSED, FINDING_PLAYERS",
     "CLOSED, PLAYING",
   })
-  public void throw_exception_on_invalid_state_changes(
-      GameState gameStateBefore, GameState newGameState) {
+  void throw_exception_on_invalid_state_changes(GameState gameStateBefore, GameState newGameState) {
     GAME_BEFORE.setGameState(gameStateBefore);
     NEW_GAME.setGameState(newGameState);
 

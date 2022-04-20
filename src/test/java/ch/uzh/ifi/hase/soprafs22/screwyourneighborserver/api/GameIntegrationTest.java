@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-public class GameIntegrationTest {
+class GameIntegrationTest {
 
   @LocalServerPort private int port;
 
@@ -44,7 +44,7 @@ public class GameIntegrationTest {
 
   @BeforeEach
   @AfterEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -55,7 +55,7 @@ public class GameIntegrationTest {
   }
 
   @Test
-  public void create_game_and_return_created_game_by_ID() {
+  void create_game_and_return_created_game_by_ID() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -109,7 +109,7 @@ public class GameIntegrationTest {
   }
 
   @Test
-  public void return_found_game_by_ID() {
+  void return_found_game_by_ID() {
 
     GAME_1.setName("My_Game");
     gameRepository.saveAll(List.of(GAME_1));
@@ -131,12 +131,12 @@ public class GameIntegrationTest {
   }
 
   @Test
-  public void return_not_found_game() {
+  void return_not_found_game() {
     webTestClient.get().uri("/games/5").exchange().expectStatus().isNotFound();
   }
 
   @Test
-  public void return_found_all_games() {
+  void return_found_all_games() {
 
     GAME_1.setName("My_first_Game");
     GAME_2.setName("My_second_Game");
@@ -158,7 +158,7 @@ public class GameIntegrationTest {
   }
 
   @Test
-  public void change_gameState_to_playing() {
+  void change_gameState_to_playing() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()

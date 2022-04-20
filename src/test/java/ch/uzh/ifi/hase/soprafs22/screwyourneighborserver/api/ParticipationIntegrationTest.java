@@ -24,7 +24,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-public class ParticipationIntegrationTest {
+class ParticipationIntegrationTest {
 
   @LocalServerPort private int port;
 
@@ -37,7 +37,7 @@ public class ParticipationIntegrationTest {
   private static final Game GAME_1 = new Game();
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -48,7 +48,7 @@ public class ParticipationIntegrationTest {
   }
 
   @Test
-  public void join_existing_game() {
+  void join_existing_game() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()

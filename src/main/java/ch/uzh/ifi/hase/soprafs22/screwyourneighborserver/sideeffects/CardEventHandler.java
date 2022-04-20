@@ -25,11 +25,10 @@ public class CardEventHandler {
   public void handleAfterSave(Card card) {
     Round currentRound = card.getRound();
     // card has been played:
-    if (currentRound != null) {
+    if (currentRound != null
+        && getNumberOfPlayedCards(currentRound) >= getNumberOfPlayers(currentRound)) {
       // check if every player has played their card
-      if (getNumberOfPlayedCards(currentRound) >= getNumberOfPlayers(currentRound)) {
-        Round newRound = createRound(currentRound.getMatch(), currentRound.getRoundNumber());
-      }
+      Round newRound = createRound(currentRound.getMatch(), currentRound.getRoundNumber());
     }
   }
 

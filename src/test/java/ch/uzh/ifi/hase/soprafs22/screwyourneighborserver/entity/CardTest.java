@@ -12,14 +12,14 @@ class CardTest {
   private CardSuit cardSuit;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     cardRank = CardRank.JACK;
     cardSuit = CardSuit.DIAMOND;
     card_1 = new Card(cardRank, cardSuit);
   }
 
   @Test
-  public void compare_equal_test() {
+  void compare_equal_test() {
     cardRank = CardRank.JACK;
     cardSuit = CardSuit.DIAMOND;
     Card card_2 = new Card(cardRank, cardSuit);
@@ -28,7 +28,7 @@ class CardTest {
   }
 
   @Test
-  public void compare_not_equal_test() {
+  void compare_not_equal_test() {
     cardRank = CardRank.NINE;
     cardSuit = CardSuit.CLUB;
     Card card_2 = new Card(cardRank, cardSuit);
@@ -37,7 +37,7 @@ class CardTest {
   }
 
   @Test
-  public void compare_greater_test() {
+  void compare_greater_test() {
     cardRank = CardRank.EIGHT;
     cardSuit = CardSuit.HEART;
     Card card_2 = new Card(cardRank, cardSuit);
@@ -45,7 +45,7 @@ class CardTest {
   }
 
   @Test
-  public void compare_smaller_greater_test() {
+  void compare_smaller_greater_test() {
     cardRank = CardRank.ACE;
     cardSuit = CardSuit.DIAMOND;
     Card card_2 = new Card(cardRank, cardSuit);

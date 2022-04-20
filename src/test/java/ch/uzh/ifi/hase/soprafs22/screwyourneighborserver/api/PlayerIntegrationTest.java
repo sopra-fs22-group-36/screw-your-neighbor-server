@@ -25,7 +25,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-public class PlayerIntegrationTest {
+class PlayerIntegrationTest {
   private static final String ENDPOINT = "/players";
 
   private static final Player PLAYER_1 = new Player();
@@ -38,7 +38,7 @@ public class PlayerIntegrationTest {
   private WebTestClient webTestClient;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     webTestClient =
         WebTestClient.bindToServer()
             .responseTimeout(Duration.ofMinutes(1))
@@ -50,7 +50,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void get_all_players_is_empty_without_players() {
+  void get_all_players_is_empty_without_players() {
     webTestClient
         .get()
         .uri(ENDPOINT)
@@ -63,7 +63,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void get_all_players_from_repository() {
+  void get_all_players_from_repository() {
     playerRepository.saveAll(List.of(PLAYER_1));
     playerRepository.saveAll(List.of(PLAYER_2));
 
@@ -79,7 +79,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void get_not_existing_player_fails() {
+  void get_not_existing_player_fails() {
     webTestClient
         .get()
         .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, "1"))
@@ -89,7 +89,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void create_a_player() {
+  void create_a_player() {
     HttpHeaders headers =
         webTestClient
             .post()
@@ -125,7 +125,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void create_a_player_with_too_short_name_fails() {
+  void create_a_player_with_too_short_name_fails() {
     PLAYER_1.setName("a");
     webTestClient
         .post()
@@ -137,7 +137,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void create_2_players_with_the_same_session_fails() {
+  void create_2_players_with_the_same_session_fails() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -165,7 +165,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void patch_own_player() {
+  void patch_own_player() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -206,7 +206,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void patch_player_when_unauthorized_fails() {
+  void patch_player_when_unauthorized_fails() {
     playerRepository.saveAll(List.of(PLAYER_1));
 
     PLAYER_1.setName("another name");
@@ -223,7 +223,7 @@ public class PlayerIntegrationTest {
   }
 
   @Test
-  public void patch_other_player_fails() {
+  void patch_other_player_fails() {
     playerRepository.saveAll(List.of(PLAYER_2));
 
     HttpHeaders responseHeaders =
