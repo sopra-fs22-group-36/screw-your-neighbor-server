@@ -1,18 +1,17 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ class GameIntegrationTest {
   private static final Game GAME_3 = new Game();
 
   @BeforeEach
-  @AfterEach
   void setup() {
     webTestClient =
         WebTestClient.bindToServer()
@@ -104,6 +102,8 @@ class GameIntegrationTest {
         .isNotEmpty()
         .jsonPath("_embedded.participations[0].player.name")
         .isEqualTo(PLAYER_1.getName())
+        .jsonPath("_embedded.participations[0].player._links.self")
+        .value(notNullValue())
         .jsonPath("_embedded.participations[0].active")
         .isEqualTo(true);
   }
@@ -207,16 +207,26 @@ class GameIntegrationTest {
         .expectStatus()
         .isOk()
         .expectBody()
-        .jsonPath("matches")
+        .jsonPath("_embedded.matches")
         .value(hasSize(1))
-        .jsonPath("matches[0].rounds")
+        .jsonPath("_embedded.matches[0].rounds")
         .value(hasSize(1))
-        .jsonPath("matches[0]._embedded.hands")
+        .jsonPath("_embedded.matches[0].rounds[0].roundNumber")
+        .isEqualTo(1)
+        .jsonPath("_embedded.matches[0].rounds[0].cards")
+        .value(hasSize(0))
+        .jsonPath("_embedded.matches[0].matchNumber")
+        .isEqualTo(1)
+        .jsonPath("_embedded.matches[0].matchState")
+        .isEqualTo(MatchState.ANNOUNCING.name())
+        .jsonPath("_embedded.matches[0].hands")
         .value(hasSize(1))
-        .jsonPath("matches[0]._embedded.hands[0].announcedScore")
+        .jsonPath("_embedded.matches[0].hands[0].announcedScore")
         .value(nullValue())
-        .jsonPath("matches[0]._embedded.hands[0].cards")
-        .value(hasSize(5));
+        .jsonPath("_embedded.matches[0].hands[0].cards")
+        .value(hasSize(5))
+        .jsonPath("_embedded.matches[0].hands[0].participation")
+        .value(notNullValue());
   }
 
   private String createBaseUrl() {

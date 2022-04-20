@@ -10,5 +10,9 @@ public interface HandEmbedProjection {
 
   Integer getAnnouncedScore();
 
+  boolean isTurnActive();
+
   Collection<CardEmbedProjection> getCards();
+
+  ParticipationEmbedProjection getParticipation();
 }

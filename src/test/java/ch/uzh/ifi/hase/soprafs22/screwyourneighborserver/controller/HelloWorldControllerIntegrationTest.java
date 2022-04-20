@@ -23,7 +23,7 @@ class HelloWorldControllerIntegrationTest {
   }
 
   @Test
-  public void return_200_for_get_root() {
+  void return_200_for_get_root() {
     webTestClient.get().uri("/").exchange().expectStatus().isOk();
   }
 }

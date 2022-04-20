@@ -6,7 +6,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ class AuthControllerIntegrationTest {
   private Player PLAYER_1;
 
   @BeforeEach
-  @AfterEach
   void setup() {
     webTestClient =
         WebTestClient.bindToServer()
@@ -77,7 +75,9 @@ class AuthControllerIntegrationTest {
         .jsonPath("name")
         .isEqualTo(PLAYER_1.getName())
         .jsonPath("_links.self.href")
-        .isEqualTo("%s/players/%s".formatted(createBaseUrl(), createdPlayer.getId()));
+        .isEqualTo("%s/players/%s{?projection}".formatted(createBaseUrl(), createdPlayer.getId()))
+        .jsonPath("_links.player.href")
+        .isEqualTo("%s/players/%s{?projection}".formatted(createBaseUrl(), createdPlayer.getId()));
   }
 
   @Test
