@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.*;
 
 @Entity
@@ -60,5 +62,41 @@ public class Hand {
 
   public void setParticipation(Participation participation) {
     this.participation = participation;
+  }
+
+  public boolean isTurnActive() {
+    Match activeMatch = match.getGame().getLastMatch().orElse(null);
+    if (activeMatch == null) {
+      return false;
+    }
+    if (activeMatch != match) {
+      return false;
+    }
+
+    List<Hand> sortedHands = activeMatch.getSortedHands();
+    if (!activeMatch.allScoresAnnounced()) {
+      Hand handWithActiveTurn =
+          sortedHands.stream()
+              .filter(hand -> hand.getAnnouncedScore() == null)
+              .findFirst()
+              .orElseThrow();
+      return this == handWithActiveTurn;
+    }
+
+    Optional<Round> activeRound = activeMatch.getLastRound();
+    if (activeRound.isEmpty()) {
+      return false;
+    }
+    Optional<Hand> firstHandWhichDidNotPlayCard =
+        sortedHands.stream()
+            .filter(
+                hand ->
+                    hand.getCards().stream()
+                        .noneMatch(card -> card.getRound() == activeRound.get()))
+            .findFirst();
+    if (firstHandWhichDidNotPlayCard.isEmpty()) {
+      return false;
+    }
+    return this == firstHandWhichDidNotPlayCard.get();
   }
 }

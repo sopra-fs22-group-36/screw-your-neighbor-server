@@ -1,8 +1,8 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -63,5 +63,21 @@ public class Game {
 
   public Collection<Match> getMatches() {
     return matches;
+  }
+
+  @JsonIgnore
+  public List<Match> getSortedMatches() {
+    return getMatches().stream()
+        .sorted(Comparator.comparingInt(Match::getMatchNumber))
+        .collect(Collectors.toList());
+  }
+
+  @JsonIgnore
+  public Optional<Match> getLastMatch() {
+    List<Match> sortedMatches = getSortedMatches();
+    if (sortedMatches.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(sortedMatches.get(sortedMatches.size() - 1));
   }
 }
