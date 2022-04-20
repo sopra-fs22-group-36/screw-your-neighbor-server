@@ -27,12 +27,20 @@ class Participation {
     - long id
     - boolean active
     - Integer playerOrder
+
+    + int getPoints()
 }
+
+note left of Participation::getPoints
+    Sums up the scores of the hands
+endnote
 
 class Match {
     - long id
     - int matchNumber
     - MatchState matchstate
+
+    + List<Round> getSortedRounds()
 }
 
 enum MatchState {
@@ -43,18 +51,49 @@ enum MatchState {
 
 class Hand {
     int announcedScore
+
+    + int getNumberOfWonTricks()
+    + int getPoints()
 }
 
+note bottom of Hand
+    getNumberOfWonTricks looks if
+    the winner card of a round is in hand
+    can evaluate stacks with Match::getSortedRounds
+
+    getPoints is hardcoded here in the first step.
+    Maybe we extract it later to the serialization.
+    Only calculated if all cards are played.
+endnote
 
 class Round {
     - long id
     - int roundNumber
+
+    + Set<Card> getHighestCards()
+    + boolean isStacked()
 }
+
+note right of Round::getHighestCards
+    not exposed in api
+endnote
+
+note left of Round::isStacked
+    getHighestCards().size() == 1
+    Makes it easy in the frontend to show if round is stacked
+endnote
 
 class Card {
     - Suit suit
     - Rank rank
+
+    + boolean isHighestCardsInRound()
 }
+
+note left of Card::isHighestCardsInRound
+    round.getHighestCards().contains(this)
+    Makes it easy in the frontend to show the winner.
+endnote
 
 enum Suit {
     CLUB,
