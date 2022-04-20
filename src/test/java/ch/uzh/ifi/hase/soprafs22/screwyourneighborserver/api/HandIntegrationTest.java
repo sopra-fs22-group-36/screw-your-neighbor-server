@@ -103,8 +103,12 @@ class HandIntegrationTest {
         .expectStatus()
         .isOk()
         .expectBody()
+        .jsonPath("_embedded.matches[0].hands[0].participation.participationNumber")
+        .isEqualTo(0)
         .jsonPath("_embedded.matches[0].hands[0].turnActive")
         .isEqualTo(true)
+        .jsonPath("_embedded.matches[0].hands[1].participation.participationNumber")
+        .isEqualTo(1)
         .jsonPath("_embedded.matches[0].hands[1].turnActive")
         .isEqualTo(false);
   }
@@ -159,8 +163,12 @@ class HandIntegrationTest {
         .expectStatus()
         .isOk()
         .expectBody()
+        .jsonPath("_embedded.matches[0].hands[0].participation.participationNumber")
+        .isEqualTo(0)
         .jsonPath("_embedded.matches[0].hands[0].turnActive")
         .isEqualTo(false)
+        .jsonPath("_embedded.matches[0].hands[1].participation.participationNumber")
+        .isEqualTo(1)
         .jsonPath("_embedded.matches[0].hands[1].turnActive")
         .isEqualTo(true);
   }
