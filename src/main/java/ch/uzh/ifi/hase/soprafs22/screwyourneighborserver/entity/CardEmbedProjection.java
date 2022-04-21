@@ -13,4 +13,6 @@ public interface CardEmbedProjection {
   CardRank getCardRank();
 
   CardSuit getCardSuit();
+
+  boolean isHighestCardInRound();
 }

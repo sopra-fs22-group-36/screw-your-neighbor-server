@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 @Entity
@@ -82,5 +83,13 @@ public class Card implements Comparable<Card> {
 
   public void setRound(Round round) {
     this.round = round;
+  }
+
+  @JsonProperty
+  public boolean isHighestCardInRound() {
+    if (round == null) {
+      return false;
+    }
+    return round.getHighestCards().contains(this);
   }
 }
