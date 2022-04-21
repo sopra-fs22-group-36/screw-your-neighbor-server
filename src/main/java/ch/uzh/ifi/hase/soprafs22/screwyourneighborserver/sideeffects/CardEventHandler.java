@@ -15,9 +15,7 @@ public class CardEventHandler {
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
-
-  public CardEventHandler(
-      ModelFactory modelFactory, GameRepository gameRepository) {
+  public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
   }
