@@ -86,4 +86,11 @@ public class Round {
     }
     return highestCards;
   }
+
+  public boolean isStacked() {
+    if (cards.size() < match.getHands().size()) {
+      return false;
+    }
+    return getHighestCards().size() > 1;
+  }
 }
