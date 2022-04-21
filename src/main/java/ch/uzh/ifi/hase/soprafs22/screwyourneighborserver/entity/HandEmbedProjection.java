@@ -15,4 +15,8 @@ public interface HandEmbedProjection {
   Collection<CardEmbedProjection> getCards();
 
   ParticipationEmbedProjection getParticipation();
+
+  int getNumberOfWonTricks();
+
+  Integer getPoints();
 }

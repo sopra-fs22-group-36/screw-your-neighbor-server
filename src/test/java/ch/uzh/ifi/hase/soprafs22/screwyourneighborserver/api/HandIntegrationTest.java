@@ -3,11 +3,9 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.JACK_OF_CLUBS;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
+import static org.hamcrest.Matchers.*;
 
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
@@ -171,5 +169,133 @@ class HandIntegrationTest {
         .isEqualTo(1)
         .jsonPath("_embedded.matches[0].hands[1].turnActive")
         .isEqualTo(true);
+  }
+
+  @Test
+  void return_correct_number_of_won_tricks_and_points_is_null() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    Player createdPlayer = playerRepository.findAll().iterator().next();
+
+    Game game =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(createdPlayer)
+            .withParticipation(PLAYER_NAME_2)
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, SEVEN_OF_CLUBS, JACK_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withAnnouncedScore(1)
+            .withCards(QUEEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, SEVEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, QUEEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    String uri = "games/" + game.getId();
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.matches[0].hands[0].numberOfWonTricks")
+        .isEqualTo(0)
+        .jsonPath("_embedded.matches[0].hands[0].points")
+        .value(nullValue())
+        .jsonPath("_embedded.matches[0].hands[1].numberOfWonTricks")
+        .isEqualTo(2)
+        .jsonPath("_embedded.matches[0].hands[1].points")
+        .value(nullValue());
+  }
+
+  @Test
+  void return_correct_number_of_won_tricks_and_points() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    Player createdPlayer = playerRepository.findAll().iterator().next();
+
+    Game game =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(createdPlayer)
+            .withParticipation(PLAYER_NAME_2)
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, SEVEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(QUEEN_OF_CLUBS, ACE_OF_SPADES)
+            .withAnnouncedScore(2)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, SEVEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, QUEEN_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    String uri = "games/" + game.getId();
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.matches[0].hands[0].numberOfWonTricks")
+        .isEqualTo(0)
+        .jsonPath("_embedded.matches[0].hands[0].points")
+        .isEqualTo(-1)
+        .jsonPath("_embedded.matches[0].hands[1].numberOfWonTricks")
+        .isEqualTo(2)
+        .jsonPath("_embedded.matches[0].hands[1].points")
+        .isEqualTo(4);
   }
 }
