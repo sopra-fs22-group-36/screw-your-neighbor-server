@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.persistence.*;
@@ -16,6 +17,8 @@ public class Game {
   private String name;
 
   private GameState gameState = GameState.FINDING_PLAYERS;
+
+  private String videoChatName;
 
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
@@ -51,6 +54,16 @@ public class Game {
 
   public GameState getGameState() {
     return gameState;
+  }
+
+  @JsonProperty
+  public String getVideoChatName() {
+    return videoChatName;
+  }
+
+  @JsonIgnore
+  public void setVideoChatName(String videoChatId) {
+    this.videoChatName = videoChatId;
   }
 
   public Collection<Participation> getParticipations() {
