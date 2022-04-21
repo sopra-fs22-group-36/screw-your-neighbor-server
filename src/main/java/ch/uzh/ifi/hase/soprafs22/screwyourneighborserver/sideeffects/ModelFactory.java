@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModelFactory {
 
-  Hand createHand(Match match, Participation participation) {
+  Hand addHand(Match match, Participation participation) {
     Hand hand = new Hand();
     hand.setParticipation(participation);
     participation.getHands().add(hand);
@@ -16,7 +16,7 @@ public class ModelFactory {
     return hand;
   }
 
-  Match createMatch(Game game, int newMatchNumber) {
+  Match addMatch(Game game, int newMatchNumber) {
     Match match = new Match();
     match.setMatchNumber(newMatchNumber);
     match.setMatchState(MatchState.ANNOUNCING);

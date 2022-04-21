@@ -55,7 +55,7 @@ public class GameEventHandler {
       modelFactory.assignParticipationNumbers(game);
 
       // Create first match with first round and save them
-      Match match = modelFactory.createMatch(game, 1);
+      Match match = modelFactory.addMatch(game, 1);
       Round round = modelFactory.addRound(match, 1);
 
       // Create a standard card deck (currently there's only this one)
@@ -65,7 +65,7 @@ public class GameEventHandler {
 
       // for each player that participates in the game we create a hand
       for (var participation : game.getParticipations()) {
-        Hand hand = modelFactory.createHand(match, participation);
+        Hand hand = modelFactory.addHand(match, participation);
 
         for (int j = 0; j < numOfCards; j++) {
           modelFactory.addCardTo(hand, cardDeck.drawCard());

@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
+import java.util.HashMap;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -15,9 +16,21 @@ public class CardEventHandler {
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
+  private final HashMap<Integer, Integer> mapMatchNoToNumberOfCards =
+      new HashMap<Integer, Integer>();
+
   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
+    mapMatchNoToNumberOfCards.put(1, 5);
+    mapMatchNoToNumberOfCards.put(2, 4);
+    mapMatchNoToNumberOfCards.put(3, 3);
+    mapMatchNoToNumberOfCards.put(4, 2);
+    mapMatchNoToNumberOfCards.put(5, 1);
+    mapMatchNoToNumberOfCards.put(6, 2);
+    mapMatchNoToNumberOfCards.put(7, 3);
+    mapMatchNoToNumberOfCards.put(8, 4);
+    mapMatchNoToNumberOfCards.put(9, 5);
   }
 
   @SuppressWarnings("unused")
@@ -39,11 +52,11 @@ public class CardEventHandler {
       int numberOfPlayedRounds = match.getRounds().size();
       // no cards remaining in any hand
       if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
-        Match newMatch = modelFactory.createMatch(game, match.getMatchNumber() + 1);
+        Match newMatch = modelFactory.addMatch(game, match.getMatchNumber() + 1);
         CardDeck cardDeck = new StandardCardDeck();
-        int numOfCards = numberOfCardsPerPlayer - 1;
+        int numOfCards = mapMatchNoToNumberOfCards.get(match.getMatchNumber() + 1);
         for (var participation : game.getParticipations()) {
-          Hand hand = modelFactory.createHand(newMatch, participation);
+          Hand hand = modelFactory.addHand(newMatch, participation);
           for (int j = 0; j < numOfCards; j++) {
             modelFactory.addCardTo(hand, cardDeck.drawCard());
           }
