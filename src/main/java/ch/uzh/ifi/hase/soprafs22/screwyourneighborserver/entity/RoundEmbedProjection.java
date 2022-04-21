@@ -13,4 +13,6 @@ public interface RoundEmbedProjection {
   Collection<Card> getCards();
 
   Collection<Long> getTrickWinnerIds();
+
+  boolean isStacked();
 }
