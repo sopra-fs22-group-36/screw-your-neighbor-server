@@ -1,29 +1,12 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.CardRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.HandRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.RoundRepository;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 
-public class InstanceCreator {
-
-  private CardRepository cardRepo = null;
-  private RoundRepository roundRepo = null;
-  private MatchRepository matchRepo = null;
-  private HandRepository handRepo = null;
-
-  public InstanceCreator(
-      RoundRepository roundRepo,
-      CardRepository cardRepo,
-      MatchRepository matchRepo,
-      HandRepository handRepo) {
-    this.roundRepo = roundRepo;
-    this.cardRepo = cardRepo;
-    this.matchRepo = matchRepo;
-    this.handRepo = handRepo;
-  }
+@Component
+public class ModelFactory {
 
   Hand createHand(Match match, Participation participation) {
     Hand hand = new Hand();
@@ -43,7 +26,7 @@ public class InstanceCreator {
     return match;
   }
 
-  Round createRound(Match match, int lastRoundNumber) {
+  Round addRound(Match match, int lastRoundNumber) {
     Round round = new Round();
     round.setRoundNumber(lastRoundNumber + 1);
     round.setMatch(match);
@@ -51,11 +34,9 @@ public class InstanceCreator {
     return round;
   }
 
-  Card createCard(Hand hand, CardDeck cardDeck) {
-    Card card = cardDeck.drawCard();
+  void addCardTo(Hand hand, Card card) {
     card.setHand(hand);
     hand.getCards().add(card);
-    return card;
   }
 
   void assignParticipationNumbers(Game game) {

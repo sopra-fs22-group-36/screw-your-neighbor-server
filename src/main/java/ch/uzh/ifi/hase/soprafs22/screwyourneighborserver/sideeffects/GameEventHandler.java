@@ -22,7 +22,7 @@ public class GameEventHandler {
   private final RoundRepository roundRepo;
   private final GameRepository gameRepo;
   private CardDeck cardDeck;
-  private InstanceCreator instanceCreator;
+  private final ModelFactory modelFactory;
 
   public GameEventHandler(
       ParticipationRepository participationRepository,

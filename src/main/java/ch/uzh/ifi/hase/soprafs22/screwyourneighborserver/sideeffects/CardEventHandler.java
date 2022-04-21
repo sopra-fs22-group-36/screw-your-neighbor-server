@@ -6,77 +6,54 @@ import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
+@Component
+
 @RepositoryEventHandler
 public class CardEventHandler {
-  private final CardRepository cardRepo;
-  private final RoundRepository roundRepo;
-  private final MatchRepository matchRepo;
-  private final HandRepository handRepo;
-  private final GameRepository gameRepo;
-  private InstanceCreator instanceCreator;
 
-  public CardEventHandler(
-      RoundRepository roundRepo,
-      CardRepository cardRepo,
-      MatchRepository matchRepo,
-      HandRepository handRepo,
-      GameRepository gameRepo) {
-    this.roundRepo = roundRepo;
-    this.cardRepo = cardRepo;
-    this.matchRepo = matchRepo;
-    this.handRepo = handRepo;
-    this.gameRepo = gameRepo;
+  private final ModelFactory modelFactory;
+  private final GameRepository gameRepository;
+
+   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
+    this.modelFactory = modelFactory;
+    this.gameRepository = gameRepository;
   }
 
   @SuppressWarnings("unused")
   @HandleAfterSave
   @Transactional
   public void handleAfterSave(Card card) {
-    Round currentRound = card.getRound();
-    int numberOfPlayedCards = getNumberOfPlayedCards(currentRound);
-    int numberOfPlayers = getNumberOfPlayers(currentRound);
+  Round round = card.getRound();
+    if (round == null) {
+      return;
+    }
+    Match match = round.getMatch();
+    Game game = match.getGame();
+
+    int numberOfPlayedCardsInRound = round.getCards().size();
+    long numberOfHands = match.getHands().size();
     // last card in round was played
-    if (currentRound != null && numberOfPlayedCards >= numberOfPlayers) {
-      instanceCreator = new InstanceCreator(roundRepo, cardRepo, matchRepo, handRepo);
-      int numberOfCardsPerPlayer = getNumberOfCardsPerPlayer(card);
-      int numberOfPlayedRounds = getNumberOfPlayedRounds(card);
+    //noinspection ConstantConditions @BacLuc: i don't know why this is needed in my intellij
+    if (numberOfPlayedCardsInRound >= numberOfHands) {
+      int numberOfCardsPerPlayer = card.getHand().getCards().size();
+      int numberOfPlayedRounds = match.getRounds().size();
       // no cards remaining in any hand
       if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
-        Game game = getGame(currentRound);
-        Match match = instanceCreator.createMatch(game);
+        Match newMatch = modelFactory.createMatch(game);
         CardDeck cardDeck = new StandardCardDeck();
         int numOfCards = numberOfCardsPerPlayer - 1;
         for (var participation : game.getParticipations()) {
-          Hand hand = instanceCreator.createHand(match, participation);
+          Hand hand = modelFactory.createHand(newMatch, participation);
           for (int j = 0; j < numOfCards; j++) {
-            Card newCard = instanceCreator.createCard(hand, cardDeck);
+            modelFactory.addCardTo(hand, cardDeck.drawCard());
           }
-          Round round = instanceCreator.createRound(match, 0);
+          modelFactory.addRound(newMatch, round.getRoundNumber());
         }
       } else {
-        Round newRound =
-            instanceCreator.createRound(currentRound.getMatch(), currentRound.getRoundNumber());
+        modelFactory.addRound(match, round.getRoundNumber());
       }
     }
+    gameRepository.saveAll(List.of(game));
   }
 
-  private int getNumberOfPlayers(Round round) {
-    return round.getMatch().getGame().getParticipations().size();
-  }
-
-  private int getNumberOfPlayedCards(Round round) {
-    return cardRepo.countByRound(round).intValue();
-  }
-
-  private int getNumberOfPlayedRounds(Card card) {
-    return card.getHand().getMatch().getRounds().size();
-  }
-
-  private int getNumberOfCardsPerPlayer(Card card) {
-    return card.getHand().getCards().size();
-  }
-
-  private Game getGame(Round round) {
-    return round.getMatch().getGame();
-  }
 }
