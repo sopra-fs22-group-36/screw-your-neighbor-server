@@ -14,13 +14,12 @@ public class CardEventHandler {
 
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
-  private final RoundRepository roundRepository;
+
 
   public CardEventHandler(
-      ModelFactory modelFactory, GameRepository gameRepository, RoundRepository roundRepository) {
+      ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
-    this.roundRepository = roundRepository;
   }
 
   @SuppressWarnings("unused")
@@ -56,7 +55,6 @@ public class CardEventHandler {
         modelFactory.addRound(match, round.getRoundNumber() + 1);
       }
       gameRepository.saveAll(List.of(game));
-      System.out.println("finished");
     }
   }
 }

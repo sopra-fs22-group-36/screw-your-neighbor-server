@@ -71,8 +71,6 @@ public class GameEventHandler {
           modelFactory.addCardTo(hand, cardDeck.drawCard());
         }
       }
-      // Because we configured CascadeType.ALL from game downwards, we only need one save.
-      // gameRepository.save(game);
       gameRepository.saveAll(List.of(game));
     }
   }
