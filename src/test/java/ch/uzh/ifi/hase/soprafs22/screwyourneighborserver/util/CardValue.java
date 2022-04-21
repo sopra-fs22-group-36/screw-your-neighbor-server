@@ -10,6 +10,9 @@ public class CardValue {
   public static final CardValue QUEEN_OF_CLUBS = of(CardRank.QUEEN, CardSuit.CLUB);
   public static final CardValue JACK_OF_CLUBS = of(CardRank.JACK, CardSuit.CLUB);
 
+  public static final CardValue QUEEN_OF_HEARTS = of(CardRank.QUEEN, CardSuit.HEART);
+  public static final CardValue KING_OF_HEARTS = of(CardRank.KING, CardSuit.HEART);
+
   public static CardValue of(CardRank rank, CardSuit suit) {
     return new CardValue(rank, suit);
   }

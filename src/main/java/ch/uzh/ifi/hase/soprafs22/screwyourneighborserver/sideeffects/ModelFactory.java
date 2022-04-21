@@ -16,18 +16,18 @@ public class ModelFactory {
     return hand;
   }
 
-  Match createMatch(Game game) {
+  Match createMatch(Game game, int newMatchNumber) {
     Match match = new Match();
-    match.setMatchNumber(1);
+    match.setMatchNumber(newMatchNumber);
     match.setMatchState(MatchState.ANNOUNCING);
     match.setGame(game);
     game.getMatches().add(match);
     return match;
   }
 
-  Round addRound(Match match, int lastRoundNumber) {
+  Round addRound(Match match, int newRoundNumber) {
     Round round = new Round();
-    round.setRoundNumber(lastRoundNumber + 1);
+    round.setRoundNumber(newRoundNumber);
     round.setMatch(match);
     match.getRounds().add(round);
     return round;
