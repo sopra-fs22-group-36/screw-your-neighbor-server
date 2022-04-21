@@ -17,7 +17,7 @@ public class Game {
 
   private GameState gameState = GameState.FINDING_PLAYERS;
 
-  @OneToMany(mappedBy = "game")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
   private Collection<Participation> participations = new ArrayList<>();
 
   @OneToMany(
