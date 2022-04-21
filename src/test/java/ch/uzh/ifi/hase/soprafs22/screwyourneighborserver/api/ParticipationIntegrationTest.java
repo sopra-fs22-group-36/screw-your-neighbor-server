@@ -1,13 +1,18 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.QUEEN_OF_CLUBS;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
+import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +37,12 @@ class ParticipationIntegrationTest {
 
   @Autowired private PlayerRepository playerRepository;
   @Autowired private GameRepository gameRepository;
+  @Autowired private ParticipationRepository participationRepository;
 
+  private static final String PLAYER_NAME_1 = "player1";
   private static final Player PLAYER_1 = new Player();
+  private static final String PLAYER_NAME_2 = "player2";
+
   private static final Game GAME_1 = new Game();
 
   @BeforeEach
@@ -44,7 +53,7 @@ class ParticipationIntegrationTest {
             .baseUrl("http://localhost:" + port)
             .build();
 
-    PLAYER_1.setName("player1");
+    PLAYER_1.setName(PLAYER_NAME_1);
   }
 
   @Test
@@ -83,5 +92,62 @@ class ParticipationIntegrationTest {
         .expectBody()
         .jsonPath("active")
         .isEqualTo(true);
+  }
+
+  @Test
+  void return_correct_number_of_points() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    Player createdPlayer = playerRepository.findAll().iterator().next();
+
+    Game game =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(createdPlayer)
+            .withParticipation(PLAYER_NAME_2)
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, SEVEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(QUEEN_OF_CLUBS, ACE_OF_SPADES)
+            .withAnnouncedScore(2)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, SEVEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, QUEEN_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    String uri = "games/" + game.getId();
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.participations[*].points")
+        .value(containsInAnyOrder(-1, 4));
   }
 }

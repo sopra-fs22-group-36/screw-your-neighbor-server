@@ -13,4 +13,6 @@ public interface ParticipationEmbedProjection {
   Integer getParticipationNumber();
 
   PlayerEmbedProjection getPlayer();
+
+  Integer getPoints();
 }
