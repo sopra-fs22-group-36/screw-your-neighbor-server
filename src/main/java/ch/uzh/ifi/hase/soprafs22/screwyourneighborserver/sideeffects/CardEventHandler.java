@@ -53,6 +53,7 @@ public class CardEventHandler {
       if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
         Match newMatch = modelFactory.addMatch(game, match.getMatchNumber() + 1);
         CardDeck cardDeck = new StandardCardDeck();
+        cardDeck.shuffle();
         int numOfCards = mapMatchNoToNumberOfCards.get(match.getMatchNumber() + 1);
         for (Participation participation : game.getParticipations()) {
           Hand hand = modelFactory.addHand(newMatch, participation);
