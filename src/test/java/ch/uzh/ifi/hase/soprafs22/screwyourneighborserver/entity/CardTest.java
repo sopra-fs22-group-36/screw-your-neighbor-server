@@ -1,7 +1,14 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +58,35 @@ class CardTest {
     Card card_2 = new Card(cardRank, cardSuit);
     assertFalse(card_1.isGreaterThan(card_2));
     assertTrue(card_2.isGreaterThan(card_1));
+  }
+
+  @Test
+  void is_not_highest_card_when_round_is_null() {
+    Card card = new Card();
+
+    assertThat(card.isHighestCardInRound(), is(false));
+  }
+
+  @Test
+  void is_not_highest_card_when_this_not_in_highest_cards() {
+    Round round = mock(Round.class);
+    when(round.getHighestCards()).thenReturn(new LinkedHashSet<>(Set.of(new Card())));
+    Card card = new Card();
+    card.setRound(round);
+
+    assertThat(card.isHighestCardInRound(), is(false));
+  }
+
+  @Test
+  void is_highest_card_when_this_is_in_highest_cards() {
+    Round round = mock(Round.class);
+    Card card = new Card();
+    when(round.getHighestCards()).thenReturn(new LinkedHashSet<>(Set.of(card)));
+    card.setRound(round);
+
+    assertThat(card.isHighestCardInRound(), is(true));
+
+    when(round.getHighestCards()).thenReturn(new LinkedHashSet<>(Set.of(card, new Card())));
+    assertThat(card.isHighestCardInRound(), is(true));
   }
 }
