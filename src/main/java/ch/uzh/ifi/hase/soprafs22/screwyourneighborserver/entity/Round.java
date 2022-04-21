@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import javax.persistence.*;
 
 @Entity
@@ -58,26 +59,31 @@ public class Round {
   @JsonProperty
   public Collection<Long> getTrickWinnerIds() {
     Collection<Long> trickWinnerIds = new ArrayList<>();
-    CardRank cardRank = CardRank.SIX;
-    CardSuit cardSuit = CardSuit.HEART;
-    Collection<Card> highestCard = new ArrayList<>();
-    highestCard.add(new Card(cardRank, cardSuit));
-    for (Card card : this.cards) {
-      Card currentHighestCard = highestCard.iterator().next();
-      if (card.isGreaterThan(currentHighestCard)) {
-        highestCard.clear();
-        highestCard.add(card);
-      } else if (card.isEqualTo(currentHighestCard)) {
-        highestCard.add(card);
-      }
-    }
-    for (Card card : highestCard) {
-      // if only cards with rank 6 are played, the dummy card with no references is still available
-      // and must be overjumped
-      if (card.getHand() != null) {
-        trickWinnerIds.add(card.getHand().getParticipation().getPlayer().getId());
-      }
+    for (Card card : getHighestCards()) {
+      trickWinnerIds.add(card.getHand().getParticipation().getPlayer().getId());
     }
     return trickWinnerIds;
+  }
+
+  @JsonIgnore
+  // suppress warning for use of implementation instead of interface
+  // here it's important that the set is ordered.
+  @SuppressWarnings("java:S1319")
+  public LinkedHashSet<Card> getHighestCards() {
+    LinkedHashSet<Card> highestCards = new LinkedHashSet<>();
+    for (Card card : this.cards) {
+      if (highestCards.isEmpty()) {
+        highestCards.add(card);
+      } else {
+        Card currentHighestCard = highestCards.iterator().next();
+        if (card.isGreaterThan(currentHighestCard)) {
+          highestCards.clear();
+          highestCards.add(card);
+        } else if (card.isEqualTo(currentHighestCard)) {
+          highestCards.add(card);
+        }
+      }
+    }
+    return highestCards;
   }
 }
