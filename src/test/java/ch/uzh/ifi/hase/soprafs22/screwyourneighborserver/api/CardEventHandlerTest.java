@@ -133,9 +133,11 @@ class CardEventHandlerTest {
     assertEquals(1, savedRoundsBefore.size());
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRoundsAfter = roundRepository.findAll();
+    Collection<Match> savedMatches = matchRepository.findAll();
     assertEquals(2, savedRoundsAfter.size());
     assertTrue(savedRoundsAfter.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertTrue(savedRoundsAfter.stream().anyMatch(r -> r.getRoundNumber() == 2));
+    assertFalse(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 2));
   }
 
   @Test
@@ -168,5 +170,7 @@ class CardEventHandlerTest {
     assertEquals(2, savedMatches.size());
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
+    assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 1));
+    assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 2));
   }
 }
