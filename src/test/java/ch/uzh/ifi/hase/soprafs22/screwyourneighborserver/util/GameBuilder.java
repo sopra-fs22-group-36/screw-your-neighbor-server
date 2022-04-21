@@ -85,14 +85,14 @@ public class GameBuilder {
 
         participation = new Participation();
         participation.setPlayer(player);
-
-        participation.setGame(game);
-        game.getParticipations().add(participation);
-
-        if (participationRepository != null) {
-          participationRepository.saveAll(List.of(participation));
-        }
       }
+      participation.setGame(game);
+      game.getParticipations().add(participation);
+
+      if (participationRepository != null) {
+        participationRepository.saveAll(List.of(participation));
+      }
+
       participation.setParticipationNumber(participationNumber++);
       participationMap.put(name, participation);
     }
@@ -100,7 +100,6 @@ public class GameBuilder {
     for (MatchBuilder matchBuilder : matches) {
       Match match = matchBuilder.build(participationMap);
       match.setMatchNumber(matchNumber++);
-      match.setMatchState(MatchState.FINISH);
       match.setGame(game);
       game.getMatches().add(match);
     }
