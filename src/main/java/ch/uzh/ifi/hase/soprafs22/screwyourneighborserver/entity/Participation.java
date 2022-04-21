@@ -23,7 +23,7 @@ public class Participation {
   @ManyToOne
   private Player player;
 
-  @OneToMany(mappedBy = "participation")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "participation")
   private Collection<Hand> hands = new ArrayList<>();
 
   public Long getId() {
