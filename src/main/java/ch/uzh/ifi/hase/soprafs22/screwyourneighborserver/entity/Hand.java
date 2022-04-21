@@ -2,10 +2,8 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.*;
 import javax.persistence.*;
 
 @Entity
@@ -98,5 +96,34 @@ public class Hand {
       return false;
     }
     return this == firstHandWhichDidNotPlayCard.get();
+  }
+
+  @JsonProperty
+  public int getNumberOfWonTricks() {
+    List<Round> sortedRounds = match.getSortedRounds();
+    int numberOfWonTricks = 0;
+    for (Round round : sortedRounds) {
+      ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
+      if (!highestCards.isEmpty() && cards.contains(highestCards.get(highestCards.size() - 1))) {
+        numberOfWonTricks++;
+      }
+    }
+    return numberOfWonTricks;
+  }
+
+  @JsonProperty
+  public Integer getPoints() {
+    if (announcedScore == null) {
+      return null;
+    }
+    Round round = match.getLastRound().orElse(null);
+    if (round == null || round.getCards().size() < match.getHands().size()) {
+      return null;
+    }
+    int difference = Math.abs(announcedScore - getNumberOfWonTricks());
+    if (difference == 0) {
+      return announcedScore * announcedScore;
+    }
+    return -difference;
   }
 }
