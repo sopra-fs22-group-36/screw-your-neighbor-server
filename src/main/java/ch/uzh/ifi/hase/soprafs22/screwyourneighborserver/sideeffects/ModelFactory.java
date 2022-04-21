@@ -1,7 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import java.util.Collection;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,14 +35,5 @@ public class ModelFactory {
   void addCardTo(Hand hand, Card card) {
     card.setHand(hand);
     hand.getCards().add(card);
-  }
-
-  void assignParticipationNumbers(Game game) {
-    Collection<Participation> part = game.getParticipations();
-    int i = 0;
-    for (var p : part) {
-      p.setParticipationNumber(i);
-      i++;
-    }
   }
 }

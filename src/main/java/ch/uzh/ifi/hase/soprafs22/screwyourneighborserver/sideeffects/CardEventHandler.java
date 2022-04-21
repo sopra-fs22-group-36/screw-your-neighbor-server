@@ -55,7 +55,7 @@ public class CardEventHandler {
         Match newMatch = modelFactory.addMatch(game, match.getMatchNumber() + 1);
         CardDeck cardDeck = new StandardCardDeck();
         int numOfCards = mapMatchNoToNumberOfCards.get(match.getMatchNumber() + 1);
-        for (var participation : game.getParticipations()) {
+        for (Participation participation : game.getParticipations()) {
           Hand hand = modelFactory.addHand(newMatch, participation);
           for (int j = 0; j < numOfCards; j++) {
             modelFactory.addCardTo(hand, cardDeck.drawCard());

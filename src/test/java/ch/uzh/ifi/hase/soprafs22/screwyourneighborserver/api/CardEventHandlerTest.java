@@ -86,6 +86,7 @@ class CardEventHandlerTest {
     card1 = round.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
+
     assertEquals(1, savedRounds.size());
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertFalse(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
@@ -108,6 +109,7 @@ class CardEventHandlerTest {
     card1 = round.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
+
     assertEquals(1, savedRounds.size());
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertFalse(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
@@ -134,6 +136,7 @@ class CardEventHandlerTest {
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRoundsAfter = roundRepository.findAll();
     Collection<Match> savedMatches = matchRepository.findAll();
+
     assertEquals(2, savedRoundsAfter.size());
     assertTrue(savedRoundsAfter.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertTrue(savedRoundsAfter.stream().anyMatch(r -> r.getRoundNumber() == 2));
@@ -165,8 +168,9 @@ class CardEventHandlerTest {
     assertEquals(2, savedRounds1.size());
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
-    assertEquals(3, savedRounds.size());
     Collection<Match> savedMatches = matchRepository.findAll();
+
+    assertEquals(3, savedRounds.size());
     assertEquals(2, savedMatches.size());
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));

@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
+import java.util.Collection;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
@@ -52,7 +53,7 @@ public class GameEventHandler {
   @HandleAfterSave
   public void handleAfterSave(Game game) {
     if (game.getGameState().equals(GameState.PLAYING) && game.getMatches().isEmpty()) {
-      modelFactory.assignParticipationNumbers(game);
+      assignParticipationNumbers(game);
 
       // Create first match with first round and save them
       Match match = modelFactory.addMatch(game, 1);
@@ -72,6 +73,15 @@ public class GameEventHandler {
         }
       }
       gameRepository.saveAll(List.of(game));
+    }
+  }
+
+  void assignParticipationNumbers(Game game) {
+    Collection<Participation> part = game.getParticipations();
+    int i = 0;
+    for (var p : part) {
+      p.setParticipationNumber(i);
+      i++;
     }
   }
 }
