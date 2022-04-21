@@ -2,8 +2,10 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -69,5 +71,15 @@ public class Participation {
 
   public Collection<Hand> getHands() {
     return hands;
+  }
+
+  @SuppressWarnings("unused")
+  @JsonProperty
+  public Integer getPoints() {
+    return hands.stream()
+        .map(Hand::getPoints)
+        .filter(Objects::nonNull)
+        .mapToInt(Integer::intValue)
+        .sum();
   }
 }
