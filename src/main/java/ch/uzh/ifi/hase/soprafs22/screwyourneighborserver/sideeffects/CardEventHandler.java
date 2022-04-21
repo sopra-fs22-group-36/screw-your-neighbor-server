@@ -5,16 +5,18 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
-
 @RepositoryEventHandler
 public class CardEventHandler {
 
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
-   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
+  public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
   }
@@ -23,7 +25,7 @@ public class CardEventHandler {
   @HandleAfterSave
   @Transactional
   public void handleAfterSave(Card card) {
-  Round round = card.getRound();
+    Round round = card.getRound();
     if (round == null) {
       return;
     }
@@ -55,5 +57,4 @@ public class CardEventHandler {
     }
     gameRepository.saveAll(List.of(game));
   }
-
 }

@@ -1,9 +1,8 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import org.springframework.stereotype.Component;
-
 import java.util.Collection;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ModelFactory {

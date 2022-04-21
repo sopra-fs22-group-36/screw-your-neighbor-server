@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.ModelFactory;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,7 @@ class CardEventHandlerTest {
     cardSuit = CardSuit.HEART;
     card3 = new Card(cardRank, cardSuit);
     cardEventHandler =
-        new CardEventHandler(
-            roundRepository, cardRepository, matchRepository, handRepository, gameRepository);
+        new CardEventHandler(new ModelFactory(), gameRepository);
     matchRepository.save(match);
     round.setMatch(match);
     round.setRoundNumber(1);
