@@ -98,6 +98,8 @@ class GameIntegrationTest {
         .expectBody()
         .jsonPath("name")
         .isEqualTo(GAME_1.getName())
+        .jsonPath("videoChatName")
+        .value(notNullValue())
         .jsonPath("_embedded.participations")
         .isNotEmpty()
         .jsonPath("_embedded.participations[0].player.name")

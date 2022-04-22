@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -39,6 +40,8 @@ public class GameEventHandler {
       throw new HttpClientErrorException(
           HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
     }
+    game.setVideoChatName(UUID.randomUUID().toString());
+
     Player player = (Player) authentication.getPrincipal();
     Participation participation = new Participation();
     participation.setGame(game);

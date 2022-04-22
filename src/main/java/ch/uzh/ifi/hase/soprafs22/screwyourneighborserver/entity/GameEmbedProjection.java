@@ -13,6 +13,8 @@ public interface GameEmbedProjection {
 
   GameState getGameState();
 
+  String getVideoChatName();
+
   Collection<ParticipationEmbedProjection> getParticipations();
 
   Collection<MatchEmbedProjection> getMatches();
