@@ -42,6 +42,11 @@ public class CardEventHandler {
     }
     Match match = round.getMatch();
     Game game = match.getGame();
+    boolean newRoundAlreadyExists =
+        match.getRounds().stream().anyMatch(m -> m.getRoundNumber() == round.getRoundNumber() + 1);
+    if (newRoundAlreadyExists) {
+      return;
+    }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
     long numberOfHands = match.getHands().size();
