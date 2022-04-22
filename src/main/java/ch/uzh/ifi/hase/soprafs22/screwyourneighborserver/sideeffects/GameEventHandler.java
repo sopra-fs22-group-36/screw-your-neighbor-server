@@ -61,6 +61,7 @@ public class GameEventHandler {
 
       // Create a standard card deck (currently there's only this one)
       CardDeck cardDeck = new StandardCardDeck();
+      cardDeck.shuffle();
       // In the first round, 5 cards per player are distributed.
       int numOfCards = 5;
 

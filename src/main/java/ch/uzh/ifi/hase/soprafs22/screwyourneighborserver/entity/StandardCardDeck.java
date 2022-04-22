@@ -20,6 +20,7 @@ public class StandardCardDeck implements CardDeck {
     return cardDeck.pop();
   }
 
+  @Override
   public void shuffle() {
     Collections.shuffle(this.cardDeck);
   }
