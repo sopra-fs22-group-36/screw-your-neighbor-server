@@ -2,8 +2,9 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.JACK_OF_CLUBS;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
@@ -26,9 +27,7 @@ class CardEventHandlerTest {
 
   @Autowired private RoundRepository roundRepository;
   @Autowired private MatchRepository matchRepository;
-  @Autowired private CardRepository cardRepository;
   @Autowired private GameRepository gameRepository;
-  @Autowired private HandRepository handRepository;
   @Autowired private ParticipationRepository participationRepository;
 
   @Autowired private PlayerRepository playerRepository;
@@ -36,16 +35,9 @@ class CardEventHandlerTest {
   private static final String PLAYER_NAME_1 = "player1";
   private static final String PLAYER_NAME_2 = "player2";
   private static final String PLAYER_NAME_3 = "player3";
-
-  private Participation participation1;
-  private Participation participation2;
-  private Participation participation3;
-  private Game game;
   private Match match;
-  private Round round;
+  private Round lastRound;
   private Card card1;
-  private Card card2;
-  private Card card3;
   @Autowired private CardEventHandler cardEventHandler;
   private GameBuilder.MatchBuilder matchBuilder;
 
@@ -82,8 +74,8 @@ class CardEventHandlerTest {
 
     gameRepository.saveAll(List.of(game));
     match = game.getLastMatch().get();
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
+    lastRound = match.getLastRound().get();
+    card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
 
@@ -105,8 +97,8 @@ class CardEventHandlerTest {
 
     gameRepository.saveAll(List.of(game));
     match = game.getLastMatch().get();
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
+    lastRound = match.getLastRound().get();
+    card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
 
@@ -129,8 +121,8 @@ class CardEventHandlerTest {
 
     Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
     match = savedGames.iterator().next().getLastMatch().get();
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
+    lastRound = match.getLastRound().get();
+    card1 = lastRound.getCards().iterator().next();
     Collection<Round> savedRoundsBefore = roundRepository.findAll();
     assertEquals(1, savedRoundsBefore.size());
     cardEventHandler.handleAfterSave(card1);
@@ -162,8 +154,8 @@ class CardEventHandlerTest {
 
     Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
     match = savedGames.iterator().next().getLastMatch().get();
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
+    lastRound = match.getLastRound().get();
+    card1 = lastRound.getCards().iterator().next();
     Collection<Round> savedRounds1 = roundRepository.findAll();
     assertEquals(2, savedRounds1.size());
     cardEventHandler.handleAfterSave(card1);
@@ -176,5 +168,69 @@ class CardEventHandlerTest {
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
     assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 1));
     assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 2));
+  }
+
+  @Test
+  void does_not_create_new_match_when_last_card_played_for_last_match() {
+    Game game =
+        matchBuilder
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .finishMatch()
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_3)
+            .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_3, QUEEN_OF_HEARTS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
+
+    match = savedGames.iterator().next().getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
+
+    Card notYetPlayedCard =
+        match.getHands().stream()
+            .map(Hand::getCards)
+            .flatMap(Collection::stream)
+            .filter(card -> card.getRound() == null)
+            .findFirst()
+            .orElseThrow();
+
+    notYetPlayedCard.setRound(lastRound);
+    lastRound.getCards().add(notYetPlayedCard);
+
+    assertThat(game.getMatches(), hasSize(9));
+
+    cardEventHandler.handleAfterSave(notYetPlayedCard);
+
+    assertThat(game.getMatches(), hasSize(9));
   }
 }
