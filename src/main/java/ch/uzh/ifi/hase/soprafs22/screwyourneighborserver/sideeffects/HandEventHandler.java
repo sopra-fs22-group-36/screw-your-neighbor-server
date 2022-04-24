@@ -5,7 +5,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.HandRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
-import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -59,8 +58,8 @@ public class HandEventHandler {
    * @return List from all hands
    */
   private Collection<Hand> getAllHandsFromMatch(Hand hand) {
-    Collection<Hand> allHands = new ArrayList();
-    for (Hand el : handRepository.findAll()) {
+    Collection<Hand> allHands = handRepository.findAll();
+    for (Hand el : allHands) {
       if (el.getMatch() == hand.getMatch()) allHands.add(el);
     }
     return allHands;
