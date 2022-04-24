@@ -24,6 +24,8 @@ entity "Game" as game {
   --
   *name : VARCHAR
   gameState : GameState
+  videoChatName : VARCHAR
+  nextGame : DECIMAL <<FK>>
   'participationtogame_id : DECIMAL <<FK>>
 }
 /'
@@ -46,8 +48,8 @@ entity "Hand" as hand {
 entity "Match" as match {
   *id : DECIMAL <<generated>>
   --
-  *gameId : DECIMAL <<FK>>
   *matchNumber : INTEGER
+  *gameId : DECIMAL <<FK>>
 }
 
 entity "Participation" as participation {
@@ -76,6 +78,7 @@ entity "Round" as round {
 round ||..o{ card
 hand ||..|{ card
 participation ||..o{ hand
+game |o..o| game
 game ||..|{ participation
 'game ||..o{ participationtogame
 'participation ||..o{ participationtogame
