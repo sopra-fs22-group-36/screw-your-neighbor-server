@@ -1,0 +1,86 @@
+ [Copy to clipboard]
+
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "Card" as card {
+  *id : DECIMAL <<generated>>
+  --
+  *cardRank : CardRank
+  *cardSuit : CardSuit
+  *handId : DECIMAL <<FK>>
+  roundId : DECIMAL <<FK>>
+}
+note left of card: One Card can actually be\nassigned multiple times\nto a hand --> should it be\nthen an n-to-m relationship?
+
+
+entity "Game" as game {
+  *id : DECIMAL <<generated>>
+  --
+  *name : VARCHAR
+  gameState : GameState
+  'participationtogame_id : DECIMAL <<FK>>
+}
+/'
+entity "ParticipationToGame" as participationtogame {
+  *id : DECIMAL <<generated>>
+--
+  *gameId : DECIMAL <<FK>>
+  *participationId : DECIMAL <<FK>>
+
+}'/
+
+entity "Hand" as hand {
+  *id : DECIMAL <<generated>>
+  --
+  announcedScore: INTEGER
+  *matchId : DECIMAL <<FK>>
+  *participation_id : DECIMAL <<FK>>
+}
+
+entity "Match" as match {
+  *id : DECIMAL <<generated>>
+  --
+  *gameId : DECIMAL <<FK>>
+  *matchNumber : INTEGER
+}
+
+entity "Participation" as participation {
+  *id : DECIMAL <<generated>>
+  --
+  *active : BOOLEAN
+  participationNumber : INTEGER
+  *playerId : DECIMAL <<FK>>
+  *gameId : DECIMAL <<FK>>
+  '*gameToParticipationId : DECIMAL <<FK>>
+}
+
+entity "Player" as player {
+  *id : DECIMAL <<generated>>
+  --
+  *name : VARCHAR
+}
+
+entity "Round" as round {
+  *id : DECIMAL <<generated>>
+  --
+  *matchId : DECIMAL <<FK>>
+  *roundNumber : INTEGER
+}
+
+round ||..o{ card
+hand ||..|{ card
+participation ||..o{ hand
+game ||..|{ participation
+'game ||..o{ participationtogame
+'participation ||..o{ participationtogame
+player ||..|{ participation
+match ||..|{ round
+game ||..|{ match
+
+@enduml
