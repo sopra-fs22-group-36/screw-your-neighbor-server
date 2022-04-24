@@ -40,39 +40,44 @@ public class CardEventHandler {
     if (round == null) {
       return;
     }
+
     Match match = round.getMatch();
     Game game = match.getGame();
-    boolean newRoundAlreadyExists =
-        match.getRounds().stream().anyMatch(m -> m.getRoundNumber() == round.getRoundNumber() + 1);
-    if (newRoundAlreadyExists) {
+    int newRoundNumber = round.getRoundNumber() + 1;
+    if (match.getLastRound().map(Round::getRoundNumber).orElse(-1) == newRoundNumber) {
       return;
     }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
     long numberOfHands = match.getHands().size();
-    // last card in round was played
-    if (numberOfPlayedCardsInRound >= numberOfHands) {
-      int numberOfCardsPerPlayer = card.getHand().getCards().size();
-      int numberOfPlayedRounds = match.getRounds().size();
-      // no cards remaining in any hand
-      if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
-        Integer numOfCards = mapMatchNoToNumberOfCards.get(match.getMatchNumber() + 1);
-        if (numOfCards != null) {
-          Match newMatch = modelFactory.addMatch(game, match.getMatchNumber() + 1);
-          CardDeck cardDeck = new StandardCardDeck();
-          cardDeck.shuffle();
-          for (Participation participation : game.getParticipations()) {
-            Hand hand = modelFactory.addHand(newMatch, participation);
-            for (int j = 0; j < numOfCards; j++) {
-              modelFactory.addCardTo(hand, cardDeck.drawCard());
-            }
-          }
-          modelFactory.addRound(newMatch, round.getRoundNumber() + 1);
-        }
-      } else {
-        modelFactory.addRound(match, round.getRoundNumber() + 1);
-      }
-      gameRepository.saveAll(List.of(game));
+    if (numberOfPlayedCardsInRound < numberOfHands) {
+      return;
     }
+
+    int newMatchNumber = match.getMatchNumber() + 1;
+    if (game.getLastMatch().map(Match::getMatchNumber).orElse(-1) == newMatchNumber) {
+      return;
+    }
+
+    Match attachNewRoundTo = match;
+
+    int numberOfCardsPerPlayer = card.getHand().getCards().size();
+    int numberOfPlayedRounds = match.getRounds().size();
+    Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
+    if (numberOfPlayedRounds >= numberOfCardsPerPlayer && numOfCards != null) {
+      Match newMatch = modelFactory.addMatch(game, newMatchNumber);
+      attachNewRoundTo = newMatch;
+      newRoundNumber = 0;
+      CardDeck cardDeck = new StandardCardDeck();
+      cardDeck.shuffle();
+      for (Participation participation : game.getParticipations()) {
+        Hand hand = modelFactory.addHand(newMatch, participation);
+        for (int j = 0; j < numOfCards; j++) {
+          modelFactory.addCardTo(hand, cardDeck.drawCard());
+        }
+      }
+    }
+    modelFactory.addRound(attachNewRoundTo, newRoundNumber);
+    gameRepository.saveAll(List.of(game));
   }
 }
