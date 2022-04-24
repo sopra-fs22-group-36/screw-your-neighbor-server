@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="639px" preserveAspectRatio="none" style="width:619px;height:639px;background:#FFFFFF;" version="1.1" viewBox="0 0 619 639" width="619px" zoomAndPan="magnify"><defs/><g><!--MD5=[37c281712b1f51d591729d8a39ba31ff]
+class card--><g id="elem_card"><rect codeLine="8" fill="#F1F1F1" height="123.7813" id="card" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="247" y="509"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="336" y="526.9951">Card</text><line style="stroke:#181818;stroke-width:0.5;" x1="248" x2="458" y1="535.2969" y2="535.2969"/><ellipse cx="258" cy="546.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="267" y="552.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="458" y1="559.5938" y2="559.5938"/><ellipse cx="258" cy="570.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151" x="267" y="576.5889">cardRank : CardRank</text><ellipse cx="258" cy="586.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="267" y="592.8857">cardSuit : CardSuit</text><ellipse cx="258" cy="603.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="267" y="609.1826">handId : DECIMAL «FK»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171" x="267" y="625.4795">roundId : DECIMAL «FK»</text></g><g id="elem_GMN20276"><path d="M6,535.5 L6,606.0313 A0,0 0 0 0 6,606.0313 L212,606.0313 A0,0 0 0 0 212,606.0313 L212,576 L246.7267,572 L212,568 L212,545.5 L202,535.5 L6,535.5 A0,0 0 0 0 6,535.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M202,535.5 L202,545.5 L212,545.5 L202,535.5 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="12" y="552.5669">One Card can actually be</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157" x="12" y="567.6997">assigned multiple times</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="166" x="12" y="582.8325">to a hand --&gt; should it be</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="185" x="12" y="597.9653">then an n-to-m relationship?</text></g><!--MD5=[d0497865c591b752d9f81c3ace406775]
+class game--><g id="elem_game"><rect codeLine="19" fill="#F1F1F1" height="91.1875" id="game" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="123" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="207.5" y="24.9951">Game</text><line style="stroke:#181818;stroke-width:0.5;" x1="124" x2="334" y1="33.2969" y2="33.2969"/><ellipse cx="134" cy="44.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="143" y="50.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="124" x2="334" y1="57.5938" y2="57.5938"/><ellipse cx="134" cy="68.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="143" y="74.5889">name : VARCHAR</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171" x="143" y="90.8857">gameState : GameState</text></g><!--MD5=[7eb028927e4ee13535fc9116bb3c1f81]
+class hand--><g id="elem_hand"><rect codeLine="35" fill="#F1F1F1" height="107.4844" id="hand" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="252" x="360" y="342"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="467" y="359.9951">Hand</text><line style="stroke:#181818;stroke-width:0.5;" x1="361" x2="611" y1="368.2969" y2="368.2969"/><ellipse cx="371" cy="379.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="380" y="385.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="361" x2="611" y1="392.5938" y2="392.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="192" x="380" y="409.5889">announcedScore: INTEGER</text><ellipse cx="371" cy="419.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="380" y="425.8857">matchId : DECIMAL «FK»</text><ellipse cx="371" cy="436.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="226" x="380" y="442.1826">participation_id : DECIMAL «FK»</text></g><!--MD5=[db556c9717b588b131d01a750dd9c48e]
+class match--><g id="elem_match"><rect codeLine="43" fill="#F1F1F1" height="91.1875" id="match" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="114" y="174.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="198.5" y="192.4951">Match</text><line style="stroke:#181818;stroke-width:0.5;" x1="115" x2="325" y1="200.7969" y2="200.7969"/><ellipse cx="125" cy="211.7969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="134" y="217.792">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="115" x2="325" y1="225.0938" y2="225.0938"/><ellipse cx="125" cy="236.0938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="134" y="242.0889">gameId : DECIMAL «FK»</text><ellipse cx="125" cy="252.3906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="134" y="258.3857">matchNumber : INTEGER</text></g><!--MD5=[1374ed400b2a5a91dae2a177bb3b7fef]
+class participation--><g id="elem_participation"><rect codeLine="50" fill="#F1F1F1" height="123.7813" id="participation" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="248" x="361" y="158"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="440.5" y="175.9951">Participation</text><line style="stroke:#181818;stroke-width:0.5;" x1="362" x2="608" y1="184.2969" y2="184.2969"/><ellipse cx="372" cy="195.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="381" y="201.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="362" x2="608" y1="208.5938" y2="208.5938"/><ellipse cx="372" cy="219.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="381" y="225.5889">active : BOOLEAN</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222" x="381" y="241.8857">participationNumber : INTEGER</text><ellipse cx="372" cy="252.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="381" y="258.1826">playerId : DECIMAL «FK»</text><ellipse cx="372" cy="268.4844" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="381" y="274.4795">gameId : DECIMAL «FK»</text></g><!--MD5=[308de564e57c8d51c168255b0b03c096]
+class player--><g id="elem_player"><rect codeLine="60" fill="#F1F1F1" height="74.8906" id="player" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="379" y="15"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="463" y="32.9951">Player</text><line style="stroke:#181818;stroke-width:0.5;" x1="380" x2="590" y1="41.2969" y2="41.2969"/><ellipse cx="390" cy="52.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="399" y="58.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="380" x2="590" y1="65.5938" y2="65.5938"/><ellipse cx="390" cy="76.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="399" y="82.5889">name : VARCHAR</text></g><!--MD5=[8ff828e554ef434670c2a4b547c92bc0]
+class round--><g id="elem_round"><rect codeLine="66" fill="#F1F1F1" height="91.1875" id="round" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="113" y="350"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="196" y="367.9951">Round</text><line style="stroke:#181818;stroke-width:0.5;" x1="114" x2="324" y1="376.2969" y2="376.2969"/><ellipse cx="124" cy="387.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="133" y="393.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="114" x2="324" y1="400.5938" y2="400.5938"/><ellipse cx="124" cy="411.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="133" y="417.5889">matchId : DECIMAL «FK»</text><ellipse cx="124" cy="427.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="133" y="433.8857">roundNumber : INTEGER</text></g><!--MD5=[94949e77217e239ac153428e5465477c]
+link round to card--><g id="link_round_card"><path codeLine="73" d="M286,449.1524 C286,449.1524 286,500.7306 286,500.7306 " fill="none" id="round-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="286" x2="292" y1="500.7306" y2="508.7306"/><line style="stroke:#181818;stroke-width:1.0;" x1="286" x2="280" y1="500.7306" y2="508.7306"/><line style="stroke:#181818;stroke-width:1.0;" x1="286" x2="286" y1="500.7306" y2="508.7306"/><ellipse cx="286" cy="494.7306" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="282" x2="290" y1="445.1524" y2="445.1524"/><line style="stroke:#181818;stroke-width:1.0;" x1="282" x2="290" y1="448.1524" y2="448.1524"/><line style="stroke:#181818;stroke-width:1.0;" x1="286" x2="286" y1="449.1524" y2="441.1524"/></g><!--MD5=[09dcaa670210d926f742a7939b6ec262]
+link hand to card--><g id="link_hand_card"><path codeLine="74" d="M409.5,457.1094 C409.5,457.1094 409.5,500.7972 409.5,500.7972 " fill="none" id="hand-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="409.5" x2="415.5" y1="500.7972" y2="508.7972"/><line style="stroke:#181818;stroke-width:1.0;" x1="409.5" x2="403.5" y1="500.7972" y2="508.7972"/><line style="stroke:#181818;stroke-width:1.0;" x1="409.5" x2="409.5" y1="500.7972" y2="508.7972"/><line style="stroke:#181818;stroke-width:1.0;" x1="413.5" x2="405.5" y1="498.7972" y2="498.7972"/><line style="stroke:#181818;stroke-width:1.0;" x1="405.5" x2="413.5" y1="453.1094" y2="453.1094"/><line style="stroke:#181818;stroke-width:1.0;" x1="405.5" x2="413.5" y1="456.1094" y2="456.1094"/><line style="stroke:#181818;stroke-width:1.0;" x1="409.5" x2="409.5" y1="457.1094" y2="449.1094"/></g><!--MD5=[f2f13420b7c6518d17ae6509690ba9cc]
+link participation to hand--><g id="link_participation_hand"><path codeLine="75" d="M485,290.3689 C485,290.3689 485,333.7655 485,333.7655 " fill="none" id="participation-hand" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="491" y1="333.7655" y2="341.7655"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="479" y1="333.7655" y2="341.7655"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="485" y1="333.7655" y2="341.7655"/><ellipse cx="485" cy="327.7655" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="481" x2="489" y1="286.3689" y2="286.3689"/><line style="stroke:#181818;stroke-width:1.0;" x1="481" x2="489" y1="289.3689" y2="289.3689"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="485" y1="290.3689" y2="282.3689"/></g><!--MD5=[45b592eaa92796672ac42c47035acc5e]
+link game to participation--><g id="link_game_participation"><path codeLine="76" d="M330.5,106.0824 C330.5,106.0824 330.5,167 330.5,167 C330.5,167 352.6559,167 352.6559,167 " fill="none" id="game-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="352.6559" x2="360.6559" y1="167" y2="161"/><line style="stroke:#181818;stroke-width:1.0;" x1="352.6559" x2="360.6559" y1="167" y2="173"/><line style="stroke:#181818;stroke-width:1.0;" x1="352.6559" x2="360.6559" y1="167" y2="167"/><line style="stroke:#181818;stroke-width:1.0;" x1="350.6559" x2="350.6559" y1="163" y2="171"/><line style="stroke:#181818;stroke-width:1.0;" x1="326.5" x2="334.5" y1="102.0824" y2="102.0824"/><line style="stroke:#181818;stroke-width:1.0;" x1="326.5" x2="334.5" y1="105.0824" y2="105.0824"/><line style="stroke:#181818;stroke-width:1.0;" x1="330.5" x2="330.5" y1="106.0824" y2="98.0824"/></g><!--MD5=[a70957515180f50f22ed486534df8d14]
+link player to participation--><g id="link_player_participation"><path codeLine="79" d="M485,98.0903 C485,98.0903 485,149.8793 485,149.8793 " fill="none" id="player-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="491" y1="149.8793" y2="157.8793"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="479" y1="149.8793" y2="157.8793"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="485" y1="149.8793" y2="157.8793"/><line style="stroke:#181818;stroke-width:1.0;" x1="489" x2="481" y1="147.8793" y2="147.8793"/><line style="stroke:#181818;stroke-width:1.0;" x1="481" x2="489" y1="94.0903" y2="94.0903"/><line style="stroke:#181818;stroke-width:1.0;" x1="481" x2="489" y1="97.0903" y2="97.0903"/><line style="stroke:#181818;stroke-width:1.0;" x1="485" x2="485" y1="98.0903" y2="90.0903"/></g><!--MD5=[4a7f41e8d98d404128a218619f76c3f3]
+link match to round--><g id="link_match_round"><path codeLine="80" d="M219.5,273.6524 C219.5,273.6524 219.5,341.7716 219.5,341.7716 " fill="none" id="match-round" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="219.5" x2="225.5" y1="341.7716" y2="349.7716"/><line style="stroke:#181818;stroke-width:1.0;" x1="219.5" x2="213.5" y1="341.7716" y2="349.7716"/><line style="stroke:#181818;stroke-width:1.0;" x1="219.5" x2="219.5" y1="341.7716" y2="349.7716"/><line style="stroke:#181818;stroke-width:1.0;" x1="223.5" x2="215.5" y1="339.7716" y2="339.7716"/><line style="stroke:#181818;stroke-width:1.0;" x1="215.5" x2="223.5" y1="269.6524" y2="269.6524"/><line style="stroke:#181818;stroke-width:1.0;" x1="215.5" x2="223.5" y1="272.6524" y2="272.6524"/><line style="stroke:#181818;stroke-width:1.0;" x1="219.5" x2="219.5" y1="273.6524" y2="265.6524"/></g><!--MD5=[2f96b88d42231009c1df848f79c38062]
+link game to match--><g id="link_game_match"><path codeLine="81" d="M224.5,106.2701 C224.5,106.2701 224.5,166.2852 224.5,166.2852 " fill="none" id="game-match" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="224.5" x2="230.5" y1="166.2852" y2="174.2852"/><line style="stroke:#181818;stroke-width:1.0;" x1="224.5" x2="218.5" y1="166.2852" y2="174.2852"/><line style="stroke:#181818;stroke-width:1.0;" x1="224.5" x2="224.5" y1="166.2852" y2="174.2852"/><line style="stroke:#181818;stroke-width:1.0;" x1="228.5" x2="220.5" y1="164.2852" y2="164.2852"/><line style="stroke:#181818;stroke-width:1.0;" x1="220.5" x2="228.5" y1="102.2701" y2="102.2701"/><line style="stroke:#181818;stroke-width:1.0;" x1="220.5" x2="228.5" y1="105.2701" y2="105.2701"/><line style="stroke:#181818;stroke-width:1.0;" x1="224.5" x2="224.5" y1="106.2701" y2="98.2701"/></g><!--MD5=[6591630cf3e74054365b600dcf399eb6]
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "Card" as card {
+  *id : DECIMAL <<generated>>
+  - -
+  *cardRank : CardRank
+  *cardSuit : CardSuit
+  *handId : DECIMAL <<FK>>
+  roundId : DECIMAL <<FK>>
+}
+note left of card: One Card can actually be\nassigned multiple times\nto a hand - -> should it be\nthen an n-to-m relationship?
+
+
+entity "Game" as game {
+  *id : DECIMAL <<generated>>
+  - -
+  *name : VARCHAR
+  gameState : GameState
+  'participationtogame_id : DECIMAL <<FK>>
+}
+/'
+entity "ParticipationToGame" as participationtogame {
+  *id : DECIMAL <<generated>>
+- -
+  *gameId : DECIMAL <<FK>>
+  *participationId : DECIMAL <<FK>>
+
+}'/
+
+entity "Hand" as hand {
+  *id : DECIMAL <<generated>>
+  - -
+  announcedScore: INTEGER
+  *matchId : DECIMAL <<FK>>
+  *participation_id : DECIMAL <<FK>>
+}
+
+entity "Match" as match {
+  *id : DECIMAL <<generated>>
+  - -
+  *gameId : DECIMAL <<FK>>
+  *matchNumber : INTEGER
+}
+
+entity "Participation" as participation {
+  *id : DECIMAL <<generated>>
+  - -
+  *active : BOOLEAN
+  participationNumber : INTEGER
+  *playerId : DECIMAL <<FK>>
+  *gameId : DECIMAL <<FK>>
+  '*gameToParticipationId : DECIMAL <<FK>>
+}
+
+entity "Player" as player {
+  *id : DECIMAL <<generated>>
+  - -
+  *name : VARCHAR
+}
+
+entity "Round" as round {
+  *id : DECIMAL <<generated>>
+  - -
+  *matchId : DECIMAL <<FK>>
+  *roundNumber : INTEGER
+}
+
+round ||..o{ card
+hand ||..|{ card
+participation ||..o{ hand
+game ||..|{ participation
+'game ||..o{ participationtogame
+'participation ||..o{ participationtogame
+player ||..|{ participation
+match ||..|{ round
+game ||..|{ match
+
+@enduml
+
+@startuml
+
+hide circle
+
+skinparam linetype ortho
+
+entity "Card" as card {
+  *id : DECIMAL <<generated>>
+  - -
+  *cardRank : CardRank
+  *cardSuit : CardSuit
+  *handId : DECIMAL <<FK>>
+  roundId : DECIMAL <<FK>>
+}
+note left of card: One Card can actually be\nassigned multiple times\nto a hand - -> should it be\nthen an n-to-m relationship?
+
+
+entity "Game" as game {
+  *id : DECIMAL <<generated>>
+  - -
+  *name : VARCHAR
+  gameState : GameState
+}
+
+entity "Hand" as hand {
+  *id : DECIMAL <<generated>>
+  - -
+  announcedScore: INTEGER
+  *matchId : DECIMAL <<FK>>
+  *participation_id : DECIMAL <<FK>>
+}
+
+entity "Match" as match {
+  *id : DECIMAL <<generated>>
+  - -
+  *gameId : DECIMAL <<FK>>
+  *matchNumber : INTEGER
+}
+
+entity "Participation" as participation {
+  *id : DECIMAL <<generated>>
+  - -
+  *active : BOOLEAN
+  participationNumber : INTEGER
+  *playerId : DECIMAL <<FK>>
+  *gameId : DECIMAL <<FK>>
+}
+
+entity "Player" as player {
+  *id : DECIMAL <<generated>>
+  - -
+  *name : VARCHAR
+}
+
+entity "Round" as round {
+  *id : DECIMAL <<generated>>
+  - -
+  *matchId : DECIMAL <<FK>>
+  *roundNumber : INTEGER
+}
+
+round ||..o{ card
+hand ||..|{ card
+participation ||..o{ hand
+game ||..|{ participation
+player ||..|{ participation
+match ||..|{ round
+game ||..|{ match
+
+@enduml
+
+PlantUML version 1.2022.4(Sat Apr 09 15:29:17 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>
