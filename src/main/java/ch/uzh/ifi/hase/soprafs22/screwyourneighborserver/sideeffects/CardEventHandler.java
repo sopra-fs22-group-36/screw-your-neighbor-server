@@ -16,7 +16,7 @@ public class CardEventHandler {
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
-  private final HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap();
+  private final HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
 
   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
