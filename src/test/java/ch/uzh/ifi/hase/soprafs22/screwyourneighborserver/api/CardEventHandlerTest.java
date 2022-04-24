@@ -26,9 +26,7 @@ class CardEventHandlerTest {
 
   @Autowired private RoundRepository roundRepository;
   @Autowired private MatchRepository matchRepository;
-  @Autowired private CardRepository cardRepository;
   @Autowired private GameRepository gameRepository;
-  @Autowired private HandRepository handRepository;
   @Autowired private ParticipationRepository participationRepository;
 
   @Autowired private PlayerRepository playerRepository;
@@ -36,16 +34,9 @@ class CardEventHandlerTest {
   private static final String PLAYER_NAME_1 = "player1";
   private static final String PLAYER_NAME_2 = "player2";
   private static final String PLAYER_NAME_3 = "player3";
-
-  private Participation participation1;
-  private Participation participation2;
-  private Participation participation3;
-  private Game game;
   private Match match;
   private Round round;
   private Card card1;
-  private Card card2;
-  private Card card3;
   @Autowired private CardEventHandler cardEventHandler;
   private GameBuilder.MatchBuilder matchBuilder;
 
