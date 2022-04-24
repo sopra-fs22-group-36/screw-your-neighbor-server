@@ -11,19 +11,17 @@ skinparam linetype ortho
 entity "Card" as card {
   *id : DECIMAL <<generated>>
   --
-  *cardRank : CardRank
-  *cardSuit : CardSuit
+  *cardRank : INTEGER
+  *cardSuit : INTEGER
   *handId : DECIMAL <<FK>>
   roundId : DECIMAL <<FK>>
 }
-note left of card: One Card can actually be\nassigned multiple times\nto a hand --> should it be\nthen an n-to-m relationship?
-
 
 entity "Game" as game {
   *id : DECIMAL <<generated>>
   --
   *name : VARCHAR
-  gameState : GameState
+  gameState : INTEGER
   videoChatName : VARCHAR
   nextGame : DECIMAL <<FK>>
   'participationtogame_id : DECIMAL <<FK>>
@@ -49,6 +47,7 @@ entity "Match" as match {
   *id : DECIMAL <<generated>>
   --
   *matchNumber : INTEGER
+  *matchState: INTEGER
   *gameId : DECIMAL <<FK>>
 }
 
