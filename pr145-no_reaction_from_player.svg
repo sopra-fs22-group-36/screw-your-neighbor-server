@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="446px" preserveAspectRatio="none" style="width:346px;height:446px;background:#FFFFFF;" version="1.1" viewBox="0 0 346 446" width="346px" zoomAndPan="magnify"><defs/><g><ellipse cx="173" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="167" x="89.5" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="147" x="99.5" y="71.1387">StartGameWith4Players</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="204" x="71" y="103.9688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="184" x="81" y="125.1074">PlaySomeRoundsAndMatches</text><rect fill="#FFC0CB" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="186" x="80" y="157.9375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="166" x="90" y="179.0762">PlayersTurnButNoReaction</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="117" x="114.5" y="211.9063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="97" x="124.5" y="233.0449">What happens?</text><polygon fill="#F1F1F1" points="155,265.875,191,265.875,203,277.875,191,289.875,155,289.875,143,277.875,155,265.875" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="155" y="281.6831">When?</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="137" x="11" y="325.4844"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="117" x="21" y="346.623">WhilePlayingRound</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="167" x="168" y="325.4844"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="147" x="178" y="346.623">WhileAnnouncingRound</text><polygon fill="#F1F1F1" points="173,369.4531,173,369.4531,185,381.4531,173,393.4531,173,393.4531,161,381.4531,173,369.4531" style="stroke:#181818;stroke-width:0.5;"/><ellipse cx="173" cy="424.4531" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;fill:none;"/><ellipse cx="173" cy="424.4531" fill="#222222" rx="6" ry="6" style="stroke:#111111;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="30" y2="50"/><polygon fill="#181818" points="169,40,173,50,177,40,173,44" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="83.9688" y2="103.9688"/><polygon fill="#181818" points="169,93.9688,173,103.9688,177,93.9688,173,97.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="137.9375" y2="157.9375"/><polygon fill="#181818" points="169,147.9375,173,157.9375,177,147.9375,173,151.9375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="191.9063" y2="211.9063"/><polygon fill="#181818" points="169,201.9063,173,211.9063,177,201.9063,173,205.9063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="143" x2="79.5" y1="277.875" y2="277.875"/><line style="stroke:#181818;stroke-width:1.0;" x1="79.5" x2="79.5" y1="277.875" y2="325.4844"/><polygon fill="#181818" points="75.5,315.4844,79.5,325.4844,83.5,315.4844,79.5,319.4844" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="83.5" y="305.4878">case 1</text><line style="stroke:#181818;stroke-width:1.0;" x1="203" x2="251.5" y1="277.875" y2="277.875"/><line style="stroke:#181818;stroke-width:1.0;" x1="251.5" x2="251.5" y1="277.875" y2="325.4844"/><polygon fill="#181818" points="247.5,315.4844,251.5,325.4844,255.5,315.4844,251.5,319.4844" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="255.5" y="305.4878">case 2</text><line style="stroke:#181818;stroke-width:1.0;" x1="79.5" x2="79.5" y1="359.4531" y2="381.4531"/><line style="stroke:#181818;stroke-width:1.0;" x1="79.5" x2="161" y1="381.4531" y2="381.4531"/><polygon fill="#181818" points="151,377.4531,161,381.4531,151,385.4531,155,381.4531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="251.5" x2="251.5" y1="359.4531" y2="381.4531"/><line style="stroke:#181818;stroke-width:1.0;" x1="251.5" x2="185" y1="381.4531" y2="381.4531"/><polygon fill="#181818" points="195,377.4531,185,381.4531,195,385.4531,191,381.4531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="245.875" y2="265.875"/><polygon fill="#181818" points="169,255.875,173,265.875,177,255.875,173,259.875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="173" y1="393.4531" y2="413.4531"/><polygon fill="#181818" points="169,403.4531,173,413.4531,177,403.4531,173,407.4531" style="stroke:#181818;stroke-width:1.0;"/><!--MD5=[4677d22720bd713aa8215c8913aa1d7c]
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:StartGameWith4Players;
+:PlaySomeRoundsAndMatches;
+#Pink:PlayersTurnButNoReaction;
+:What happens?;
+switch (When?)
+case ( case 1 )
+    :WhilePlayingRound;
+case ( case 2 )
+    :WhileAnnouncingRound;
+endswitch
+
+
+stop
+
+@enduml
+
+@startuml
+
+start
+:StartGameWith4Players;
+:PlaySomeRoundsAndMatches;
+#Pink:PlayersTurnButNoReaction;
+:What happens?;
+switch (When?)
+case ( case 1 )
+    :WhilePlayingRound;
+case ( case 2 )
+    :WhileAnnouncingRound;
+endswitch
+
+
+stop
+
+@enduml
+
+PlantUML version 1.2022.2(Sat Mar 05 16:30:19 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>
