@@ -6,7 +6,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.HandRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
 import java.util.Collection;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
@@ -27,11 +26,10 @@ public class HandEventHandler {
   @HandleAfterSave
   public void onAfterSave(Hand hand) {
     long idMatch = hand.getMatch().getId();
-    Match myMatch =
-        matchRepository
-            .findById(idMatch)
-            .orElseThrow(() -> new EntityNotFoundException(idMatch + ""));
+    Match myMatch = matchRepository.findById(idMatch);
+
     Collection<Hand> allHands = getAllHandsFromMatch(hand);
+
     if (allPlayersAnnouncedScore(allHands)) {
       myMatch.setMatchState(MatchState.PLAYING);
       matchRepository.save(myMatch);
