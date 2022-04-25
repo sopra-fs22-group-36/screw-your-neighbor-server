@@ -85,8 +85,11 @@ public class Hand {
     if (activeRound.isEmpty()) {
       return false;
     }
+
+    List<Round> sortedRounds = activeMatch.getSortedRounds();
+    List<Hand> handsStartingWithPreviousWinner = rotateHandsByLastWinner(sortedHands, sortedRounds);
     Optional<Hand> firstHandWhichDidNotPlayCard =
-        sortedHands.stream()
+        handsStartingWithPreviousWinner.stream()
             .filter(
                 hand ->
                     hand.getCards().stream()
@@ -124,6 +127,26 @@ public class Hand {
       return announcedScore * announcedScore;
     }
     return -difference;
+  }
+
+  private static List<Hand> rotateHandsByLastWinner(
+      List<Hand> sortedHands, List<Round> sortedRounds) {
+    List<Hand> handsStartingWithPreviousWinner = new ArrayList<>(sortedHands);
+    if (sortedRounds.size() <= 1) {
+      return handsStartingWithPreviousWinner;
+    }
+    List<Round> previousRounds = sortedRounds.subList(0, sortedRounds.size() - 1);
+    Collections.reverse(previousRounds);
+    for (Round round : previousRounds) {
+      Optional<Hand> winnerHand =
+          sortedHands.stream().filter(hand -> hasHandWon(round, hand)).findFirst();
+      if (winnerHand.isPresent()) {
+        int winnerHandIndex = sortedHands.indexOf(winnerHand.get());
+        Collections.rotate(handsStartingWithPreviousWinner, winnerHandIndex);
+        break;
+      }
+    }
+    return handsStartingWithPreviousWinner;
   }
 
   private static boolean hasHandWon(Round round, Hand hand) {
