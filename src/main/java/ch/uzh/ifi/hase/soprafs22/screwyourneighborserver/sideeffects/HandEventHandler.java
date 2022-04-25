@@ -6,6 +6,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.HandRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
 import java.util.Collection;
+import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,10 @@ public class HandEventHandler {
 
   @SuppressWarnings("unused")
   @HandleAfterSave
+  @Transactional
   public void onAfterSave(Hand hand) {
     long idMatch = hand.getMatch().getId();
-    Match myMatch = matchRepository.findById(idMatch);
+    Match myMatch = matchRepository.getById(idMatch);
 
     Collection<Hand> allHands = getAllHandsFromMatch(hand);
 

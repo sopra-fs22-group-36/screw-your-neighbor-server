@@ -62,27 +62,6 @@ class HandEventHandlerTest {
   }
 
   @Test
-  void play_one_card_with_no_announcing_score() {
-    Game game =
-        matchBuilder
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
-            .finishRound()
-            .finishMatch()
-            .build();
-
-    gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    Collection<Match> savedMatches = matchRepository.findAll();
-
-    assertEquals(1, savedMatches.size());
-    assertTrue(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.ANNOUNCING));
-    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.PLAYING));
-    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.FINISH));
-  }
-
-  @Test
   void play_one_card_with_announcing_score() {
     Game game =
         matchBuilder
