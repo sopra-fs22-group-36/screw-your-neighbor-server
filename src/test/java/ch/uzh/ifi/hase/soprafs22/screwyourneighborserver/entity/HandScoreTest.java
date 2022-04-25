@@ -10,8 +10,10 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.Participatio
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,7 +161,10 @@ class HandScoreTest {
     gameRepository.saveAll(List.of(game));
 
     Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands = match.getSortedHands();
+    List<Hand> sortedHands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -199,7 +204,10 @@ class HandScoreTest {
     gameRepository.saveAll(List.of(game));
 
     Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands = match.getSortedHands();
+    List<Hand> sortedHands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);

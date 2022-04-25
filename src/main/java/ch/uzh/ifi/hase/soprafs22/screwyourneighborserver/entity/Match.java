@@ -75,9 +75,13 @@ public class Match {
 
   @JsonIgnore
   public List<Hand> getSortedHands() {
-    return hands.stream()
-        .sorted(Comparator.comparingInt(hand -> hand.getParticipation().getParticipationNumber()))
-        .collect(Collectors.toList());
+    List<Hand> sortedHands =
+        hands.stream()
+            .sorted(
+                Comparator.comparingInt(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Collections.rotate(sortedHands, matchNumber - 1);
+    return sortedHands;
   }
 
   public List<Round> getSortedRounds() {
