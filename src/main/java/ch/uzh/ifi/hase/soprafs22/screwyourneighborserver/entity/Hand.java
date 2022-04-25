@@ -103,8 +103,7 @@ public class Hand {
     List<Round> sortedRounds = match.getSortedRounds();
     int numberOfWonTricks = 0;
     for (Round round : sortedRounds) {
-      ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
-      if (!highestCards.isEmpty() && cards.contains(highestCards.get(highestCards.size() - 1))) {
+      if (hasHandWon(round, this)) {
         numberOfWonTricks++;
       }
     }
@@ -125,5 +124,11 @@ public class Hand {
       return announcedScore * announcedScore;
     }
     return -difference;
+  }
+
+  private static boolean hasHandWon(Round round, Hand hand) {
+    ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
+    return !highestCards.isEmpty()
+        && hand.cards.contains(highestCards.get(highestCards.size() - 1));
   }
 }
