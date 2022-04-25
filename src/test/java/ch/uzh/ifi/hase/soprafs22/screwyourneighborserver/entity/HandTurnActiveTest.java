@@ -6,8 +6,10 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +38,10 @@ class HandTurnActiveTest {
             .build();
 
     Match activeMatch = game.getLastMatch().orElseThrow();
-    List<Hand> hands = activeMatch.getSortedHands();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
     Hand firstHand = hands.get(0);
     Hand secondHand = hands.get(1);
 
@@ -71,7 +76,10 @@ class HandTurnActiveTest {
             .build();
 
     Match activeMatch = game.getLastMatch().orElseThrow();
-    List<Hand> hands = activeMatch.getSortedHands();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
     Hand firstHand = hands.get(0);
     Hand secondHand = hands.get(1);
 
@@ -88,7 +96,7 @@ class HandTurnActiveTest {
   }
 
   @Test
-  void turnActive_also_works_on_second_round_in_second_match() {
+  void in_the_second_match_the_start_player_shifts_by_1() {
     Game game =
         GameBuilder.builder("game1")
             .withParticipation(PLAYER_1)
@@ -111,13 +119,15 @@ class HandTurnActiveTest {
             .withRound()
             .finishRound()
             .withRound()
-            .withPlayedCard(PLAYER_1, ACE_OF_CLUBS)
             .finishRound()
             .finishMatch()
             .build();
 
     Match activeMatch = game.getLastMatch().orElseThrow();
-    List<Hand> hands = activeMatch.getSortedHands();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
     Hand firstHand = hands.get(0);
     Hand secondHand = hands.get(1);
 
