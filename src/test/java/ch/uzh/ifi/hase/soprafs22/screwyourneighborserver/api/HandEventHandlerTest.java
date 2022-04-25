@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.HandEventHandler;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
@@ -24,9 +23,7 @@ import org.springframework.test.context.TestExecutionListeners;
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 class HandEventHandlerTest {
 
-  @Autowired private RoundRepository roundRepository;
   @Autowired private MatchRepository matchRepository;
-  @Autowired private CardRepository cardRepository;
   @Autowired private GameRepository gameRepository;
   @Autowired private HandRepository handRepository;
   @Autowired private ParticipationRepository participationRepository;
@@ -37,23 +34,11 @@ class HandEventHandlerTest {
   private static final String PLAYER_NAME_2 = "player2";
   private static final String PLAYER_NAME_3 = "player3";
 
-  private Participation participation1;
-  private Participation participation2;
-  private Participation participation3;
-  private Game game;
   private Match match;
-  private Round round;
   private Hand hand;
-  private Hand hand1;
-  private Hand hand2;
-  private Hand hand3;
-  private Card card1;
-  private Card card2;
-  private Card card3;
-  @Autowired private CardEventHandler cardEventHandler;
+
   @Autowired private HandEventHandler handEventHandler;
   private GameBuilder.MatchBuilder matchBuilder;
-  private GameBuilder.HandBuilder handBuilder;
 
   @BeforeEach
   void setup() {
@@ -89,9 +74,6 @@ class HandEventHandlerTest {
 
     gameRepository.saveAll(List.of(game));
     match = game.getLastMatch().get();
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
-    cardEventHandler.handleAfterSave(card1);
     Collection<Match> savedMatches = matchRepository.findAll();
 
     assertEquals(1, savedMatches.size());
@@ -122,8 +104,6 @@ class HandEventHandlerTest {
 
     Collection<Hand> hands = handRepository.findAll();
 
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
     // Hand from all player
     for (Hand hand : hands) {
       hand.setAnnouncedScore(1);
@@ -164,8 +144,6 @@ class HandEventHandlerTest {
     Collection<Hand> savedHands = handRepository.findAll();
     Iterator<Hand> iterHands = savedHands.iterator();
 
-    round = match.getLastRound().get();
-    card1 = round.getCards().iterator().next();
     // Hand from player 1
     hand = iterHands.next();
     hand.setAnnouncedScore(1);
