@@ -9,7 +9,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.HandEventHa
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,8 @@ class HandEventHandlerTest {
   private static final String PLAYER_NAME_3 = "player3";
 
   private Match match;
-  private Hand hand;
+  private Match firstMatch;
+  private Match lastMatch;
 
   @Autowired private HandEventHandler handEventHandler;
   private GameBuilder.MatchBuilder matchBuilder;
@@ -59,6 +59,7 @@ class HandEventHandlerTest {
             .withHandForPlayer(PLAYER_NAME_3)
             .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
             .finishHand();
+    handEventHandler = new HandEventHandler(matchRepository, handRepository);
   }
 
   @Test
@@ -80,17 +81,15 @@ class HandEventHandlerTest {
     assertEquals(1, savedMatches.size());
     long test = savedMatches.iterator().next().getId();
     match.setId(test);
+    matchRepository.save(match);
 
-    Collection<Hand> hands = handRepository.findAll();
+    Collection<Hand> hands = match.getHands();
 
-    // Hand from all player
+    // Set announcement
     for (Hand hand : hands) {
       hand.setAnnouncedScore(1);
-      handRepository.save(hand);
     }
 
-    handEventHandler.onAfterSave(hands.iterator().next());
-    handEventHandler.onAfterSave(hands.iterator().next());
     handEventHandler.onAfterSave(hands.iterator().next());
 
     // Start again find all element in the match repo
@@ -119,36 +118,72 @@ class HandEventHandlerTest {
     assertEquals(1, savedMatches.size());
     long test = savedMatches.iterator().next().getId();
     match.setId(test);
+    matchRepository.save(match);
 
-    Collection<Hand> savedHands = handRepository.findAll();
-    Iterator<Hand> iterHands = savedHands.iterator();
+    Collection<Hand> hands = match.getHands();
 
     // Hand from player 1
-    hand = iterHands.next();
-    hand.setAnnouncedScore(1);
-    handRepository.save(hand);
+    int index = 0;
+    for (Hand el : hands) {
+      if (index < 2) {
+        el.setAnnouncedScore(index);
+        index++;
+      }
+    }
 
-    hand = iterHands.next();
-    hand.setAnnouncedScore(2);
-    handRepository.save(hand);
-
-    // Set one element null
-    hand = iterHands.next();
-    hand.setAnnouncedScore(null);
-    handRepository.save(hand);
-
-    savedHands = handRepository.findAll();
-    iterHands = savedHands.iterator();
-
-    handEventHandler.onAfterSave(iterHands.next());
-    handEventHandler.onAfterSave(iterHands.next());
-    handEventHandler.onAfterSave(iterHands.next());
+    handEventHandler.onAfterSave(hands.iterator().next());
 
     // Start again find all element in the match repo
-    savedMatches = matchRepository.findAll();
-    assertEquals(3, savedHands.stream().count());
+    assertEquals(1, game.getMatches().stream().count());
+    assertEquals(3, match.getHands().stream().count());
     assertTrue(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.ANNOUNCING));
     assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.PLAYING));
     assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.FINISH));
+  }
+
+  @Test
+  void play_one_card_with_announcing_score_and_two_matches() {
+    Game game =
+        matchBuilder
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+    game =
+        matchBuilder
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+    firstMatch = game.getSortedMatches().stream().findFirst().get();
+    lastMatch = game.getLastMatch().get();
+
+    // Find match id from repository: hand must know which match belongs to
+    List<Match> savedMatches = matchRepository.findAll();
+    firstMatch.setId(savedMatches.get(0).getId());
+    lastMatch.setId(savedMatches.get(1).getId());
+    matchRepository.save(firstMatch);
+    matchRepository.save(lastMatch);
+
+    Collection<Hand> hands = lastMatch.getHands();
+
+    // Set announcement
+    for (Hand hand : hands) {
+      hand.setAnnouncedScore(1);
+    }
+
+    handEventHandler.onAfterSave(hands.iterator().next());
+
+    // Start again find all element in the match repo
+    List<Match> actuelMatches = matchRepository.findAll();
+    assertEquals(2, savedMatches.size());
+    assertEquals(MatchState.ANNOUNCING, actuelMatches.get(0).getMatchState());
+    assertEquals(MatchState.PLAYING, actuelMatches.get(1).getMatchState());
   }
 }
