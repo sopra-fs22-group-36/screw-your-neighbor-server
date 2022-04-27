@@ -24,7 +24,6 @@ class HandEventHandlerTest {
 
   @Autowired private MatchRepository matchRepository;
   @Autowired private GameRepository gameRepository;
-  @Autowired private HandRepository handRepository;
   @Autowired private ParticipationRepository participationRepository;
 
   @Autowired private PlayerRepository playerRepository;
@@ -59,7 +58,6 @@ class HandEventHandlerTest {
             .withHandForPlayer(PLAYER_NAME_3)
             .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
             .finishHand();
-    handEventHandler = new HandEventHandler(matchRepository, handRepository);
   }
 
   @Test
