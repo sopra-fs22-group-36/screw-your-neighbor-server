@@ -23,7 +23,7 @@ public class HandEventHandler {
   @SuppressWarnings("unused")
   @HandleAfterSave
   public void onAfterSave(Hand hand) {
-    //find match by the hand
+    // find match by the hand
     Match match = hand.getMatch();
 
     if (allPlayersAnnouncedScore(match)) {
@@ -34,6 +34,7 @@ public class HandEventHandler {
 
   /**
    * At least one hand must part of the match, check whether all have announced
+   *
    * @param match
    * @return
    */
