@@ -5,7 +5,6 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.HandRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
-import java.util.Collection;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RepositoryEventHandler
+@Transactional
 public class HandEventHandler {
 
   private final MatchRepository matchRepository;
@@ -25,43 +25,24 @@ public class HandEventHandler {
 
   @SuppressWarnings("unused")
   @HandleAfterSave
-  @Transactional
   public void onAfterSave(Hand hand) {
-    long idMatch = hand.getMatch().getId();
-    Match myMatch = matchRepository.getById(idMatch);
+    Match match = hand.getMatch();
 
-    Collection<Hand> allHands = getAllHandsFromMatch(hand);
-
-    if (allPlayersAnnouncedScore(allHands)) {
-      myMatch.setMatchState(MatchState.PLAYING);
-      matchRepository.save(myMatch);
+    if (allPlayersAnnouncedScore(match)) {
+      match.setMatchState(MatchState.PLAYING);
+      matchRepository.save(match);
     }
   }
 
   /**
-   * Checks whether all players from the match did the announcing
-   *
-   * @param hands
+   * @param match
    * @return
    */
-  private boolean allPlayersAnnouncedScore(Collection<Hand> hands) {
-    for (Hand el : hands) {
-      if (el.getAnnouncedScore() == null) return false;
+  private boolean allPlayersAnnouncedScore(Match match) {
+    if (match.getHands().stream().count() <= 0) return false;
+    for (Hand hand : match.getHands()) {
+      if (hand.getAnnouncedScore() == null) return false;
     }
     return true;
-  }
-
-  /**
-   * Find all Hands in the repository which belongs to this match
-   *
-   * @param hand announced score from a user hand in a game
-   * @return List from all hands
-   */
-  private Collection<Hand> getAllHandsFromMatch(Hand hand) {
-    Collection<Hand> allHands = handRepository.findAll();
-    for (Hand el : allHands) {
-      if (el.getMatch() == hand.getMatch()) allHands.add(el);
-    }
-    return allHands;
   }
 }
