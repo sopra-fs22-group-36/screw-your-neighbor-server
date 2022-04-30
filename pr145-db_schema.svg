@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="689px" preserveAspectRatio="none" style="width:532px;height:689px;background:#FFFFFF;" version="1.1" viewBox="0 0 532 689" width="532px" zoomAndPan="magnify"><defs/><g><!--MD5=[37c281712b1f51d591729d8a39ba31ff]
-class card--><g id="elem_card"><rect codeLine="8" fill="#F1F1F1" height="123.7813" id="card" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="191" x="183.5" y="559"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="263" y="576.9951">Card</text><line style="stroke:#181818;stroke-width:0.5;" x1="184.5" x2="373.5" y1="585.2969" y2="585.2969"/><ellipse cx="194.5" cy="596.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="203.5" y="602.292">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="184.5" x2="373.5" y1="609.5938" y2="609.5938"/><ellipse cx="194.5" cy="620.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="203.5" y="626.5889">cardRank : INTEGER</text><ellipse cx="194.5" cy="636.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="203.5" y="642.8857">cardSuit : INTEGER</text><ellipse cx="194.5" cy="653.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="145" x="203.5" y="659.1826">handId : BIGINT «FK»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151" x="203.5" y="675.4795">roundId : BIGINT «FK»</text></g><!--MD5=[d0497865c591b752d9f81c3ace406775]
-class game--><g id="elem_game"><rect codeLine="17" fill="#F1F1F1" height="123.7813" id="game" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="256" x="24" y="24"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="131.5" y="41.9951">Game</text><line style="stroke:#181818;stroke-width:0.5;" x1="25" x2="279" y1="50.2969" y2="50.2969"/><ellipse cx="35" cy="61.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="44" y="67.292">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="25" x2="279" y1="74.5938" y2="74.5938"/><ellipse cx="35" cy="85.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151" x="44" y="91.5889">name : VARCHAR (50)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="44" y="107.8857">gameState : INTEGER</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="230" x="44" y="124.1826">videoChatName : VARCHAR (255)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169" x="44" y="140.4795">nextGame : BIGINT «FK»</text></g><!--MD5=[7eb028927e4ee13535fc9116bb3c1f81]
-class hand--><g id="elem_hand"><rect codeLine="26" fill="#F1F1F1" height="107.4844" id="hand" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="227" x="290.5" y="392"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="386" y="409.9951">Hand</text><line style="stroke:#181818;stroke-width:0.5;" x1="291.5" x2="516.5" y1="418.2969" y2="418.2969"/><ellipse cx="301.5" cy="429.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="310.5" y="435.292">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="291.5" x2="516.5" y1="442.5938" y2="442.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="310.5" y="459.5889">announcedScore: INTEGER</text><ellipse cx="301.5" cy="469.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="310.5" y="475.8857">matchId : BIGINT «FK»</text><ellipse cx="301.5" cy="486.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="201" x="310.5" y="492.1826">participation_id : BIGINT «FK»</text></g><!--MD5=[db556c9717b588b131d01a750dd9c48e]
-class match--><g id="elem_match"><rect codeLine="34" fill="#F1F1F1" height="107.4844" id="match" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="198" x="53" y="216.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42" x="131" y="234.4951">Match</text><line style="stroke:#181818;stroke-width:0.5;" x1="54" x2="250" y1="242.7969" y2="242.7969"/><ellipse cx="64" cy="253.7969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="73" y="259.792">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="54" x2="250" y1="267.0938" y2="267.0938"/><ellipse cx="64" cy="278.0938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="73" y="284.0889">matchNumber : INTEGER</text><ellipse cx="64" cy="294.3906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="73" y="300.3857">matchState: INTEGER</text><ellipse cx="64" cy="310.6875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="73" y="316.6826">gameId : BIGINT «FK»</text></g><!--MD5=[1374ed400b2a5a91dae2a177bb3b7fef]
-class participation--><g id="elem_participation"><rect codeLine="42" fill="#F1F1F1" height="123.7813" id="participation" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="239" x="286.5" y="208"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="364" y="225.9951">Participation</text><line style="stroke:#181818;stroke-width:0.5;" x1="287.5" x2="524.5" y1="234.2969" y2="234.2969"/><ellipse cx="297.5" cy="245.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="306.5" y="251.292">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="287.5" x2="524.5" y1="258.5938" y2="258.5938"/><ellipse cx="297.5" cy="269.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="306.5" y="275.5889">active : BOOLEAN</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="213" x="306.5" y="291.8857">participationNumber : INTEGER</text><ellipse cx="297.5" cy="302.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151" x="306.5" y="308.1826">playerId : BIGINT «FK»</text><ellipse cx="297.5" cy="318.4844" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="306.5" y="324.4795">gameId : BIGINT «FK»</text></g><!--MD5=[308de564e57c8d51c168255b0b03c096]
-class player--><g id="elem_player"><rect codeLine="51" fill="#F1F1F1" height="74.8906" id="player" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="191" x="333.5" y="48.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="408.5" y="66.4951">Player</text><line style="stroke:#181818;stroke-width:0.5;" x1="334.5" x2="523.5" y1="74.7969" y2="74.7969"/><ellipse cx="344.5" cy="85.7969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="353.5" y="91.792">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="334.5" x2="523.5" y1="99.0938" y2="99.0938"/><ellipse cx="344.5" cy="110.0938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="353.5" y="116.0889">name : VARCHAR(50)</text></g><!--MD5=[8ff828e554ef434670c2a4b547c92bc0]
-class round--><g id="elem_round"><rect codeLine="57" fill="#F1F1F1" height="91.1875" id="round" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="196" x="57" y="400"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="132" y="417.9951">Round</text><line style="stroke:#181818;stroke-width:0.5;" x1="58" x2="252" y1="426.2969" y2="426.2969"/><ellipse cx="68" cy="437.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="77" y="443.292">id : BIGINT «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="58" x2="252" y1="450.5938" y2="450.5938"/><ellipse cx="68" cy="461.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="77" y="467.5889">matchId : BIGINT «FK»</text><ellipse cx="68" cy="477.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="77" y="483.8857">roundNumber : INTEGER</text></g><!--MD5=[94949e77217e239ac153428e5465477c]
-link round to card--><g id="link_round_card"><path codeLine="64" d="M218.25,499.15 C218.25,499.15 218.25,550.73 218.25,550.73 " fill="none" id="round-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="218.25" x2="224.25" y1="550.73" y2="558.73"/><line style="stroke:#181818;stroke-width:1.0;" x1="218.25" x2="212.25" y1="550.73" y2="558.73"/><line style="stroke:#181818;stroke-width:1.0;" x1="218.25" x2="218.25" y1="550.73" y2="558.73"/><ellipse cx="218.25" cy="544.73" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="214.25" x2="222.25" y1="495.15" y2="495.15"/><line style="stroke:#181818;stroke-width:1.0;" x1="214.25" x2="222.25" y1="498.15" y2="498.15"/><line style="stroke:#181818;stroke-width:1.0;" x1="218.25" x2="218.25" y1="499.15" y2="491.15"/></g><!--MD5=[09dcaa670210d926f742a7939b6ec262]
-link hand to card--><g id="link_hand_card"><path codeLine="65" d="M332.5,507.11 C332.5,507.11 332.5,550.8 332.5,550.8 " fill="none" id="hand-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="332.5" x2="338.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="332.5" x2="326.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="332.5" x2="332.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="336.5" x2="328.5" y1="548.8" y2="548.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="328.5" x2="336.5" y1="503.11" y2="503.11"/><line style="stroke:#181818;stroke-width:1.0;" x1="328.5" x2="336.5" y1="506.11" y2="506.11"/><line style="stroke:#181818;stroke-width:1.0;" x1="332.5" x2="332.5" y1="507.11" y2="499.11"/></g><!--MD5=[f2f13420b7c6518d17ae6509690ba9cc]
-link participation to hand--><g id="link_participation_hand"><path codeLine="66" d="M404,340.37 C404,340.37 404,383.77 404,383.77 " fill="none" id="participation-hand" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="404" x2="410" y1="383.77" y2="391.77"/><line style="stroke:#181818;stroke-width:1.0;" x1="404" x2="398" y1="383.77" y2="391.77"/><line style="stroke:#181818;stroke-width:1.0;" x1="404" x2="404" y1="383.77" y2="391.77"/><ellipse cx="404" cy="377.77" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="400" x2="408" y1="336.37" y2="336.37"/><line style="stroke:#181818;stroke-width:1.0;" x1="400" x2="408" y1="339.37" y2="339.37"/><line style="stroke:#181818;stroke-width:1.0;" x1="404" x2="404" y1="340.37" y2="332.37"/></g><!--MD5=[86d0e9a94bcdcd6d64f5929334e36c3c]
-link game to game--><g id="link_game_game"><path codeLine="67" d="M152,15.75 C152,15.75 152,6 152,6 C152,6 6,6 6,6 C6,6 6,178 6,178 C6,178 38.5,178 38.5,178 C38.5,178 38.5,156.13 38.5,156.13 " fill="none" id="game-game" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="38.5" x2="38.5" y1="159.13" y2="148.13"/><ellipse cx="38.5" cy="159.13" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="34.5" x2="42.5" y1="152.13" y2="152.13"/><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="152" y1="12.75" y2="23.75"/><ellipse cx="152" cy="12.75" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="156" x2="148" y1="19.75" y2="19.75"/></g><!--MD5=[45b592eaa92796672ac42c47035acc5e]
-link game to participation--><g id="link_game_participation"><path codeLine="68" d="M266.5,156.01 C266.5,156.01 266.5,213 266.5,213 C266.5,213 278.49,213 278.49,213 " fill="none" id="game-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="278.49" x2="286.49" y1="213" y2="207"/><line style="stroke:#181818;stroke-width:1.0;" x1="278.49" x2="286.49" y1="213" y2="219"/><line style="stroke:#181818;stroke-width:1.0;" x1="278.49" x2="286.49" y1="213" y2="213"/><line style="stroke:#181818;stroke-width:1.0;" x1="276.49" x2="276.49" y1="209" y2="217"/><line style="stroke:#181818;stroke-width:1.0;" x1="262.5" x2="270.5" y1="152.01" y2="152.01"/><line style="stroke:#181818;stroke-width:1.0;" x1="262.5" x2="270.5" y1="155.01" y2="155.01"/><line style="stroke:#181818;stroke-width:1.0;" x1="266.5" x2="266.5" y1="156.01" y2="148.01"/></g><!--MD5=[a70957515180f50f22ed486534df8d14]
-link player to participation--><g id="link_player_participation"><path codeLine="69" d="M429,131.68 C429,131.68 429,199.74 429,199.74 " fill="none" id="player-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="429" x2="435" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="429" x2="423" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="429" x2="429" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="433" x2="425" y1="197.74" y2="197.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="425" x2="433" y1="127.68" y2="127.68"/><line style="stroke:#181818;stroke-width:1.0;" x1="425" x2="433" y1="130.68" y2="130.68"/><line style="stroke:#181818;stroke-width:1.0;" x1="429" x2="429" y1="131.68" y2="123.68"/></g><!--MD5=[4a7f41e8d98d404128a218619f76c3f3]
-link match to round--><g id="link_match_round"><path codeLine="70" d="M154,331.61 C154,331.61 154,391.91 154,391.91 " fill="none" id="match-round" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="154" x2="160" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="154" x2="148" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="154" x2="154" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="158" x2="150" y1="389.91" y2="389.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="150" x2="158" y1="327.61" y2="327.61"/><line style="stroke:#181818;stroke-width:1.0;" x1="150" x2="158" y1="330.61" y2="330.61"/><line style="stroke:#181818;stroke-width:1.0;" x1="154" x2="154" y1="331.61" y2="323.61"/></g><!--MD5=[2f96b88d42231009c1df848f79c38062]
-link game to match--><g id="link_game_match"><path codeLine="71" d="M152,156.04 C152,156.04 152,208.23 152,208.23 " fill="none" id="game-match" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="158" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="146" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="152" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="156" x2="148" y1="206.23" y2="206.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="148" x2="156" y1="152.04" y2="152.04"/><line style="stroke:#181818;stroke-width:1.0;" x1="148" x2="156" y1="155.04" y2="155.04"/><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="152" y1="156.04" y2="148.04"/></g><!--MD5=[788dd84f71e15ac2394dea6e5039e776]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="689px" preserveAspectRatio="none" style="width:501px;height:689px;background:#FFFFFF;" version="1.1" viewBox="0 0 501 689" width="501px" zoomAndPan="magnify"><defs/><g><!--MD5=[37c281712b1f51d591729d8a39ba31ff]
+class card--><g id="elem_card"><rect codeLine="10" fill="#F1F1F1" height="123.7813" id="card" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="206" x="140.5" y="559"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="227.5" y="576.9951">Card</text><line style="stroke:#181818;stroke-width:0.5;" x1="141.5" x2="345.5" y1="585.2969" y2="585.2969"/><ellipse cx="151.5" cy="596.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="160.5" y="602.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="141.5" x2="345.5" y1="609.5938" y2="609.5938"/><ellipse cx="151.5" cy="620.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="160.5" y="626.5889">cardRank : INTEGER</text><ellipse cx="151.5" cy="636.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="160.5" y="642.8857">cardSuit : INTEGER</text><ellipse cx="151.5" cy="653.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160" x="160.5" y="659.1826">handId : DECIMAL «FK»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="160.5" y="675.4795">roundId : DECIMAL «FK»</text></g><!--MD5=[d0497865c591b752d9f81c3ace406775]
+class game--><g id="elem_game"><rect codeLine="19" fill="#F1F1F1" height="123.7813" id="game" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="215" x="7" y="24"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="94" y="41.9951">Game</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="221" y1="50.2969" y2="50.2969"/><ellipse cx="18" cy="61.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="27" y="67.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="8" x2="221" y1="74.5938" y2="74.5938"/><ellipse cx="18" cy="85.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="27" y="91.5889">name : VARCHAR</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="27" y="107.8857">gameState : INTEGER</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="27" y="124.1826">videoChatName : VARCHAR</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="27" y="140.4795">nextGame : DECIMAL «FK»</text></g><!--MD5=[7eb028927e4ee13535fc9116bb3c1f81]
+class hand--><g id="elem_hand"><rect codeLine="37" fill="#F1F1F1" height="107.4844" id="hand" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="242" x="252.5" y="392"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="355.5" y="409.9951">Hand</text><line style="stroke:#181818;stroke-width:0.5;" x1="253.5" x2="493.5" y1="418.2969" y2="418.2969"/><ellipse cx="263.5" cy="429.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="272.5" y="435.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="253.5" x2="493.5" y1="442.5938" y2="442.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="272.5" y="459.5889">announcedScore: INTEGER</text><ellipse cx="263.5" cy="469.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="272.5" y="475.8857">matchId : DECIMAL «FK»</text><ellipse cx="263.5" cy="486.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="216" x="272.5" y="492.1826">participation_id : DECIMAL «FK»</text></g><!--MD5=[db556c9717b588b131d01a750dd9c48e]
+class match--><g id="elem_match"><rect codeLine="45" fill="#F1F1F1" height="107.4844" id="match" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="206" x="11.5" y="216.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42" x="93.5" y="234.4951">Match</text><line style="stroke:#181818;stroke-width:0.5;" x1="12.5" x2="216.5" y1="242.7969" y2="242.7969"/><ellipse cx="22.5" cy="253.7969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="31.5" y="259.792">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="12.5" x2="216.5" y1="267.0938" y2="267.0938"/><ellipse cx="22.5" cy="278.0938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="31.5" y="284.0889">matchNumber : INTEGER</text><ellipse cx="22.5" cy="294.3906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="31.5" y="300.3857">matchState: INTEGER</text><ellipse cx="22.5" cy="310.6875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164" x="31.5" y="316.6826">gameId : DECIMAL «FK»</text></g><!--MD5=[1374ed400b2a5a91dae2a177bb3b7fef]
+class participation--><g id="elem_participation"><rect codeLine="53" fill="#F1F1F1" height="123.7813" id="participation" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="239" x="254" y="208"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="331.5" y="225.9951">Participation</text><line style="stroke:#181818;stroke-width:0.5;" x1="255" x2="492" y1="234.2969" y2="234.2969"/><ellipse cx="265" cy="245.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="274" y="251.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="255" x2="492" y1="258.5938" y2="258.5938"/><ellipse cx="265" cy="269.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="274" y="275.5889">active : BOOLEAN</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="213" x="274" y="291.8857">participationNumber : INTEGER</text><ellipse cx="265" cy="302.1875" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="274" y="308.1826">playerId : DECIMAL «FK»</text><ellipse cx="265" cy="318.4844" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164" x="274" y="324.4795">gameId : DECIMAL «FK»</text></g><!--MD5=[308de564e57c8d51c168255b0b03c096]
+class player--><g id="elem_player"><rect codeLine="63" fill="#F1F1F1" height="74.8906" id="player" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="206" x="275.5" y="48.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="358" y="66.4951">Player</text><line style="stroke:#181818;stroke-width:0.5;" x1="276.5" x2="480.5" y1="74.7969" y2="74.7969"/><ellipse cx="286.5" cy="85.7969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="295.5" y="91.792">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="276.5" x2="480.5" y1="99.0938" y2="99.0938"/><ellipse cx="286.5" cy="110.0938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="295.5" y="116.0889">name : VARCHAR</text></g><!--MD5=[8ff828e554ef434670c2a4b547c92bc0]
+class round--><g id="elem_round"><rect codeLine="69" fill="#F1F1F1" height="91.1875" id="round" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="206" x="11.5" y="400"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="91.5" y="417.9951">Round</text><line style="stroke:#181818;stroke-width:0.5;" x1="12.5" x2="216.5" y1="426.2969" y2="426.2969"/><ellipse cx="22.5" cy="437.2969" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="31.5" y="443.292">id : DECIMAL «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="12.5" x2="216.5" y1="450.5938" y2="450.5938"/><ellipse cx="22.5" cy="461.5938" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="31.5" y="467.5889">matchId : DECIMAL «FK»</text><ellipse cx="22.5" cy="477.8906" fill="#000000" rx="3" ry="3" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="31.5" y="483.8857">roundNumber : INTEGER</text></g><!--MD5=[94949e77217e239ac153428e5465477c]
+link round to card--><g id="link_round_card"><path codeLine="76" d="M179,499.15 C179,499.15 179,550.73 179,550.73 " fill="none" id="round-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="179" x2="185" y1="550.73" y2="558.73"/><line style="stroke:#181818;stroke-width:1.0;" x1="179" x2="173" y1="550.73" y2="558.73"/><line style="stroke:#181818;stroke-width:1.0;" x1="179" x2="179" y1="550.73" y2="558.73"/><ellipse cx="179" cy="544.73" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="175" x2="183" y1="495.15" y2="495.15"/><line style="stroke:#181818;stroke-width:1.0;" x1="175" x2="183" y1="498.15" y2="498.15"/><line style="stroke:#181818;stroke-width:1.0;" x1="179" x2="179" y1="499.15" y2="491.15"/></g><!--MD5=[09dcaa670210d926f742a7939b6ec262]
+link hand to card--><g id="link_hand_card"><path codeLine="77" d="M299.5,507.11 C299.5,507.11 299.5,550.8 299.5,550.8 " fill="none" id="hand-card" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="299.5" x2="305.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="299.5" x2="293.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="299.5" x2="299.5" y1="550.8" y2="558.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="303.5" x2="295.5" y1="548.8" y2="548.8"/><line style="stroke:#181818;stroke-width:1.0;" x1="295.5" x2="303.5" y1="503.11" y2="503.11"/><line style="stroke:#181818;stroke-width:1.0;" x1="295.5" x2="303.5" y1="506.11" y2="506.11"/><line style="stroke:#181818;stroke-width:1.0;" x1="299.5" x2="299.5" y1="507.11" y2="499.11"/></g><!--MD5=[f2f13420b7c6518d17ae6509690ba9cc]
+link participation to hand--><g id="link_participation_hand"><path codeLine="78" d="M373.5,340.37 C373.5,340.37 373.5,383.77 373.5,383.77 " fill="none" id="participation-hand" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="373.5" x2="379.5" y1="383.77" y2="391.77"/><line style="stroke:#181818;stroke-width:1.0;" x1="373.5" x2="367.5" y1="383.77" y2="391.77"/><line style="stroke:#181818;stroke-width:1.0;" x1="373.5" x2="373.5" y1="383.77" y2="391.77"/><ellipse cx="373.5" cy="377.77" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="369.5" x2="377.5" y1="336.37" y2="336.37"/><line style="stroke:#181818;stroke-width:1.0;" x1="369.5" x2="377.5" y1="339.37" y2="339.37"/><line style="stroke:#181818;stroke-width:1.0;" x1="373.5" x2="373.5" y1="340.37" y2="332.37"/></g><!--MD5=[86d0e9a94bcdcd6d64f5929334e36c3c]
+link game to game--><g id="link_game_game"><path codeLine="79" d="M114.5,15.75 C114.5,15.75 114.5,6 114.5,6 C114.5,6 237.25,6 237.25,6 C237.25,6 237.25,178 237.25,178 C237.25,178 148.83,178 148.83,178 C148.83,178 148.83,156.13 148.83,156.13 " fill="none" id="game-game" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.83" x2="148.83" y1="159.13" y2="148.13"/><ellipse cx="148.83" cy="159.13" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.83" x2="152.83" y1="152.13" y2="152.13"/><line style="stroke:#181818;stroke-width:1.0;" x1="114.5" x2="114.5" y1="12.75" y2="23.75"/><ellipse cx="114.5" cy="12.75" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="118.5" x2="110.5" y1="19.75" y2="19.75"/></g><!--MD5=[45b592eaa92796672ac42c47035acc5e]
+link game to participation--><g id="link_game_participation"><path codeLine="80" d="M230.1,136 C230.1,136 264.75,136 264.75,136 C264.75,136 264.75,199.71 264.75,199.71 " fill="none" id="game-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.75" x2="270.75" y1="199.71" y2="207.71"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.75" x2="258.75" y1="199.71" y2="207.71"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.75" x2="264.75" y1="199.71" y2="207.71"/><line style="stroke:#181818;stroke-width:1.0;" x1="268.75" x2="260.75" y1="197.71" y2="197.71"/><line style="stroke:#181818;stroke-width:1.0;" x1="226.1" x2="226.1" y1="140" y2="132"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.1" x2="229.1" y1="140" y2="132"/><line style="stroke:#181818;stroke-width:1.0;" x1="230.1" x2="222.1" y1="136" y2="136"/></g><!--MD5=[a70957515180f50f22ed486534df8d14]
+link player to participation--><g id="link_player_participation"><path codeLine="83" d="M378.5,131.68 C378.5,131.68 378.5,199.74 378.5,199.74 " fill="none" id="player-participation" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="378.5" x2="384.5" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="378.5" x2="372.5" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="378.5" x2="378.5" y1="199.74" y2="207.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="382.5" x2="374.5" y1="197.74" y2="197.74"/><line style="stroke:#181818;stroke-width:1.0;" x1="374.5" x2="382.5" y1="127.68" y2="127.68"/><line style="stroke:#181818;stroke-width:1.0;" x1="374.5" x2="382.5" y1="130.68" y2="130.68"/><line style="stroke:#181818;stroke-width:1.0;" x1="378.5" x2="378.5" y1="131.68" y2="123.68"/></g><!--MD5=[4a7f41e8d98d404128a218619f76c3f3]
+link match to round--><g id="link_match_round"><path codeLine="84" d="M114.5,331.61 C114.5,331.61 114.5,391.91 114.5,391.91 " fill="none" id="match-round" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="114.5" x2="120.5" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="114.5" x2="108.5" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="114.5" x2="114.5" y1="391.91" y2="399.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="118.5" x2="110.5" y1="389.91" y2="389.91"/><line style="stroke:#181818;stroke-width:1.0;" x1="110.5" x2="118.5" y1="327.61" y2="327.61"/><line style="stroke:#181818;stroke-width:1.0;" x1="110.5" x2="118.5" y1="330.61" y2="330.61"/><line style="stroke:#181818;stroke-width:1.0;" x1="114.5" x2="114.5" y1="331.61" y2="323.61"/></g><!--MD5=[2f96b88d42231009c1df848f79c38062]
+link game to match--><g id="link_game_match"><path codeLine="85" d="M80.17,156.04 C80.17,156.04 80.17,208.23 80.17,208.23 " fill="none" id="game-match" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="80.17" x2="86.17" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="80.17" x2="74.17" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="80.17" x2="80.17" y1="208.23" y2="216.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="84.17" x2="76.17" y1="206.23" y2="206.23"/><line style="stroke:#181818;stroke-width:1.0;" x1="76.17" x2="84.17" y1="152.04" y2="152.04"/><line style="stroke:#181818;stroke-width:1.0;" x1="76.17" x2="84.17" y1="155.04" y2="155.04"/><line style="stroke:#181818;stroke-width:1.0;" x1="80.17" x2="80.17" y1="156.04" y2="148.04"/></g><!--MD5=[fdaf1a49e89ea65cf2b4624e5855cc17]
 @startuml
 
 ' hide the spot
@@ -23,58 +23,68 @@ hide circle
 skinparam linetype ortho
 
 entity "Card" as card {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *cardRank : INTEGER
   *cardSuit : INTEGER
-  *handId : BIGINT <<FK>>
-  roundId : BIGINT <<FK>>
+  *handId : DECIMAL <<FK>>
+  roundId : DECIMAL <<FK>>
 }
 
 entity "Game" as game {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *name : VARCHAR (50)
+  *name : VARCHAR
   gameState : INTEGER
-  videoChatName : VARCHAR (255)
-  nextGame : BIGINT <<FK>>
+  videoChatName : VARCHAR
+  nextGame : DECIMAL <<FK>>
+  'participationtogame_id : DECIMAL <<FK>>
 }
+/'
+entity "ParticipationToGame" as participationtogame {
+  *id : DECIMAL <<generated>>
+- -
+  *gameId : DECIMAL <<FK>>
+  *participationId : DECIMAL <<FK>>
+
+}'/
 
 entity "Hand" as hand {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   announcedScore: INTEGER
-  *matchId : BIGINT <<FK>>
-  *participation_id : BIGINT <<FK>>
+  *matchId : DECIMAL <<FK>>
+  *participation_id : DECIMAL <<FK>>
 }
 
 entity "Match" as match {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *matchNumber : INTEGER
   *matchState: INTEGER
-  *gameId : BIGINT <<FK>>
+  *gameId : DECIMAL <<FK>>
 }
 
 entity "Participation" as participation {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *active : BOOLEAN
   participationNumber : INTEGER
-  *playerId : BIGINT <<FK>>
-  *gameId : BIGINT <<FK>>
+  *playerId : DECIMAL <<FK>>
+  *gameId : DECIMAL <<FK>>
+  '*gameToParticipationId : DECIMAL <<FK>>
 }
 
 entity "Player" as player {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *name : VARCHAR(50)
+  *name : VARCHAR
 }
 
 entity "Round" as round {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *matchId : BIGINT <<FK>>
+  *matchId : DECIMAL <<FK>>
   *roundNumber : INTEGER
 }
 
@@ -83,6 +93,8 @@ hand ||..|{ card
 participation ||..o{ hand
 game |o..o| game
 game ||..|{ participation
+'game ||..o{ participationtogame
+'participation ||..o{ participationtogame
 player ||..|{ participation
 match ||..|{ round
 game ||..|{ match
@@ -96,58 +108,58 @@ hide circle
 skinparam linetype ortho
 
 entity "Card" as card {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *cardRank : INTEGER
   *cardSuit : INTEGER
-  *handId : BIGINT <<FK>>
-  roundId : BIGINT <<FK>>
+  *handId : DECIMAL <<FK>>
+  roundId : DECIMAL <<FK>>
 }
 
 entity "Game" as game {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *name : VARCHAR (50)
+  *name : VARCHAR
   gameState : INTEGER
-  videoChatName : VARCHAR (255)
-  nextGame : BIGINT <<FK>>
+  videoChatName : VARCHAR
+  nextGame : DECIMAL <<FK>>
 }
 
 entity "Hand" as hand {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   announcedScore: INTEGER
-  *matchId : BIGINT <<FK>>
-  *participation_id : BIGINT <<FK>>
+  *matchId : DECIMAL <<FK>>
+  *participation_id : DECIMAL <<FK>>
 }
 
 entity "Match" as match {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *matchNumber : INTEGER
   *matchState: INTEGER
-  *gameId : BIGINT <<FK>>
+  *gameId : DECIMAL <<FK>>
 }
 
 entity "Participation" as participation {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
   *active : BOOLEAN
   participationNumber : INTEGER
-  *playerId : BIGINT <<FK>>
-  *gameId : BIGINT <<FK>>
+  *playerId : DECIMAL <<FK>>
+  *gameId : DECIMAL <<FK>>
 }
 
 entity "Player" as player {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *name : VARCHAR(50)
+  *name : VARCHAR
 }
 
 entity "Round" as round {
-  *id : BIGINT <<generated>>
+  *id : DECIMAL <<generated>>
   - -
-  *matchId : BIGINT <<FK>>
+  *matchId : DECIMAL <<FK>>
   *roundNumber : INTEGER
 }
 
