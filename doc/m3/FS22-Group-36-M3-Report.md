@@ -42,9 +42,19 @@ for our common understanding, we decided to hand in the current version again wi
 ### Complex unittest
 **Test class:** HandTurnActiveTest<br>
 **Test method:** the_first_player_must_play_a_card_when_round_starts()<br>
-**Description:**
+**Description:** This test method verifies whether the first player in the playing order is the one who's
+turn is active while the other players turn is not active (assertion in block 2) and that the active turn
+changes (assertion in block 3), after this first player has played his card (block 3). For that we set up
+a small "toy game" with the help of the classes GameBuilder and MatchBuilder, which we implemented for the
+purpose to facilitate thecreation of game testing contexts (block 1). You find more details on the GameBuilder
+and MatchBuilder classes below.
+<br>For this specific test a game with two players (PLAYER_1, PLAYER_2) was instantiated. The two players have
+two cards each (ace of clubs / queen of clubs and king of clubs / jack of clubs). There is another utility class
+CardValue which helps to instantiate cards easily. You find more details on the CardValue class below.
+
 
     void the_first_player_must_play_a_card_when_round_starts() {
+        // block 1
         Game game =
         GameBuilder.builder("game1")
             .withParticipation(PLAYER_1)
@@ -63,20 +73,22 @@ for our common understanding, we decided to hand in the current version again wi
             .finishRound()
             .finishMatch()
             .build();
-    
+        
+        // block 2
         Match activeMatch = game.getLastMatch().orElseThrow();
         List<Hand> hands = activeMatch.getSortedHands();
         Hand firstHand = hands.get(0);
         Hand secondHand = hands.get(1);
-    
+        
         assertThat(firstHand.isTurnActive(), is(true));
         assertThat(secondHand.isTurnActive(), is(false));
-    
+        
+        // block 3
         Round activeRound = activeMatch.getLastRound().orElseThrow();
         Card cardToPlay = firstHand.getCards().iterator().next();
         cardToPlay.setRound(activeRound);
         activeRound.getCards().add(cardToPlay);
-    
+        
         assertThat(firstHand.isTurnActive(), is(false));
         assertThat(secondHand.isTurnActive(), is(true));
     }
@@ -200,4 +212,15 @@ for our common understanding, we decided to hand in the current version again wi
             .value(notNullValue());
     }
 
+### GameBuilder class
+The GameBuilder allows to instantiate a game at any point in time resp. possible state during the game.
+As a test writer you are responsible of setting up the game according to the rules and with consistent
+data (i.e. not creating two players and distributing one of them three and the other one only two cards.)
 
+### MatchBuilder class
+
+### CardValue class
+With this class we can very easily instantiate cards and it provides in addition a method to
+compare them by their identity (i.e on their rank **and** suit, not only on their rank, like the 
+original method from the Card class does). This feature is needed for some tests, where we want
+to verify which card has been played.
