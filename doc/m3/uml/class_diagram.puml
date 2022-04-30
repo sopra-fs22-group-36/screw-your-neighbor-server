@@ -21,6 +21,8 @@ class Game {
     - long id
     - GameState state
     - String name
+    + List<Match> getSortedMatches()
+    + Optional<Match> getLastMatch()
 }
 
 class Participation {
@@ -33,6 +35,10 @@ class Match {
     - long id
     - int matchNumber
     - MatchState matchstate
+    + List<Hands> getSortedHands()
+    + List<Round> getSortedRounds()
+    + boolean allScoresAnnounced()
+    + Optional<Round> getLastRound()
 }
 
 enum MatchState {
@@ -42,28 +48,33 @@ enum MatchState {
 }
 
 class Hand {
-    int announcedScore
+    - int announcedScore
+    + boolean isTurnActive()
 }
 
 
 class Round {
     - long id
     - int roundNumber
+    + Collection<Long> getTrickWinnerIds()
 }
 
 class Card {
-    - Suit suit
-    - Rank rank
+    - CardSuit cardSuit
+    - CardRank cardRank
+    + int compareTo(Card c)
+    + boolean isGreaterThan(Card c)
+    + boolean isEqualTo(Card c)
 }
 
-enum Suit {
+enum CardSuit {
     CLUB,
     DIAMOND,
     HEART,
     SPADE
 }
 
-enum Rank {
+enum CardRank {
   ACE,
   SIX,
   SEVEN,
@@ -73,6 +84,14 @@ enum Rank {
   JACK,
   QUEEN,
   KING
+}
+
+interface CardDeck {
+    + Card drawCard()
+}
+
+class StandardCardDeck {
+    + void shuffle()
 }
 
 Player "*" -- "1" User
@@ -89,5 +108,9 @@ Game "1" -- "1..9" Match
 Match "1" -- "1..5" Round
 
 Round "1" -- "1..7" Card
+
+CardDeck <|-- StandardCardDeck
+
+StandardCardDeck "1" -- "*" Card
 
 @enduml
