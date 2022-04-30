@@ -1,5 +1,3 @@
- [Copy to clipboard]
-
 @startuml
 
 ' hide the spot
@@ -9,68 +7,58 @@ hide circle
 skinparam linetype ortho
 
 entity "Card" as card {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
   *cardRank : INTEGER
   *cardSuit : INTEGER
-  *handId : DECIMAL <<FK>>
-  roundId : DECIMAL <<FK>>
+  *handId : BIGINT <<FK>>
+  roundId : BIGINT <<FK>>
 }
 
 entity "Game" as game {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
-  *name : VARCHAR
+  *name : VARCHAR (50)
   gameState : INTEGER
-  videoChatName : VARCHAR
-  nextGame : DECIMAL <<FK>>
-  'participationtogame_id : DECIMAL <<FK>>
+  videoChatName : VARCHAR (255)
+  nextGame : BIGINT <<FK>>
 }
-/'
-entity "ParticipationToGame" as participationtogame {
-  *id : DECIMAL <<generated>>
---
-  *gameId : DECIMAL <<FK>>
-  *participationId : DECIMAL <<FK>>
-
-}'/
 
 entity "Hand" as hand {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
   announcedScore: INTEGER
-  *matchId : DECIMAL <<FK>>
-  *participation_id : DECIMAL <<FK>>
+  *matchId : BIGINT <<FK>>
+  *participation_id : BIGINT <<FK>>
 }
 
 entity "Match" as match {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
   *matchNumber : INTEGER
   *matchState: INTEGER
-  *gameId : DECIMAL <<FK>>
+  *gameId : BIGINT <<FK>>
 }
 
 entity "Participation" as participation {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
   *active : BOOLEAN
   participationNumber : INTEGER
-  *playerId : DECIMAL <<FK>>
-  *gameId : DECIMAL <<FK>>
-  '*gameToParticipationId : DECIMAL <<FK>>
+  *playerId : BIGINT <<FK>>
+  *gameId : BIGINT <<FK>>
 }
 
 entity "Player" as player {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
-  *name : VARCHAR
+  *name : VARCHAR(50)
 }
 
 entity "Round" as round {
-  *id : DECIMAL <<generated>>
+  *id : BIGINT <<generated>>
   --
-  *matchId : DECIMAL <<FK>>
+  *matchId : BIGINT <<FK>>
   *roundNumber : INTEGER
 }
 
@@ -79,8 +67,6 @@ hand ||..|{ card
 participation ||..o{ hand
 game |o..o| game
 game ||..|{ participation
-'game ||..o{ participationtogame
-'participation ||..o{ participationtogame
 player ||..|{ participation
 match ||..|{ round
 game ||..|{ match
