@@ -42,20 +42,90 @@ for our common understanding, we decided to hand in the current version again wi
 ### Complex unittest
 **Test class:** HandTurnActiveTest<br>
 **Test method:** the_first_player_must_play_a_card_when_round_starts()<br>
-**Description:** 
-<br>
+**Description:**
 
-![img](tests/the_first_player_must_play_a_card_when_round_starts.png)
+    void the_first_player_must_play_a_card_when_round_starts() {
+        Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+    
+        Match activeMatch = game.getLastMatch().orElseThrow();
+        List<Hand> hands = activeMatch.getSortedHands();
+        Hand firstHand = hands.get(0);
+        Hand secondHand = hands.get(1);
+    
+        assertThat(firstHand.isTurnActive(), is(true));
+        assertThat(secondHand.isTurnActive(), is(false));
+    
+        Round activeRound = activeMatch.getLastRound().orElseThrow();
+        Card cardToPlay = firstHand.getCards().iterator().next();
+        cardToPlay.setRound(activeRound);
+        activeRound.getCards().add(cardToPlay);
+    
+        assertThat(firstHand.isTurnActive(), is(false));
+        assertThat(secondHand.isTurnActive(), is(true));
+    }
+
 
 ### Integrationtest
 **Test class:** CardEventHandlerTest<br>
 **Test method:** play_last_card_new_round_new_match()<br>
 **Description:**
-<br>
-![img](tests/play_last_card_new_round_new_match.png)
+
+    void play_last_card_new_round_new_match() {
+        Game game =
+        matchBuilder
+        .withRound()
+        .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+        .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
+        .withPlayedCard(PLAYER_NAME_3, QUEEN_OF_HEARTS)
+        .finishRound()
+        .withRound()
+        .withPlayedCard(PLAYER_NAME_1, QUEEN_OF_CLUBS)
+        .withPlayedCard(PLAYER_NAME_2, KING_OF_CLUBS)
+        .withPlayedCard(PLAYER_NAME_3, KING_OF_HEARTS)
+        .finishRound()
+        .finishMatch()
+        .build();
+
+        Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
+        match = savedGames.iterator().next().getLastMatch().get();
+        round = match.getLastRound().get();
+        card1 = round.getCards().iterator().next();
+        Collection<Round> savedRounds1 = roundRepository.findAll();
+        assertEquals(2, savedRounds1.size());
+        cardEventHandler.handleAfterSave(card1);
+        Collection<Round> savedRounds = roundRepository.findAll();
+        Collection<Match> savedMatches = matchRepository.findAll();
+    
+        assertEquals(3, savedRounds.size());
+        assertEquals(2, savedMatches.size());
+        assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 1));
+        assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
+        assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 1));
+        assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 2));
+    }
+
 
 ### REST interface test
-Vorschlag: change_gameState_to_playing in GameIntegrationTest
+**Test class:** GameIntegrationTest<br>
+**Test method:** change_gameState_to_playing()<br>
+**Description:**
 
     void change_gameState_to_playing() {
         HttpHeaders responseHeaders =
@@ -128,6 +198,6 @@ Vorschlag: change_gameState_to_playing in GameIntegrationTest
             .value(hasSize(5))
             .jsonPath("_embedded.matches[0].hands[0].participation")
             .value(notNullValue());
-}
+    }
 
 
