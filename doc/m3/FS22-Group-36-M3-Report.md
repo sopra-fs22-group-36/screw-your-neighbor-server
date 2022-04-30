@@ -40,7 +40,7 @@ for our common understanding, we decided to hand in the current version again wi
 
 ## Tests
 ### Complex unittest
-**Test class:** HandTurnActiveTest<br>
+**Test class:** HandTurnActiveTest, [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/entity/HandTurnActiveTest.java) <br>
 **Test method:** the_first_player_must_play_a_card_when_round_starts()<br>
 **Description:** This test method verifies whether the first player in the playing order is the one who's
 turn is active while the other players turn is not active (assertion in block 2) and that the active turn
@@ -48,9 +48,10 @@ changes (assertion in block 3), after this first player has played his card (blo
 a small "toy game" with the help of the classes GameBuilder and MatchBuilder, which we implemented for the
 purpose to facilitate thecreation of game testing contexts (block 1). You find more details on the GameBuilder
 and MatchBuilder classes below.
-<br>For this specific test a game with two players (PLAYER_1, PLAYER_2) was instantiated. The two players have
+
+For this specific test, a game with two players (PLAYER_1, PLAYER_2) was instantiated. The two players have
 two cards each (ace of clubs / queen of clubs and king of clubs / jack of clubs). There is another utility class
-CardValue which helps to instantiate cards easily. You find more details on the CardValue class below.
+CardValue which helps to instantiate cards easily. You find more details on the CardValue class below. 
 
 
     void the_first_player_must_play_a_card_when_round_starts() {
@@ -95,11 +96,46 @@ CardValue which helps to instantiate cards easily. You find more details on the 
 
 
 ### Integrationtest
-**Test class:** CardEventHandlerTest<br>
+**Test class:** CardEventHandlerTest, [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/api/CardEventHandlerTest.java) <br>
 **Test method:** play_last_card_new_round_new_match()<br>
-**Description:**
+**Description:** This test verifies whether a new round and a new match are created and saved in the Hibernate
+database when all cards have been played in a match. For sake of completeness and understandability, we not only
+list the test but also the setup method which is executed before the test. For that, a game with three players, each
+of them having two cards is instantiated. A match with two rounds where all players have played their cards is then 
+added and all of it is saved in the database (note: we only have to save the game thanks to the JPA cascade type "ALL"). 
+
+Before we call the method under test _handleAfterSave(Card card)_, we verify whether the match has been saved
+with its rounds and the played cards as expected. Note that we need a JPA queries for retrieving matches and cards, while
+the rounds are attached to the retrieved match object. This is because we do not have implemented JPA fetch
+type "EAGER" for all associations. With one of the played cards (it doesn't matter which one) we call the method under test
+and after that we read all rounds and matches that are available in the database. There should be three rounds, (two have already
+been saved before and now another one should have been created) and two matches. In addition we check, whether
+the match and round numbers are assigned correctly (note: no round has the number 3, because for each new match, the
+numbers start again with 1).
+
+
+    void setup() {
+        matchBuilder =
+            GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+                .withParticipation(PLAYER_NAME_1)
+                .withParticipation(PLAYER_NAME_2)
+                .withParticipation(PLAYER_NAME_3)
+                .withGameState(GameState.PLAYING)
+                .withMatch()
+                .withMatchState(MatchState.ANNOUNCING)
+                .withHandForPlayer(PLAYER_NAME_1)
+                .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+                .finishHand()
+                .withHandForPlayer(PLAYER_NAME_2)
+                .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+                .finishHand()
+                .withHandForPlayer(PLAYER_NAME_3)
+                .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
+                .finishHand();
+    }
 
     void play_last_card_new_round_new_match() {
+        // block 1
         Game game =
         matchBuilder
         .withRound()
@@ -116,6 +152,8 @@ CardValue which helps to instantiate cards easily. You find more details on the 
         .build();
 
         Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
+
+        // block 2
         match = savedGames.iterator().next().getLastMatch().get();
         round = match.getLastRound().get();
         card1 = round.getCards().iterator().next();
@@ -135,7 +173,7 @@ CardValue which helps to instantiate cards easily. You find more details on the 
 
 
 ### REST interface test
-**Test class:** GameIntegrationTest<br>
+**Test class:** GameIntegrationTest [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/api/GameIntegrationTest.java) <br>
 **Test method:** change_gameState_to_playing()<br>
 **Description:**
 
@@ -212,10 +250,20 @@ CardValue which helps to instantiate cards easily. You find more details on the 
             .value(notNullValue());
     }
 
+### Future regressions
+The three test expamles make verify the behavior of the Screw-Your-Neighbor system on basis of game rules. These 
+rule will never change, as the game rules have been agreed and specified in advance. So no matter how the method under test is
+being changed, the result of their executions must always be the same. These methods are therefore very
+important for regression testing, to ensure no new code breaks a working implementation of the game rules.
+
+All three tests cover core functionalities of the game system. The methods are all very often called during the game, 
+so thorough testing is of high interest. 
+
 ### GameBuilder class
 The GameBuilder allows to instantiate a game at any point in time resp. possible state during the game.
 As a test writer you are responsible of setting up the game according to the rules and with consistent
 data (i.e. not creating two players and distributing one of them three and the other one only two cards.)
+[Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/util/GameBuilder.java)
 
 ### MatchBuilder class
 
@@ -224,3 +272,4 @@ With this class we can very easily instantiate cards and it provides in addition
 compare them by their identity (i.e on their rank **and** suit, not only on their rank, like the 
 original method from the Card class does). This feature is needed for some tests, where we want
 to verify which card has been played.
+[Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/util/CardValue.java)
