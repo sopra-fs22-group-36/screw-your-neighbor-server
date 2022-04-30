@@ -105,10 +105,10 @@ of them having two cards is instantiated. A match with two rounds where all play
 added and all of it is saved in the database (note: we only have to save the game thanks to the JPA cascade type "ALL"). 
 
 Before we call the method under test _handleAfterSave(Card card)_, we verify whether the match has been saved
-with its rounds and the played cards as expected. Note that we need a JPA queries for retrieving matches and cards, while
+with its rounds and the played cards as expected (block 2). Note that we need a JPA queries for retrieving matches and cards, while
 the rounds are attached to the retrieved match object. This is because we do not have implemented JPA fetch
 type "EAGER" for all associations. With one of the played cards (it doesn't matter which one) we call the method under test
-and after that we read all rounds and matches that are available in the database. There should be three rounds, (two have already
+and after that we read all rounds and matches that are available in the database (block 3). There should be three rounds, (two have already
 been saved before and now another one should have been created) and two matches. In addition we check, whether
 the match and round numbers are assigned correctly (note: no round has the number 3, because for each new match, the
 numbers start again with 1).
@@ -175,9 +175,20 @@ numbers start again with 1).
 ### REST interface test
 **Test class:** GameIntegrationTest [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/api/GameIntegrationTest.java) <br>
 **Test method:** change_gameState_to_playing()<br>
-**Description:**
+**Description:** This test verifies whether all required activities have been executed after the GameState
+attribute's value has been set to "PLAYING" by a patch request. First there is a post on the game endpoint to ensure we have a game to patch (block 1). After that, the
+game is patched with a new value for the GameState attribute (block 2). But to post a game, we first need a player instance for a valid security
+context (block 1). A patch on the game entity triggers the _handleAfterSave_ method in the GameEventHandler class which in case of a value change from "WAIT" to "PLAYING" builds
+up the initial game context. As the whole game context is returned in the response, the successful instantiation can be verified
+by checking the response values of the patch request (block 3).
+
+This test is very crucial because if the context of the game is not correctly set up, there will be unexpected behavior earlier or
+later during the game and it may be hard to trace back on where the error happend. So we decided to define clearly on what has to
+happen, when the game is started, by setting the GameState value to "PLAYING" and setting up an appropriate test with a large list
+of assertions, whether all associated entities have been created (by checking if every url path is there in the response).
 
     void change_gameState_to_playing() {
+        // block 1
         HttpHeaders responseHeaders =
             webTestClient
                 .post()
@@ -195,7 +206,7 @@ numbers start again with 1).
         String sessionId = getSessionIdOf(responseHeaders);
         GAME_1.setName("game_1");
         
-        // Create a new game
+        // block 2
         webTestClient
             .post()
             .uri("/games")
@@ -211,11 +222,12 @@ numbers start again with 1).
             .isNotEmpty()
             .jsonPath("_embedded.participations[0].player.name")
             .isEqualTo(PLAYER_1.getName());
-    
+        
+        // block 3
         Long id = gameRepository.findAllByName("game_1").get(0).getId();
         String uri = "games/" + id.toString();
         GAME_1.setGameState(GameState.PLAYING);
-    
+
         Map<String, GameState> patchBody = Map.of("gameState", GameState.PLAYING);
         // Without check whether the game exists (no get()) change the gameState with patch() request
         webTestClient
