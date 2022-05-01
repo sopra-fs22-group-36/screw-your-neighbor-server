@@ -46,12 +46,12 @@ for our common understanding, we decided to hand in the current version again wi
 turn is active while the other players turn is not active (assertion in block 2) and that the active turn
 changes (assertion in block 3), after this first player has played his card (block 3). For that we set up
 a small "toy game" with the help of the classes GameBuilder and MatchBuilder, which we implemented for the
-purpose to facilitate thecreation of game testing contexts (block 1). You find more details on the GameBuilder
-and MatchBuilder classes below.
+purpose to facilitate the creation of game testing contexts (block 1). You find more details on the GameBuilder
+and MatchBuilder classes in separate sections below.
 
 For this specific test, a game with two players (PLAYER_1, PLAYER_2) was instantiated. The two players have
 two cards each (ace of clubs / queen of clubs and king of clubs / jack of clubs). There is another utility class
-CardValue which helps to instantiate cards easily. You find more details on the CardValue class below. 
+CardValue which helps to instantiate cards easily. You find more details on the CardValue class in a separate section below. 
 
 
     void the_first_player_must_play_a_card_when_round_starts() {
@@ -100,9 +100,10 @@ CardValue which helps to instantiate cards easily. You find more details on the 
 **Test method:** play_last_card_new_round_new_match()<br>
 **Description:** This test verifies whether a new round and a new match are created and saved in the Hibernate
 database when all cards have been played in a match. For sake of completeness and understandability, we not only
-list the test but also the setup method which is executed before the test. For that, a game with three players, each
-of them having two cards is instantiated. A match with two rounds where all players have played their cards is then 
-added and all of it is saved in the database (note: we only have to save the game thanks to the JPA cascade type "ALL"). 
+list the test but also the setup method which is executed before the test. In the setup, a match with three players, each
+of them having two cards is instantiated. In the test method the game context is completed by adding two rounds where all
+players have played their cards. The game and all its associated entities is saved in this state in the database (note:
+we only have to save the game thanks to the JPA cascade type "ALL"). 
 
 Before we call the method under test _handleAfterSave(Card card)_, we verify whether the match has been saved
 with its rounds and the played cards as expected (block 2). Note that we need a JPA queries for retrieving matches and cards, while
@@ -112,7 +113,6 @@ and after that we read all rounds and matches that are available in the database
 been saved before and now another one should have been created) and two matches. In addition we check, whether
 the match and round numbers are assigned correctly (note: no round has the number 3, because for each new match, the
 numbers start again with 1).
-
 
     void setup() {
         matchBuilder =
@@ -176,16 +176,18 @@ numbers start again with 1).
 **Test class:** GameIntegrationTest [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/api/GameIntegrationTest.java) <br>
 **Test method:** change_gameState_to_playing()<br>
 **Description:** This test verifies whether all required activities have been executed after the GameState
-attribute's value has been set to "PLAYING" by a patch request. First there is a post on the game endpoint to ensure we have a game to patch (block 1). After that, the
-game is patched with a new value for the GameState attribute (block 2). But to post a game, we first need a player instance for a valid security
-context (block 1). A patch on the game entity triggers the _handleAfterSave_ method in the GameEventHandler class which in case of a value change from "WAIT" to "PLAYING" builds
-up the initial game context. As the whole game context is returned in the response, the successful instantiation can be verified
-by checking the response values of the patch request (block 3).
+attribute's value has been set to "PLAYING" by a patch request, what means the game is got started. We do a post request
+on the game endpoint to ensure we have a game to patch (block 2). But to post a game, we first need a player instance for
+a valid security context (block 1). After these preparations, the game is patched with a new value for the GameState attribute (block 2). A
+patch on the game entity has the sideeffect _handleAfterSave_, which triggers a method in the GameEventHandler
+class which in case of a state change from "WAIT" to "PLAYING" builds up the initial game context. As the whole game context is returned
+in the response, the successful instantiation can be verified by checking thh values and paths to the respective endpoints
+in the response of the patch request (block 3).
 
-This test is very crucial because if the context of the game is not correctly set up, there will be unexpected behavior earlier or
-later during the game and it may be hard to trace back on where the error happend. So we decided to define clearly on what has to
-happen, when the game is started, by setting the GameState value to "PLAYING" and setting up an appropriate test with a large list
-of assertions, whether all associated entities have been created (by checking if every url path is there in the response).
+This test is crucial because if the context of the game is not correctly set up, there will be unexpected behavior earlier or
+later during the game and it may be hard to trace back on where the error happend. So we decided to define clearly on what entities have 
+to be created, when the game is started and how the structure of the REST response will look like and to set up a test with a large
+list of assertions that check, whether all agreed rules are met.
 
     void change_gameState_to_playing() {
         // block 1
@@ -263,21 +265,24 @@ of assertions, whether all associated entities have been created (by checking if
     }
 
 ### Future regressions
-The three test expamles make verify the behavior of the Screw-Your-Neighbor system on basis of game rules. These 
-rule will never change, as the game rules have been agreed and specified in advance. So no matter how the method under test is
-being changed, the result of their executions must always be the same. These methods are therefore very
-important for regression testing, to ensure no new code breaks a working implementation of the game rules.
+The three test examples verify the behavior of the Screw-Your-Neighbor system on basis of game rules. These 
+rules will not change, as the game rules have been agreed and specified in advance. So no matter how the method under test is
+being changed, the result of their executions must always be the same. These tests are therefore very
+important for regression testing, to ensure no new code breaks a working implementation of the game rules. The 
+tests may be adapted for future testing in terms of extension with more assertions, because with implementation
+changes new information may be available that has to be checked. But the assertions in place will stay valid unless
+there happens an agreed rule / behavior change.
 
-All three tests cover core functionalities of the game system. The methods are all very often called during the game, 
-so thorough testing is of high interest. 
+All three tests cover core functionalities of the game system, so thorough testing is of high interest. 
 
-### GameBuilder class
-The GameBuilder allows to instantiate a game at any point in time resp. possible state during the game.
-As a test writer you are responsible of setting up the game according to the rules and with consistent
-data (i.e. not creating two players and distributing one of them three and the other one only two cards.)
+### GameBuilder, MatchBuilder class
+The GameBuilder and MatchBuilder allow to instantiate a game at any point in time resp. possible state. With different
+methods one can configure the game by adding players, distributing them cards, letting them play cards etc.
+
+The writer of the test is responsible of setting up the game according to the rules and with consistent
+data (i.e. not creating two players and distributing one of them three and the other one only two cards) to create a valid test.
 [Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/util/GameBuilder.java)
 
-### MatchBuilder class
 
 ### CardValue class
 With this class we can very easily instantiate cards and it provides in addition a method to
