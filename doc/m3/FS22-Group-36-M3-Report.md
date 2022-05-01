@@ -21,13 +21,13 @@ Moris Camporesi (19-764-349)
 ### Database Schema
 ![db_schema](uml/db_schema.svg){height=60%}
 
-### Data Types
+#### Data Types
 We were not sure how JPA stores Java data types in its tables. We found a
 [mapping](https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/persistable-basic-types.html) from basic Java data
 types to the respective standard SQL data types. We also found that enum values are stored by default by there ordinal
 i.e. with data type INTEGER. ([Source](https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/persisting-enum.html))
 
-### Attributes
+#### Attributes
 The id is the corresponding tables primary key. It is a generated. FK stands for foreign key. All associations are 
 realized on base of the ids.
 
@@ -192,7 +192,7 @@ of previously saved database entites changed as expected.
 ### REST interface test
 **Test class:** GameIntegrationTest <ins>[Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/api/GameIntegrationTest.java) </ins>  
 **Test method:** change_gameState_to_playing()  
-**Use case:** When a game is started, all initially needed associated entities (match, round, hands) are created.
+**Use case:** When a game is started, all initially needed associated entities (match, round, hands) are created.  
 **Description:** This test verifies whether all required activities have been executed after the GameState
 attribute's value has been set to "PLAYING" by a patch request, what means the game got started. We do a post request
 on the game endpoint to ensure we have a game to patch (block 2). But to post a game, we first need a player instance for
@@ -301,15 +301,13 @@ run successfully before any major change is being introduced.
 ### Test utility classes
 #### GameBuilder, MatchBuilder class
 The GameBuilder and MatchBuilder allow to instantiate a game at any point in time resp. possible state. With different
-methods one can configure the game by adding players, distributing them cards, letting them play cards etc.
-
-The writer of the test is responsible of setting up the game according to the rules and with consistent
+methods one can configure the game by adding players, distributing them cards, letting them play cards etc. The writer of the test is responsible of setting up the game according to the rules and with consistent
 data (i.e. not creating two players and distributing one of them three and the other one only two cards) to create a valid test.
 <ins>[Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/util/GameBuilder.java)</ins>
 
 #### CardValue class
 With this class we can very easily instantiate cards and it provides in addition a method to
 compare them by their identity (i.e on their rank **and** suit, not only on their rank, like the 
-original method from the Card class does). This feature is needed for some tests, where we want
+original method from the Card class does). This feature is needed for some tests, e.g. where we want
 to verify which card has been played.
 <ins>[Code](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/test/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/util/CardValue.java)</ins>
