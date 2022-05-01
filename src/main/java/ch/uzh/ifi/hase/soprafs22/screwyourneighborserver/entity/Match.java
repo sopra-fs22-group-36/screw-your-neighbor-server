@@ -84,6 +84,25 @@ public class Match {
     return sortedHands;
   }
 
+  public boolean isLastAnnouncement() {
+    int count = getSortedHands().size();
+    int announcedHands = 0;
+    for (Hand hand : getSortedHands()){
+      if (!(hand.getAnnouncedScore() == null)){
+        announcedHands++;
+      }
+    }
+    return (count == announcedHands);
+  }
+
+  public int getSumOfScoreAnnouncement() {
+    int countedScoreAnnouncements = 0;
+    for (Hand hand : hands){
+      countedScoreAnnouncements += hand.getAnnouncedScore();
+    }
+    return countedScoreAnnouncements;
+  }
+
   public List<Round> getSortedRounds() {
     return rounds.stream()
         .sorted(Comparator.comparingInt(Round::getRoundNumber))
