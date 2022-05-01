@@ -10,7 +10,7 @@ Report for Milestone 3 of Sopra FS22, Group 36
 
 Carmen Kirchdorfer (20-720-132)  
 Salome Wildermuth (10-289-544)  
-Beat Furrer, group leader (07-542-392)
+Beat Furrer, group leader (07-542-392)  
 Lucius Bachmann (11-060-274)  
 Moris Camporesi (19-764-349)
 
@@ -51,8 +51,7 @@ and MatchBuilder classes in separate sections below.
 
 For this specific test, a game with two players (PLAYER_1, PLAYER_2) was instantiated. The two players have
 two cards each (ace of clubs / queen of clubs and king of clubs / jack of clubs). There is another utility class
-CardValue which helps to instantiate cards easily. You find more details on the CardValue class in a separate section below. 
-
+CardValue which helps to instantiate cards easily. You find more details on the CardValue class in a separate section below.
 
     void the_first_player_must_play_a_card_when_round_starts() {
         // block 1
