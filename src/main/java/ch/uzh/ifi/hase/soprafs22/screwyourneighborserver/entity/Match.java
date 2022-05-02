@@ -88,7 +88,7 @@ public class Match {
     int count = getSortedHands().size();
     int announcedHands = 0;
     for (Hand hand : getSortedHands()) {
-      if (!(hand.getAnnouncedScore() == null)) {
+      if (hand.getAnnouncedScore() != null) {
         announcedHands++;
       }
     }
@@ -100,6 +100,7 @@ public class Match {
     for (Hand hand : hands) {
       countedScoreAnnouncements += hand.getAnnouncedScore() != null ? hand.getAnnouncedScore() : 0;
     }
+
     return countedScoreAnnouncements;
   }
 

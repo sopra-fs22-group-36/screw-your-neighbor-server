@@ -8,6 +8,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.HandEventHandler;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -183,5 +184,47 @@ class HandEventHandlerTest {
     assertEquals(2, savedMatches.size());
     assertEquals(MatchState.ANNOUNCING, actuelMatches.get(0).getMatchState());
     assertEquals(MatchState.PLAYING, actuelMatches.get(1).getMatchState());
+  }
+
+  @Test
+  void illegal_score_announcing() {
+
+    Game game = matchBuilder.finishMatch().build();
+
+    gameRepository.saveAll(List.of(game));
+    match = game.getLastMatch().get();
+
+    // Find match id from repository: hand must know which match belongs to
+    Collection<Match> savedMatches = matchRepository.findAll();
+    assertEquals(1, savedMatches.size());
+    long test = savedMatches.iterator().next().getId();
+    match.setId(test);
+    matchRepository.save(match);
+
+    Collection<Hand> hands = match.getHands();
+
+    // Set announcement
+    // Hand from player 1
+    int index = 0;
+    for (Hand el : hands) {
+      if (index < 2) {
+        el.setAnnouncedScore(1);
+        index++;
+      } else {
+        el.setAnnouncedScore(0);
+      }
+    }
+
+    List<Hand> myhands = new ArrayList(hands);
+    handEventHandler.onBeforeSave(myhands.get(0));
+    handEventHandler.onBeforeSave(myhands.get(1));
+    handEventHandler.onBeforeSave(myhands.get(2));
+    handEventHandler.onAfterSave(hands.iterator().next());
+
+    // Start again find all element in the match repo
+    savedMatches = matchRepository.findAll();
+    assertTrue(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.ANNOUNCING));
+    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.PLAYING));
+    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.FINISH));
   }
 }
