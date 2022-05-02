@@ -62,6 +62,10 @@ public class Hand {
     this.participation = participation;
   }
 
+  public int getIllegelScore() {
+    return match.getSumOfScoreAnnouncement() - this.getCards().size();
+  }
+
   public boolean isTurnActive() {
     Match activeMatch = match.getGame().getLastMatch().orElse(null);
     if (activeMatch == null) {
