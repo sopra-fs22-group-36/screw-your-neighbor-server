@@ -87,8 +87,8 @@ public class Match {
   public boolean isLastAnnouncement() {
     int count = getSortedHands().size();
     int announcedHands = 0;
-    for (Hand hand : getSortedHands()){
-      if (!(hand.getAnnouncedScore() == null)){
+    for (Hand hand : getSortedHands()) {
+      if (!(hand.getAnnouncedScore() == null)) {
         announcedHands++;
       }
     }
@@ -97,8 +97,8 @@ public class Match {
 
   public int getSumOfScoreAnnouncement() {
     int countedScoreAnnouncements = 0;
-    for (Hand hand : hands){
-      countedScoreAnnouncements += hand.getAnnouncedScore();
+    for (Hand hand : hands) {
+      countedScoreAnnouncements += hand.getAnnouncedScore() != null ? hand.getAnnouncedScore() : 0;
     }
     return countedScoreAnnouncements;
   }
