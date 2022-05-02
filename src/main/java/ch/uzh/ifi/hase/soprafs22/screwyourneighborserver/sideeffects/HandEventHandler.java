@@ -3,7 +3,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Hand;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -25,9 +24,9 @@ public class HandEventHandler {
 
   @SuppressWarnings("unused")
   @HandleBeforeSave
-  public void onBeforeSave(Hand hand){
+  public void onBeforeSave(Hand hand) {
     Match match = hand.getMatch();
-    boolean scoreAllowed = (match.getSumOfScoreAnnouncement() - hand.getCards().size()) != 0;
+    boolean scoreAllowed = (match.getSumOfScoreAnnouncement() - hand.getCards().size()) == 0;
     if (match.isLastAnnouncement() && scoreAllowed) {
       hand.setAnnouncedScore(empty);
     }
@@ -39,7 +38,6 @@ public class HandEventHandler {
     // find match by the hand
     Match match = hand.getMatch();
     match.getSortedHands();
-
 
     if (allPlayersAnnouncedScore(match)) {
       match.setMatchState(MatchState.PLAYING);
