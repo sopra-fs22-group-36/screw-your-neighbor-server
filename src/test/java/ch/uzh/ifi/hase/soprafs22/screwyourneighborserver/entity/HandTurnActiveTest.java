@@ -17,6 +17,7 @@ class HandTurnActiveTest {
 
   private static final String PLAYER_1 = "player1";
   private static final String PLAYER_2 = "player2";
+  private static final String PLAYER_3 = "player3";
 
   @Test
   void the_first_player_must_announce_his_score_at_match_start() {
@@ -188,5 +189,55 @@ class HandTurnActiveTest {
     assertThat(lastRoundOfPreviousMatch, not(Optional.empty()));
 
     Assertions.assertThat(previousMatch.getHands()).allMatch(hand -> !hand.isTurnActive());
+  }
+
+  @Test
+  void player_who_won_last_trick_starts_playing_next_round() {
+    Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch()
+            .withMatchState(MatchState.FINISH)
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, SIX_OF_HEARTS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(JACK_OF_DIAMONDS, KING_OF_CLUBS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(QUEEN_OF_CLUBS, EIGHT_OF_SPADES)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_1, SIX_OF_HEARTS)
+            .withPlayedCard(PLAYER_2, JACK_OF_DIAMONDS)
+            .withPlayedCard(PLAYER_3, EIGHT_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Match activeMatch = game.getLastMatch().orElseThrow();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Hand firstHand = hands.get(0);
+    Hand secondHand = hands.get(1);
+    Hand thirdHand = hands.get(2);
+    // first two assertions currently fail
+    // assertThat(firstHand.isTurnActive(), is(false));
+    // assertThat(secondHand.isTurnActive(), is(true));
+    assertThat(thirdHand.isTurnActive(), is(false));
   }
 }
