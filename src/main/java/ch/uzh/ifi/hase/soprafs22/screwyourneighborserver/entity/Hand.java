@@ -142,7 +142,7 @@ public class Hand {
           sortedHands.stream().filter(hand -> hasHandWon(round, hand)).findFirst();
       if (winnerHand.isPresent()) {
         int winnerHandIndex = sortedHands.indexOf(winnerHand.get());
-        Collections.rotate(handsStartingWithPreviousWinner, winnerHandIndex);
+        Collections.rotate(handsStartingWithPreviousWinner, -winnerHandIndex);
         break;
       }
     }
