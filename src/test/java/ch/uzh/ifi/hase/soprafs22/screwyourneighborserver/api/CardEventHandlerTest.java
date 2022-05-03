@@ -1,9 +1,12 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState.CLOSED;
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState.PLAYING;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.JACK_OF_CLUBS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
@@ -171,7 +174,7 @@ class CardEventHandlerTest {
   }
 
   @Test
-  void does_not_create_new_match_when_last_card_played_for_last_match() {
+  void puts_game_to_state_closed_for_last_card_in_last_match() {
     GameBuilder firstFinishedMatch = matchBuilder.finishMatch();
     for (int i = 0; i < 7; i++) {
       firstFinishedMatch.withMatch().finishMatch();
@@ -220,6 +223,62 @@ class CardEventHandlerTest {
 
     cardEventHandler.handleAfterSave(notYetPlayedCard);
 
+    Game updatedGame = gameRepository.findById(game.getId()).orElseThrow();
+    assertThat(updatedGame.getMatches(), hasSize(9));
+    assertThat(updatedGame.getGameState(), is(CLOSED));
+  }
+
+  @Test
+  void does_not_change_gamestate_if_its_not_the_last_card() {
+    GameBuilder firstFinishedMatch = matchBuilder.finishMatch();
+    for (int i = 0; i < 7; i++) {
+      firstFinishedMatch.withMatch().finishMatch();
+    }
+    Game game =
+        firstFinishedMatch
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_3)
+            .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_3, QUEEN_OF_HEARTS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
+
+    match = savedGames.iterator().next().getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
+
+    Card notYetPlayedCard =
+        match.getHands().stream()
+            .map(Hand::getCards)
+            .flatMap(Collection::stream)
+            .filter(card -> card.getRound() == null)
+            .findFirst()
+            .orElseThrow();
+
+    notYetPlayedCard.setRound(lastRound);
+    lastRound.getCards().add(notYetPlayedCard);
+
     assertThat(game.getMatches(), hasSize(9));
+
+    cardEventHandler.handleAfterSave(notYetPlayedCard);
+
+    Game updatedGame = gameRepository.findById(game.getId()).orElseThrow();
+    assertThat(updatedGame.getMatches(), hasSize(9));
+    assertThat(updatedGame.getGameState(), is(PLAYING));
   }
 }

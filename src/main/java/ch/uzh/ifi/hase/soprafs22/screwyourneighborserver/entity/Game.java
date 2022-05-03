@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Game {
@@ -26,6 +28,7 @@ public class Game {
   @OneToMany(
       mappedBy = "game",
       cascade = {CascadeType.ALL})
+  @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)

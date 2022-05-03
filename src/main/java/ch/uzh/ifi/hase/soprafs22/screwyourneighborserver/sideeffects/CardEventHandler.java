@@ -64,17 +64,21 @@ public class CardEventHandler {
     int numberOfCardsPerPlayer = card.getHand().getCards().size();
     int numberOfPlayedRounds = match.getRounds().size();
     Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
-    if (numberOfPlayedRounds >= numberOfCardsPerPlayer && numOfCards != null) {
-      Match newMatch = modelFactory.addMatch(game, newMatchNumber);
-      attachNewRoundTo = newMatch;
-      newRoundNumber = 0;
-      CardDeck cardDeck = new StandardCardDeck();
-      cardDeck.shuffle();
-      for (Participation participation : game.getParticipations()) {
-        Hand hand = modelFactory.addHand(newMatch, participation);
-        for (int j = 0; j < numOfCards; j++) {
-          modelFactory.addCardTo(hand, cardDeck.drawCard());
+    if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
+      if (numOfCards != null) {
+        Match newMatch = modelFactory.addMatch(game, newMatchNumber);
+        attachNewRoundTo = newMatch;
+        newRoundNumber = 0;
+        CardDeck cardDeck = new StandardCardDeck();
+        cardDeck.shuffle();
+        for (Participation participation : game.getParticipations()) {
+          Hand hand = modelFactory.addHand(newMatch, participation);
+          for (int j = 0; j < numOfCards; j++) {
+            modelFactory.addCardTo(hand, cardDeck.drawCard());
+          }
         }
+      } else {
+        game.setGameState(GameState.CLOSED);
       }
     }
     modelFactory.addRound(attachNewRoundTo, newRoundNumber);
