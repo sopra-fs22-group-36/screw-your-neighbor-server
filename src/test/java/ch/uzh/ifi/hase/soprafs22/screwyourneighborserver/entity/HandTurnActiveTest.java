@@ -6,9 +6,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import java.util.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.*;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -237,7 +239,7 @@ class HandTurnActiveTest {
     Hand firstHand = hands.get(0);
     Hand secondHand = hands.get(1);
     Hand thirdHand = hands.get(2);
-    // first two assertions currently fail
+
     assertThat(firstHand.isTurnActive(), is(false));
     assertThat(secondHand.isTurnActive(), is(true));
     assertThat(thirdHand.isTurnActive(), is(false));
@@ -294,7 +296,7 @@ class HandTurnActiveTest {
     Hand secondHand = hands.get(1);
     Hand thirdHand = hands.get(2);
     Hand fourthHand = hands.get(3);
-    // first and third assertions fail
+
     assertThat(firstHand.isTurnActive(), is(false));
     assertThat(secondHand.isTurnActive(), is(false));
     assertThat(thirdHand.isTurnActive(), is(true));
@@ -352,7 +354,7 @@ class HandTurnActiveTest {
     Hand secondHand = hands.get(1);
     Hand thirdHand = hands.get(2);
     Hand fourthHand = hands.get(3);
-    // this works
+
     assertThat(firstHand.isTurnActive(), is(false));
     assertThat(secondHand.isTurnActive(), is(true));
     assertThat(thirdHand.isTurnActive(), is(false));
@@ -417,7 +419,7 @@ class HandTurnActiveTest {
     Hand thirdHand = hands.get(2);
     Hand fourthHand = hands.get(3);
     Hand fifthHand = hands.get(4);
-    // second and third assertions fail
+
     assertThat(firstHand.isTurnActive(), is(false));
     assertThat(secondHand.isTurnActive(), is(true));
     assertThat(thirdHand.isTurnActive(), is(false));

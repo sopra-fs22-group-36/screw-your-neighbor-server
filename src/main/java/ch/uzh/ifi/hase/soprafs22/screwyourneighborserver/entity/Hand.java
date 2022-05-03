@@ -141,8 +141,8 @@ public class Hand {
       Optional<Hand> winnerHand =
           sortedHands.stream().filter(hand -> hasHandWon(round, hand)).findFirst();
       if (winnerHand.isPresent()) {
-        int winnerHandIndex = sortedHands.indexOf(winnerHand.get()) * (-1);
-        Collections.rotate(handsStartingWithPreviousWinner, winnerHandIndex);
+        int winnerHandIndex = sortedHands.indexOf(winnerHand.get());
+        Collections.rotate(handsStartingWithPreviousWinner, -winnerHandIndex);
         break;
       }
     }
