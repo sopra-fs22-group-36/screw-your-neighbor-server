@@ -172,23 +172,12 @@ class CardEventHandlerTest {
 
   @Test
   void does_not_create_new_match_when_last_card_played_for_last_match() {
+    GameBuilder firstFinishedMatch = matchBuilder.finishMatch();
+    for (int i = 0; i < 7; i++) {
+      firstFinishedMatch.withMatch().finishMatch();
+    }
     Game game =
-        matchBuilder
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
-            .withMatch()
-            .finishMatch()
+        firstFinishedMatch
             .withMatch()
             .withHandForPlayer(PLAYER_NAME_1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
