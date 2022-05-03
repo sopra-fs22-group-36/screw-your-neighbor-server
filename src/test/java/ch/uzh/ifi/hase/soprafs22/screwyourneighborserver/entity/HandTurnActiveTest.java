@@ -352,7 +352,7 @@ class HandTurnActiveTest {
     Hand secondHand = hands.get(1);
     Hand thirdHand = hands.get(2);
     Hand fourthHand = hands.get(3);
-    // first and third assertions fail
+    // this works
     assertThat(firstHand.isTurnActive(), is(false));
     assertThat(secondHand.isTurnActive(), is(true));
     assertThat(thirdHand.isTurnActive(), is(false));
