@@ -164,6 +164,7 @@ class CardEventHandlerTest {
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
     Collection<Match> savedMatches = matchRepository.findAll();
+    Game updatedGame = gameRepository.findById(game.getId()).orElseThrow();
 
     assertEquals(3, savedRounds.size());
     assertEquals(2, savedMatches.size());
@@ -171,6 +172,8 @@ class CardEventHandlerTest {
     assertTrue(savedRounds.stream().anyMatch(r -> r.getRoundNumber() == 2));
     assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 1));
     assertTrue(savedMatches.stream().anyMatch(m -> m.getMatchNumber() == 2));
+    assertThat(updatedGame.getMatches(), hasSize(2));
+    assertThat(updatedGame.getGameState(), is(PLAYING));
   }
 
   @Test

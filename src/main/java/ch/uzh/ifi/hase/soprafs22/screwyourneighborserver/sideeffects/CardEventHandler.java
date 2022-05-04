@@ -81,7 +81,9 @@ public class CardEventHandler {
         game.setGameState(GameState.CLOSED);
       }
     }
-    modelFactory.addRound(attachNewRoundTo, newRoundNumber);
+    if (game.getGameState() == GameState.PLAYING) {
+      modelFactory.addRound(attachNewRoundTo, newRoundNumber);
+    }
     gameRepository.saveAll(List.of(game));
   }
 }
