@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Component
 @RepositoryEventHandler
@@ -26,9 +28,11 @@ public class HandEventHandler {
   @HandleBeforeSave
   public void onBeforeSave(Hand hand) {
     Match match = hand.getMatch();
-    boolean scoreAllowed = (match.getSumOfScoreAnnouncement() - hand.getCards().size()) == 0;
-    if (match.isLastAnnouncement() && scoreAllowed) {
+    boolean scoreAllowed = (match.getSumOfScoreAnnouncement() - hand.getCards().size()) != 0;
+    if (match.isLastAnnouncement() && !scoreAllowed) {
       hand.setAnnouncedScore(empty);
+      throw new HttpClientErrorException(
+          HttpStatus.FORBIDDEN, "Game rules prohibit this score announcement");
     }
   }
 
