@@ -73,6 +73,10 @@ public class Game {
     return participations;
   }
 
+  public void setNextGame(Game nextGame) {
+    this.nextGame = nextGame;
+  }
+
   public Game getNextGame() {
     return nextGame;
   }
