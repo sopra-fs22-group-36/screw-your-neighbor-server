@@ -209,6 +209,7 @@ class HandEventHandlerTest {
     hands.forEach(el -> el.setAnnouncedScore(1));
     // Get last element of hands
     hands.stream().reduce((first, second) -> second).orElse(null).setAnnouncedScore(0);
+    Hand anyHand = hands.stream().findFirst().get();
 
     assertEquals(1, hands.stream().findFirst().get().getAnnouncedScore());
     assertEquals(1, hands.stream().skip(1).findAny().get().getAnnouncedScore());
@@ -217,7 +218,7 @@ class HandEventHandlerTest {
 
     assertThrows(
         HttpClientErrorException.class,
-        () -> handEventHandler.onBeforeSave(hands.stream().findFirst().get()),
+        () -> handEventHandler.onBeforeSave(anyHand),
         () -> "Game rules prohibit this score announcement");
   }
 }
