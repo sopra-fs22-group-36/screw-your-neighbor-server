@@ -19,5 +19,5 @@ public interface GameEmbedProjection {
 
   Collection<MatchEmbedProjection> getMatches();
 
-  Game getNextGame();
+  GameEmbedProjection getNextGame();
 }
