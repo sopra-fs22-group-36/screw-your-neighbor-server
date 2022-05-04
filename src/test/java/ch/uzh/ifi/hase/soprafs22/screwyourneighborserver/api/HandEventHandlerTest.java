@@ -4,11 +4,13 @@ import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*
 import static org.junit.jupiter.api.Assertions.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.MatchRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.HandEventHandler;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.web.client.HttpClientErrorException;
 
 @SpringBootTest
 @TestExecutionListeners(
@@ -34,8 +37,6 @@ class HandEventHandlerTest {
   private static final String PLAYER_NAME_3 = "player3";
 
   private Match match;
-  private Match firstMatch;
-  private Match lastMatch;
 
   @Autowired private HandEventHandler handEventHandler;
   private GameBuilder.MatchBuilder matchBuilder;
@@ -133,8 +134,8 @@ class HandEventHandlerTest {
     handEventHandler.onAfterSave(hands.iterator().next());
 
     // Start again find all element in the match repo
-    assertEquals(1, game.getMatches().stream().count());
-    assertEquals(3, match.getHands().stream().count());
+    assertEquals(1, game.getMatches().size());
+    assertEquals(3, match.getHands().size());
     assertTrue(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.ANNOUNCING));
     assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.PLAYING));
     assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.FINISH));
@@ -160,8 +161,8 @@ class HandEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    firstMatch = game.getSortedMatches().stream().findFirst().get();
-    lastMatch = game.getLastMatch().get();
+    Match firstMatch = game.getSortedMatches().stream().findFirst().get();
+    Match lastMatch = game.getLastMatch().get();
 
     // Find match id from repository: hand must know which match belongs to
     List<Match> savedMatches = matchRepository.findAll();
@@ -205,26 +206,18 @@ class HandEventHandlerTest {
 
     // Set announcement
     // Hand from player 1
-    int index = 0;
-    for (Hand el : hands) {
-      if (index < 2) {
-        el.setAnnouncedScore(1);
-        index++;
-      } else {
-        el.setAnnouncedScore(0);
-      }
-    }
+    hands.forEach(el -> el.setAnnouncedScore(1));
+    // Get last element of hands
+    hands.stream().reduce((first, second) -> second).orElse(null).setAnnouncedScore(0);
 
-    List<Hand> myhands = new ArrayList(hands);
-    handEventHandler.onBeforeSave(myhands.get(0));
-    handEventHandler.onBeforeSave(myhands.get(1));
-    handEventHandler.onBeforeSave(myhands.get(2));
-    handEventHandler.onAfterSave(hands.iterator().next());
+    assertEquals(1, hands.stream().findFirst().get().getAnnouncedScore());
+    assertEquals(1, hands.stream().skip(1).findAny().get().getAnnouncedScore());
+    assertEquals(
+        0, hands.stream().reduce((first, second) -> second).orElse(null).getAnnouncedScore());
 
-    // Start again find all element in the match repo
-    savedMatches = matchRepository.findAll();
-    assertTrue(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.ANNOUNCING));
-    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.PLAYING));
-    assertFalse(savedMatches.stream().anyMatch(r -> r.getMatchState() == MatchState.FINISH));
+    assertThrows(
+        HttpClientErrorException.class,
+        () -> handEventHandler.onBeforeSave(hands.stream().findFirst().get()),
+        () -> "Game rules prohibit this score announcement");
   }
 }
