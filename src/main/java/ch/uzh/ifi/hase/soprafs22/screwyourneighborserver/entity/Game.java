@@ -34,6 +34,11 @@ public class Game {
   @OneToOne(targetEntity = Game.class)
   private Game nextGame;
 
+  @SuppressWarnings("unused")
+  @Version
+  @JsonIgnore
+  private int version;
+
   public Long getId() {
     return id;
   }
@@ -71,6 +76,10 @@ public class Game {
 
   public Collection<Participation> getParticipations() {
     return participations;
+  }
+
+  public void setNextGame(Game nextGame) {
+    this.nextGame = nextGame;
   }
 
   public Game getNextGame() {
