@@ -92,6 +92,7 @@ class GameIntegrationTest {
     webTestClient
         .get()
         .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
         .isOk()
@@ -112,6 +113,19 @@ class GameIntegrationTest {
 
   @Test
   void return_found_game_by_ID() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
 
     GAME_1.setName("My_Game");
     gameRepository.saveAll(List.of(GAME_1));
@@ -122,6 +136,7 @@ class GameIntegrationTest {
     webTestClient
         .get()
         .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
         .isOk()
@@ -134,7 +149,27 @@ class GameIntegrationTest {
 
   @Test
   void return_not_found_game() {
-    webTestClient.get().uri("/games/5").exchange().expectStatus().isNotFound();
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    webTestClient
+        .get()
+        .uri("/games/5")
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isNotFound();
   }
 
   @Test
@@ -147,10 +182,25 @@ class GameIntegrationTest {
     var gamesList = List.of(GAME_1, GAME_2, GAME_3);
     gameRepository.saveAll(gamesList);
 
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
     var games =
         webTestClient
             .get()
             .uri("/games")
+            .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
             .exchange()
             .expectStatus()
             .isOk()
