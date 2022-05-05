@@ -11,7 +11,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-public class Game {
+public class Game implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   @NotBlank
@@ -104,5 +104,11 @@ public class Game {
       return Optional.empty();
     }
     return Optional.of(sortedMatches.get(sortedMatches.size() - 1));
+  }
+
+  @JsonIgnore
+  @Override
+  public Game getGame() {
+    return this;
   }
 }
