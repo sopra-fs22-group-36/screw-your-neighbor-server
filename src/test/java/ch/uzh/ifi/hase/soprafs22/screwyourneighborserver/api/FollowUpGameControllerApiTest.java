@@ -119,4 +119,9 @@ class FollowUpGameControllerApiTest {
         .expectStatus()
         .isOk();
   }
+
+  @Test
+  void returns_403_for_create_nextGame_when_anonymous() {
+    webTestClient.post().uri("games/42/nextGame").exchange().expectStatus().isForbidden();
+  }
 }
