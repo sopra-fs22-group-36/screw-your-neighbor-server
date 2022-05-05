@@ -7,7 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Hand {
+public class Hand implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private Integer announcedScore;
@@ -153,5 +153,11 @@ public class Hand {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
+  }
+
+  @JsonIgnore
+  @Override
+  public Game getGame() {
+    return match.getGame();
   }
 }

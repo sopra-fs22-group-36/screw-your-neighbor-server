@@ -14,12 +14,19 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects.CardEventHandler;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.WithPersistedPlayer;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.TestExecutionListeners;
 
 @SpringBootTest
@@ -46,9 +53,22 @@ class CardEventHandlerTest {
 
   @BeforeEach
   void setup() {
+    SecurityContext context = SecurityContextHolder.getContext();
+    Object principal =
+        Optional.ofNullable(context.getAuthentication())
+            .map(Authentication::getPrincipal)
+            .orElse(null);
+    if (!(principal instanceof Player) || !PLAYER_NAME_1.equals(((Player) principal).getName())) {
+      Player player = new Player();
+      player.setName(PLAYER_NAME_1);
+      playerRepository.saveAll(List.of(player));
+      principal = player;
+    }
+    Player player1 = (Player) principal;
+
     matchBuilder =
         GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
-            .withParticipation(PLAYER_NAME_1)
+            .withParticipationWith(player1)
             .withParticipation(PLAYER_NAME_2)
             .withParticipation(PLAYER_NAME_3)
             .withGameState(GameState.PLAYING)
@@ -66,6 +86,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void play_first_card_no_new_round() {
     Game game =
         matchBuilder
@@ -88,6 +109,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void play_not_last_card_no_new_round() {
     Game game =
         matchBuilder
@@ -111,6 +133,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void play_last_card_new_round_no_new_match() {
     Game game =
         matchBuilder
@@ -139,6 +162,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void play_last_card_new_round_new_match() {
     Game game =
         matchBuilder
@@ -177,6 +201,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void puts_game_to_state_closed_for_last_card_in_last_match() {
     GameBuilder firstFinishedMatch = matchBuilder.finishMatch();
     for (int i = 0; i < 7; i++) {
@@ -232,6 +257,7 @@ class CardEventHandlerTest {
   }
 
   @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void does_not_change_gamestate_if_its_not_the_last_card() {
     GameBuilder firstFinishedMatch = matchBuilder.finishMatch();
     for (int i = 0; i < 7; i++) {
@@ -283,5 +309,25 @@ class CardEventHandlerTest {
     Game updatedGame = gameRepository.findById(game.getId()).orElseThrow();
     assertThat(updatedGame.getMatches(), hasSize(9));
     assertThat(updatedGame.getGameState(), is(PLAYING));
+  }
+
+  @Test
+  @WithAnonymousUser
+  void throws_accessdenied_when_anonymous() {
+    Game game =
+        matchBuilder
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, JACK_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+    match = game.getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
+    card1 = lastRound.getCards().iterator().next();
+
+    assertThrows(AccessDeniedException.class, () -> cardEventHandler.handleAfterSave(card1));
   }
 }

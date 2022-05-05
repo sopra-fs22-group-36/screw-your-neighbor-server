@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
-public class Match {
+public class Match implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private int matchNumber;

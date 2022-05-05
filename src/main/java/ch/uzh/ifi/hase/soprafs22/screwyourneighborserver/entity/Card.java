@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 @Entity
-public class Card implements Comparable<Card> {
+public class Card implements Comparable<Card>, BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private CardRank cardRank;
@@ -91,5 +91,10 @@ public class Card implements Comparable<Card> {
       return false;
     }
     return round.getHighestCards().contains(this);
+  }
+
+  @Override
+  public Game getGame() {
+    return hand.getGame();
   }
 }

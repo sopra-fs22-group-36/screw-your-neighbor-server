@@ -7,6 +7,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,10 +34,11 @@ public class CardEventHandler {
     mapMatchNoToNumberOfCards.put(9, 5);
   }
 
-  @SuppressWarnings("unused")
   @HandleAfterSave
   @Transactional
-  public void handleAfterSave(Card card) {
+  @SuppressWarnings({"unused", "SpringElInspection", "ELValidationInspection"})
+  @PreAuthorize("belongsToGame(#card.game)")
+  public void handleAfterSave(@P("card") Card card) {
     Round round = card.getRound();
     if (round == null) {
       return;
