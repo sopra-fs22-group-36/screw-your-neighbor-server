@@ -32,7 +32,7 @@ public class HandEventHandler {
     if (match.isLastAnnouncement() && !scoreAllowed) {
       hand.setAnnouncedScore(empty);
       throw new HttpClientErrorException(
-          HttpStatus.FORBIDDEN, "Game rules prohibit this score announcement");
+          HttpStatus.UNPROCESSABLE_ENTITY, "Game rules prohibit this score announcement");
     }
   }
 
