@@ -189,38 +189,20 @@ class HandEventHandlerTest {
 
   @Test
   void illegal_score_announcing() {
-
     Game game = matchBuilder.finishMatch().build();
 
-    gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
+    Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
+    game = savedGames.iterator().next();
+    match = game.getLastMatch().orElseThrow();
 
-    // Find match id from repository: hand must know which match belongs to
-    Collection<Match> savedMatches = matchRepository.findAll();
-    assertEquals(1, savedMatches.size());
-    // Because the ID is not available on the temporary object, we set it manually
-    // (to ensure we update the existing one in the handEventHandler and do not create a new match)
-    long test = savedMatches.iterator().next().getId();
-    match.setId(test);
-    matchRepository.save(match);
-
-    Collection<Hand> hands = match.getHands();
-
-    // Set announcement
-    // Hand from player 1
+    List<Hand> hands = match.getSortedHands();
     hands.forEach(el -> el.setAnnouncedScore(1));
-    // Get last element of hands
-    hands.stream().reduce((first, second) -> second).orElse(null).setAnnouncedScore(0);
-    Hand anyHand = hands.stream().findFirst().get();
-
-    assertEquals(1, hands.stream().findFirst().get().getAnnouncedScore());
-    assertEquals(1, hands.stream().skip(1).findAny().get().getAnnouncedScore());
-    assertEquals(
-        0, hands.stream().reduce((first, second) -> second).orElse(null).getAnnouncedScore());
+    Hand lastHand = hands.get(hands.size() - 1);
+    lastHand.setAnnouncedScore(0);
 
     assertThrows(
         HttpClientErrorException.class,
-        () -> handEventHandler.onBeforeSave(anyHand),
-        () -> "Game rules prohibit this score announcement");
+        () -> handEventHandler.onBeforeSave(lastHand),
+        "Game rules prohibit this score announcement");
   }
 }
