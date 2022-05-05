@@ -234,7 +234,7 @@ class PlayerIntegrationTest {
         .body(BodyInserters.fromValue(PLAYER_1))
         .exchange()
         .expectStatus()
-        .isForbidden();
+        .isUnauthorized();
   }
 
   @Test

@@ -9,11 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 
 @Component
 @RepositoryEventHandler
@@ -36,10 +34,6 @@ public class GameEventHandler {
   @HandleAfterCreate
   public void onAfterCreate(Game game) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (!(authentication.getPrincipal() instanceof Player)) {
-      throw new HttpClientErrorException(
-          HttpStatus.UNAUTHORIZED, "Cannot create game when not authorized");
-    }
     game.setVideoChatName(UUID.randomUUID().toString());
 
     Player player = (Player) authentication.getPrincipal();
