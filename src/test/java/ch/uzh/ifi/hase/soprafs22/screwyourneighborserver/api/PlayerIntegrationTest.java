@@ -80,9 +80,24 @@ class PlayerIntegrationTest {
 
   @Test
   void get_not_existing_player_fails() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
     webTestClient
         .get()
         .uri("%s%s/%s".formatted(createBaseUrl(), ENDPOINT, "1"))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
         .isNotFound();
