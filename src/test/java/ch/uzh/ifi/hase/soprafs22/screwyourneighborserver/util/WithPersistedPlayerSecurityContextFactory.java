@@ -4,7 +4,8 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.security.Authorities;
 import java.util.List;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,9 +27,9 @@ public class WithPersistedPlayerSecurityContextFactory
     playerRepository.saveAll(List.of(player));
 
     SecurityContext context = SecurityContextHolder.getContext();
-    RememberMeAuthenticationToken authentication =
-        new RememberMeAuthenticationToken(
-            newPlayer.getId().toString(),
+    AbstractAuthenticationToken authentication =
+        new UsernamePasswordAuthenticationToken(
+            newPlayer,
             newPlayer,
             List.of(new SimpleGrantedAuthority(Authorities.ROLE_PLAYER.name())));
     context.setAuthentication(authentication);
