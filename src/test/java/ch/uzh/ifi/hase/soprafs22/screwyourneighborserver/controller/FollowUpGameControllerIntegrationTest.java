@@ -50,7 +50,7 @@ class FollowUpGameControllerIntegrationTest {
         Optional.ofNullable(context.getAuthentication())
             .map(Authentication::getPrincipal)
             .orElse(null);
-    if (!(principal instanceof Player)) {
+    if (!(principal instanceof Player) || !PLAYER_NAME_1.equals(((Player) principal).getName())) {
       Player player = new Player();
       player.setName(PLAYER_NAME_1);
       playerRepository.saveAll(List.of(player));
@@ -99,6 +99,12 @@ class FollowUpGameControllerIntegrationTest {
   @Test
   @WithAnonymousUser
   void throws_if_not_authenticated() {
+    assertThrows(AccessDeniedException.class, () -> followUpGameController.createNextGame(gameId));
+  }
+
+  @Test
+  @WithPersistedPlayer(playerName = "another player")
+  void throws_if_player_is_not_part_of_the_game() {
     assertThrows(AccessDeniedException.class, () -> followUpGameController.createNextGame(gameId));
   }
 }
