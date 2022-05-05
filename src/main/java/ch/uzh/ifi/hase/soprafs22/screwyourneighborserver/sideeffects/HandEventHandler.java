@@ -41,7 +41,6 @@ public class HandEventHandler {
   public void onAfterSave(Hand hand) {
     // find match by the hand
     Match match = hand.getMatch();
-    match.getSortedHands();
 
     if (allPlayersAnnouncedScore(match)) {
       match.setMatchState(MatchState.PLAYING);

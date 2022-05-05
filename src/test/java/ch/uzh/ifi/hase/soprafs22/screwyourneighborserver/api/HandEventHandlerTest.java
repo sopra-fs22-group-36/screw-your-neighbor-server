@@ -198,6 +198,8 @@ class HandEventHandlerTest {
     // Find match id from repository: hand must know which match belongs to
     Collection<Match> savedMatches = matchRepository.findAll();
     assertEquals(1, savedMatches.size());
+    // Because the ID is not available on the temporary object, we set it manually
+    // (to ensure we update the existing one in the handEventHandler and do not create a new match)
     long test = savedMatches.iterator().next().getId();
     match.setId(test);
     matchRepository.save(match);
