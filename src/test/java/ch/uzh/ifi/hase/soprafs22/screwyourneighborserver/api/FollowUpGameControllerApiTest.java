@@ -46,6 +46,7 @@ class FollowUpGameControllerApiTest {
 
   private static final String PLAYER_NAME_1 = "player1";
   private static final String PLAYER_NAME_2 = "player2";
+  private static final String PLAYER_NAME_3 = "player3";
 
   private Player PLAYER_1;
 
@@ -123,5 +124,53 @@ class FollowUpGameControllerApiTest {
   @Test
   void returns_403_for_create_nextGame_when_anonymous() {
     webTestClient.post().uri("games/42/nextGame").exchange().expectStatus().isForbidden();
+  }
+
+  @Test
+  void returns_403_for_create_nextgame_when_not_part_of_the_game() {
+    webTestClient
+        .post()
+        .uri("/players")
+        .body(BodyInserters.fromValue(PLAYER_1))
+        .exchange()
+        .expectStatus()
+        .isCreated()
+        .expectBody()
+        .returnResult()
+        .getResponseHeaders();
+    Player createdPlayer = playerRepository.findAll().iterator().next();
+
+    Game game =
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(createdPlayer)
+            .withParticipation(PLAYER_NAME_2)
+            .withGameState(GameState.CLOSED)
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    String uri = "games/%s/nextGame".formatted(game.getId());
+
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+
+    webTestClient
+        .post()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isForbidden();
   }
 }
