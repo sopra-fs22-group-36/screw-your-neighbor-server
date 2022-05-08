@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
+import java.util.stream.Stream;
 import javax.persistence.*;
 
 @Entity
@@ -107,7 +108,13 @@ public class Hand {
     int numberOfWonTricks = 0;
     for (Round round : sortedRounds) {
       if (hasHandWon(round, this)) {
-        numberOfWonTricks++;
+        if (round.isStacked()) {
+          Collections.reverse(sortedRounds);
+          Stream<Round> stackedRounds = sortedRounds.stream().takeWhile(r -> r.isStacked());
+          numberOfWonTricks += Stream.of(stackedRounds).count();
+        } else {
+          numberOfWonTricks++;
+        }
       }
     }
     return numberOfWonTricks;
