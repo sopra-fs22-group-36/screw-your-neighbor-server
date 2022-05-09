@@ -223,7 +223,7 @@ class HandScoreTest {
   }
 
   @Test
-  void evaluates_score_with_two_stacked_rounds() {
+  void evaluates_score_with_two_stacked_round() {
     matchBuilder =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_1)
@@ -277,19 +277,131 @@ class HandScoreTest {
     Hand handPlayer3 = sortedHands.get(2);
 
     assertThat(handPlayer1.getNumberOfWonTricks(), is(2));
-    // assertThat(handPlayer1.getPoints(), is(-1));
-
     assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
-    // assertThat(handPlayer2.getPoints(), is(0));
-
     assertThat(handPlayer3.getNumberOfWonTricks(), is(1));
-    // assertThat(handPlayer3.getPoints(), is(-1));
+  }
 
-    /*
-    private static final int ANNOUNCED_SCORE_PLAYER_1 = 1;
-    private static final int ANNOUNCED_SCORE_PLAYER_2 = 0;
-    private static final int ANNOUNCED_SCORE_PLAYER_3 = 3;
-       */
+  @Test
+  void evaluates_score_with_one_stacked_round() {
+    matchBuilder =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch();
+
+    matchBuilderWithHands =
+        matchBuilder
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_2)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_3)
+            .finishHand();
+    Game game =
+        matchBuilderWithHands
+            .withRound()
+            .withPlayedCard(PLAYER_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, JACK_OF_SPADES)
+            .withPlayedCard(PLAYER_3, SEVEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, JACK_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_SPADES)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    Match match = game.getSortedMatches().get(0);
+    List<Hand> sortedHands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+
+    assertThat(handPlayer1.getNumberOfWonTricks(), is(2));
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
+    assertThat(handPlayer3.getNumberOfWonTricks(), is(1));
+  }
+
+  @Test
+  void evaluates_score_with_two_stacked_rounds() {
+    matchBuilder =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch();
+
+    matchBuilderWithHands =
+        matchBuilder
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS, KING_OF_HEARTS)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS, QUEEN_OF_HEARTS)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_2)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES, EIGHT_OF_SPADES)
+            .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_3)
+            .finishHand();
+    Game game =
+        matchBuilderWithHands
+            .withRound()
+            .withPlayedCard(PLAYER_1, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, JACK_OF_SPADES)
+            .withPlayedCard(PLAYER_3, SEVEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, QUEEN_OF_HEARTS)
+            .withPlayedCard(PLAYER_3, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, KING_OF_HEARTS)
+            .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, EIGHT_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, JACK_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_SPADES)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    Match match = game.getSortedMatches().get(0);
+    List<Hand> sortedHands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+
+    assertThat(handPlayer1.getNumberOfWonTricks(), is(1));
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
+    assertThat(handPlayer3.getNumberOfWonTricks(), is(3));
   }
 
   @Test
@@ -346,15 +458,13 @@ class HandScoreTest {
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
 
+    System.out.println("PLAYER 1");
+    System.out.println(handPlayer1.getNumberOfWonTricks());
+    System.out.println("PLAYER 3");
+    System.out.println(handPlayer3.getNumberOfWonTricks());
+
     assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
     assertThat(handPlayer2.getPoints(), is(0));
-
-    System.out.println("Player 1:");
-    // System.out.println(handPlayer1.getNumberOfWonTricks());
-    System.out.println("Player 2:");
-    // System.out.println(handPlayer2.getNumberOfWonTricks());
-    System.out.println("Player 3:");
-    // System.out.println(handPlayer3.getNumberOfWonTricks());
     assertTrue(
         handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 1
             || handPlayer1.getNumberOfWonTricks() == 1 && handPlayer3.getNumberOfWonTricks() == 3);
@@ -420,12 +530,6 @@ class HandScoreTest {
     assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
     // assertThat(handPlayer2.getPoints(), is(0));
 
-    System.out.println("Player 1:");
-    // System.out.println(handPlayer1.getNumberOfWonTricks());
-    System.out.println("Player 2:");
-    // System.out.println(handPlayer2.getNumberOfWonTricks());
-    System.out.println("Player 3:");
-    // System.out.println(handPlayer3.getNumberOfWonTricks());
     assertTrue(
         handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 0
             || handPlayer1.getNumberOfWonTricks() == 0 && handPlayer3.getNumberOfWonTricks() == 3);

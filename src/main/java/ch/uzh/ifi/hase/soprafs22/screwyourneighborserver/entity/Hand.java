@@ -21,8 +21,6 @@ public class Hand {
 
   @ManyToOne private Participation participation;
 
-  Boolean hasWonBattle;
-
   public Long getId() {
     return id;
   }
@@ -62,10 +60,6 @@ public class Hand {
 
   public void setParticipation(Participation participation) {
     this.participation = participation;
-  }
-
-  public void setHasWonBattle(Boolean hasWonBattle) {
-    this.hasWonBattle = hasWonBattle;
   }
 
   public boolean isTurnActive() {
@@ -114,36 +108,17 @@ public class Hand {
     Iterator<Round> roundIterator = sortedRounds.iterator();
     while (roundIterator.hasNext()) {
       Round round = roundIterator.next();
-      Boolean isStacked = round.isStacked();
-      if (isStacked) {
-        int numberOfStackedRounds = 0;
+      if (round.isStacked()) {
+        int numberOfStackedRounds = 1;
         while (roundIterator.hasNext() && round.isStacked()) {
-          numberOfStackedRounds += 1;
           round = roundIterator.next();
-        }
-        // stack was last round, and this hand had one of the highest cards --> chose a random
-        // winner
-        if (!roundIterator.hasNext() && hasHandWon(round, this)) {
-          if (this.hasWonBattle == null) {
-            Collection<Hand> battlingHands = new ArrayList<>();
-            for (Hand hand : match.getHands()) {
-              if (hasHandWon(round, hand)) {
-                hand.setHasWonBattle(false);
-                battlingHands.add(hand);
-              }
-            }
-            Hand winnerHand = randomWinnerOfStackBattle(battlingHands);
-            winnerHand.setHasWonBattle(true);
-            // we count the battling round to the stacked rounds too
-            numberOfStackedRounds += 1;
-          }
+          numberOfStackedRounds += 1;
         }
         // only count the stacked points, if the round after the stacked one(s) was won (this can
         // either be a regular round or the additional battling round)
-        if (roundIterator.hasNext() && hasHandWon(round, this)
-            || this.hasWonBattle != null && this.hasWonBattle) {
+        if (hasHandWon(round, this)) {
           // adding the stacked round plus the won round
-          numberOfWonTricks += numberOfStackedRounds + 1;
+          numberOfWonTricks += numberOfStackedRounds;
         }
       } else if (hasHandWon(round, this)) {
         numberOfWonTricks++;
@@ -192,9 +167,5 @@ public class Hand {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
-  }
-
-  private Hand randomWinnerOfStackBattle(Collection<Hand> hands) {
-    return hands.stream().skip((int) (hands.size() * Math.random())).findFirst().orElseThrow();
   }
 }
