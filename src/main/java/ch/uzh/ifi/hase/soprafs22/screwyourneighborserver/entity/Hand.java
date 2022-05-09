@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
-import java.util.stream.Stream;
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +20,8 @@ public class Hand {
   private Match match;
 
   @ManyToOne private Participation participation;
+
+  Boolean hasWonBattle;
 
   public Long getId() {
     return id;
@@ -61,6 +62,10 @@ public class Hand {
 
   public void setParticipation(Participation participation) {
     this.participation = participation;
+  }
+
+  public void setHasWonBattle(Boolean hasWonBattle) {
+    this.hasWonBattle = hasWonBattle;
   }
 
   public boolean isTurnActive() {
@@ -106,15 +111,42 @@ public class Hand {
   public int getNumberOfWonTricks() {
     List<Round> sortedRounds = match.getSortedRounds();
     int numberOfWonTricks = 0;
-    for (Round round : sortedRounds) {
-      if (hasHandWon(round, this)) {
-        if (round.isStacked()) {
-          Collections.reverse(sortedRounds);
-          Stream<Round> stackedRounds = sortedRounds.stream().takeWhile(r -> r.isStacked());
-          numberOfWonTricks += Stream.of(stackedRounds).count();
-        } else {
-          numberOfWonTricks++;
+    Iterator<Round> roundIterator = sortedRounds.iterator();
+    while (roundIterator.hasNext()) {
+      Round round = roundIterator.next();
+      Boolean isStacked = round.isStacked();
+      if (isStacked) {
+        int numberOfStackedRounds = 0;
+        while (roundIterator.hasNext() && round.isStacked()) {
+          numberOfStackedRounds += 1;
+          round = roundIterator.next();
         }
+        // stack was last round, and this hand had one of the highest cards --> chose a random
+        // winner
+        if (!roundIterator.hasNext() && hasHandWon(round, this)) {
+          if (this.hasWonBattle == null) {
+            Collection<Hand> battlingHands = new ArrayList<>();
+            for (Hand hand : match.getHands()) {
+              if (hasHandWon(round, hand)) {
+                hand.setHasWonBattle(false);
+                battlingHands.add(hand);
+              }
+            }
+            Hand winnerHand = randomWinnerOfStackBattle(battlingHands);
+            winnerHand.setHasWonBattle(true);
+            // we count the battling round to the stacked rounds too
+            numberOfStackedRounds += 1;
+          }
+        }
+        // only count the stacked points, if the round after the stacked one(s) was won (this can
+        // either be a regular round or the additional battling round)
+        if (roundIterator.hasNext() && hasHandWon(round, this)
+            || this.hasWonBattle != null && this.hasWonBattle) {
+          // adding the stacked round plus the won round
+          numberOfWonTricks += numberOfStackedRounds + 1;
+        }
+      } else if (hasHandWon(round, this)) {
+        numberOfWonTricks++;
       }
     }
     return numberOfWonTricks;
@@ -160,5 +192,9 @@ public class Hand {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
+  }
+
+  private Hand randomWinnerOfStackBattle(Collection<Hand> hands) {
+    return hands.stream().skip((int) (hands.size() * Math.random())).findFirst().orElseThrow();
   }
 }
