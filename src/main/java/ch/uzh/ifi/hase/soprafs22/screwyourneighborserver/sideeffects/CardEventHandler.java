@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -65,7 +66,18 @@ public class CardEventHandler {
     int numberOfPlayedRounds = match.getRounds().size();
     Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
     if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
-      if (numOfCards != null) {
+      if (round.isStacked()) {
+        modelFactory.addRound(attachNewRoundTo, newRoundNumber);
+        Collection<Card> highestCards = round.getHighestCards();
+        CardDeck cardDeck = new StandardCardDeck();
+        cardDeck.shuffle();
+        for (Card c : highestCards) {
+          Hand battlingHand = c.getHand();
+          Card battlingCard = cardDeck.drawCard();
+          battlingCard.setHand(battlingHand);
+          battlingHand.getCards().add(battlingCard);
+        }
+      } else if (numOfCards != null) {
         Match newMatch = modelFactory.addMatch(game, newMatchNumber);
         attachNewRoundTo = newMatch;
         newRoundNumber = 0;
