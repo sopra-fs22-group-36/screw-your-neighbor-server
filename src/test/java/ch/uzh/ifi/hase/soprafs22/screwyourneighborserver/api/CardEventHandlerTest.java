@@ -288,7 +288,9 @@ class CardEventHandlerTest {
   }
 
   @Test
-  void evaluates_score_with_last_round_stacked() {
+  void play_last_card_with_round_stacked() {
+    // this test may fail in case in the battling round multiple players have the same highest cards
+    // again
     Game game =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_NAME_1)
@@ -297,15 +299,12 @@ class CardEventHandlerTest {
             .withMatch()
             .withHandForPlayer(PLAYER_NAME_1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
-            .withAnnouncedScore(1)
             .finishHand()
             .withHandForPlayer(PLAYER_NAME_2)
             .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS)
-            .withAnnouncedScore(2)
             .finishHand()
             .withHandForPlayer(PLAYER_NAME_3)
             .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
-            .withAnnouncedScore(3)
             .finishHand()
             .withRound()
             .withPlayedCard(PLAYER_NAME_1, JACK_OF_CLUBS)
@@ -326,49 +325,26 @@ class CardEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    lastRound = match.getLastRound().get();
-    card1 = lastRound.getCards().iterator().next();
-    cardEventHandler.handleAfterSave(card1);
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Round battlingRound = match.getLastRound().orElseThrow();
     Hand handPlayer1 = sortedHands.get(0);
-    for (Card c : handPlayer1.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
     Hand handPlayer2 = sortedHands.get(1);
-    for (Card c : handPlayer2.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
     Hand handPlayer3 = sortedHands.get(2);
-    for (Card c : handPlayer3.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
+
+    simulateBattlingCardPlaying(handPlayer1, battlingRound);
+    simulateBattlingCardPlaying(handPlayer2, battlingRound);
+    simulateBattlingCardPlaying(handPlayer3, battlingRound);
+
     assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
-    // assertThat(handPlayer2.getPoints(), is(0));
     assertTrue(
         handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 1
             || handPlayer1.getNumberOfWonTricks() == 1 && handPlayer3.getNumberOfWonTricks() == 3);
-    // assertThat(handPlayer1.getNumberOfWonTricks(), is(1));
-    // assertThat(handPlayer3.getNumberOfWonTricks(), is(3));
-    // assertThat(handPlayer3.getPoints(), is(-1));
   }
 
   @Test
-  void evaluates_score_with_last_two_rounds_stacked() {
+  void play_last_card_with_last_two_rounds_stacked() {
+    // this test may fail in case in the battling round multiple players have the same highest cards
+    // again
     Game game =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_NAME_1)
@@ -377,15 +353,12 @@ class CardEventHandlerTest {
             .withMatch()
             .withHandForPlayer(PLAYER_NAME_1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
-            .withAnnouncedScore(1)
             .finishHand()
             .withHandForPlayer(PLAYER_NAME_2)
             .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS)
-            .withAnnouncedScore(2)
             .finishHand()
             .withHandForPlayer(PLAYER_NAME_3)
             .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
-            .withAnnouncedScore(3)
             .finishHand()
             .withRound()
             .withPlayedCard(PLAYER_NAME_1, JACK_OF_CLUBS)
@@ -407,44 +380,39 @@ class CardEventHandlerTest {
 
     gameRepository.saveAll(List.of(game));
 
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
+    Round battlingRound = match.getLastRound().orElseThrow();
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+    simulateBattlingCardPlaying(handPlayer1, battlingRound);
+    simulateBattlingCardPlaying(handPlayer2, battlingRound);
+    simulateBattlingCardPlaying(handPlayer3, battlingRound);
+
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
+    assertTrue(
+        handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 0
+            || handPlayer1.getNumberOfWonTricks() == 0 && handPlayer3.getNumberOfWonTricks() == 3);
+  }
+
+  private List<Hand> getHandsSortedByParticipation(Game game) {
+
     match = game.getLastMatch().get();
     lastRound = match.getLastRound().get();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
-    Round battlingRound = match.getLastRound().orElseThrow();
-    Hand handPlayer1 = sortedHands.get(0);
-    for (Card c : handPlayer1.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
-    Hand handPlayer2 = sortedHands.get(1);
-    for (Card c : handPlayer2.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
-    Hand handPlayer3 = sortedHands.get(2);
-    for (Card c : handPlayer3.getCards()) {
-      if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
-      }
-    }
+    return match.getHands().stream()
+        .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+        .collect(Collectors.toList());
+  }
 
-    assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
-    // assertThat(handPlayer2.getPoints(), is(0));
-
-    assertTrue(
-        handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 0
-            || handPlayer1.getNumberOfWonTricks() == 0 && handPlayer3.getNumberOfWonTricks() == 3);
-    // assertThat(handPlayer3.getPoints(), is(-1));
+  private void simulateBattlingCardPlaying(Hand hand, Round battlingRound) {
+    for (Card c : hand.getCards()) {
+      if (c.getRound() == null) {
+        c.setRound(battlingRound);
+        battlingRound.getCards().add(c);
+      }
+    }
   }
 }
