@@ -300,7 +300,7 @@ class HandIntegrationTest {
   }
 
   @Test
-  void return_correct_number_of_won_tricks_and_points_when_stack() {
+  void return_correct_number_of_won_tricks_and_points_when_stacked() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
