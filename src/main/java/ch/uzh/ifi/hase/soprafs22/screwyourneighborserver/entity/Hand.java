@@ -114,10 +114,8 @@ public class Hand {
           round = roundIterator.next();
           numberOfStackedRounds += 1;
         }
-        // only count the stacked points, if the round after the stacked one(s) was won (this can
-        // either be a regular round or the additional battling round)
+        // only count the stacked points, if the round after the stacked one(s) was won
         if (hasHandWon(round, this)) {
-          // adding the stacked round plus the won round
           numberOfWonTricks += numberOfStackedRounds;
         }
       } else if (hasHandWon(round, this)) {
