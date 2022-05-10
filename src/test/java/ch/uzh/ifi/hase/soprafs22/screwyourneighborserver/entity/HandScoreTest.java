@@ -215,7 +215,7 @@ class HandScoreTest {
   }
 
   @Test
-  void evaluates_score_with_two_stacked_round() {
+  void evaluates_score_with_one_stacked_round() {
 
     Game game =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)

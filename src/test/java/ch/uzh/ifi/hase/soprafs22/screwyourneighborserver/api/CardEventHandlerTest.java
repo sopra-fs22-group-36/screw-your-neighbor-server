@@ -331,9 +331,9 @@ class CardEventHandlerTest {
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
 
-    simulateBattlingCardPlaying(handPlayer1, battlingRound);
-    simulateBattlingCardPlaying(handPlayer2, battlingRound);
-    simulateBattlingCardPlaying(handPlayer3, battlingRound);
+    playLastCardIn(handPlayer1, battlingRound);
+    playLastCardIn(handPlayer2, battlingRound);
+    playLastCardIn(handPlayer3, battlingRound);
 
     assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
     assertTrue(
@@ -385,9 +385,9 @@ class CardEventHandlerTest {
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
-    simulateBattlingCardPlaying(handPlayer1, battlingRound);
-    simulateBattlingCardPlaying(handPlayer2, battlingRound);
-    simulateBattlingCardPlaying(handPlayer3, battlingRound);
+    playLastCardIn(handPlayer1, battlingRound);
+    playLastCardIn(handPlayer2, battlingRound);
+    playLastCardIn(handPlayer3, battlingRound);
 
     assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
     assertTrue(
@@ -401,17 +401,16 @@ class CardEventHandlerTest {
     lastRound = match.getLastRound().get();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
-    Match match = game.getSortedMatches().get(0);
     return match.getHands().stream()
         .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
         .collect(Collectors.toList());
   }
 
-  private void simulateBattlingCardPlaying(Hand hand, Round battlingRound) {
+  private void playLastCardIn(Hand hand, Round round) {
     for (Card c : hand.getCards()) {
       if (c.getRound() == null) {
-        c.setRound(battlingRound);
-        battlingRound.getCards().add(c);
+        c.setRound(round);
+        round.getCards().add(c);
       }
     }
   }
