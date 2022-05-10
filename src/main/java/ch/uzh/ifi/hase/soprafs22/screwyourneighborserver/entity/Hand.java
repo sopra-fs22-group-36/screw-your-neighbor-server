@@ -85,8 +85,8 @@ public class Hand {
     if (activeRound.isEmpty()) {
       return false;
     }
-
     List<Round> sortedRounds = activeMatch.getSortedRounds();
+
     List<Hand> handsStartingWithPreviousWinner = rotateHandsByLastWinner(sortedHands, sortedRounds);
     Optional<Hand> firstHandWhichDidNotPlayCard =
         handsStartingWithPreviousWinner.stream()
@@ -151,6 +151,7 @@ public class Hand {
     }
     List<Round> previousRounds = sortedRounds.subList(0, sortedRounds.size() - 1);
     Collections.reverse(previousRounds);
+    previousRounds.removeIf(Round::isStacked);
     for (Round round : previousRounds) {
       Optional<Hand> winnerHand =
           sortedHands.stream().filter(hand -> hasHandWon(round, hand)).findFirst();
