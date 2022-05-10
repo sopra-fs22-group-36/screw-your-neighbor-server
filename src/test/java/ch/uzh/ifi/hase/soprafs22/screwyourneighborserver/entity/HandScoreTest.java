@@ -160,11 +160,7 @@ class HandScoreTest {
         .ifPresent(lastRound -> lastRound.setRoundNumber(9));
     gameRepository.saveAll(List.of(game));
 
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -203,11 +199,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -224,15 +216,13 @@ class HandScoreTest {
 
   @Test
   void evaluates_score_with_two_stacked_round() {
-    matchBuilder =
+
+    Game game =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_1)
             .withParticipation(PLAYER_2)
             .withParticipation(PLAYER_3)
-            .withMatch();
-
-    matchBuilderWithHands =
-        matchBuilder
+            .withMatch()
             .withHandForPlayer(PLAYER_1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
             .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_1)
@@ -244,9 +234,7 @@ class HandScoreTest {
             .withHandForPlayer(PLAYER_3)
             .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
             .withAnnouncedScore(ANNOUNCED_SCORE_PLAYER_3)
-            .finishHand();
-    Game game =
-        matchBuilderWithHands
+            .finishHand()
             .withRound()
             .withPlayedCard(PLAYER_1, ACE_OF_CLUBS)
             .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
@@ -267,11 +255,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -283,6 +267,7 @@ class HandScoreTest {
 
   @Test
   void evaluates_score_with_one_stacked_round() {
+
     matchBuilder =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_1)
@@ -326,11 +311,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -390,11 +371,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    Match match = game.getSortedMatches().get(0);
-    List<Hand> sortedHands =
-        match.getHands().stream()
-            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
-            .collect(Collectors.toList());
+    List<Hand> sortedHands = getHandsSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -406,4 +383,11 @@ class HandScoreTest {
 
   // Note: No tests needed for last rounds stacked, because this can not happen due to the
   // implementation of adding rounds in case of last round getting stacked.
+
+  private List<Hand> getHandsSortedByParticipation(Game game) {
+    Match match = game.getSortedMatches().get(0);
+    return match.getHands().stream()
+        .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+        .collect(Collectors.toList());
+  }
 }
