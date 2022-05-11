@@ -78,8 +78,8 @@ class CardEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = game.getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
@@ -101,8 +101,8 @@ class CardEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = game.getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     Collection<Round> savedRounds = roundRepository.findAll();
@@ -125,8 +125,8 @@ class CardEventHandlerTest {
             .build();
 
     Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
-    match = savedGames.iterator().next().getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = savedGames.iterator().next().getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     Collection<Round> savedRoundsBefore = roundRepository.findAll();
     assertEquals(1, savedRoundsBefore.size());
@@ -158,8 +158,8 @@ class CardEventHandlerTest {
             .build();
 
     Iterable<Game> savedGames = gameRepository.saveAll(List.of(game));
-    match = savedGames.iterator().next().getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = savedGames.iterator().next().getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     Collection<Round> savedRounds1 = roundRepository.findAll();
     assertEquals(2, savedRounds1.size());
@@ -324,8 +324,8 @@ class CardEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = game.getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     List<Hand> sortedHands = getHandsSortedByParticipation(match);
@@ -335,7 +335,6 @@ class CardEventHandlerTest {
     Hand handPlayer3 = sortedHands.get(2);
 
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
-    // Card lastCardPlayer2 = playLastCardIn(handPlayer2, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
 
     cardEventHandler.handleAfterSave(lastCardPlayer3);
@@ -390,10 +389,9 @@ class CardEventHandlerTest {
             .finishMatch()
             .build();
 
-    // game.setGameState(PLAYING);
     gameRepository.saveAll(List.of(game));
-    match = game.getLastMatch().get();
-    lastRound = match.getLastRound().get();
+    match = game.getLastMatch().orElseThrow();
+    lastRound = match.getLastRound().orElseThrow();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
     List<Hand> sortedHands = getHandsSortedByParticipation(match);
@@ -402,7 +400,6 @@ class CardEventHandlerTest {
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
-    // Card lastCardPlayer2 = playLastCardIn(handPlayer2, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
 
     cardEventHandler.handleAfterSave(lastCardPlayer3);
