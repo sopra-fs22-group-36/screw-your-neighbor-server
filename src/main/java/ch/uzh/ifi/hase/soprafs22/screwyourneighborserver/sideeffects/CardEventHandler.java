@@ -42,7 +42,8 @@ public class CardEventHandler {
     }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
-    // only count Hand, when it is part of the
+    // in case we have an additional battling round (after stacking), we have to count not all the
+    // hands in the match, but only the ones that are involved in the battling round.
     long numberOfHands =
         match.getHands().stream()
             .filter(
