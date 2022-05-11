@@ -171,7 +171,7 @@ public class Hand {
   }
 
   @JsonIgnore
-  public Boolean hasCardToPlay() {
+  private Boolean hasCardToPlay() {
     return this.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
   }
 }
