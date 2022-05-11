@@ -70,7 +70,6 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
-
     List<Hand> sortedHands = activeMatch.getSortedHands();
     if (!activeMatch.allScoresAnnounced()) {
       Hand handWithActiveTurn =
@@ -166,5 +165,9 @@ public class Hand {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
+  }
+
+  private static Boolean hasCardToPlay(Hand hand) {
+    return hand.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
   }
 }

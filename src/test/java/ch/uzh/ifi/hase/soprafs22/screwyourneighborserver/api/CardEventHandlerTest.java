@@ -288,14 +288,13 @@ class CardEventHandlerTest {
   }
 
   @Test
-  void play_last_card_with_round_stacked() {
-    // this test may fail in case in the battling round multiple players have the same highest cards
-    // again
+  void play_last_card_of_battling_round_with_round_stacked() {
     Game game =
         GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
             .withParticipation(PLAYER_NAME_1)
             .withParticipation(PLAYER_NAME_2)
             .withParticipation(PLAYER_NAME_3)
+            .withGameState(GameState.PLAYING)
             .withMatch()
             .withHandForPlayer(PLAYER_NAME_1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
@@ -325,93 +324,118 @@ class CardEventHandlerTest {
             .build();
 
     gameRepository.saveAll(List.of(game));
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
-    Round battlingRound = match.getLastRound().orElseThrow();
-    Hand handPlayer1 = sortedHands.get(0);
-    Hand handPlayer2 = sortedHands.get(1);
-    Hand handPlayer3 = sortedHands.get(2);
-
-    playLastCardIn(handPlayer1, battlingRound);
-    playLastCardIn(handPlayer2, battlingRound);
-    playLastCardIn(handPlayer3, battlingRound);
-
-    assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
-    assertTrue(
-        handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 1
-            || handPlayer1.getNumberOfWonTricks() == 1 && handPlayer3.getNumberOfWonTricks() == 3);
-  }
-
-  @Test
-  void play_last_card_with_last_two_rounds_stacked() {
-    // this test may fail in case in the battling round multiple players have the same highest cards
-    // again
-    Game game =
-        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
-            .withParticipation(PLAYER_NAME_1)
-            .withParticipation(PLAYER_NAME_2)
-            .withParticipation(PLAYER_NAME_3)
-            .withMatch()
-            .withHandForPlayer(PLAYER_NAME_1)
-            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
-            .finishHand()
-            .withHandForPlayer(PLAYER_NAME_2)
-            .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS)
-            .finishHand()
-            .withHandForPlayer(PLAYER_NAME_3)
-            .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
-            .finishHand()
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, JACK_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_2, KING_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_3, SEVEN_OF_CLUBS)
-            .finishRound()
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_2, JACK_OF_SPADES)
-            .withPlayedCard(PLAYER_NAME_3, ACE_OF_SPADES)
-            .finishRound()
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, QUEEN_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_2, EIGHT_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_3, QUEEN_OF_SPADES)
-            .finishRound()
-            .finishMatch()
-            .build();
-
-    gameRepository.saveAll(List.of(game));
-
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
-    Round battlingRound = match.getLastRound().orElseThrow();
-    Hand handPlayer1 = sortedHands.get(0);
-    Hand handPlayer2 = sortedHands.get(1);
-    Hand handPlayer3 = sortedHands.get(2);
-    playLastCardIn(handPlayer1, battlingRound);
-    playLastCardIn(handPlayer2, battlingRound);
-    playLastCardIn(handPlayer3, battlingRound);
-
-    assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
-    assertTrue(
-        handPlayer1.getNumberOfWonTricks() == 3 && handPlayer3.getNumberOfWonTricks() == 0
-            || handPlayer1.getNumberOfWonTricks() == 0 && handPlayer3.getNumberOfWonTricks() == 3);
-  }
-
-  private List<Hand> getHandsSortedByParticipation(Game game) {
-
     match = game.getLastMatch().get();
     lastRound = match.getLastRound().get();
     card1 = lastRound.getCards().iterator().next();
     cardEventHandler.handleAfterSave(card1);
+    List<Hand> sortedHands = getHandsSortedByParticipation(match);
+    Round battlingRound = match.getLastRound().orElseThrow();
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+
+    Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
+    // Card lastCardPlayer2 = playLastCardIn(handPlayer2, battlingRound);
+    Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
+
+    cardEventHandler.handleAfterSave(lastCardPlayer3);
+
+    assertTrue(game.getMatches().stream().anyMatch(r -> r.getMatchNumber() == 2));
+    assertTrue(match.getRounds().stream().anyMatch(r -> r.getRoundNumber() == 4));
+    assertThat(game.getMatches(), hasSize(2));
+
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
+    if (lastCardPlayer1.isGreaterThan(lastCardPlayer3)) {
+      assertThat(handPlayer1.getNumberOfWonTricks(), is(3));
+      assertThat(handPlayer3.getNumberOfWonTricks(), is(1));
+    } else {
+      assertThat(handPlayer1.getNumberOfWonTricks(), is(1));
+      assertThat(handPlayer3.getNumberOfWonTricks(), is(3));
+    }
+  }
+
+  @Test
+  void play_last_card_of_battling_round_with_two_rounds_stacked() {
+    Game game =
+        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+            .withParticipation(PLAYER_NAME_1)
+            .withParticipation(PLAYER_NAME_2)
+            .withParticipation(PLAYER_NAME_3)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS, JACK_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_SPADES, EIGHT_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_3)
+            .withCards(SEVEN_OF_CLUBS, ACE_OF_SPADES, QUEEN_OF_SPADES)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, JACK_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_3, SEVEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, JACK_OF_SPADES)
+            .withPlayedCard(PLAYER_NAME_3, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_2, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_3, QUEEN_OF_SPADES)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    // game.setGameState(PLAYING);
+    gameRepository.saveAll(List.of(game));
+    match = game.getLastMatch().get();
+    lastRound = match.getLastRound().get();
+    card1 = lastRound.getCards().iterator().next();
+    cardEventHandler.handleAfterSave(card1);
+    List<Hand> sortedHands = getHandsSortedByParticipation(match);
+    Round battlingRound = match.getLastRound().orElseThrow();
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+    Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
+    // Card lastCardPlayer2 = playLastCardIn(handPlayer2, battlingRound);
+    Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
+
+    cardEventHandler.handleAfterSave(lastCardPlayer3);
+
+    assertTrue(game.getMatches().stream().anyMatch(r -> r.getMatchNumber() == 2));
+    assertTrue(match.getRounds().stream().anyMatch(r -> r.getRoundNumber() == 4));
+    assertThat(game.getMatches(), hasSize(2));
+
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
+    if (lastCardPlayer1.isGreaterThan(lastCardPlayer3)) {
+      assertThat(handPlayer1.getNumberOfWonTricks(), is(3));
+      assertThat(handPlayer3.getNumberOfWonTricks(), is(0));
+    } else {
+      assertThat(handPlayer1.getNumberOfWonTricks(), is(0));
+      assertThat(handPlayer3.getNumberOfWonTricks(), is(3));
+    }
+  }
+
+  private List<Hand> getHandsSortedByParticipation(Match match) {
     return match.getHands().stream()
         .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
         .collect(Collectors.toList());
   }
 
-  private void playLastCardIn(Hand hand, Round round) {
+  private Card playLastCardIn(Hand hand, Round round) {
+    Card lastCard = new Card();
     for (Card c : hand.getCards()) {
       if (c.getRound() == null) {
         c.setRound(round);
         round.getCards().add(c);
+        lastCard = c;
       }
     }
+    return lastCard;
   }
 }

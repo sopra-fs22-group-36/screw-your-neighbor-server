@@ -50,7 +50,15 @@ public class CardEventHandler {
     }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
-    long numberOfHands = match.getHands().size();
+    long numberOfHands =
+        match.getHands().stream()
+            .filter(
+                h ->
+                    h.getCards().stream()
+                            .filter(c -> c.getRound() == round || c.getRound() == null)
+                            .count()
+                        > 0)
+            .count();
     if (numberOfPlayedCardsInRound < numberOfHands) {
       return;
     }
@@ -67,7 +75,7 @@ public class CardEventHandler {
     Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
     if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
       if (round.isStacked()) {
-        modelFactory.addRound(attachNewRoundTo, newRoundNumber);
+        // modelFactory.addRound(attachNewRoundTo, newRoundNumber);
         Collection<Card> highestCards = round.getHighestCards();
         CardDeck cardDeck = new StandardCardDeck();
         cardDeck.shuffle();

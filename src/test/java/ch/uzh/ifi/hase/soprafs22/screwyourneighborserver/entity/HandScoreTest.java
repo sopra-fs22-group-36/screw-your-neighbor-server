@@ -160,7 +160,7 @@ class HandScoreTest {
         .ifPresent(lastRound -> lastRound.setRoundNumber(9));
     gameRepository.saveAll(List.of(game));
 
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
+    List<Hand> sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -199,7 +199,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
+    List<Hand> sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -255,7 +255,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
+    List<Hand> sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -318,7 +318,7 @@ class HandScoreTest {
 
     gameRepository.saveAll(List.of(game));
 
-    List<Hand> sortedHands = getHandsSortedByParticipation(game);
+    List<Hand> sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
@@ -333,9 +333,10 @@ class HandScoreTest {
 
   // Note: No tests needed for last rounds stacked, because this scenario can not happen when number
   // of won tricks are calculated, due to the implementation of adding rounds in case of last round
-  // getting stacked.
+  // getting stacked. The tests for teh logic of the additional "battle"-round, when the last round
+  // of a match is stacked, are placed in the CardEventHandlerTest class.
 
-  private List<Hand> getHandsSortedByParticipation(Game game) {
+  private List<Hand> getHandsOfCurrentMatchSortedByParticipation(Game game) {
     Match match = game.getSortedMatches().get(0);
     return match.getHands().stream()
         .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
