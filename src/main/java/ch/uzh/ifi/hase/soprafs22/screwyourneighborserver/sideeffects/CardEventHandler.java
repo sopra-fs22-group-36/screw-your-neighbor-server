@@ -22,7 +22,7 @@ public class CardEventHandler {
   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
-    mapMatchNoToNumberOfCards = Match.getMapMatchNoToNumberOfCards();
+    mapMatchNoToNumberOfCards = (HashMap<Integer, Integer>) Match.getMapMatchNoToNumberOfCards();
   }
 
   @SuppressWarnings("unused")

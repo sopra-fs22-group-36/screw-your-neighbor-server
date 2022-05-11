@@ -164,14 +164,14 @@ public class Hand {
     return handsStartingWithPreviousWinner;
   }
 
-  private static Boolean hasHandWon(Round round, Hand hand) {
+  private static boolean hasHandWon(Round round, Hand hand) {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
   }
 
   @JsonIgnore
-  private Boolean hasCardToPlay() {
+  private boolean hasCardToPlay() {
     return this.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
   }
 }

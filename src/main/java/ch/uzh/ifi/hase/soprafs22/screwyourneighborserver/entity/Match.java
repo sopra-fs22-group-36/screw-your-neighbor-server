@@ -93,7 +93,7 @@ public class Match {
   }
 
   @JsonIgnore
-  public static HashMap<Integer, Integer> getMapMatchNoToNumberOfCards() {
+  public static Map<Integer, Integer> getMapMatchNoToNumberOfCards() {
     return mapMatchNoToNumberOfCards;
   }
 
@@ -150,10 +150,6 @@ public class Match {
 
   @JsonIgnore
   public Boolean hasBattleRound() {
-    int roundSize = this.getRounds().size();
-    int matchNumber = this.getMatchNumber();
-    int numberOfCards = mapMatchNoToNumberOfCards.get(matchNumber);
-    return roundSize > numberOfCards;
-    // return this.getRounds().size()>mapMatchNoToNumberOfCards.get(this.getMatchNumber());
+    return this.getRounds().size() > mapMatchNoToNumberOfCards.get(this.getMatchNumber());
   }
 }
