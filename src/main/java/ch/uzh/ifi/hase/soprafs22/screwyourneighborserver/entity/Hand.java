@@ -70,8 +70,11 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
-    if (activeMatch.hasBattleRound() && this.hasCardToPlay()) {
-      return true;
+    if (activeMatch.hasBattleRound()) {
+      if (this.hasCardToPlay()) {
+        return true;
+      }
+      return false;
     }
     List<Hand> sortedHands = activeMatch.getSortedHands();
     if (!activeMatch.allScoresAnnounced()) {

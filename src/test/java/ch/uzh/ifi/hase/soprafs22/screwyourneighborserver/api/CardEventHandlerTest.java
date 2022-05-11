@@ -338,6 +338,7 @@ class CardEventHandlerTest {
     // by checking if the current match has an additional battling round or not.
     match.setMatchNumber(3);
     assertTrue(handPlayer1.isTurnActive());
+    assertFalse(handPlayer2.isTurnActive());
     assertTrue(handPlayer3.isTurnActive());
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
@@ -409,6 +410,7 @@ class CardEventHandlerTest {
     // by checking if the current match has an additional battling round or not.
     match.setMatchNumber(3);
     assertTrue(handPlayer1.isTurnActive());
+    assertFalse(handPlayer2.isTurnActive());
     assertTrue(handPlayer3.isTurnActive());
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
