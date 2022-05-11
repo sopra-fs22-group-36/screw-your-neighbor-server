@@ -70,7 +70,7 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
-    if (activeMatch.hasBattleRound()) {
+    if (activeMatch.hasBattleRound() && this.hasCardToPlay()) {
       return true;
     }
     List<Hand> sortedHands = activeMatch.getSortedHands();
@@ -164,13 +164,13 @@ public class Hand {
     return handsStartingWithPreviousWinner;
   }
 
-  private static boolean hasHandWon(Round round, Hand hand) {
+  private static Boolean hasHandWon(Round round, Hand hand) {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
   }
-
-  private static Boolean hasCardToPlay(Hand hand) {
-    return hand.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
+  @JsonIgnore
+  public Boolean hasCardToPlay() {
+    return this.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
   }
 }
