@@ -28,6 +28,12 @@ public class Match {
 
   private MatchState matchState;
 
+  @Transient private static HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
+
+  public Match() {
+    setMapMatchNoToNumberOfCards();
+  }
+
   public Long getId() {
     return id;
   }
@@ -71,6 +77,24 @@ public class Match {
 
   public Collection<Hand> getHands() {
     return hands;
+  }
+
+  @JsonIgnore
+  private void setMapMatchNoToNumberOfCards() {
+    mapMatchNoToNumberOfCards.put(1, 5);
+    mapMatchNoToNumberOfCards.put(2, 4);
+    mapMatchNoToNumberOfCards.put(3, 3);
+    mapMatchNoToNumberOfCards.put(4, 2);
+    mapMatchNoToNumberOfCards.put(5, 1);
+    mapMatchNoToNumberOfCards.put(6, 2);
+    mapMatchNoToNumberOfCards.put(7, 3);
+    mapMatchNoToNumberOfCards.put(8, 4);
+    mapMatchNoToNumberOfCards.put(9, 5);
+  }
+
+  @JsonIgnore
+  public static HashMap<Integer, Integer> getMapMatchNoToNumberOfCards() {
+    return mapMatchNoToNumberOfCards;
   }
 
   @JsonIgnore
@@ -122,5 +146,14 @@ public class Match {
       return Optional.empty();
     }
     return Optional.of(roundsSorted.get(roundsSorted.size() - 1));
+  }
+
+  @JsonIgnore
+  public Boolean hasBattleRound() {
+    int roundSize = this.getRounds().size();
+    int matchNumber = this.getMatchNumber();
+    int numberOfCards = mapMatchNoToNumberOfCards.get(matchNumber);
+    return roundSize > numberOfCards;
+    // return this.getRounds().size()>mapMatchNoToNumberOfCards.get(this.getMatchNumber());
   }
 }

@@ -17,20 +17,12 @@ public class CardEventHandler {
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
-  private final HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
+  private HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
 
   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
-    mapMatchNoToNumberOfCards.put(1, 5);
-    mapMatchNoToNumberOfCards.put(2, 4);
-    mapMatchNoToNumberOfCards.put(3, 3);
-    mapMatchNoToNumberOfCards.put(4, 2);
-    mapMatchNoToNumberOfCards.put(5, 1);
-    mapMatchNoToNumberOfCards.put(6, 2);
-    mapMatchNoToNumberOfCards.put(7, 3);
-    mapMatchNoToNumberOfCards.put(8, 4);
-    mapMatchNoToNumberOfCards.put(9, 5);
+    mapMatchNoToNumberOfCards = Match.getMapMatchNoToNumberOfCards();
   }
 
   @SuppressWarnings("unused")
@@ -50,6 +42,7 @@ public class CardEventHandler {
     }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
+    // only count Hand, when it is part of the
     long numberOfHands =
         match.getHands().stream()
             .filter(
@@ -75,7 +68,6 @@ public class CardEventHandler {
     Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
     if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
       if (round.isStacked()) {
-        // modelFactory.addRound(attachNewRoundTo, newRoundNumber);
         Collection<Card> highestCards = round.getHighestCards();
         CardDeck cardDeck = new StandardCardDeck();
         cardDeck.shuffle();

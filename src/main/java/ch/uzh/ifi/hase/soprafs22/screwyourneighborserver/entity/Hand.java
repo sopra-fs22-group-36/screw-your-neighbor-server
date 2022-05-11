@@ -70,6 +70,9 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
+    if (activeMatch.hasBattleRound()) {
+      return true;
+    }
     List<Hand> sortedHands = activeMatch.getSortedHands();
     if (!activeMatch.allScoresAnnounced()) {
       Hand handWithActiveTurn =
