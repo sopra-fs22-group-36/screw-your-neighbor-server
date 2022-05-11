@@ -149,7 +149,7 @@ public class Match {
   }
 
   @JsonIgnore
-  public Boolean hasBattleRound() {
+  public boolean hasBattleRound() {
     return this.getRounds().size() > mapMatchNoToNumberOfCards.get(this.getMatchNumber());
   }
 }
