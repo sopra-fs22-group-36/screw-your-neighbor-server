@@ -8,6 +8,10 @@ import javax.persistence.*;
 
 @Entity
 public class Match {
+
+  public static final Map<Integer, Integer> matchNoToNumberOfCards =
+      Map.of(1, 5, 2, 4, 3, 3, 4, 2, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5);
+
   @Id @GeneratedValue private Long id;
 
   private int matchNumber;
@@ -27,12 +31,6 @@ public class Match {
   private Game game;
 
   private MatchState matchState;
-
-  @Transient private static HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
-
-  public Match() {
-    setMapMatchNoToNumberOfCards();
-  }
 
   public Long getId() {
     return id;
@@ -77,24 +75,6 @@ public class Match {
 
   public Collection<Hand> getHands() {
     return hands;
-  }
-
-  @JsonIgnore
-  private void setMapMatchNoToNumberOfCards() {
-    mapMatchNoToNumberOfCards.put(1, 5);
-    mapMatchNoToNumberOfCards.put(2, 4);
-    mapMatchNoToNumberOfCards.put(3, 3);
-    mapMatchNoToNumberOfCards.put(4, 2);
-    mapMatchNoToNumberOfCards.put(5, 1);
-    mapMatchNoToNumberOfCards.put(6, 2);
-    mapMatchNoToNumberOfCards.put(7, 3);
-    mapMatchNoToNumberOfCards.put(8, 4);
-    mapMatchNoToNumberOfCards.put(9, 5);
-  }
-
-  @JsonIgnore
-  public static Map<Integer, Integer> getMapMatchNoToNumberOfCards() {
-    return mapMatchNoToNumberOfCards;
   }
 
   @JsonIgnore
@@ -150,6 +130,6 @@ public class Match {
 
   @JsonIgnore
   public boolean hasBattleRound() {
-    return this.getRounds().size() > mapMatchNoToNumberOfCards.get(this.getMatchNumber());
+    return this.getRounds().size() > matchNoToNumberOfCards.get(this.getMatchNumber());
   }
 }
