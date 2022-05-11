@@ -169,6 +169,7 @@ public class Hand {
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
   }
+
   @JsonIgnore
   public Boolean hasCardToPlay() {
     return this.getCards().stream().filter(c -> c.getRound() == null).count() > 0;
