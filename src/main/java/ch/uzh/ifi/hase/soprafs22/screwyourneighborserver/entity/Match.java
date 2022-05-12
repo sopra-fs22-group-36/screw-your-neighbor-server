@@ -8,6 +8,10 @@ import javax.persistence.*;
 
 @Entity
 public class Match {
+
+  public static final Map<Integer, Integer> matchNoToNumberOfCards =
+      Map.of(1, 5, 2, 4, 3, 3, 4, 2, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5);
+
   @Id @GeneratedValue private Long id;
 
   private int matchNumber;

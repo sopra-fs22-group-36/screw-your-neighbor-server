@@ -2,7 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.sideeffects;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -16,20 +16,9 @@ public class CardEventHandler {
   private final ModelFactory modelFactory;
   private final GameRepository gameRepository;
 
-  private final HashMap<Integer, Integer> mapMatchNoToNumberOfCards = new HashMap<>();
-
   public CardEventHandler(ModelFactory modelFactory, GameRepository gameRepository) {
     this.modelFactory = modelFactory;
     this.gameRepository = gameRepository;
-    mapMatchNoToNumberOfCards.put(1, 5);
-    mapMatchNoToNumberOfCards.put(2, 4);
-    mapMatchNoToNumberOfCards.put(3, 3);
-    mapMatchNoToNumberOfCards.put(4, 2);
-    mapMatchNoToNumberOfCards.put(5, 1);
-    mapMatchNoToNumberOfCards.put(6, 2);
-    mapMatchNoToNumberOfCards.put(7, 3);
-    mapMatchNoToNumberOfCards.put(8, 4);
-    mapMatchNoToNumberOfCards.put(9, 5);
   }
 
   @SuppressWarnings("unused")
@@ -49,7 +38,15 @@ public class CardEventHandler {
     }
 
     int numberOfPlayedCardsInRound = round.getCards().size();
-    long numberOfHands = match.getHands().size();
+    // In case we have an additional battling round (after stacking), we have to count not all the
+    // hands in the match, but only the ones that are involved in the battling round.
+    long numberOfHands =
+        match.getHands().stream()
+            .filter(
+                h ->
+                    h.getCards().stream()
+                        .anyMatch(c -> c.getRound() == round || c.getRound() == null))
+            .count();
     if (numberOfPlayedCardsInRound < numberOfHands) {
       return;
     }
@@ -63,9 +60,19 @@ public class CardEventHandler {
 
     int numberOfCardsPerPlayer = card.getHand().getCards().size();
     int numberOfPlayedRounds = match.getRounds().size();
-    Integer numOfCards = mapMatchNoToNumberOfCards.get(newMatchNumber);
+    Integer numOfCards = Match.matchNoToNumberOfCards.get(newMatchNumber);
     if (numberOfPlayedRounds >= numberOfCardsPerPlayer) {
-      if (numOfCards != null) {
+      if (round.isStacked()) {
+        Collection<Card> highestCards = round.getHighestCards();
+        CardDeck cardDeck = new StandardCardDeck();
+        cardDeck.shuffle();
+        for (Card c : highestCards) {
+          Hand battlingHand = c.getHand();
+          Card battlingCard = cardDeck.drawCard();
+          battlingCard.setHand(battlingHand);
+          battlingHand.getCards().add(battlingCard);
+        }
+      } else if (numOfCards != null) {
         Match newMatch = modelFactory.addMatch(game, newMatchNumber);
         attachNewRoundTo = newMatch;
         newRoundNumber = 0;
