@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import javax.persistence.*;
 
 @Entity
-public class Round {
+public class Round implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private int roundNumber;
@@ -92,5 +92,11 @@ public class Round {
       return false;
     }
     return getHighestCards().size() > 1;
+  }
+
+  @Override
+  @JsonIgnore
+  public Game getGame() {
+    return match.getGame();
   }
 }
