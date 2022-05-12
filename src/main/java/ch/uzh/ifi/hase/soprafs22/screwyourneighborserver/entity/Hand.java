@@ -7,7 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Hand {
+public class Hand implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private Integer announcedScore;
@@ -176,5 +176,11 @@ public class Hand {
   @JsonIgnore
   private boolean hasCardToPlay() {
     return getCards().stream().anyMatch(c -> c.getRound() == null);
+  }
+
+  @Override
+  @JsonIgnore
+  public Game getGame() {
+    return match.getGame();
   }
 }
