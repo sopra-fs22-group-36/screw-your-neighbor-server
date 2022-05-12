@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.serialization;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Card;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.CardEmbedProjection;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.security.expressions.CustomMethodSecurityExpressionRoot;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,8 @@ import com.fasterxml.jackson.databind.ser.BeanSerializer;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Configuration
 public class SerializationConfiguration {
@@ -36,7 +39,10 @@ public class SerializationConfiguration {
           final BeanDescription beanDesc,
           final JsonSerializer<?> serializer) {
         //noinspection unchecked
-        CardSerializer cardSerializer = new CardSerializer((JsonSerializer<Object>) serializer);
+        CardSerializer cardSerializer =
+            new CardSerializer(
+                (JsonSerializer<Object>) serializer,
+                SerializationConfiguration::createSecurityExpressionRoot);
         if (Card.class.isAssignableFrom(beanDesc.getBeanClass())) {
           return cardSerializer;
         }
@@ -53,5 +59,10 @@ public class SerializationConfiguration {
         return serializer;
       }
     };
+  }
+
+  private static CustomMethodSecurityExpressionRoot createSecurityExpressionRoot() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return new CustomMethodSecurityExpressionRoot(authentication);
   }
 }
