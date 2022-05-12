@@ -27,6 +27,11 @@ public class Card implements Comparable<Card>, BelongsToGame {
     this.cardSuit = cardSuit;
   }
 
+  /**
+   * equals and hashCode are not overridden because it's a lot easier to work without persistence in
+   * tests. In production thanks to ORM cache, the same object pointer is used for the same entity.
+   */
+  @SuppressWarnings("java:S1210")
   public int compareTo(Card c) {
     return Comparator.nullsFirst(Comparator.comparingInt(CardRank::ordinal))
         .compare(cardRank, c.cardRank);
