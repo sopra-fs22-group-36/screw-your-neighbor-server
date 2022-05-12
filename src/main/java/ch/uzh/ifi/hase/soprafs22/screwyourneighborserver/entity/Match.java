@@ -127,9 +127,4 @@ public class Match {
     }
     return Optional.of(roundsSorted.get(roundsSorted.size() - 1));
   }
-
-  @JsonIgnore
-  public boolean hasBattleRound() {
-    return this.getRounds().size() > matchNoToNumberOfCards.get(this.getMatchNumber());
-  }
 }

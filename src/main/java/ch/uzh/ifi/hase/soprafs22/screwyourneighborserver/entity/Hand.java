@@ -70,9 +70,6 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
-    if (activeMatch.hasBattleRound()) {
-      return hasCardToPlay();
-    }
     List<Hand> sortedHands = activeMatch.getSortedHands();
     if (!activeMatch.allScoresAnnounced()) {
       Hand handWithActiveTurn =
@@ -92,6 +89,7 @@ public class Hand {
     List<Hand> handsStartingWithPreviousWinner = rotateHandsByLastWinner(sortedHands, sortedRounds);
     Optional<Hand> firstHandWhichDidNotPlayCard =
         handsStartingWithPreviousWinner.stream()
+            .filter(Hand::hasCardToPlay)
             .filter(
                 hand ->
                     hand.getCards().stream()

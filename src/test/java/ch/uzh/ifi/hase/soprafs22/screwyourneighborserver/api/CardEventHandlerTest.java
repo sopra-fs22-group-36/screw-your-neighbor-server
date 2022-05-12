@@ -4,6 +4,7 @@ import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState.PLAYING;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.JACK_OF_CLUBS;
+import static java.util.Optional.of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -333,20 +334,18 @@ class CardEventHandlerTest {
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
-    // From number of cards perspective, we're playing match number 3. In this test case it is
-    // relevant to have the appropriate match number because it is used to find out the active turn
-    // by checking if the current match has an additional battling round or not.
-    match.setMatchNumber(3);
+
     assertTrue(handPlayer1.isTurnActive());
     assertFalse(handPlayer2.isTurnActive());
-    assertTrue(handPlayer3.isTurnActive());
+    assertFalse(handPlayer3.isTurnActive());
+
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
 
     cardEventHandler.handleAfterSave(lastCardPlayer3);
 
-    assertTrue(game.getMatches().stream().anyMatch(r -> r.getMatchNumber() == 4));
-    assertTrue(match.getRounds().stream().anyMatch(r -> r.getRoundNumber() == 4));
+    assertThat(game.getLastMatch().map(Match::getMatchNumber), is(of(2)));
+    assertThat(match.getLastRound().map(Round::getRoundNumber), is(of(4)));
     assertThat(game.getMatches(), hasSize(2));
 
     assertThat(handPlayer2.getNumberOfWonTricks(), is(0));
@@ -405,20 +404,18 @@ class CardEventHandlerTest {
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
-    // From number of cards perspective, we're playing match number 3. In this test case it is
-    // relevant to have the appropriate match number because it is used to find out the active turn
-    // by checking if the current match has an additional battling round or not.
-    match.setMatchNumber(3);
+
     assertTrue(handPlayer1.isTurnActive());
     assertFalse(handPlayer2.isTurnActive());
-    assertTrue(handPlayer3.isTurnActive());
+    assertFalse(handPlayer3.isTurnActive());
+
     Card lastCardPlayer1 = playLastCardIn(handPlayer1, battlingRound);
     Card lastCardPlayer3 = playLastCardIn(handPlayer3, battlingRound);
 
     cardEventHandler.handleAfterSave(lastCardPlayer3);
 
-    assertTrue(game.getMatches().stream().anyMatch(r -> r.getMatchNumber() == 4));
-    assertTrue(match.getRounds().stream().anyMatch(r -> r.getRoundNumber() == 4));
+    assertThat(game.getLastMatch().map(Match::getMatchNumber), is(of(2)));
+    assertThat(match.getLastRound().map(Round::getRoundNumber), is(of(4)));
     assertThat(game.getMatches(), hasSize(2));
 
     assertThat(handPlayer2.getNumberOfWonTricks(), is(1));
