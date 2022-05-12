@@ -172,6 +172,6 @@ public class Hand {
 
   @JsonIgnore
   private boolean hasCardToPlay() {
-    return getCards().stream().filter(c -> c.getRound() == null).count() > 0;
+    return getCards().stream().anyMatch(c -> c.getRound() == null);
   }
 }
