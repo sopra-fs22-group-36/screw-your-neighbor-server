@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.security.expressions;
 
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Card;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
@@ -29,6 +30,17 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
         .filter(Participation::isActive)
         .map(Participation::getPlayer)
         .anyMatch(participatingPlayer -> isSamePlayer(player, participatingPlayer));
+  }
+
+  public boolean isOwnCard(Card card) {
+    Object principal = getPrincipal();
+    if (!(principal instanceof Player)) {
+      return false;
+    }
+    Player player = (Player) principal;
+
+    Player cardOwner = card.getHand().getParticipation().getPlayer();
+    return isSamePlayer(player, cardOwner);
   }
 
   private boolean isSamePlayer(Player player, Player participatingPlayer) {
