@@ -132,8 +132,13 @@ public class Hand {
     if (announcedScore == null) {
       return null;
     }
-    Round round = match.getLastRound().orElse(null);
-    if (round == null || round.getCards().size() < match.getHands().size()) {
+    boolean allCardsPlayed =
+        match.getHands().stream()
+            .map(Hand::getCards)
+            .flatMap(Collection::stream)
+            .map(Card::getRound)
+            .allMatch(Objects::nonNull);
+    if (!allCardsPlayed) {
       return null;
     }
     int difference = Math.abs(announcedScore - getNumberOfWonTricks());
