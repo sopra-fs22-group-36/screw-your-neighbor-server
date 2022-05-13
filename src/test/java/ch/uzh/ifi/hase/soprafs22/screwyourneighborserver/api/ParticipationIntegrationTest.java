@@ -6,6 +6,7 @@ import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil
 import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
@@ -17,12 +18,14 @@ import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.BodyInserters;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -74,12 +77,18 @@ class ParticipationIntegrationTest {
 
     Player player = playerRepository.findAll().iterator().next();
 
-    GAME_1.setName("game_1");
-    gameRepository.saveAll(List.of(GAME_1));
+    Game game =
+            GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
+                    .withGameState(GameState.FINDING_PLAYERS)
+                    .withParticipation(PLAYER_NAME_2)
+                    .build();
+    gameRepository.saveAll(List.of(game));
+    GameState test = game.getGameState();
 
     Participation participation = new Participation();
-    participation.setGame(GAME_1);
+    participation.setGame(game);
     participation.setPlayer(player);
+    participation.setActive(true);
 
     webTestClient
         .post()
