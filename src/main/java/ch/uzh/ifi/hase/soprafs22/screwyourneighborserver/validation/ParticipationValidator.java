@@ -15,12 +15,14 @@ public class ParticipationValidator {
   @SuppressWarnings("unused")
   @HandleBeforeCreate
   public void onUpdateParticipation(Participation participation) {
-    GameState participationGameState = participation.getGame().getGameState();
+    if (participation.getGame() != null) {
+      GameState participationGameState = participation.getGame().getGameState();
 
-    if (participationGameState != GameState.FINDING_PLAYERS) {
-      throw new HttpClientErrorException(
-          HttpStatus.UNPROCESSABLE_ENTITY,
-          "Player can't join a game in game state %s".formatted(participationGameState));
+      if (participationGameState != GameState.FINDING_PLAYERS) {
+        throw new HttpClientErrorException(
+            HttpStatus.UNPROCESSABLE_ENTITY,
+            "Player can't join a game in game state %s".formatted(participationGameState));
+      }
     }
   }
 }
