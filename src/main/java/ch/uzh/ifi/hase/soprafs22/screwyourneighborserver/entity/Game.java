@@ -52,7 +52,7 @@ public class Game implements BelongsToGame {
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = Objects.requireNonNull(name).trim();
   }
 
   public String getName() {

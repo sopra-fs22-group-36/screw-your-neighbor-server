@@ -75,7 +75,7 @@ class GameIntegrationTest {
     webTestClient
         .post()
         .uri("/games")
-        .body(Mono.just(GAME_1), Game.class)
+        .body(BodyInserters.fromValue(Map.of("name", " %s \t\n".formatted(GAME_1.getName()))))
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
