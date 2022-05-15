@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.bean.NoHtml;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ public class Player {
 
   @NotBlank
   @Size(min = 3, max = 50)
+  @NoHtml
   private String name;
 
   public Long getId() {

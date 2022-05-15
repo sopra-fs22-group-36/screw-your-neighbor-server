@@ -42,7 +42,9 @@ class PlayerBeanValidationTest {
             Arguments.of("test", empty()),
             Arguments.of(null, not(empty())),
             Arguments.of("t", not(empty())),
-            Arguments.of("test5".repeat(10) + "a", not(empty())))
+            Arguments.of("test5".repeat(10) + "a", not(empty())),
+            Arguments.of("<b>test</b>", not(empty())),
+            Arguments.of("<script>alert(1)</script>", not(empty())))
         .map(
             arguments ->
                 Arguments.of(arguments.get()[0], ValidationListMatcher.from(arguments.get()[1])));
