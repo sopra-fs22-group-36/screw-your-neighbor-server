@@ -32,7 +32,9 @@ class PlayerBeanValidationTest {
   @MethodSource("playerNames")
   void valid_player_is_accepted(String name, ValidationListMatcher validationListMatcher) {
     Player player = new Player();
-    player.setName(name);
+    if (name != null) {
+      player.setName(name);
+    }
 
     assertThat(validator.validate(player), validationListMatcher);
   }

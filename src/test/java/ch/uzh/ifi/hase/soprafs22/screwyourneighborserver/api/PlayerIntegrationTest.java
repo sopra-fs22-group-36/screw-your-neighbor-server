@@ -9,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerReposi
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +110,7 @@ class PlayerIntegrationTest {
         webTestClient
             .post()
             .uri(ENDPOINT)
-            .body(BodyInserters.fromValue(PLAYER_1))
+            .body(BodyInserters.fromValue(Map.of("name", " %s \t\n".formatted(PLAYER_1.getName()))))
             .exchange()
             .expectStatus()
             .isCreated()
