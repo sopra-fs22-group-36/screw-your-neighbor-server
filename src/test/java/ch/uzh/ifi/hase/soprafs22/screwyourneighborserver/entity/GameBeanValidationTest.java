@@ -33,7 +33,9 @@ class GameBeanValidationTest {
   @MethodSource("gameNames")
   void validates_game_name(String name, ValidationListMatcher validationListMatcher) {
     Game game = new Game();
-    game.setName(name);
+    if (name != null) {
+      game.setName(name);
+    }
 
     assertThat(validator.validate(game), validationListMatcher);
   }
@@ -41,6 +43,7 @@ class GameBeanValidationTest {
   private static Stream<Arguments> gameNames() {
     return Stream.of(
             Arguments.of("test", empty()),
+            Arguments.of(null, not(empty())),
             Arguments.of("t", not(empty())),
             Arguments.of("test5".repeat(10) + "a", not(empty())),
             Arguments.of("<b>test</b>", not(empty())),
