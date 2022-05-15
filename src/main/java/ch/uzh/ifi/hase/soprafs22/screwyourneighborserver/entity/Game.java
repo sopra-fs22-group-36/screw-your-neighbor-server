@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -20,7 +21,7 @@ public class Game implements BelongsToGame {
   @NoHtml
   private String name;
 
-  private GameState gameState = GameState.FINDING_PLAYERS;
+  @NotNull private GameState gameState = GameState.FINDING_PLAYERS;
 
   private String videoChatName;
 
