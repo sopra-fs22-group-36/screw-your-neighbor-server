@@ -22,7 +22,7 @@ class GameBeanValidationTest {
   }
 
   @Test
-  void valid_player_is_accepted() {
+  void valid_game_is_accepted() {
     Game game = new Game();
     game.setName("test");
 
@@ -30,7 +30,7 @@ class GameBeanValidationTest {
   }
 
   @Test
-  void player_with_too_short_name_is_not_valid() {
+  void game_with_too_short_name_is_not_valid() {
     Game game = new Game();
     game.setName("t");
 
@@ -38,7 +38,7 @@ class GameBeanValidationTest {
   }
 
   @Test
-  void player_with_too_long_name_is_not_valid() {
+  void game_with_too_long_name_is_not_valid() {
     Game game = new Game();
     game.setName("test5".repeat(10) + "a");
 
