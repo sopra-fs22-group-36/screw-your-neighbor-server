@@ -13,6 +13,7 @@ import javax.validation.ValidatorFactory;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -47,6 +48,15 @@ class GameBeanValidationTest {
         .map(
             arguments ->
                 Arguments.of(arguments.get()[0], ValidationListMatcher.from(arguments.get()[1])));
+  }
+
+  @Test
+  void null_gameState_is_invalid() {
+    Game game = new Game();
+    game.setName("test");
+    game.setGameState(null);
+
+    assertThat(validator.validate(game), not(empty()));
   }
 
   private interface ValidationListMatcher
