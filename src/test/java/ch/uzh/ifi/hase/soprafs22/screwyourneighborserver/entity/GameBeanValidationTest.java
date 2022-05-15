@@ -44,4 +44,20 @@ class GameBeanValidationTest {
 
     assertThat(validator.validate(game), not(empty()));
   }
+
+  @Test
+  void game_with_html_tags_in_name_is_not_valid() {
+    Game game = new Game();
+    game.setName("<b>test</b>");
+
+    assertThat(validator.validate(game), not(empty()));
+  }
+
+  @Test
+  void game_with_script_tag_in_name_is_not_valid() {
+    Game game = new Game();
+    game.setName("<script>alert(1)</script>");
+
+    assertThat(validator.validate(game), not(empty()));
+  }
 }
