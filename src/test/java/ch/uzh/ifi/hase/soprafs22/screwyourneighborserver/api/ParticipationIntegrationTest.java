@@ -15,6 +15,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestLi
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,13 @@ class ParticipationIntegrationTest {
         .post()
         .uri("/participations")
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .body(BodyInserters.fromValue(participation))
+        .body(
+            BodyInserters.fromValue(
+                Map.of(
+                    "game",
+                    "/games/%s".formatted(GAME_1.getId()),
+                    "player",
+                    "/players/%s".formatted(player.getId()))))
         .exchange()
         .expectStatus()
         .isCreated()
