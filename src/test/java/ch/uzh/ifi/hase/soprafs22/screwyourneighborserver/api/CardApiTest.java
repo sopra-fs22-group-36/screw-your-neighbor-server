@@ -5,7 +5,6 @@ import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.CardSuit.
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.CardRepository;
@@ -14,11 +13,10 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.Participatio
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.CardValidator;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.CardValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.BodyInserters;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -72,66 +69,65 @@ class CardApiTest {
     PLAYER_2.setName(PLAYER_NAME_2);
 
     HttpHeaders responseHeaders =
-            webTestClient
-                    .post()
-                    .uri("/players")
-                    .body(BodyInserters.fromValue(PLAYER_1))
-                    .exchange()
-                    .expectStatus()
-                    .isCreated()
-                    .expectBody()
-                    .returnResult()
-                    .getResponseHeaders();
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
 
     sessionIdPlayer1 = getSessionIdOf(responseHeaders);
 
     responseHeaders =
-            webTestClient
-                    .post()
-                    .uri("/players")
-                    .body(BodyInserters.fromValue(PLAYER_2))
-                    .exchange()
-                    .expectStatus()
-                    .isCreated()
-                    .expectBody()
-                    .returnResult()
-                    .getResponseHeaders();
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_2))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
 
     sessionIdPlayer2 = getSessionIdOf(responseHeaders);
 
     Player player1 =
-            playerRepository.findAll().stream()
-                    .filter(player -> player.getName().equals(PLAYER_NAME_1))
-                    .findFirst()
-                    .orElseThrow();
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_1))
+            .findFirst()
+            .orElseThrow();
 
     Player player2 =
-            playerRepository.findAll().stream()
-                    .filter(player -> player.getName().equals(PLAYER_NAME_2))
-                    .findFirst()
-                    .orElseThrow();
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_2))
+            .findFirst()
+            .orElseThrow();
 
     game =
-            GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
-                    .withParticipationWith(player1)
-                    .withParticipationWith(player2)
-                    .withGameState(GameState.PLAYING)
-                    .withMatch()
-                    .withMatchState(MatchState.ANNOUNCING)
-                    .withHandForPlayer(PLAYER_NAME_1)
-                    .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
-                    .finishHand()
-                    .withHandForPlayer(PLAYER_NAME_2)
-                    .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
-                    .finishHand()
-                    .withRound()
-                    .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
-                    .finishRound()
-                    .finishMatch()
-                    .build();
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(player1)
+            .withParticipationWith(player2)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withMatchState(MatchState.ANNOUNCING)
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
 
     gameRepository.saveAll(List.of(game));
-
   }
 
   @Test
@@ -176,10 +172,13 @@ class CardApiTest {
 
   @Test
   void dont_accept_same_round_again() {
-    //Round round = roundRepository.findAll().stream().filter(r->r.getCards().size()>0).findFirst().orElseThrow();
-    Card card = cardRepository.findAll().stream().filter(c->c.getRound()!=null).findAny().orElseThrow();
+    // Round round =
+    // roundRepository.findAll().stream().filter(r->r.getCards().size()>0).findFirst().orElseThrow();
+    Card card =
+        cardRepository.findAll().stream().filter(c -> c.getRound() != null).findAny().orElseThrow();
     Round round = card.getRound();
-    //Card card_before = roundRepository.findAll().stream().findFirst().orElseThrow().getCards().stream().findFirst().orElseThrow();
+    // Card card_before =
+    // roundRepository.findAll().stream().findFirst().orElseThrow().getCards().stream().findFirst().orElseThrow();
     card.setRound(round);
 
     String uri = "cards/" + card.getId().toString();
@@ -187,16 +186,15 @@ class CardApiTest {
     Map<Card, Round> patchBody = Map.of(card, round);
     // Without check whether the game exists (no get()) change the gameState with patch() request
     webTestClient
-            .patch()
-            .uri(uri)
-            .contentType(MediaType.APPLICATION_JSON)
-            .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
-            .body(BodyInserters.fromValue(patchBody))
-            .exchange()
-            .expectStatus()
-            .is4xxClientError();
-    //NEW_CARD.setRound(round);
-    //assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card_before));
+        .patch()
+        .uri(uri)
+        .contentType(MediaType.APPLICATION_JSON)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
+        .body(BodyInserters.fromValue(patchBody))
+        .exchange()
+        .expectStatus()
+        .is4xxClientError();
+    // NEW_CARD.setRound(round);
+    // assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card_before));
   }
-
 }
