@@ -1,13 +1,12 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.CardRank.*;
+import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.CardSuit.*;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
-import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.QUEEN_OF_CLUBS;
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
 import static org.hamcrest.Matchers.*;
 
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
@@ -29,21 +28,20 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-class ParticipationIntegrationTest {
-
+class CardApiTest {
   @LocalServerPort private int port;
 
   private WebTestClient webTestClient;
 
   @Autowired private PlayerRepository playerRepository;
-  @Autowired private GameRepository gameRepository;
   @Autowired private ParticipationRepository participationRepository;
+  @Autowired private GameRepository gameRepository;
 
   private static final String PLAYER_NAME_1 = "player1";
-  private static final Player PLAYER_1 = new Player();
   private static final String PLAYER_NAME_2 = "player2";
 
-  private static final Game GAME_1 = new Game();
+  private Player PLAYER_1;
+  private Player PLAYER_2;
 
   @BeforeEach
   void setup() {
@@ -53,11 +51,15 @@ class ParticipationIntegrationTest {
             .baseUrl("http://localhost:" + port)
             .build();
 
+    PLAYER_1 = new Player();
     PLAYER_1.setName(PLAYER_NAME_1);
+
+    PLAYER_2 = new Player();
+    PLAYER_2.setName(PLAYER_NAME_2);
   }
 
   @Test
-  void join_existing_game() {
+  void hide_correct_cards() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -70,37 +72,13 @@ class ParticipationIntegrationTest {
             .returnResult()
             .getResponseHeaders();
 
-    String sessionId = getSessionIdOf(responseHeaders);
+    String sessionIdPlayer1 = getSessionIdOf(responseHeaders);
 
-    Player player = playerRepository.findAll().iterator().next();
-
-    GAME_1.setName("game_1");
-    gameRepository.saveAll(List.of(GAME_1));
-
-    Participation participation = new Participation();
-    participation.setGame(GAME_1);
-    participation.setPlayer(player);
-
-    webTestClient
-        .post()
-        .uri("/participations")
-        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-        .body(BodyInserters.fromValue(participation))
-        .exchange()
-        .expectStatus()
-        .isCreated()
-        .expectBody()
-        .jsonPath("active")
-        .isEqualTo(true);
-  }
-
-  @Test
-  void return_correct_number_of_points() {
-    HttpHeaders responseHeaders =
+    responseHeaders =
         webTestClient
             .post()
             .uri("/players")
-            .body(BodyInserters.fromValue(PLAYER_1))
+            .body(BodyInserters.fromValue(PLAYER_2))
             .exchange()
             .expectStatus()
             .isCreated()
@@ -108,29 +86,35 @@ class ParticipationIntegrationTest {
             .returnResult()
             .getResponseHeaders();
 
-    String sessionId = getSessionIdOf(responseHeaders);
-    Player createdPlayer = playerRepository.findAll().iterator().next();
+    String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
+
+    Player player1 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_1))
+            .findFirst()
+            .orElseThrow();
+
+    Player player2 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_2))
+            .findFirst()
+            .orElseThrow();
 
     Game game =
-        GameBuilder.builder("test", gameRepository, participationRepository, playerRepository)
-            .withParticipationWith(createdPlayer)
-            .withParticipation(PLAYER_NAME_2)
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(player1)
+            .withParticipationWith(player2)
+            .withGameState(GameState.PLAYING)
             .withMatch()
+            .withMatchState(MatchState.ANNOUNCING)
             .withHandForPlayer(PLAYER_NAME_1)
-            .withCards(KING_OF_HEARTS, SEVEN_OF_CLUBS)
-            .withAnnouncedScore(1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
             .finishHand()
             .withHandForPlayer(PLAYER_NAME_2)
-            .withCards(QUEEN_OF_CLUBS, ACE_OF_SPADES)
-            .withAnnouncedScore(2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
             .finishHand()
             .withRound()
-            .withPlayedCard(PLAYER_NAME_1, KING_OF_HEARTS)
-            .withPlayedCard(PLAYER_NAME_2, ACE_OF_SPADES)
-            .finishRound()
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, SEVEN_OF_CLUBS)
-            .withPlayedCard(PLAYER_NAME_2, QUEEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
             .finishRound()
             .finishMatch()
             .build();
@@ -142,12 +126,35 @@ class ParticipationIntegrationTest {
     webTestClient
         .get()
         .uri(uri)
-        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
         .exchange()
         .expectStatus()
         .isOk()
         .expectBody()
-        .jsonPath("_embedded.participations[*].points")
-        .value(containsInAnyOrder(-1, 4));
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
+        .value(containsInAnyOrder(ACE.name(), QUEEN.name(), null, null))
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
+        .value(containsInAnyOrder(CLUB.name(), CLUB.name(), null, null))
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
+        .isEqualTo(ACE.name())
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
+        .isEqualTo(CLUB.name());
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer2))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
+        .value(containsInAnyOrder(ACE.name(), null, KING.name(), JACK.name()))
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
+        .value(containsInAnyOrder(CLUB.name(), null, CLUB.name(), CLUB.name()))
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
+        .isEqualTo(ACE.name())
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
+        .isEqualTo(CLUB.name());
   }
 }

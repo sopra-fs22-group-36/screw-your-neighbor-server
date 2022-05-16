@@ -26,4 +26,9 @@ class OpenApiDocsIntegrationTest {
   void swagger_ui_is_available() {
     webTestClient.get().uri("/swagger-ui.html").exchange().expectStatus().isFound();
   }
+
+  @Test
+  void swagger_config_is_available() {
+    webTestClient.get().uri("/v3/api-docs/swagger-config").exchange().expectStatus().isOk();
+  }
 }

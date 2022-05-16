@@ -7,7 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Hand {
+public class Hand implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private Integer announcedScore;
@@ -70,7 +70,6 @@ public class Hand {
     if (activeMatch != match) {
       return false;
     }
-
     List<Hand> sortedHands = activeMatch.getSortedHands();
     if (!activeMatch.allScoresAnnounced()) {
       Hand handWithActiveTurn =
@@ -85,11 +84,12 @@ public class Hand {
     if (activeRound.isEmpty()) {
       return false;
     }
-
     List<Round> sortedRounds = activeMatch.getSortedRounds();
+
     List<Hand> handsStartingWithPreviousWinner = rotateHandsByLastWinner(sortedHands, sortedRounds);
     Optional<Hand> firstHandWhichDidNotPlayCard =
         handsStartingWithPreviousWinner.stream()
+            .filter(Hand::hasCardToPlay)
             .filter(
                 hand ->
                     hand.getCards().stream()
@@ -105,8 +105,20 @@ public class Hand {
   public int getNumberOfWonTricks() {
     List<Round> sortedRounds = match.getSortedRounds();
     int numberOfWonTricks = 0;
-    for (Round round : sortedRounds) {
-      if (hasHandWon(round, this)) {
+    Iterator<Round> roundIterator = sortedRounds.iterator();
+    while (roundIterator.hasNext()) {
+      Round round = roundIterator.next();
+      if (round.isStacked()) {
+        int numberOfStackedRounds = 1;
+        while (roundIterator.hasNext() && round.isStacked()) {
+          round = roundIterator.next();
+          numberOfStackedRounds += 1;
+        }
+        // only count the stacked points, if the round after the stacked one(s) was won
+        if (hasHandWon(round, this)) {
+          numberOfWonTricks += numberOfStackedRounds;
+        }
+      } else if (hasHandWon(round, this)) {
         numberOfWonTricks++;
       }
     }
@@ -118,8 +130,13 @@ public class Hand {
     if (announcedScore == null) {
       return null;
     }
-    Round round = match.getLastRound().orElse(null);
-    if (round == null || round.getCards().size() < match.getHands().size()) {
+    boolean allCardsPlayed =
+        match.getHands().stream()
+            .map(Hand::getCards)
+            .flatMap(Collection::stream)
+            .map(Card::getRound)
+            .allMatch(Objects::nonNull);
+    if (!allCardsPlayed) {
       return null;
     }
     int difference = Math.abs(announcedScore - getNumberOfWonTricks());
@@ -137,6 +154,7 @@ public class Hand {
     }
     List<Round> previousRounds = sortedRounds.subList(0, sortedRounds.size() - 1);
     Collections.reverse(previousRounds);
+    previousRounds.removeIf(Round::isStacked);
     for (Round round : previousRounds) {
       Optional<Hand> winnerHand =
           sortedHands.stream().filter(hand -> hasHandWon(round, hand)).findFirst();
@@ -153,5 +171,16 @@ public class Hand {
     ArrayList<Card> highestCards = new ArrayList<>(round.getHighestCards());
     return !highestCards.isEmpty()
         && hand.cards.contains(highestCards.get(highestCards.size() - 1));
+  }
+
+  @JsonIgnore
+  private boolean hasCardToPlay() {
+    return getCards().stream().anyMatch(c -> c.getRound() == null);
+  }
+
+  @Override
+  @JsonIgnore
+  public Game getGame() {
+    return match.getGame();
   }
 }

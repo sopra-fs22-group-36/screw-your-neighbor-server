@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-public class Game {
+public class Game implements BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   @NotBlank
@@ -26,10 +28,16 @@ public class Game {
   @OneToMany(
       mappedBy = "game",
       cascade = {CascadeType.ALL})
+  @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Match> matches = new ArrayList<>();
 
   @OneToOne(targetEntity = Game.class)
   private Game nextGame;
+
+  @SuppressWarnings("unused")
+  @Version
+  @JsonIgnore
+  private int version;
 
   public Long getId() {
     return id;
@@ -70,6 +78,10 @@ public class Game {
     return participations;
   }
 
+  public void setNextGame(Game nextGame) {
+    this.nextGame = nextGame;
+  }
+
   public Game getNextGame() {
     return nextGame;
   }
@@ -92,5 +104,11 @@ public class Game {
       return Optional.empty();
     }
     return Optional.of(sortedMatches.get(sortedMatches.size() - 1));
+  }
+
+  @JsonIgnore
+  @Override
+  public Game getGame() {
+    return this;
   }
 }

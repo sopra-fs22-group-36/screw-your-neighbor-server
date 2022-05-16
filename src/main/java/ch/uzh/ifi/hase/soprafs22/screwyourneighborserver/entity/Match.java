@@ -7,7 +7,11 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
-public class Match {
+public class Match implements BelongsToGame {
+
+  public static final Map<Integer, Integer> matchNoToNumberOfCards =
+      Map.of(1, 5, 2, 4, 3, 3, 4, 2, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5);
+
   @Id @GeneratedValue private Long id;
 
   private int matchNumber;
@@ -82,6 +86,26 @@ public class Match {
             .collect(Collectors.toList());
     Collections.rotate(sortedHands, matchNumber - 1);
     return sortedHands;
+  }
+
+  public boolean isLastAnnouncement() {
+    int count = getSortedHands().size();
+    int announcedHands = 0;
+    for (Hand hand : getSortedHands()) {
+      if (hand.getAnnouncedScore() != null) {
+        announcedHands++;
+      }
+    }
+    return (count == announcedHands);
+  }
+
+  public int getSumOfScoreAnnouncement() {
+    int countedScoreAnnouncements = 0;
+    for (Hand hand : hands) {
+      countedScoreAnnouncements += hand.getAnnouncedScore() != null ? hand.getAnnouncedScore() : 0;
+    }
+
+    return countedScoreAnnouncements;
   }
 
   public List<Round> getSortedRounds() {

@@ -166,7 +166,9 @@ public class GameBuilder {
         Hand hand = new Hand();
         hand.setMatch(match);
         match.getHands().add(hand);
-        hand.setParticipation(participationMap.get(handBuilder.playerName));
+        Participation participation = participationMap.get(handBuilder.playerName);
+        hand.setParticipation(participation);
+        participation.getHands().add(hand);
         hand.setAnnouncedScore(handBuilder.announcedScore);
         for (CardValue cardValue : handBuilder.cards) {
           Card card = new Card(cardValue.getRank(), cardValue.getCardSuit());

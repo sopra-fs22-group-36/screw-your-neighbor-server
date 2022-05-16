@@ -3,10 +3,11 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Comparator;
 import javax.persistence.*;
 
 @Entity
-public class Card implements Comparable<Card> {
+public class Card implements Comparable<Card>, BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private CardRank cardRank;
@@ -26,14 +27,14 @@ public class Card implements Comparable<Card> {
     this.cardSuit = cardSuit;
   }
 
+  /**
+   * equals and hashCode are not overridden because it's a lot easier to work without persistence in
+   * tests. In production thanks to ORM cache, the same object pointer is used for the same entity.
+   */
+  @SuppressWarnings("java:S1210")
   public int compareTo(Card c) {
-    if (c.cardRank.ordinal() == (this.cardRank.ordinal())) {
-      return 0;
-    } else if (c.cardRank.ordinal() < this.cardRank.ordinal()) {
-      return 1;
-    } else {
-      return -1;
-    }
+    return Comparator.nullsFirst(Comparator.comparingInt(CardRank::ordinal))
+        .compare(cardRank, c.cardRank);
   }
 
   public boolean isGreaterThan(Card c) {
@@ -90,6 +91,15 @@ public class Card implements Comparable<Card> {
     if (round == null) {
       return false;
     }
+    if (cardRank == null) {
+      return false;
+    }
     return round.getHighestCards().contains(this);
+  }
+
+  @Override
+  @JsonIgnore
+  public Game getGame() {
+    return hand.getGame();
   }
 }

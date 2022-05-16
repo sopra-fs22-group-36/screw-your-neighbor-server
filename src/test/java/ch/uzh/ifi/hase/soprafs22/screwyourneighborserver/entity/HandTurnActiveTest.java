@@ -6,11 +6,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
-import java.util.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.*;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -425,5 +423,117 @@ class HandTurnActiveTest {
     assertThat(thirdHand.isTurnActive(), is(false));
     assertThat(fourthHand.isTurnActive(), is(false));
     assertThat(fifthHand.isTurnActive(), is(false));
+  }
+
+  @Test
+  void player_who_started_last_round_starts_playing_next_round_when_stacked_round_same_winner() {
+    Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch()
+            .withMatchState(MatchState.FINISH)
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, KING_OF_HEARTS, EIGHT_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(JACK_OF_DIAMONDS, KING_OF_CLUBS, QUEEN_OF_HEARTS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(QUEEN_OF_CLUBS, SEVEN_OF_CLUBS, KING_OF_SPADES)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_1, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, JACK_OF_DIAMONDS)
+            .withPlayedCard(PLAYER_3, SEVEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, KING_OF_HEARTS)
+            .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Match match = game.getLastMatch().orElseThrow();
+    List<Hand> hands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+
+    Hand firstHand = hands.get(0);
+    Hand secondHand = hands.get(1);
+    Hand thirdHand = hands.get(2);
+
+    assertThat(firstHand.isTurnActive(), is(false));
+    assertThat(secondHand.isTurnActive(), is(true));
+    assertThat(thirdHand.isTurnActive(), is(false));
+  }
+
+  @Test
+  void player_who_started_last_round_starts_playing_next_round_when_stacked_round_other_winner() {
+    Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch()
+            .withMatchState(MatchState.FINISH)
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, KING_OF_HEARTS, EIGHT_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(JACK_OF_DIAMONDS, KING_OF_CLUBS, QUEEN_OF_HEARTS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(QUEEN_OF_CLUBS, EIGHT_OF_SPADES, KING_OF_SPADES)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_1, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, JACK_OF_DIAMONDS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, KING_OF_HEARTS)
+            .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, EIGHT_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Match match = game.getLastMatch().orElseThrow();
+    List<Hand> hands =
+        match.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+
+    Hand firstHand = hands.get(0);
+    Hand secondHand = hands.get(1);
+    Hand thirdHand = hands.get(2);
+
+    assertThat(firstHand.isTurnActive(), is(false));
+    assertThat(secondHand.isTurnActive(), is(false));
+    assertThat(thirdHand.isTurnActive(), is(true));
   }
 }
