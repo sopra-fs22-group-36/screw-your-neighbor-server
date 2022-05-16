@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil.getSessionIdOf;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.http.HttpStatus.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
@@ -10,6 +11,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,7 +75,7 @@ class GameApiTest {
     webTestClient
         .post()
         .uri("/games")
-        .body(Mono.just(GAME_1), Game.class)
+        .body(BodyInserters.fromValue(Map.of("name", " %s \t\n".formatted(GAME_1.getName()))))
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
         .exchange()
         .expectStatus()
@@ -196,17 +198,16 @@ class GameApiTest {
 
     String sessionId = getSessionIdOf(responseHeaders);
 
-    var games =
-        webTestClient
-            .get()
-            .uri("/games")
-            .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
-            .exchange()
-            .expectStatus()
-            .isOk()
-            .expectBody()
-            .jsonPath("_embedded.games")
-            .value(hasSize(3));
+    webTestClient
+        .get()
+        .uri("/games")
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.games")
+        .value(hasSize(3));
   }
 
   @Test
@@ -279,6 +280,61 @@ class GameApiTest {
         .value(hasSize(5))
         .jsonPath("_embedded.matches[0].hands[0].participation")
         .value(notNullValue());
+  }
+
+  @Test
+  void patch_gameState_to_null_fails() {
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionId = getSessionIdOf(responseHeaders);
+    GAME_1.setName("game_1");
+
+    // Create a new game
+    webTestClient
+        .post()
+        .uri("/games")
+        .body(Mono.just(GAME_1), Game.class)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .exchange()
+        .expectStatus()
+        .isCreated()
+        .expectBody()
+        .jsonPath("name")
+        .isEqualTo(GAME_1.getName())
+        .jsonPath("_embedded.participations")
+        .isNotEmpty()
+        .jsonPath("_embedded.participations[0].player.name")
+        .isEqualTo(PLAYER_1.getName());
+
+    Long id = gameRepository.findAllByName("game_1").get(0).getId();
+    String uri = "games/" + id.toString();
+    GAME_1.setGameState(GameState.PLAYING);
+
+    Map<String, GameState> patchBody = new HashMap<>();
+    patchBody.put("gameState", null);
+    // Without check whether the game exists (no get()) change the gameState with patch() request
+    webTestClient
+        .patch()
+        .uri(uri)
+        .contentType(MediaType.APPLICATION_JSON)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionId))
+        .body(BodyInserters.fromValue(patchBody)) // Game 2 has different gameState = PLAYING
+        .exchange()
+        .expectStatus()
+        // if you run all tests, it's 422 UNPROCESSABLE_ENTITY
+        // if you run only this test, its 400 BAD_REQUEST
+        // Intended is 400 BAD_REQUEST
+        .value(oneOf(BAD_REQUEST.value(), UNPROCESSABLE_ENTITY.value()));
   }
 
   private String createBaseUrl() {

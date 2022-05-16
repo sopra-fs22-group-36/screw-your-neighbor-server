@@ -1,11 +1,13 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
 
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.bean.NoHtml;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -16,9 +18,10 @@ public class Game implements BelongsToGame {
 
   @NotBlank
   @Size(min = 3, max = 50)
+  @NoHtml
   private String name;
 
-  private GameState gameState = GameState.FINDING_PLAYERS;
+  @NotNull private GameState gameState = GameState.FINDING_PLAYERS;
 
   private String videoChatName;
 
@@ -49,7 +52,7 @@ public class Game implements BelongsToGame {
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = Objects.requireNonNull(name).trim();
   }
 
   public String getName() {
