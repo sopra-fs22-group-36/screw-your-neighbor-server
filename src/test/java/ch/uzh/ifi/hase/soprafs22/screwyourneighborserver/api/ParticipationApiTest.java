@@ -29,7 +29,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-class ParticipationIntegrationTest {
+class ParticipationApiTest {
 
   @LocalServerPort private int port;
 
