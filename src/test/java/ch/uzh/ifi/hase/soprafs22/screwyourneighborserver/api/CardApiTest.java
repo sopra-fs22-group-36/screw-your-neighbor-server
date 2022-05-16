@@ -26,135 +26,135 @@ import org.springframework.web.reactive.function.BodyInserters;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestExecutionListeners(
-        value = {ClearDBAfterTestListener.class},
-        mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
+    value = {ClearDBAfterTestListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 class CardApiTest {
-    @LocalServerPort private int port;
+  @LocalServerPort private int port;
 
-    private WebTestClient webTestClient;
+  private WebTestClient webTestClient;
 
-    @Autowired private PlayerRepository playerRepository;
-    @Autowired private ParticipationRepository participationRepository;
-    @Autowired private GameRepository gameRepository;
+  @Autowired private PlayerRepository playerRepository;
+  @Autowired private ParticipationRepository participationRepository;
+  @Autowired private GameRepository gameRepository;
 
-    private static final String PLAYER_NAME_1 = "player1";
-    private static final String PLAYER_NAME_2 = "player2";
+  private static final String PLAYER_NAME_1 = "player1";
+  private static final String PLAYER_NAME_2 = "player2";
 
-    private Player PLAYER_1;
-    private Player PLAYER_2;
+  private Player PLAYER_1;
+  private Player PLAYER_2;
 
-    @BeforeEach
-    void setup() {
-        webTestClient =
-                WebTestClient.bindToServer()
-                        .responseTimeout(Duration.ofMinutes(1))
-                        .baseUrl("http://localhost:" + port)
-                        .build();
+  @BeforeEach
+  void setup() {
+    webTestClient =
+        WebTestClient.bindToServer()
+            .responseTimeout(Duration.ofMinutes(1))
+            .baseUrl("http://localhost:" + port)
+            .build();
 
-        PLAYER_1 = new Player();
-        PLAYER_1.setName(PLAYER_NAME_1);
+    PLAYER_1 = new Player();
+    PLAYER_1.setName(PLAYER_NAME_1);
 
-        PLAYER_2 = new Player();
-        PLAYER_2.setName(PLAYER_NAME_2);
-    }
+    PLAYER_2 = new Player();
+    PLAYER_2.setName(PLAYER_NAME_2);
+  }
 
-    @Test
-    void hide_correct_cards() {
-        HttpHeaders responseHeaders =
-                webTestClient
-                        .post()
-                        .uri("/players")
-                        .body(BodyInserters.fromValue(PLAYER_1))
-                        .exchange()
-                        .expectStatus()
-                        .isCreated()
-                        .expectBody()
-                        .returnResult()
-                        .getResponseHeaders();
-
-        String sessionIdPlayer1 = getSessionIdOf(responseHeaders);
-
-        responseHeaders =
-                webTestClient
-                        .post()
-                        .uri("/players")
-                        .body(BodyInserters.fromValue(PLAYER_2))
-                        .exchange()
-                        .expectStatus()
-                        .isCreated()
-                        .expectBody()
-                        .returnResult()
-                        .getResponseHeaders();
-
-        String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
-
-        Player player1 =
-                playerRepository.findAll().stream()
-                        .filter(player -> player.getName().equals(PLAYER_NAME_1))
-                        .findFirst()
-                        .orElseThrow();
-
-        Player player2 =
-                playerRepository.findAll().stream()
-                        .filter(player -> player.getName().equals(PLAYER_NAME_2))
-                        .findFirst()
-                        .orElseThrow();
-
-        Game game =
-                GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
-                        .withParticipationWith(player1)
-                        .withParticipationWith(player2)
-                        .withGameState(GameState.PLAYING)
-                        .withMatch()
-                        .withMatchState(MatchState.ANNOUNCING)
-                        .withHandForPlayer(PLAYER_NAME_1)
-                        .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
-                        .finishHand()
-                        .withHandForPlayer(PLAYER_NAME_2)
-                        .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
-                        .finishHand()
-                        .withRound()
-                        .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
-                        .finishRound()
-                        .finishMatch()
-                        .build();
-
-        gameRepository.saveAll(List.of(game));
-
-        String uri = "games/" + game.getId();
-
+  @Test
+  void hide_correct_cards() {
+    HttpHeaders responseHeaders =
         webTestClient
-                .get()
-                .uri(uri)
-                .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
-                .exchange()
-                .expectStatus()
-                .isOk()
-                .expectBody()
-                .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
-                .value(containsInAnyOrder(ACE.name(), QUEEN.name(), null, null))
-                .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
-                .value(containsInAnyOrder(CLUB.name(), CLUB.name(), null, null))
-                .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
-                .isEqualTo(ACE.name())
-                .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
-                .isEqualTo(CLUB.name());
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
 
+    String sessionIdPlayer1 = getSessionIdOf(responseHeaders);
+
+    responseHeaders =
         webTestClient
-                .get()
-                .uri(uri)
-                .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer2))
-                .exchange()
-                .expectStatus()
-                .isOk()
-                .expectBody()
-                .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
-                .value(containsInAnyOrder(ACE.name(), null, KING.name(), JACK.name()))
-                .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
-                .value(containsInAnyOrder(CLUB.name(), null, CLUB.name(), CLUB.name()))
-                .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
-                .isEqualTo(ACE.name())
-                .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
-                .isEqualTo(CLUB.name());
-    }
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_2))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
+
+    Player player1 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_1))
+            .findFirst()
+            .orElseThrow();
+
+    Player player2 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_2))
+            .findFirst()
+            .orElseThrow();
+
+    Game game =
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(player1)
+            .withParticipationWith(player2)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withMatchState(MatchState.ANNOUNCING)
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+
+    String uri = "games/" + game.getId();
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
+        .value(containsInAnyOrder(ACE.name(), QUEEN.name(), null, null))
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
+        .value(containsInAnyOrder(CLUB.name(), CLUB.name(), null, null))
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
+        .isEqualTo(ACE.name())
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
+        .isEqualTo(CLUB.name());
+
+    webTestClient
+        .get()
+        .uri(uri)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer2))
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardRank")
+        .value(containsInAnyOrder(ACE.name(), null, KING.name(), JACK.name()))
+        .jsonPath("_embedded.matches[*].hands[*].cards[*].cardSuit")
+        .value(containsInAnyOrder(CLUB.name(), null, CLUB.name(), CLUB.name()))
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardRank")
+        .isEqualTo(ACE.name())
+        .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
+        .isEqualTo(CLUB.name());
+  }
 }
