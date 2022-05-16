@@ -61,6 +61,31 @@ class CardTest {
   }
 
   @Test
+  void compare_cardRank_null_and_null() {
+    Card card = new Card();
+    Card card_2 = new Card();
+    assertFalse(card.isGreaterThan(card_2));
+    assertFalse(card_2.isGreaterThan(card));
+    assertThat(card.compareTo(card_2), is(0));
+  }
+
+  @Test
+  void compare_cardRank_null_and_SIX() {
+    Card card = new Card();
+    Card card_2 = new Card(CardRank.SIX, CardSuit.CLUB);
+    assertFalse(card.isGreaterThan(card_2));
+    assertTrue(card_2.isGreaterThan(card));
+  }
+
+  @Test
+  void compare_cardRank_SIX_and_null() {
+    Card card = new Card(CardRank.SIX, CardSuit.CLUB);
+    Card card_2 = new Card();
+    assertTrue(card.isGreaterThan(card_2));
+    assertFalse(card_2.isGreaterThan(card));
+  }
+
+  @Test
   void is_not_highest_card_when_round_is_null() {
     Card card = new Card();
 
@@ -81,6 +106,7 @@ class CardTest {
   void is_highest_card_when_this_is_in_highest_cards() {
     Round round = mock(Round.class);
     Card card = new Card();
+    card.setCardRank(CardRank.ACE);
     when(round.getHighestCards()).thenReturn(new LinkedHashSet<>(Set.of(card)));
     card.setRound(round);
 
