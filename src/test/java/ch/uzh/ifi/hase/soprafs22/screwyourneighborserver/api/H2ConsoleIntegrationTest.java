@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver;
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
 
 import java.time.Duration;
 import org.junit.jupiter.api.BeforeEach;
