@@ -7,7 +7,7 @@ import java.util.Comparator;
 import javax.persistence.*;
 
 @Entity
-public class Card implements Comparable<Card>, BelongsToGame {
+public class Card implements Comparable<Card>, BelongsToGame, IsOwnCard {
   @Id @GeneratedValue private Long id;
 
   private CardRank cardRank;
@@ -18,7 +18,9 @@ public class Card implements Comparable<Card>, BelongsToGame {
   @ManyToOne()
   private Hand hand;
 
-  @ManyToOne() private Round round;
+  @JsonBackReference("card-round")
+  @ManyToOne()
+  private Round round;
 
   public Card() {}
 
@@ -101,5 +103,11 @@ public class Card implements Comparable<Card>, BelongsToGame {
   @JsonIgnore
   public Game getGame() {
     return hand.getGame();
+  }
+
+  @Override
+  @JsonIgnore
+  public Player getPlayer() {
+    return hand.getParticipation().getPlayer();
   }
 }

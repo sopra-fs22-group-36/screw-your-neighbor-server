@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Match implements BelongsToGame {
@@ -24,6 +26,7 @@ public class Match implements BelongsToGame {
   @OneToMany(
       mappedBy = "match",
       cascade = {CascadeType.ALL})
+  @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Hand> hands = new ArrayList<>();
 
   @JsonBackReference("match-game")
