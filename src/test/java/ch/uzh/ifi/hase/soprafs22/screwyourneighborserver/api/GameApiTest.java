@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-class GameIntegrationTest {
+class GameApiTest {
 
   @LocalServerPort private int port;
 

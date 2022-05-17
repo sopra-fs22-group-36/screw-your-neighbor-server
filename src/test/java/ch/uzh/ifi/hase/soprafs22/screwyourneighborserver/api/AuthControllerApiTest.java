@@ -20,7 +20,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-class AuthControllerIntegrationTest {
+class AuthControllerApiTest {
   @LocalServerPort private int port;
 
   private WebTestClient webTestClient;

@@ -1,10 +1,13 @@
-package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity;
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.integration;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Hand;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;

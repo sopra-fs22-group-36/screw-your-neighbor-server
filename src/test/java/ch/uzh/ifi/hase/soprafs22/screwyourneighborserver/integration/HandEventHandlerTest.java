@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.api;
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.integration;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static org.junit.jupiter.api.Assertions.*;

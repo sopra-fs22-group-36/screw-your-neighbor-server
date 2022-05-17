@@ -1,10 +1,11 @@
-package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.controller;
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.integration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.*;
 
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.controller.FollowUpGameController;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
