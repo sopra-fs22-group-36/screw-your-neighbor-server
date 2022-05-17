@@ -81,6 +81,11 @@ public class Game implements BelongsToGame {
     return participations;
   }
 
+  @JsonIgnore
+  public void setParticipation(Collection participations) {
+    this.participations = participations;
+  }
+
   public void setNextGame(Game nextGame) {
     this.nextGame = nextGame;
   }
