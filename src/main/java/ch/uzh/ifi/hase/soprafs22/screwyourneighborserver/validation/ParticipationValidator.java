@@ -12,7 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @RepositoryEventHandler
 public class ParticipationValidator {
 
-  private static final int MAX_NUMBER_OF_PLAYERS = 5;
+  protected static final int MAX_NUMBER_OF_PLAYERS = 5;
 
   @SuppressWarnings("unused")
   @HandleBeforeCreate

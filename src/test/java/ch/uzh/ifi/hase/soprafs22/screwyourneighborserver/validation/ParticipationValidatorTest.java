@@ -15,10 +15,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.web.client.HttpClientErrorException;
 
 class ParticipationValidatorTest {
-  private static final int MAX_NUMBER_OF_PLAYERS = 5;
-
-  private static final Game GAME_FINDING_PLAYERS = new Game();
-  private static final Game GAME_ILLEGAL_STATE = new Game();
+  private Game GAME_FINDING_PLAYERS;
+  private Game GAME_ILLEGAL_STATE;
 
   private static final Participation PARTICIPATION = new Participation();
   private static final Participation PARTICIPATION_2 = new Participation();
@@ -28,6 +26,9 @@ class ParticipationValidatorTest {
 
   @BeforeEach
   void setup() {
+    GAME_FINDING_PLAYERS = new Game();
+    GAME_ILLEGAL_STATE = new Game();
+
     GAME_FINDING_PLAYERS.setGameState(GameState.FINDING_PLAYERS);
     GAME_ILLEGAL_STATE.setGameState(GameState.PLAYING);
 
@@ -43,8 +44,8 @@ class ParticipationValidatorTest {
 
   @Test
   void player_join_game_valid_game_state() {
-    PARTICIPATION.setParticipationNumber(0);
-    PARTICIPATION_2.setParticipationNumber(1);
+    PARTICIPATION.setParticipationNumber(1);
+    PARTICIPATION_2.setParticipationNumber(2);
     PARTICIPATION_3.setParticipationNumber(3);
 
     PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
@@ -58,8 +59,8 @@ class ParticipationValidatorTest {
 
   @Test
   void player_join_game_valid_game_state_then_start_game_after_one_illegal_join() {
-    PARTICIPATION.setParticipationNumber(0);
-    PARTICIPATION_2.setParticipationNumber(1);
+    PARTICIPATION.setParticipationNumber(1);
+    PARTICIPATION_2.setParticipationNumber(2);
     PARTICIPATION_3.setParticipationNumber(3);
 
     PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
@@ -80,7 +81,7 @@ class ParticipationValidatorTest {
   void player_join_game_invalid_game_state(GameState invalidGameState) {
     GAME_ILLEGAL_STATE.setGameState(invalidGameState);
 
-    PARTICIPATION.setParticipationNumber(0);
+    PARTICIPATION.setParticipationNumber(1);
     PARTICIPATION.setGame(GAME_ILLEGAL_STATE);
 
     assertThrows(
@@ -92,9 +93,9 @@ class ParticipationValidatorTest {
   void game_has_space_for_one_additional_player() {
     PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
 
-    GAME_FINDING_PLAYERS.setParticipation(
+    GAME_FINDING_PLAYERS.setParticipations(
         Stream.generate(Participation::new)
-            .limit(MAX_NUMBER_OF_PLAYERS - 1)
+            .limit(ParticipationValidator.MAX_NUMBER_OF_PLAYERS - 1)
             .collect(Collectors.toList()));
     assertDoesNotThrow(() -> participationValidator.onBeforeCreateParticipation(PARTICIPATION));
   }
@@ -103,9 +104,9 @@ class ParticipationValidatorTest {
   void game_has_no_more_space_for_additional_players() {
     PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
 
-    GAME_FINDING_PLAYERS.setParticipation(
+    GAME_FINDING_PLAYERS.setParticipations(
         Stream.generate(Participation::new)
-            .limit(MAX_NUMBER_OF_PLAYERS)
+            .limit(ParticipationValidator.MAX_NUMBER_OF_PLAYERS)
             .collect(Collectors.toList()));
 
     assertThrows(
