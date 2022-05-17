@@ -12,15 +12,23 @@ import org.springframework.web.client.HttpClientErrorException;
 @RepositoryEventHandler
 public class ParticipationValidator {
 
+  private static final int MAX_NUMBER_OF_PLAYERS = 5;
+
   @SuppressWarnings("unused")
   @HandleBeforeCreate
-  public void onUpdateParticipation(Participation participation) {
+  public void onBeforeCreateParticipation(Participation participation) {
     GameState participationGameState = participation.getGame().getGameState();
 
     if (participationGameState != GameState.FINDING_PLAYERS) {
       throw new HttpClientErrorException(
           HttpStatus.UNPROCESSABLE_ENTITY,
           "Player can't join a game in game state %s".formatted(participationGameState));
+    }
+
+    if (participation.getGame().getParticipations().size() >= MAX_NUMBER_OF_PLAYERS) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY,
+          "Not more then %s players per game are allowed".formatted(MAX_NUMBER_OF_PLAYERS));
     }
   }
 }
