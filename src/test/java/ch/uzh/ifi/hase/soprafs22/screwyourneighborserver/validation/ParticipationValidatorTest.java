@@ -89,7 +89,7 @@ class ParticipationValidatorTest {
   }
 
   @Test
-  void game_has_space_for_one_additional_players() {
+  void game_has_space_for_one_additional_player() {
     PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
 
     GAME_FINDING_PLAYERS.setParticipation(
