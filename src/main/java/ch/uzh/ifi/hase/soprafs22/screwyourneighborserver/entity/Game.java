@@ -82,7 +82,7 @@ public class Game implements BelongsToGame {
   }
 
   @JsonIgnore
-  public void setParticipation(Collection participations) {
+  public void setParticipation(Collection<Participation> participations) {
     this.participations = participations;
   }
 
