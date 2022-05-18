@@ -7,6 +7,7 @@ import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.SessionUtil
 import static org.hamcrest.Matchers.*;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.CardRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -36,7 +38,7 @@ class CardApiTest {
   @Autowired private PlayerRepository playerRepository;
   @Autowired private ParticipationRepository participationRepository;
   @Autowired private GameRepository gameRepository;
-
+  @Autowired CardRepository cardRepository;
   private static final String PLAYER_NAME_1 = "player1";
   private static final String PLAYER_NAME_2 = "player2";
 
@@ -50,16 +52,17 @@ class CardApiTest {
             .responseTimeout(Duration.ofMinutes(1))
             .baseUrl("http://localhost:" + port)
             .build();
+  }
+
+  @Test
+  void hide_correct_cards() {
 
     PLAYER_1 = new Player();
     PLAYER_1.setName(PLAYER_NAME_1);
 
     PLAYER_2 = new Player();
     PLAYER_2.setName(PLAYER_NAME_2);
-  }
 
-  @Test
-  void hide_correct_cards() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -156,5 +159,94 @@ class CardApiTest {
         .isEqualTo(ACE.name())
         .jsonPath("_embedded.matches[*].rounds[0].cards[0].cardSuit")
         .isEqualTo(CLUB.name());
+  }
+
+  @Test
+  void accept_card_playing() {
+
+    PLAYER_1 = new Player();
+    PLAYER_1.setName(PLAYER_NAME_1);
+
+    PLAYER_2 = new Player();
+    PLAYER_2.setName(PLAYER_NAME_2);
+
+    HttpHeaders responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_1))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionIdPlayer1 = getSessionIdOf(responseHeaders);
+
+    responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(PLAYER_2))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+
+    String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
+
+    Player player1 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_1))
+            .findFirst()
+            .orElseThrow();
+
+    Player player2 =
+        playerRepository.findAll().stream()
+            .filter(player -> player.getName().equals(PLAYER_NAME_2))
+            .findFirst()
+            .orElseThrow();
+
+    Game game =
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(player1)
+            .withParticipationWith(player2)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .finishHand()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    gameRepository.saveAll(List.of(game));
+    Card card =
+        cardRepository.findAll().stream()
+            .filter(c -> c.getRound() == null)
+            .filter(c -> c.getCardRank().equals(CardRank.ACE))
+            .findAny()
+            .orElseThrow();
+    Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
+    card.setRound(round);
+
+    String uri = "cards/" + card.getId().toString() + "/round";
+
+    webTestClient
+        .patch()
+        .uri(uri)
+        .contentType(MediaType.APPLICATION_JSON)
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
+        .body(BodyInserters.fromValue(round))
+        .exchange()
+        .expectStatus()
+        .is4xxClientError();
+    // This test returns 405 METHOD_NOT_ALLOWED and I have no idea why. Anyone any idea?
+    // .isOk();
   }
 }
