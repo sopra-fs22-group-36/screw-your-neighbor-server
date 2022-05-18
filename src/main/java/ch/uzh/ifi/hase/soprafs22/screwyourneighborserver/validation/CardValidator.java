@@ -49,7 +49,7 @@ public class CardValidator {
                   () ->
                       new HttpClientErrorException(
                           HttpStatus.UNAUTHORIZED, "You're not an authorized player"));
-      if (card.getHand().getParticipation().getPlayer().getId() != playerId) {
+      if (!card.getHand().getParticipation().getPlayer().getId().equals(playerId)) {
         throw new HttpClientErrorException(
             HttpStatus.UNPROCESSABLE_ENTITY,
             "The card you're trying to play is not available in your hand.");
