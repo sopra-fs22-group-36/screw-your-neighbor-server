@@ -16,9 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.web.client.HttpClientErrorException;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
@@ -45,7 +47,7 @@ public class CardValidatorTest {
 
     OldStateFetcher oldStateFetcher = mock(OldStateFetcher.class);
     when(oldStateFetcher.getPreviousStateOf(notNull(), notNull())).thenReturn(CARD_BEFORE);
-    cardValidator = new CardValidator(playerRepository, participationRepository, oldStateFetcher);
+    cardValidator = new CardValidator(playerRepository, oldStateFetcher);
   }
 
   @Test
@@ -57,7 +59,6 @@ public class CardValidatorTest {
     game =
         GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
             .withParticipationWith(player)
-            // .withParticipationWith(player2)
             .withGameState(GameState.PLAYING)
             .withMatch()
             .withMatchState(MatchState.ANNOUNCING)
