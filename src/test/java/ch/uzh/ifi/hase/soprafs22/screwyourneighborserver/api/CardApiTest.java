@@ -161,7 +161,7 @@ class CardApiTest {
   }
 
   @Test
-  void accept_card_playing() {
+  void allows_playing_a_valid_card() {
 
     HttpHeaders responseHeaders =
         webTestClient
