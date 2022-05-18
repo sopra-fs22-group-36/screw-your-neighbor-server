@@ -25,7 +25,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @TestExecutionListeners(
     value = {ClearDBAfterTestListener.class},
     mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-public class CardValidatorTest {
+class CardValidatorTest {
   private static final String PLAYER_NAME_1 = "player1";
   private static final String PLAYER_NAME_2 = "player2";
 
@@ -49,62 +49,6 @@ public class CardValidatorTest {
     when(oldStateFetcher.getPreviousStateOf(notNull(), notNull())).thenReturn(CARD_BEFORE);
     cardValidator = new CardValidator(playerRepository, oldStateFetcher);
   }
-
-  // Move this one to the api-Tests because it has a non-solvable problem regarding the turnIsActive
-  // flag
-  /*
-  @Test
-  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
-  void accept_card() {
-    Player player = playerRepository.findByName(PLAYER_NAME_1).orElseThrow();
-
-    game =
-        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
-            .withParticipationWith(player)
-            .withGameState(GameState.PLAYING)
-            .withMatch()
-            .withMatchState(MatchState.PLAYING)
-            .withHandForPlayer(player.getName())
-            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
-            .withAnnouncedScore(1)
-            .finishHand()
-            .withRound()
-            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
-            .finishRound()
-            .withRound()
-            .finishRound()
-            .finishMatch()
-            .build();
-
-    gameRepository.saveAll(List.of(game));
-    Hand hand =
-        game.getLastMatch().orElseThrow().getHands().stream()
-            .filter(
-                h -> h.getCards().stream().filter(c -> c.getCardRank() == CardRank.QUEEN).count() > 0)
-            .findAny()
-            .orElseThrow();
-    Card card =
-        hand.getCards().stream()
-            .filter(c -> c.getCardRank() == CardRank.QUEEN)
-            .findAny()
-            .orElseThrow();
-    Card ace = hand.getCards().stream()
-            .filter(c -> c.getCardRank() == CardRank.ACE)
-            .findAny()
-            .orElseThrow();
-    Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
-    CARD_BEFORE.setRound(null);
-    CARD_BEFORE.setHand(hand);
-    card.setId(1L);
-    card.setRound(round);
-    cardValidator.onUpdateCard(card);
-    assertDoesNotThrow(
-        () -> {
-          cardValidator.onUpdateCard(card);
-        });
-  }
-
-   */
 
   @Test
   @WithPersistedPlayer(playerName = PLAYER_NAME_1)

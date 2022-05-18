@@ -60,8 +60,8 @@ public class CardValidator {
             HttpStatus.UNPROCESSABLE_ENTITY, "You can not play a card in the announcing round.");
       }
       Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
-      Hand hand_before = cardBefore.getHand();
-      if (!hand_before.isTurnActive()) {
+      Hand handBefore = cardBefore.getHand();
+      if (!handBefore.isTurnActive()) {
         throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
       }
       Collection<Card> cards = card.getHand().getCards();
