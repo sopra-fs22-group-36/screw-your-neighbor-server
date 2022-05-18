@@ -49,7 +49,7 @@ class CardValidatorTest {
 
     OldStateFetcher oldStateFetcher = mock(OldStateFetcher.class);
     when(oldStateFetcher.getPreviousStateOf(notNull(), notNull())).thenReturn(CARD_BEFORE);
-    cardValidator = new CardValidator(playerRepository, oldStateFetcher);
+    cardValidator = new CardValidator(oldStateFetcher);
   }
 
   @Test

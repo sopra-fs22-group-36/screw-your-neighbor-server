@@ -22,12 +22,10 @@ import org.springframework.web.client.HttpClientErrorException;
 public class CardValidator {
 
   private final OldStateFetcher oldStateFetcher;
-  private final PlayerRepository playerRepository;
 
   @Autowired
-  public CardValidator(PlayerRepository playerRepository, OldStateFetcher oldStateFetcher) {
+  public CardValidator(OldStateFetcher oldStateFetcher) {
 
-    this.playerRepository = playerRepository;
     this.oldStateFetcher = oldStateFetcher;
   }
 
@@ -61,6 +59,8 @@ public class CardValidator {
     }
     Collection<Card> cards = card.getHand().getCards();
     long count = cards.stream().filter(c -> nonNull(c.getRound())).count();
+    // With the current implementation of isTurnActive, we never get this check to true, we run then
+    // into isTurnActive = false above and throw the not-your-turn exception.
     if (count > card.getRound().getRoundNumber()) {
       throw new HttpClientErrorException(
           HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");

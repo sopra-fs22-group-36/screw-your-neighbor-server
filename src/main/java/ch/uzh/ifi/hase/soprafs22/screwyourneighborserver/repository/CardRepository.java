@@ -13,12 +13,12 @@ import org.springframework.security.core.parameters.P;
 
 @RepositoryRestResource(excerptProjection = CardEmbedProjection.class)
 public interface CardRepository extends JpaRepository<Card, Long> {
-  @RestResource(exported = false)
   @Override
   @SuppressWarnings({"SpringElInspection", "ELValidationInspection"})
   @PreAuthorize("hasRole('PLAYER') and isOwnCard(#card)")
   <S extends Card> S save(@P("card") S entity);
 
+  @RestResource(exported = false)
   @Query("SELECT COUNT(c) FROM Card c WHERE c.round=:round")
   Long countByRound(@Param("round") Round round);
 }
