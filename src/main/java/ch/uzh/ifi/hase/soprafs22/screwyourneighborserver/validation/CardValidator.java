@@ -3,7 +3,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation;
 import static java.util.Objects.nonNull;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +22,11 @@ public class CardValidator {
 
   private final OldStateFetcher oldStateFetcher;
   private final PlayerRepository playerRepository;
-  private final ParticipationRepository participationRepository;
 
   @Autowired
-  public CardValidator(
-      PlayerRepository playerRepository,
-      ParticipationRepository participationRepository,
-      OldStateFetcher oldStateFetcher) {
+  public CardValidator(PlayerRepository playerRepository, OldStateFetcher oldStateFetcher) {
 
     this.playerRepository = playerRepository;
-    this.participationRepository = participationRepository;
     this.oldStateFetcher = oldStateFetcher;
   }
 
