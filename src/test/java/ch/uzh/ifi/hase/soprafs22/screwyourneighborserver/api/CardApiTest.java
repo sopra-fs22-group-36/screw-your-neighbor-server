@@ -239,7 +239,8 @@ class CardApiTest {
         .exchange()
         .expectStatus()
         .is4xxClientError();
-    // This test returns 405 METHOD_NOT_ALLOWED and I have no idea why. Anyone any idea?
     // .isOk();
+    // This test returns 405 METHOD_NOT_ALLOWED instead of Ok status and I have no idea why. Anyone
+    // any idea?
   }
 }

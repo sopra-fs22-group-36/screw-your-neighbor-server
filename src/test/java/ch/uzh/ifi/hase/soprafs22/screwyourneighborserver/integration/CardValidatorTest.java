@@ -265,6 +265,8 @@ class CardValidatorTest {
     card.setRound(round);
     Exception exception =
         assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card));
-    assertEquals("422 You can not play a card in the announcing round.", exception.getMessage());
+    assertEquals(
+        "422 You can not play a card before everybody has announced the score.",
+        exception.getMessage());
   }
 }

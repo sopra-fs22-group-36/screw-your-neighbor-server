@@ -51,7 +51,8 @@ public class CardValidator {
     if (isNull(card.getHand().getAnnouncedScore())
         || card.getHand().getMatch().getMatchState() == MatchState.ANNOUNCING) {
       throw new HttpClientErrorException(
-          HttpStatus.UNPROCESSABLE_ENTITY, "You can not play a card in the announcing round.");
+          HttpStatus.UNPROCESSABLE_ENTITY,
+          "You can not play a card before everybody has announced the score.");
     }
     Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
     Hand handBefore = cardBefore.getHand();
