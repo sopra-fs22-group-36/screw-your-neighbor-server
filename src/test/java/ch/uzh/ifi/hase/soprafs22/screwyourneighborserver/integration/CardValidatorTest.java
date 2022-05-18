@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation;
+package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.integration;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +11,8 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.WithPersistedPlayer;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.CardValidator;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.OldStateFetcher;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

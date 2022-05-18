@@ -16,7 +16,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
   @RestResource(exported = false)
   @Override
   @SuppressWarnings({"SpringElInspection", "ELValidationInspection"})
-  @PreAuthorize("hasRole('PLAYER') and belongsToGame(#card.game) and isOwnCard(#card.player)")
+  @PreAuthorize("hasRole('PLAYER') and isOwnCard(#card)")
   <S extends Card> S save(@P("card") S entity);
 
   @Query("SELECT COUNT(c) FROM Card c WHERE c.round=:round")

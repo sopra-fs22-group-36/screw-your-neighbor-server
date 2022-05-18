@@ -40,41 +40,34 @@ public class CardValidator {
     if (!(authentication.getPrincipal() instanceof Player)) {
       throw new HttpClientErrorException(
           HttpStatus.UNAUTHORIZED, "You're not authorized to play in this game.");
-    } else {
-      Long playerId = ((Player) authentication.getPrincipal()).getId();
-      Player player =
-          playerRepository
-              .findById(playerId)
-              .orElseThrow(
-                  () ->
-                      new HttpClientErrorException(
-                          HttpStatus.UNAUTHORIZED, "You're not an authorized player"));
-      if (!card.getHand().getParticipation().getPlayer().getId().equals(playerId)) {
-        throw new HttpClientErrorException(
-            HttpStatus.UNPROCESSABLE_ENTITY,
-            "The card you're trying to play is not available in your hand.");
-      }
-      if (isNull(card.getHand().getAnnouncedScore())
-          || card.getHand().getMatch().getMatchState() == MatchState.ANNOUNCING) {
-        throw new HttpClientErrorException(
-            HttpStatus.UNPROCESSABLE_ENTITY, "You can not play a card in the announcing round.");
-      }
-      Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
-      Hand handBefore = cardBefore.getHand();
-      if (!handBefore.isTurnActive()) {
-        throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
-      }
-      Collection<Card> cards = card.getHand().getCards();
-      long count = cards.stream().filter(c -> nonNull(c.getRound())).count();
-      if (count > card.getRound().getRoundNumber()) {
-        throw new HttpClientErrorException(
-            HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
-      }
-      Round roundBefore = cardBefore.getRound();
-      if (nonNull(roundBefore)) {
-        throw new HttpClientErrorException(
-            HttpStatus.UNPROCESSABLE_ENTITY, "You already played this card");
-      }
+    }
+    Long playerId = ((Player) authentication.getPrincipal()).getId();
+
+    if (!card.getHand().getParticipation().getPlayer().getId().equals(playerId)) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY,
+          "The card you're trying to play is not available in your hand.");
+    }
+    if (isNull(card.getHand().getAnnouncedScore())
+        || card.getHand().getMatch().getMatchState() == MatchState.ANNOUNCING) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY, "You can not play a card in the announcing round.");
+    }
+    Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
+    Hand handBefore = cardBefore.getHand();
+    if (!handBefore.isTurnActive()) {
+      throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
+    }
+    Collection<Card> cards = card.getHand().getCards();
+    long count = cards.stream().filter(c -> nonNull(c.getRound())).count();
+    if (count > card.getRound().getRoundNumber()) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
+    }
+    Round roundBefore = cardBefore.getRound();
+    if (nonNull(roundBefore)) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY, "You already played this card");
     }
   }
 }

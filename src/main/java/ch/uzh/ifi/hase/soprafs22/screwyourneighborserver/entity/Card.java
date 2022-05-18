@@ -18,9 +18,7 @@ public class Card implements Comparable<Card>, BelongsToGame, IsOwnCard {
   @ManyToOne()
   private Hand hand;
 
-  @JsonBackReference("card-round")
-  @ManyToOne()
-  private Round round;
+  @ManyToOne() private Round round;
 
   public Card() {}
 

@@ -52,17 +52,16 @@ class CardApiTest {
             .responseTimeout(Duration.ofMinutes(1))
             .baseUrl("http://localhost:" + port)
             .build();
-  }
-
-  @Test
-  void hide_correct_cards() {
 
     PLAYER_1 = new Player();
     PLAYER_1.setName(PLAYER_NAME_1);
 
     PLAYER_2 = new Player();
     PLAYER_2.setName(PLAYER_NAME_2);
+  }
 
+  @Test
+  void hide_correct_cards() {
     HttpHeaders responseHeaders =
         webTestClient
             .post()
@@ -163,12 +162,6 @@ class CardApiTest {
 
   @Test
   void accept_card_playing() {
-
-    PLAYER_1 = new Player();
-    PLAYER_1.setName(PLAYER_NAME_1);
-
-    PLAYER_2 = new Player();
-    PLAYER_2.setName(PLAYER_NAME_2);
 
     HttpHeaders responseHeaders =
         webTestClient
