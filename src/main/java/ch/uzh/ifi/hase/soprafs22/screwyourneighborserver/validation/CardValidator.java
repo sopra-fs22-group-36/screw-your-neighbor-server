@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
@@ -35,6 +36,7 @@ public class CardValidator {
   @PreAuthorize("isOwnCard(#card)")
   public void onUpdateCard(@P("card") Card card) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    Round newRound = card.getRound();
     if (!(authentication.getPrincipal() instanceof Player)) {
       throw new HttpClientErrorException(
           HttpStatus.UNAUTHORIZED, "You're not authorized to play in this game.");
@@ -52,17 +54,22 @@ public class CardValidator {
             HttpStatus.UNPROCESSABLE_ENTITY,
             "The card you're trying to play is not available in your hand.");
       }
+      if (isNull(card.getHand().getAnnouncedScore())
+          || card.getHand().getMatch().getMatchState() == MatchState.ANNOUNCING) {
+        throw new HttpClientErrorException(
+            HttpStatus.UNPROCESSABLE_ENTITY, "You can not play a card in the announcing round.");
+      }
+      Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
+      Hand hand_before = cardBefore.getHand();
+      if (!hand_before.isTurnActive()) {
+        throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
+      }
       Collection<Card> cards = card.getHand().getCards();
       long count = cards.stream().filter(c -> nonNull(c.getRound())).count();
       if (count > card.getRound().getRoundNumber()) {
         throw new HttpClientErrorException(
             HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
       }
-      if (!card.getHand().isTurnActive()) {
-        throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
-      }
-      Round newRound = card.getRound();
-      Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
       Round roundBefore = cardBefore.getRound();
       if (nonNull(roundBefore)) {
         throw new HttpClientErrorException(
