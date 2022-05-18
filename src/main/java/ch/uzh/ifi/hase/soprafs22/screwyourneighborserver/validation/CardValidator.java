@@ -4,7 +4,6 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
