@@ -20,7 +20,7 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
   }
 
   @SuppressWarnings("unused")
-  public boolean belongsToGame(Game game) {
+  public boolean playsIn(Game game) {
     Object principal = getPrincipal();
     if (!(principal instanceof Player)) {
       return false;

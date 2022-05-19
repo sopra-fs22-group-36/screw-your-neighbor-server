@@ -15,6 +15,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
   @Override
   @SuppressWarnings({"SpringElInspection", "ELValidationInspection"})
-  @PreAuthorize("hasRole('PLAYER') && (#game.id == null || belongsToGame(#game))")
+  @PreAuthorize("hasRole('PLAYER') && (#game.id == null || playsIn(#game))")
   <S extends Game> S save(@P("game") S entity);
 }

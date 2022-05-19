@@ -15,6 +15,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestLi
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,40 +178,20 @@ class CardApiTest {
 
     String sessionIdPlayer1 = getSessionIdOf(responseHeaders);
 
-    responseHeaders =
-        webTestClient
-            .post()
-            .uri("/players")
-            .body(BodyInserters.fromValue(PLAYER_2))
-            .exchange()
-            .expectStatus()
-            .isCreated()
-            .expectBody()
-            .returnResult()
-            .getResponseHeaders();
-
-    String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
-
     Player player1 =
         playerRepository.findAll().stream()
             .filter(player -> player.getName().equals(PLAYER_NAME_1))
             .findFirst()
             .orElseThrow();
 
-    Player player2 =
-        playerRepository.findAll().stream()
-            .filter(player -> player.getName().equals(PLAYER_NAME_2))
-            .findFirst()
-            .orElseThrow();
-
     Game game =
         GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
             .withParticipationWith(player1)
-            .withParticipationWith(player2)
             .withGameState(GameState.PLAYING)
             .withMatch()
             .withMatchState(MatchState.PLAYING)
             .withHandForPlayer(PLAYER_NAME_1)
+            .withAnnouncedScore(1)
             .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
             .finishHand()
             .withRound()
@@ -218,7 +199,7 @@ class CardApiTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Card card =
         cardRepository.findAll().stream()
             .filter(c -> c.getRound() == null)
@@ -226,21 +207,16 @@ class CardApiTest {
             .findAny()
             .orElseThrow();
     Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
-    card.setRound(round);
 
-    String uri = "cards/" + card.getId().toString() + "/round";
-
+    String uri = "cards/" + card.getId().toString();
     webTestClient
         .patch()
         .uri(uri)
         .contentType(MediaType.APPLICATION_JSON)
         .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer1))
-        .body(BodyInserters.fromValue(round))
+        .body(BodyInserters.fromValue(Map.of("round", "/rounds/%s".formatted(round.getId()))))
         .exchange()
         .expectStatus()
-        .is4xxClientError();
-    // .isOk();
-    // This test returns 405 METHOD_NOT_ALLOWED instead of Ok status and I have no idea why. Anyone
-    // any idea?
+        .isOk();
   }
 }

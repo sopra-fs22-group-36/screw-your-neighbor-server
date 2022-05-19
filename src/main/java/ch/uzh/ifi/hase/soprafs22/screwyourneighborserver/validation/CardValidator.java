@@ -4,7 +4,6 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -55,14 +54,6 @@ public class CardValidator {
     Hand handBefore = cardBefore.getHand();
     if (!handBefore.isTurnActive()) {
       throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
-    }
-    Collection<Card> cards = card.getHand().getCards();
-    long count = cards.stream().filter(c -> nonNull(c.getRound())).count();
-    // With the current implementation of isTurnActive, we never get this check to true, we run then
-    // into isTurnActive = false above and throw the not-your-turn exception.
-    if (count > card.getRound().getRoundNumber()) {
-      throw new HttpClientErrorException(
-          HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
     }
     Round roundBefore = cardBefore.getRound();
     if (nonNull(roundBefore)) {
