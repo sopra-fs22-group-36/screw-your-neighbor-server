@@ -102,10 +102,4 @@ public class Card implements Comparable<Card>, BelongsToGame, IsOwnCard {
   public Game getGame() {
     return hand.getGame();
   }
-
-  @Override
-  @JsonIgnore
-  public Player getPlayer() {
-    return hand.getParticipation().getPlayer();
-  }
 }
