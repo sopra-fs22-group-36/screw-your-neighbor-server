@@ -12,10 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.client.HttpClientErrorException;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class GameValidatorTest {
   private static final Game GAME_BEFORE = new Game();
   private static final Game NEW_GAME = new Game();

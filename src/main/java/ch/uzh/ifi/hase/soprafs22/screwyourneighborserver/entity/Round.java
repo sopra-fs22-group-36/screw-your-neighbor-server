@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import javax.persistence.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Round implements BelongsToGame {
@@ -19,7 +17,6 @@ public class Round implements BelongsToGame {
   @OneToMany(
       mappedBy = "round",
       cascade = {CascadeType.ALL})
-  @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Card> cards = new ArrayList<>();
 
   @JsonBackReference("round-match")
