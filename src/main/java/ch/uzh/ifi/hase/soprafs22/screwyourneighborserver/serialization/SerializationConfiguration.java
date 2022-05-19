@@ -44,6 +44,9 @@ public class SerializationConfiguration {
                 (JsonSerializer<Object>) serializer,
                 SerializationConfiguration::createSecurityExpressionRoot);
         if (Card.class.isAssignableFrom(beanDesc.getBeanClass())) {
+          if (serializer instanceof BeanSerializer) {
+            return serializer;
+          }
           return cardSerializer;
         }
         if (CardEmbedProjection.class.isAssignableFrom(beanDesc.getBeanClass())) {
