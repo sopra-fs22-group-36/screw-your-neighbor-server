@@ -7,7 +7,7 @@ import java.util.Comparator;
 import javax.persistence.*;
 
 @Entity
-public class Card implements Comparable<Card>, BelongsToGame, IsOwnCard {
+public class Card implements Comparable<Card>, BelongsToGame {
   @Id @GeneratedValue private Long id;
 
   private CardRank cardRank;
