@@ -10,7 +10,7 @@ public interface RoundEmbedProjection {
 
   int getRoundNumber();
 
-  Collection<Card> getCards();
+  Collection<CardEmbedProjection> getCards();
 
   Collection<Long> getTrickWinnerIds();
 
