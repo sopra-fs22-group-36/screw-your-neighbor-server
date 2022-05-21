@@ -39,6 +39,47 @@ class CardValidatorTest {
 
   @Test
   @WithPersistedPlayer(playerName = PLAYER_NAME_1)
+  void allows_playing_valid_card() {
+    Player player = playerRepository.findByName(PLAYER_NAME_1).orElseThrow();
+    game =
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipationWith(player)
+            .withParticipation(PLAYER_NAME_2)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(player.getName())
+            .withCards(ACE_OF_CLUBS, EIGHT_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_NAME_2)
+            .withCards(JACK_OF_SPADES, QUEEN_OF_HEARTS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    game = gameRepository.saveAll(List.of(game)).get(0);
+    Hand hand =
+        game.getLastMatch().orElseThrow().getHands().stream()
+            .filter(h -> h.getCards().stream().anyMatch(c -> c.getCardRank() == CardRank.EIGHT))
+            .findAny()
+            .orElseThrow();
+    Card card =
+        hand.getCards().stream()
+            .filter(c -> c.getCardRank() == CardRank.EIGHT)
+            .findAny()
+            .orElseThrow();
+    Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
+    card.setRound(round);
+
+    assertDoesNotThrow(() -> cardValidator.onUpdateCard(card));
+  }
+
+  @Test
+  @WithPersistedPlayer(playerName = PLAYER_NAME_1)
   void play_other_players_card_throws_error() {
     Player player = playerRepository.findByName(PLAYER_NAME_1).orElseThrow();
     game =
