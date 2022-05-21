@@ -50,13 +50,16 @@ public class CardValidator {
           HttpStatus.UNPROCESSABLE_ENTITY,
           "You can not play a card before everybody has announced the score.");
     }
-    Card cardBefore = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
-    Hand handBefore = cardBefore.getHand();
-    if (!handBefore.isTurnActive()) {
-      throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
+    try {
+      card.setRound(null);
+      if (!card.getHand().isTurnActive()) {
+        throw new HttpClientErrorException(HttpStatus.UNPROCESSABLE_ENTITY, "It's not your turn.");
+      }
+    } finally {
+      card.setRound(newRound);
     }
-    Round roundBefore = cardBefore.getRound();
-    if (nonNull(roundBefore)) {
+    Card previousStateOf = oldStateFetcher.getPreviousStateOf(card.getClass(), card.getId());
+    if (nonNull(previousStateOf.getRound())) {
       throw new HttpClientErrorException(
           HttpStatus.UNPROCESSABLE_ENTITY, "You already played this card");
     }
