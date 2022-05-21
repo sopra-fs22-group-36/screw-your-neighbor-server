@@ -2,9 +2,6 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.integration;
 
 import static ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.CardValue.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.notNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
@@ -12,12 +9,11 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestLi
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.WithPersistedPlayer;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.CardValidator;
-import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation.OldStateFetcher;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.web.client.HttpClientErrorException;
@@ -37,20 +33,9 @@ class CardValidatorTest {
   @Autowired private PlayerRepository playerRepository;
 
   @Autowired private CardRepository cardRepository;
+  @Autowired private CardValidator cardValidator;
 
   private Game game;
-
-  private Card CARD_BEFORE = new Card();
-
-  private CardValidator cardValidator;
-
-  @BeforeEach
-  void setup() {
-
-    OldStateFetcher oldStateFetcher = mock(OldStateFetcher.class);
-    when(oldStateFetcher.getPreviousStateOf(notNull(), notNull())).thenReturn(CARD_BEFORE);
-    cardValidator = new CardValidator(oldStateFetcher);
-  }
 
   @Test
   @WithPersistedPlayer(playerName = PLAYER_NAME_1)
@@ -76,7 +61,7 @@ class CardValidatorTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Card card =
         cardRepository.findAll().stream()
             .filter(c -> c.getCardRank() == CardRank.JACK)
@@ -84,11 +69,7 @@ class CardValidatorTest {
             .orElseThrow();
     Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
     card.setRound(round);
-    Exception exception =
-        assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card));
-    assertEquals(
-        "422 The card you're trying to play is not available in your hand.",
-        exception.getMessage());
+    assertThrows(AccessDeniedException.class, () -> cardValidator.onUpdateCard(card));
   }
 
   @Test
@@ -112,7 +93,7 @@ class CardValidatorTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Hand hand =
         game.getLastMatch().orElseThrow().getHands().stream()
             .filter(
@@ -127,10 +108,8 @@ class CardValidatorTest {
             .findAny()
             .orElseThrow();
     Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
-    CARD_BEFORE.setRound(round);
-    CARD_BEFORE.setHand(hand);
-    card.setId(1L);
     card.setRound(round);
+
     Exception exception =
         assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card));
     assertEquals("422 It's not your turn.", exception.getMessage());
@@ -159,7 +138,7 @@ class CardValidatorTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Hand hand =
         game.getLastMatch().orElseThrow().getHands().stream()
             .filter(
@@ -172,10 +151,8 @@ class CardValidatorTest {
             .findAny()
             .orElseThrow();
     Round round = card.getRound();
-    CARD_BEFORE.setRound(round);
-    CARD_BEFORE.setHand(hand);
-    card.setId(1L);
     card.setRound(round);
+
     Exception exception =
         assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card));
     assertEquals("422 You already played this card", exception.getMessage());
@@ -191,6 +168,8 @@ class CardValidatorTest {
             .withParticipation(PLAYER_NAME_2)
             .withGameState(GameState.PLAYING)
             .withMatch()
+            .finishMatch()
+            .withMatch()
             .withMatchState(MatchState.PLAYING)
             .withHandForPlayer(player.getName())
             .withCards(ACE_OF_CLUBS, EIGHT_OF_CLUBS)
@@ -205,7 +184,7 @@ class CardValidatorTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Hand hand =
         game.getLastMatch().orElseThrow().getHands().stream()
             .filter(
@@ -220,10 +199,8 @@ class CardValidatorTest {
             .findAny()
             .orElseThrow();
     Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
-    CARD_BEFORE.setRound(round);
-    CARD_BEFORE.setHand(hand);
-    card.setId(1L);
     card.setRound(round);
+
     Exception exception =
         assertThrows(HttpClientErrorException.class, () -> cardValidator.onUpdateCard(card));
     assertEquals("422 It's not your turn.", exception.getMessage());
@@ -251,7 +228,7 @@ class CardValidatorTest {
             .finishMatch()
             .build();
 
-    gameRepository.saveAll(List.of(game));
+    game = gameRepository.saveAll(List.of(game)).get(0);
     Card card =
         game.getLastMatch().orElseThrow().getSortedHands().stream()
             .findAny()
