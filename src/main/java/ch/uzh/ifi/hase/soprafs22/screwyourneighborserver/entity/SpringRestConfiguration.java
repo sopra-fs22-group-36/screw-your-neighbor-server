@@ -23,8 +23,7 @@ public class SpringRestConfiguration {
           RepositoryRestConfiguration config, CorsRegistry cors) {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
         ExposureConfiguration exposureConfiguration = config.getExposureConfiguration();
-        exposureConfiguration.withItemExposure(
-            (resourceMetaData, httpMethods) -> disableMethods(resourceMetaData, httpMethods));
+        exposureConfiguration.withItemExposure(SpringRestConfiguration.this::disableMethods);
       }
     };
   }
