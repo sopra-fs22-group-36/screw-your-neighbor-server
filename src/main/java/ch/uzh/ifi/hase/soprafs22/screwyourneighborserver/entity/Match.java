@@ -87,7 +87,7 @@ public class Match implements BelongsToGame {
             .sorted(
                 Comparator.comparingInt(hand -> hand.getParticipation().getParticipationNumber()))
             .collect(Collectors.toList());
-    Collections.rotate(sortedHands, matchNumber - 1);
+    Collections.rotate(sortedHands, -1 * (matchNumber - 1));
     return sortedHands;
   }
 

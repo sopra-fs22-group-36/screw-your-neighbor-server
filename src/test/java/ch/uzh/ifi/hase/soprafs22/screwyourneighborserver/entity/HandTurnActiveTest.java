@@ -194,6 +194,59 @@ class HandTurnActiveTest {
   }
 
   @Test
+  void in_the_second_match_the_start_player_shifts_by_1_following_the_participation_number() {
+    Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withParticipation(PLAYER_3)
+            .withMatch()
+            .withMatchState(MatchState.FINISH)
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withHandForPlayer(PLAYER_3)
+            .withCards(QUEEN_OF_HEARTS, KING_OF_HEARTS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .finishRound()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Match activeMatch = game.getLastMatch().orElseThrow();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Hand firstHand = hands.get(0);
+    Hand secondHand = hands.get(1);
+    Hand thirdHand = hands.get(2);
+
+    assertThat(firstHand.isTurnActive(), is(false));
+    assertThat(secondHand.isTurnActive(), is(true));
+    assertThat(thirdHand.isTurnActive(), is(false));
+
+    Match previousMatch = game.getSortedMatches().get(0);
+    Optional<Round> lastRoundOfPreviousMatch = previousMatch.getLastRound();
+    assertThat(lastRoundOfPreviousMatch, not(Optional.empty()));
+
+    Assertions.assertThat(previousMatch.getHands()).allMatch(hand -> !hand.isTurnActive());
+  }
+
+  @Test
   void player_who_won_last_trick_starts_playing_next_round_with_three_players() {
     Game game =
         GameBuilder.builder("game1")
