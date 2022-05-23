@@ -26,7 +26,8 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(value = {org.springframework.dao.DataIntegrityViolationException.class})
-  private ResponseEntity<String> handleDataIntegrityViolationException(org.springframework.dao.DataIntegrityViolationException e) {
+  private ResponseEntity<String> handleDataIntegrityViolationException(
+      org.springframework.dao.DataIntegrityViolationException e) {
     return ResponseEntity.unprocessableEntity().body(e.getMessage());
   }
 
