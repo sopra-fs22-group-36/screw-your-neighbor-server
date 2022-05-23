@@ -445,4 +445,46 @@ class CardEventHandlerTest {
     }
     return lastCard;
   }
+
+  @Test
+  // @WithPersistedPlayer(playerName = PLAYER_NAME_1)
+  void one_player_plays_multiple_cards_in_one_round_throws_error() {
+
+    Game game =
+        GameBuilder.builder("game1", gameRepository, participationRepository, playerRepository)
+            .withParticipation(PLAYER_NAME_1)
+            .withGameState(GameState.PLAYING)
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_NAME_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withRound()
+            .withPlayedCard(PLAYER_NAME_1, ACE_OF_CLUBS)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    game = gameRepository.saveAll(List.of(game)).get(0);
+    Hand hand =
+        game.getLastMatch().orElseThrow().getHands().stream()
+            .filter(
+                h ->
+                    h.getCards().stream().filter(c -> c.getCardRank() == CardRank.QUEEN).count()
+                        > 0)
+            .findAny()
+            .orElseThrow();
+    Card card =
+        hand.getCards().stream()
+            .filter(c -> c.getCardRank() == CardRank.QUEEN)
+            .findAny()
+            .orElseThrow();
+    Round round = game.getLastMatch().orElseThrow().getLastRound().orElseThrow();
+    card.setRound(round);
+    Exception exception =
+        assertThrows(
+            org.springframework.dao.DataIntegrityViolationException.class,
+            () -> cardEventHandler.handleAfterSave(card));
+  }
 }

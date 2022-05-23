@@ -7,6 +7,7 @@ import java.util.Comparator;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"hand_id", "round_id"})})
 public class Card implements Comparable<Card>, BelongsToGame {
   @Id @GeneratedValue private Long id;
 

@@ -7,7 +7,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Component
 @RepositoryEventHandler
@@ -91,6 +93,11 @@ public class CardEventHandler {
     if (game.getGameState() == GameState.PLAYING) {
       modelFactory.addRound(attachNewRoundTo, newRoundNumber);
     }
-    gameRepository.saveAll(List.of(game));
+    try {
+      gameRepository.saveAll(List.of(game));
+    } catch (org.springframework.dao.DataIntegrityViolationException exception) {
+      throw new HttpClientErrorException(
+          HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
+    }
   }
 }
