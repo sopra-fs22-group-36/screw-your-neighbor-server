@@ -73,16 +73,16 @@ class CardConstraintIntegrationTest {
   void change_cards_value_does_not_work() {
     Card card = new Card(CardRank.QUEEN, CardSuit.HEART);
     cardRepository.saveAll(List.of(card));
-    Collection<Card> cards_before = cardRepository.findAll();
+    Collection<Card> cardsBeforeSave = cardRepository.findAll();
     card.setCardRank(CardRank.KING);
     cardRepository.saveAll(List.of(card));
-    Collection<Card> cards_after = cardRepository.findAll();
+    Collection<Card> cardsAfterSave = cardRepository.findAll();
 
-    assertEquals(1, cards_before.size());
-    assertEquals(CardRank.QUEEN, cards_before.stream().findAny().get().getCardRank());
-    assertEquals(CardSuit.HEART, cards_before.stream().findAny().get().getCardSuit());
-    assertEquals(1, cards_after.size());
-    assertEquals(CardRank.QUEEN, cards_after.stream().findAny().get().getCardRank());
-    assertEquals(CardSuit.HEART, cards_after.stream().findAny().get().getCardSuit());
+    assertEquals(1, cardsBeforeSave.size());
+    assertEquals(CardRank.QUEEN, cardsBeforeSave.stream().findAny().get().getCardRank());
+    assertEquals(CardSuit.HEART, cardsBeforeSave.stream().findAny().get().getCardSuit());
+    assertEquals(1, cardsAfterSave.size());
+    assertEquals(CardRank.QUEEN, cardsAfterSave.stream().findAny().get().getCardRank());
+    assertEquals(CardSuit.HEART, cardsAfterSave.stream().findAny().get().getCardSuit());
   }
 }
