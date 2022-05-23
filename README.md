@@ -21,3 +21,9 @@ By group 36 of the course "Software Praktikum"@UZH in FS 22.
 ## Api Documentation
 
 Start the application and visit /swagger-ui.html to see a swagger ui with the api documentation.
+
+## License
+
+This project is licensed under the **MIT license**.
+
+See [LICENSE](LICENSE.txt) for more information.
