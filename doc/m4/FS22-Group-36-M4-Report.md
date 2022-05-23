@@ -16,7 +16,7 @@ Moris Camporesi (19-764-349)
 
 \newpage
 \raggedright
-## Introduction to the game
+## 1.  Introduction to the game
 Our game can be played by two up to five people. The goal for every player is to gain as 
 many points as possible during the game. Every player plays for himself, 
 there are no teams. The game is played with a “Swiss Jass” card set of 36 cards with four suits.
@@ -54,25 +54,44 @@ For the match with only 1 card there is a special rule. The players don’t see 
 with the front revealed on their forehead, so only the other players can see the card, but not the player himself. 
 After the 9 matches, the player with the highest score wins.
 
-## Game view
+## 2. Game view
+The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
+are not listed. The only difference to the five-card match is the number of cards.
+Depends on the result of the game, after the last match, only the winner can see a screw your neighbor cup, 
+well-designed by Carmen. 
 
-## Lessen learned
+
+## 3. Lessen learned
 We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
 
-### Challenges
-- the most challenging part was learning in an apropriet time the technology stack. 
+### 3.1 Challenges
+- The most challenging part was learning in an appropriate time the technology stack. 
 - The challenge was to review the pull requests in a reasonable amount of time and then to implement the reviews.
 While this was a time-consuming process, it helps to understand the code and how the program works.
 Thus, with each pull request, several people knew how far the user stories were implemented.
+- Another challenge was the feedback on the milestones. Some reviews were difficult to understand. 
 
 
-### About teamwork
-- What we enjoyed the most was playing the game in real life on a map and then later online every week, which has two huge advantages:
+### 3.2 About teamwork
+- What we enjoyed the most was playing the game in real life on a map and then later online every week, which has two 
+huge advantages:
     1. It supported our team building process
     2. We test our game online every week
 
-- Weekly meetings of the whole group at the Irchel have simplified communication. Meeting in person has the advantage that problems can be discussed bilaterally and the others can continue to work, but at the same time can listen with one ear.
+- Weekly meetings of the whole group at the Irchel have simplified communication. Meeting in person has the advantage 
+that problems can be discussed bilaterally and the others can continue to work, but at the same time can listen with 
+one ear.
 	
-- The use of Git and the clarification of how we work with this tool has made it much easier to edit the software efficiently, the main feature of Git we used was: 
+- The use of Git and the clarification of how we work with this tool has made it much easier to edit the software 
+efficiently, the main feature of Git we used was: 
     1. Pull-request
     2. Feature-Branch 
+
+- As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
+"Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
+
+### 4. Conclusion 
+We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
+developers and those who acquired broad knowledge during the semester. In particular, the people for whom this 
+topic requires extensive experience in the field of programming. We all learned a lot about working together in a
+software team.
