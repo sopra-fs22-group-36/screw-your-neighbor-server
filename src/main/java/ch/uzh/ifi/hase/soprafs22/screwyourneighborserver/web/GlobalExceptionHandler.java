@@ -25,6 +25,11 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().body(e.getMessage());
   }
 
+  @ExceptionHandler(value = {org.springframework.dao.DataIntegrityViolationException.class})
+  private ResponseEntity<String> handleDataIntegrityViolationException(org.springframework.dao.DataIntegrityViolationException e) {
+    return ResponseEntity.unprocessableEntity().body(e.getMessage());
+  }
+
   private static <T> ResponseEntity<T> logResponse(Throwable e, ResponseEntity<T> response) {
     LOGGER.info(
         "Exception occured of type "

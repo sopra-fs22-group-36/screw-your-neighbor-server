@@ -93,11 +93,6 @@ public class CardEventHandler {
     if (game.getGameState() == GameState.PLAYING) {
       modelFactory.addRound(attachNewRoundTo, newRoundNumber);
     }
-    try {
       gameRepository.saveAll(List.of(game));
-    } catch (org.springframework.dao.DataIntegrityViolationException exception) {
-      throw new HttpClientErrorException(
-          HttpStatus.UNPROCESSABLE_ENTITY, "You already played a card in this round.");
-    }
   }
 }
