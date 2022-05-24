@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.web;
 import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,9 +26,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().body(e.getMessage());
   }
 
-  @ExceptionHandler(value = {org.springframework.dao.DataIntegrityViolationException.class})
+  @ExceptionHandler(value = {DataIntegrityViolationException.class})
   private ResponseEntity<String> handleDataIntegrityViolationException(
-      org.springframework.dao.DataIntegrityViolationException e) {
+      DataIntegrityViolationException e) {
     return ResponseEntity.unprocessableEntity().body(e.getMessage());
   }
 

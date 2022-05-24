@@ -8,6 +8,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.*;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.GameBuilder;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.WithPersistedPlayer;
+import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,24 @@ class CardConstraintIntegrationTest {
         assertThrows(
             org.springframework.dao.DataIntegrityViolationException.class,
             () -> cardRepository.save(card));
+  }
+
+  @Test
+  void change_cards_value_does_not_work() {
+    Card card = new Card(CardRank.QUEEN, CardSuit.HEART);
+    cardRepository.saveAll(List.of(card));
+    Collection<Card> cardsBeforeSave = cardRepository.findAll();
+    Card cardBeforeSave = cardsBeforeSave.stream().findAny().get();
+    card.setCardRank(CardRank.KING);
+    cardRepository.saveAll(List.of(card));
+    Collection<Card> cardsAfterSave = cardRepository.findAll();
+    Card cardAfterSave = cardsAfterSave.stream().findAny().get();
+
+    assertEquals(1, cardsBeforeSave.size());
+    assertEquals(CardRank.QUEEN, cardBeforeSave.getCardRank());
+    assertEquals(CardSuit.HEART, cardAfterSave.getCardSuit());
+    assertEquals(1, cardsAfterSave.size());
+    assertEquals(CardRank.QUEEN, cardAfterSave.getCardRank());
+    assertEquals(CardSuit.HEART, cardAfterSave.getCardSuit());
   }
 }

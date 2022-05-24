@@ -11,8 +11,10 @@ import javax.persistence.*;
 public class Card implements Comparable<Card>, BelongsToGame {
   @Id @GeneratedValue private Long id;
 
+  @Column(updatable = false)
   private CardRank cardRank;
 
+  @Column(updatable = false)
   private CardSuit cardSuit;
 
   @JsonBackReference("card-hand")
