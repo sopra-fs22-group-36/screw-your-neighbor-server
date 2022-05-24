@@ -74,15 +74,17 @@ class CardConstraintIntegrationTest {
     Card card = new Card(CardRank.QUEEN, CardSuit.HEART);
     cardRepository.saveAll(List.of(card));
     Collection<Card> cardsBeforeSave = cardRepository.findAll();
+    Card cardBeforeSave = cardsBeforeSave.stream().findAny().get();
     card.setCardRank(CardRank.KING);
     cardRepository.saveAll(List.of(card));
     Collection<Card> cardsAfterSave = cardRepository.findAll();
+    Card cardAfterSave = cardsAfterSave.stream().findAny().get();
 
     assertEquals(1, cardsBeforeSave.size());
-    assertEquals(CardRank.QUEEN, cardsBeforeSave.stream().findAny().get().getCardRank());
-    assertEquals(CardSuit.HEART, cardsBeforeSave.stream().findAny().get().getCardSuit());
+    assertEquals(CardRank.QUEEN, cardBeforeSave.getCardRank());
+    assertEquals(CardSuit.HEART, cardAfterSave.getCardSuit());
     assertEquals(1, cardsAfterSave.size());
-    assertEquals(CardRank.QUEEN, cardsAfterSave.stream().findAny().get().getCardRank());
-    assertEquals(CardSuit.HEART, cardsAfterSave.stream().findAny().get().getCardSuit());
+    assertEquals(CardRank.QUEEN, cardAfterSave.getCardRank());
+    assertEquals(CardSuit.HEART, cardAfterSave.getCardSuit());
   }
 }
