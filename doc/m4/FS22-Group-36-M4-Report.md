@@ -89,6 +89,7 @@ efficiently, the main feature of Git we used was:
 
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
+![image](https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
 
 ### 4. Conclusion 
 We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
