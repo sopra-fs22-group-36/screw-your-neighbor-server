@@ -58,31 +58,7 @@ After the 9 matches, the player with the highest score wins.
 The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
 are not listed. The only difference to the five-card match is the number of cards.
 Depends on the result of the game, after the last match, only the winner can see a screw your neighbor cup, 
-well-designed by Carmen. 
-
-### X Technologies
-#### X.x Spring Data REST
-
-#### X.x Hibernate, JPA
-
-#### X.x Jitsi API
-
-#### X.x Mockito
-
-#### X.x Git
-
-
-### X.x High-level components
-#### UI
-
-#### Database
-
-#### Game Logic (side effects)
-
-#### Game Validations
-
-#### Security
-
+well-designed by Carmen.
 
 ## 3. Lessen learned
 We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
@@ -113,12 +89,6 @@ efficiently, the main feature of Git we used was:
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
 ![image](https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
-
-### X. Roadmap
-Top features to contribute
-- Sound effects when playing card, winning / loosing trick, winning the game etc.
-- Implement different manners of score point calculation
-- User profiles to store players playing statistics
 
 ### 4. Conclusion 
 We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
