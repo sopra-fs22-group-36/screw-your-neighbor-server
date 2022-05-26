@@ -47,7 +47,7 @@ Points counting rules:\
 If a player announced the number of tricks correctly, then he gets the number of announced tricks squared as 
 positive points. Otherwise, the player gets the difference as negative points.
 
-Then the cards are distributed for the next match. The dealer duty moves one player to the right, the number 
+Then the cards are distributed for the next match. The number 
 of cards that is distributed follows the sequence [5,4,3,2,1,2,3,4,5].
 
 For the match with only 1 card there is a special rule. The players don’t see their own card but put their card 
@@ -57,15 +57,14 @@ After the 9 matches, the player with the highest score wins.
 ## 2. Game view
 The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
 are not listed. The only difference to the five-card match is the number of cards.
-Depends on the result of the game, after the last match, only the winner can see a screw your neighbor cup, 
-well-designed by Carmen.
+At the end of the game, the winner gets the cup which was well-designed by Carmen.
 
 ## 3. Lessen learned
 We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
 
 ### 3.1 Challenges
-- The most challenging part was learning in an appropriate time the technology stack. 
-- The challenge was to review the pull requests in a reasonable amount of time and then to implement the reviews.
+- The most challenging part was to learn the tech stack in an appropriate time.
+- The next challenge was to review the pull requests in a reasonable amount of time and then to implement the reviews.
 While this was a time-consuming process, it helps to understand the code and how the program works.
 Thus, with each pull request, several people knew how far the user stories were implemented.
 - Another challenge was the feedback on the milestones. Some reviews were difficult to understand. 
