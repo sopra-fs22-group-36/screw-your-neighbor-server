@@ -30,9 +30,8 @@ Briefly overview about used main technologies:
 
 ![spring](./doc/img/spring.png)
 ![java](./doc/img/gradle.png)
-![rapid api](./doc/img/rapis_api.png)
+![rapid api](./doc/img/rapid_api.png)
 
-![mockito](./doc/img/mockito.png)
 ![hibarnate](./doc/img/hibernate.png)
 ![plant](./doc/img/plant_uml.png)
 
@@ -45,17 +44,10 @@ necessary with Spring event handlers. Side effects were also done with Spring ev
 
 ### Hibernate, JPA
 
-### Jitsi API
-(move to FE README)
-
-### Mockito
-
 ### Git
 
 
 ## High-level components
-### UI
-
 ### Database
 
 ### Game Logic (side effects)
@@ -63,6 +55,8 @@ necessary with Spring event handlers. Side effects were also done with Spring ev
 ### Validations
 
 ### Security
+
+### Serialization/Deserialization
 
 ## Launch & Deployment
 
