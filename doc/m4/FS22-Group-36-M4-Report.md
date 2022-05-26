@@ -67,10 +67,26 @@ We have divided our learnings into two chapters, Challenges and Notes on Teamwor
 - The next challenge was to review the pull requests in a reasonable amount of time and then to implement the reviews.
 While this was a time-consuming process, it helps to understand the code and how the program works.
 Thus, with each pull request, several people knew how far the user stories were implemented.
-- Another challenge was the feedback on the milestones. Some reviews were difficult to understand. 
+- We have mixed feelings about using HATEOAS. On one hand every object had it's
+[IRI](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier) as identifier and the relations to other objects
+was clear. On the other hand the serialization was not consistent with embedded entities, and we had
+to use a workaround that we don't have to handle this everywhere in the frontend.
+([embedProxy.ts](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/main/src/util/embedProxy.ts))
+- We did not evaluate and specify how we want to style our application. Now we have material-ui as the design framework
+but don't use it often and had to restyle material components occasionally. And we have a mix of
+global css, css for a single component, shared css between components, shared scss variables
+and components styled with the "style" property.
+Next time we should evaluate the different ways and then stick to one way of structuring styling.
+
+### 3.2 Success Stories
+- The Spring Data Rest Framework helped us with structuring our code and let us set up the api by
+just writing the entities and relations. Sometimes we needed to debug the framework because the
+documentation was not always clear. But overall it helped more than it increased the complexity.
+- The MobX state management library helped us with structuring our code in the frontend. We could separate 
+the parts storing state, the "controller" logic making api requests and the TSX components rendering the ui.
 
 
-### 3.2 About teamwork
+### 3.3 About teamwork
 - What we enjoyed the most was playing the game in real life on a map and then later online every week, which has two 
 huge advantages:
     1. It supported our team building process
