@@ -2,7 +2,7 @@
    <img src="icon.png" width="auto" height="500">
 </h1>
 
-# Screw your neighbor server [^1]
+# Screw your neighbor: backend solution [^1]
 
 [^1]: By group 36 of the course "Software Praktikum"@UZH in FS 22.
 
