@@ -70,7 +70,7 @@ necessary with Spring event handlers. Side effects were also done with Spring ev
 ### Top features to contribute
 - Sound effects when playing card, winning / loosing trick, winning the game etc.
 - Implement different manners of score point calculation
-- User profiles to store players playing statistics
+- User profiles to store players performance
 
 ## Contributors
 Screw your neighbor application was developed in context of the SoPra (Software Praktikum / Software Engineerin Lab)
