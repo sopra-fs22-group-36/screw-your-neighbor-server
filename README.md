@@ -60,7 +60,7 @@ necessary with Spring event handlers. Side effects were also done with Spring ev
 
 ### Game Logic (side effects)
 
-### Game Validations
+### Validations
 
 ### Security
 
