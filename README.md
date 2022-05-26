@@ -2,9 +2,9 @@
    <img src="icon.png" width="auto" height="500">
 </h1>
 
-# Screw your neighbor server
+# Screw your neighbor server [^1]
 
-By group 36 of the course "Software Praktikum"@UZH in FS 22.
+[^1]: By group 36 of the course "Software Praktikum"@UZH in FS 22.
 
 ## Github Badges:
 
@@ -23,8 +23,19 @@ By group 36 of the course "Software Praktikum"@UZH in FS 22.
 Start the application and visit /swagger-ui.html to see a swagger ui with the api documentation.
 
 ## Introduction
+World famous card game played with 36 Swiss "Jasskarten". 
 
 ## Technologies
+Briefly overview about used main technologies: 
+
+![spring](./doc/img/spring.png)
+![java](./doc/img/gradle.png)
+![rapid api](./doc/img/rapis_api.png)
+
+![mockito](./doc/img/mockito.png)
+![hibarnate](./doc/img/hibernate.png)
+![plant](./doc/img/plant_uml.png)
+
 
 ### Spring Framework
 The Rapid Api Development Architecture provided by spring-data-rest was used to develop the api.
