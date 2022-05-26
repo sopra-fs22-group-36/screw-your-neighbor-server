@@ -2,6 +2,9 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.web.client.HttpClientErrorException;
 
 class ParticipationValidatorTest {
@@ -23,6 +27,8 @@ class ParticipationValidatorTest {
   private static final Participation PARTICIPATION_3 = new Participation();
 
   private ParticipationValidator participationValidator;
+
+  private Participation previousState;
 
   @BeforeEach
   void setup() {
@@ -39,7 +45,9 @@ class ParticipationValidatorTest {
     PARTICIPATION_2.setId(2L);
     PARTICIPATION_3.setId(3L);
 
-    participationValidator = new ParticipationValidator();
+    OldStateFetcher oldStateFetcher = mock(OldStateFetcher.class);
+    doAnswer(__ -> previousState).when(oldStateFetcher).getPreviousStateOf(notNull(), notNull());
+    participationValidator = new ParticipationValidator(oldStateFetcher);
   }
 
   @Test
@@ -55,6 +63,12 @@ class ParticipationValidatorTest {
     assertDoesNotThrow(() -> participationValidator.onBeforeCreateParticipation(PARTICIPATION));
     assertDoesNotThrow(() -> participationValidator.onBeforeCreateParticipation(PARTICIPATION_2));
     assertDoesNotThrow(() -> participationValidator.onBeforeCreateParticipation(PARTICIPATION_3));
+
+    previousState = new Participation();
+    previousState.setActive(false);
+    PARTICIPATION.setActive(true);
+
+    assertDoesNotThrow(() -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
   }
 
   @Test
@@ -87,6 +101,14 @@ class ParticipationValidatorTest {
     assertThrows(
         HttpClientErrorException.class,
         () -> participationValidator.onBeforeCreateParticipation(PARTICIPATION));
+
+    previousState = new Participation();
+    previousState.setActive(false);
+    PARTICIPATION.setActive(true);
+
+    assertThrows(
+        HttpClientErrorException.class,
+        () -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
   }
 
   @Test
@@ -97,7 +119,16 @@ class ParticipationValidatorTest {
         Stream.generate(Participation::new)
             .limit(ParticipationValidator.MAX_NUMBER_OF_PLAYERS - 1)
             .collect(Collectors.toList()));
+    PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
+    GAME_FINDING_PLAYERS.getParticipations().add(PARTICIPATION);
+
     assertDoesNotThrow(() -> participationValidator.onBeforeCreateParticipation(PARTICIPATION));
+
+    previousState = new Participation();
+    previousState.setActive(false);
+    PARTICIPATION.setActive(true);
+
+    assertDoesNotThrow(() -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
   }
 
   @Test
@@ -109,8 +140,39 @@ class ParticipationValidatorTest {
             .limit(ParticipationValidator.MAX_NUMBER_OF_PLAYERS)
             .collect(Collectors.toList()));
 
+    PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
+    GAME_FINDING_PLAYERS.getParticipations().add(PARTICIPATION);
+
     assertThrows(
         HttpClientErrorException.class,
         () -> participationValidator.onBeforeCreateParticipation(PARTICIPATION));
+
+    previousState = new Participation();
+    previousState.setActive(false);
+    PARTICIPATION.setActive(true);
+
+    assertThrows(
+        HttpClientErrorException.class,
+        () -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
+  }
+
+  @Test
+  void onBeforeSaveParticipation_does_not_throw_when_active_flag_does_not_change() {
+    previousState = PARTICIPATION;
+
+    assertDoesNotThrow(() -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
+  }
+
+  @ParameterizedTest
+  @EnumSource(GameState.class)
+  void onBeforeSaveParticipation_always_allows_leaving_game(GameState gameState) {
+    GAME_FINDING_PLAYERS.setGameState(gameState);
+    PARTICIPATION.setGame(GAME_FINDING_PLAYERS);
+
+    previousState = new Participation();
+    previousState.setActive(true);
+    PARTICIPATION.setActive(false);
+
+    assertDoesNotThrow(() -> participationValidator.onBeforeSaveParticipation(PARTICIPATION));
   }
 }
