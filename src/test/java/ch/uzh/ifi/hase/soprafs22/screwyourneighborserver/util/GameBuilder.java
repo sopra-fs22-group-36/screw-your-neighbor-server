@@ -46,6 +46,12 @@ public class GameBuilder {
     return this;
   }
 
+  public GameBuilder withParticipation(Participation participation) {
+    Objects.requireNonNull(participation);
+    participationMap.put(participation.getPlayer().getName(), participation);
+    return this;
+  }
+
   public GameBuilder withParticipationWith(Player player) {
     String playerName = Objects.requireNonNull(player.getName());
     Participation participation = new Participation();
