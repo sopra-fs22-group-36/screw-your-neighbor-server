@@ -99,6 +99,54 @@ class HandTurnActiveTest {
   }
 
   @Test
+  void if_the_first_player_left_the_second_player_has_to_start() {
+    Game game =
+        GameBuilder.builder("game1")
+            .withParticipation(PLAYER_1)
+            .withParticipation(PLAYER_2)
+            .withMatch()
+            .withMatchState(MatchState.PLAYING)
+            .withHandForPlayer(PLAYER_1)
+            .withCards(ACE_OF_CLUBS, QUEEN_OF_CLUBS)
+            .withAnnouncedScore(1)
+            .finishHand()
+            .withHandForPlayer(PLAYER_2)
+            .withCards(KING_OF_CLUBS, JACK_OF_CLUBS)
+            .withAnnouncedScore(0)
+            .finishHand()
+            .withRound()
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    Participation participation1 =
+        game.getParticipations().stream()
+            .filter(participation -> PLAYER_1.equals(participation.getPlayer().getName()))
+            .findFirst()
+            .orElseThrow();
+    participation1.setActive(false);
+
+    Match activeMatch = game.getLastMatch().orElseThrow();
+    List<Hand> hands =
+        activeMatch.getHands().stream()
+            .sorted(Comparator.comparing(hand -> hand.getParticipation().getParticipationNumber()))
+            .collect(Collectors.toList());
+    Hand firstHand = hands.get(0);
+    Hand secondHand = hands.get(1);
+
+    assertThat(firstHand.isTurnActive(), is(false));
+    assertThat(secondHand.isTurnActive(), is(true));
+
+    Round activeRound = activeMatch.getLastRound().orElseThrow();
+    Card cardToPlay = firstHand.getCards().iterator().next();
+    cardToPlay.setRound(activeRound);
+    activeRound.getCards().add(cardToPlay);
+
+    assertThat(firstHand.isTurnActive(), is(false));
+    assertThat(secondHand.isTurnActive(), is(true));
+  }
+
+  @Test
   void the_winner_of_the_last_round_has_to_start_the_next_round() {
     Game game =
         GameBuilder.builder("game1")

@@ -56,7 +56,7 @@ public class HandEventHandler {
    */
   private boolean allPlayersAnnouncedScore(Match match) {
     if (match.getHands().stream().count() <= 0) return false;
-    for (Hand hand : match.getHands()) {
+    for (Hand hand : match.getSortedActiveHands()) {
       if (hand.getAnnouncedScore() == null) return false;
     }
     return true;

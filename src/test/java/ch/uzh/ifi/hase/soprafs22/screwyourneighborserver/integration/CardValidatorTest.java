@@ -271,7 +271,7 @@ class CardValidatorTest {
 
     game = gameRepository.saveAll(List.of(game)).get(0);
     Card card =
-        game.getLastMatch().orElseThrow().getSortedHands().stream()
+        game.getLastMatch().orElseThrow().getSortedActiveHands().stream()
             .findAny()
             .orElseThrow()
             .getCards()

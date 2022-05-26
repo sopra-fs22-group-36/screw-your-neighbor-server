@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Hand;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Match;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.ParticipationRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
@@ -167,6 +168,69 @@ class HandScoreTest {
     Hand handPlayer1 = sortedHands.get(0);
     Hand handPlayer2 = sortedHands.get(1);
     Hand handPlayer3 = sortedHands.get(2);
+
+    assertThat(handPlayer1.getNumberOfWonTricks(), is(ANNOUNCED_SCORE_PLAYER_1));
+    assertThat(handPlayer1.getPoints(), is(ANNOUNCED_SCORE_PLAYER_1 * ANNOUNCED_SCORE_PLAYER_1));
+
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(ANNOUNCED_SCORE_PLAYER_2));
+    assertThat(handPlayer2.getPoints(), is(ANNOUNCED_SCORE_PLAYER_2));
+
+    assertThat(handPlayer3.getNumberOfWonTricks(), is(2));
+    assertThat(handPlayer3.getPoints(), is(-Math.abs(ANNOUNCED_SCORE_PLAYER_3 - 2)));
+  }
+
+  @Test
+  void score_stays_the_same_if_one_player_leaves() {
+    Game game =
+        matchBuilderWithHands
+            .withRound()
+            .withPlayedCard(PLAYER_1, ACE_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, KING_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_CLUBS)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, SEVEN_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, JACK_OF_SPADES)
+            .withPlayedCard(PLAYER_3, ACE_OF_SPADES)
+            .finishRound()
+            .withRound()
+            .withPlayedCard(PLAYER_1, JACK_OF_CLUBS)
+            .withPlayedCard(PLAYER_2, EIGHT_OF_CLUBS)
+            .withPlayedCard(PLAYER_3, QUEEN_OF_SPADES)
+            .finishRound()
+            .finishMatch()
+            .build();
+
+    game.getLastMatch()
+        .flatMap(Match::getLastRound)
+        .ifPresent(lastRound -> lastRound.setRoundNumber(9));
+    gameRepository.saveAll(List.of(game));
+
+    List<Hand> sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
+    Hand handPlayer1 = sortedHands.get(0);
+    Hand handPlayer2 = sortedHands.get(1);
+    Hand handPlayer3 = sortedHands.get(2);
+
+    assertThat(handPlayer1.getNumberOfWonTricks(), is(ANNOUNCED_SCORE_PLAYER_1));
+    assertThat(handPlayer1.getPoints(), is(ANNOUNCED_SCORE_PLAYER_1 * ANNOUNCED_SCORE_PLAYER_1));
+
+    assertThat(handPlayer2.getNumberOfWonTricks(), is(ANNOUNCED_SCORE_PLAYER_2));
+    assertThat(handPlayer2.getPoints(), is(ANNOUNCED_SCORE_PLAYER_2));
+
+    assertThat(handPlayer3.getNumberOfWonTricks(), is(2));
+    assertThat(handPlayer3.getPoints(), is(-Math.abs(ANNOUNCED_SCORE_PLAYER_3 - 2)));
+
+    Participation participation1 =
+        game.getParticipations().stream()
+            .filter(participation -> PLAYER_1.equals(participation.getPlayer().getName()))
+            .findFirst()
+            .orElseThrow();
+    participation1.setActive(false);
+    game = gameRepository.saveAll(List.of(game)).get(0);
+    sortedHands = getHandsOfCurrentMatchSortedByParticipation(game);
+    handPlayer1 = sortedHands.get(0);
+    handPlayer2 = sortedHands.get(1);
+    handPlayer3 = sortedHands.get(2);
 
     assertThat(handPlayer1.getNumberOfWonTricks(), is(ANNOUNCED_SCORE_PLAYER_1));
     assertThat(handPlayer1.getPoints(), is(ANNOUNCED_SCORE_PLAYER_1 * ANNOUNCED_SCORE_PLAYER_1));
