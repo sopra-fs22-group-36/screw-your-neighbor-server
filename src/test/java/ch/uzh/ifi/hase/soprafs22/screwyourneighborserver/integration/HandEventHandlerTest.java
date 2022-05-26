@@ -195,7 +195,7 @@ class HandEventHandlerTest {
     game = savedGames.iterator().next();
     match = game.getLastMatch().orElseThrow();
 
-    List<Hand> hands = match.getSortedHands();
+    List<Hand> hands = match.getSortedActiveHands();
     hands.forEach(el -> el.setAnnouncedScore(1));
     Hand lastHand = hands.get(hands.size() - 1);
     lastHand.setAnnouncedScore(0);

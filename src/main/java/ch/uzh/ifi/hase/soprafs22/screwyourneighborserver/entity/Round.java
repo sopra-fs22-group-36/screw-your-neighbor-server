@@ -88,7 +88,7 @@ public class Round implements BelongsToGame {
   }
 
   public boolean isStacked() {
-    if (cards.size() < match.getHands().size()) {
+    if (cards.size() < match.getSortedActiveHands().size()) {
       return false;
     }
     return getHighestCards().size() > 1;

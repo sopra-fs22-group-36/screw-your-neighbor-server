@@ -81,20 +81,21 @@ public class Match implements BelongsToGame {
   }
 
   @JsonIgnore
-  public List<Hand> getSortedHands() {
+  public List<Hand> getSortedActiveHands() {
     List<Hand> sortedHands =
         hands.stream()
             .sorted(
                 Comparator.comparingInt(hand -> hand.getParticipation().getParticipationNumber()))
+            .filter(hand -> hand.getParticipation().isActive())
             .collect(Collectors.toList());
     Collections.rotate(sortedHands, -1 * (matchNumber - 1));
     return sortedHands;
   }
 
   public boolean isLastAnnouncement() {
-    int count = getSortedHands().size();
+    int count = getSortedActiveHands().size();
     int announcedHands = 0;
-    for (Hand hand : getSortedHands()) {
+    for (Hand hand : getSortedActiveHands()) {
       if (hand.getAnnouncedScore() != null) {
         announcedHands++;
       }
@@ -119,7 +120,7 @@ public class Match implements BelongsToGame {
 
   @JsonIgnore
   public boolean allScoresAnnounced() {
-    return hands.stream().allMatch(hand -> hand.getAnnouncedScore() != null);
+    return getSortedActiveHands().stream().allMatch(hand -> hand.getAnnouncedScore() != null);
   }
 
   @JsonIgnore

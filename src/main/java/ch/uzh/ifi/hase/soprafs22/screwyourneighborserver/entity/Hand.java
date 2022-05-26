@@ -70,7 +70,7 @@ public class Hand implements BelongsToGame {
     if (activeMatch != match) {
       return false;
     }
-    List<Hand> sortedHands = activeMatch.getSortedHands();
+    List<Hand> sortedHands = activeMatch.getSortedActiveHands();
     if (!activeMatch.allScoresAnnounced()) {
       Hand handWithActiveTurn =
           sortedHands.stream()

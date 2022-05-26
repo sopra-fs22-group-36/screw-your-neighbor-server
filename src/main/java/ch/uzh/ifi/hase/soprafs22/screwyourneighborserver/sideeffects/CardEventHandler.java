@@ -41,7 +41,7 @@ public class CardEventHandler {
     // In case we have an additional battling round (after stacking), we have to count not all the
     // hands in the match, but only the ones that are involved in the battling round.
     long numberOfHands =
-        match.getHands().stream()
+        match.getSortedActiveHands().stream()
             .filter(
                 h ->
                     h.getCards().stream()
