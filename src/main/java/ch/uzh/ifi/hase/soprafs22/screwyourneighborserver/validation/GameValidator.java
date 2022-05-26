@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.validation;
 
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Game;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Participation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -39,6 +40,14 @@ public class GameValidator {
         throw new HttpClientErrorException(
             HttpStatus.UNPROCESSABLE_ENTITY,
             "GameState.CLOSED is the final state of the game and cannot be changed");
+      }
+
+      long numberOfActivePlayers =
+          game.getParticipations().stream().filter(Participation::isActive).count();
+      if (newGameState == GameState.PLAYING && numberOfActivePlayers < 2) {
+        throw new HttpClientErrorException(
+            HttpStatus.UNPROCESSABLE_ENTITY,
+            "You cannot start a game with less than 2 active participations");
       }
     }
   }

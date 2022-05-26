@@ -9,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.GameState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.MatchState;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.entity.Player;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.util.ClearDBAfterTestListener;
 import java.time.Duration;
 import java.util.HashMap;
@@ -37,8 +38,10 @@ class GameApiTest {
   private WebTestClient webTestClient;
 
   @Autowired private GameRepository gameRepository;
+  @Autowired private PlayerRepository playerRepository;
 
   private static final Player PLAYER_1 = new Player();
+  private static final String PLAYER_NAME_2 = "player2";
   private static final Game GAME_1 = new Game();
   private static final Game GAME_2 = new Game();
   private static final Game GAME_3 = new Game();
@@ -248,6 +251,40 @@ class GameApiTest {
     String uri = "games/" + id.toString();
     GAME_1.setGameState(GameState.PLAYING);
 
+    responseHeaders =
+        webTestClient
+            .post()
+            .uri("/players")
+            .body(BodyInserters.fromValue(Map.of("name", PLAYER_NAME_2)))
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody()
+            .returnResult()
+            .getResponseHeaders();
+    String sessionIdPlayer2 = getSessionIdOf(responseHeaders);
+
+    Player player2 =
+        playerRepository.findAll().stream()
+            .filter(player -> PLAYER_NAME_2.equals(player.getName()))
+            .findFirst()
+            .orElseThrow();
+
+    webTestClient
+        .post()
+        .uri("/participations")
+        .body(
+            BodyInserters.fromValue(
+                Map.of(
+                    "game",
+                    "/games/%s".formatted(id),
+                    "player",
+                    "/players/%s".formatted(player2.getId()))))
+        .header(HttpHeaders.COOKIE, "JSESSIONID=%s".formatted(sessionIdPlayer2))
+        .exchange()
+        .expectStatus()
+        .isCreated();
+
     Map<String, GameState> patchBody = Map.of("gameState", GameState.PLAYING);
     // Without check whether the game exists (no get()) change the gameState with patch() request
     webTestClient
@@ -273,7 +310,7 @@ class GameApiTest {
         .jsonPath("_embedded.matches[0].matchState")
         .isEqualTo(MatchState.ANNOUNCING.name())
         .jsonPath("_embedded.matches[0].hands")
-        .value(hasSize(1))
+        .value(hasSize(2))
         .jsonPath("_embedded.matches[0].hands[0].announcedScore")
         .value(nullValue())
         .jsonPath("_embedded.matches[0].hands[0].cards")
