@@ -26,35 +26,97 @@ Start the application and visit /swagger-ui.html to see a swagger ui with the ap
 World famous card game played with 36 Swiss "Jasskarten". 
 
 ## Technologies
-Briefly overview about used main technologies: 
+### Gradle
 
-![spring](./doc/img/spring.png)
-![java](./doc/img/gradle.png)
-![rapid api](./doc/img/rapid_api.png)
+![gradle](./doc/img/gradle.png)
 
-![hibarnate](./doc/img/hibernate.png)
-![plant](./doc/img/plant_uml.png)
+For building and deploying the software we used Gradle. We used the following plugins
+- Spring Boot (Spring Boot support in Gradle)
+- Spring Dependency Management (project's dependencies version control)
+- Spotless for code validation (clean code, adhering to coding standard)
+- IDEA (Intellij IDEA customized import)
+- JaCoCo (Code coverage)
+- SonarQube (static code analysis and technical code quality evaluation)
 
+### Spring Framework, Spring Boot
+![spring](./doc/img/spring.png) 
 
-### Spring Framework
-The Rapid Api Development Architecture provided by spring-data-rest was used to develop the api.
-The PagingAndSortingRepositories provide request handling, deserialization, crud on the database,
+#### Spring Boot
+Spring Boot helps with the creation of stand-alone Spring based applications.
+
+#### Spring Data
+The rapid api development architecture provided by spring-data-rest was used to develop the api.
+It provides an easy way to build REST web services on top of the data repositories. The
+PagingAndSortingRepositories provide request handling, deserialization, crud on the database,
 serialization and rendering of errors. Validation was implemented with Bean validations and if
 necessary with Spring event handlers. Side effects were also done with Spring event handlers.
 
-### Hibernate, JPA
+### Hibernate
+![hibernate](./doc/img/hibernate.png)
 
-### Git
+The data was stored in a hibernate database which offers an object relational mapping of the data.
+This means object oriented entities can be stored in a relational database.
 
+### JPA
+Jakarta Persistence API is the API for storing, retrieving, updating and deleting relational database
+entries in an object oriented context.
+
+### Rapid API
+![rapid api](./doc/img/rapid_api.png)
+
+??? --> Frontend?
+
+### PlantUML
+![plant](./doc/img/plant_uml.png)
+
+We used the PlantUML plain text language to create our UML diagrams.
+
+### Git, Github
+The versioning of our source code and other files was maintained by Git ont the GitHub platform.
+We used the GitHubs Actions feature for automated build, test and deployment of the software.
 
 ## High-level components
 ### Database
+We persisted all the entities used for the game. We decided to do so, because Spring Data REST offered
+various possibilities to implement validations and side effects in an easy way.
+- Bean validation (uniqueness, not null, format etc.)
+- Ensure referential integrity
+- Locking data for updates (ensure consistency)
+- Side effects: triggering some additional (game) logic before or after creating, updating or deleting an entity
 
 ### Game Logic (side effects)
+The game logic was mainly part of the EventHandlers. They implemented so-called side effects which were triggered
+by certain database interactions. Spring ApplicationListener listens to creating, saving and deleting
+events and executes then the logic with the corresponding annotation (e.g. a method with the `@HandleAfterSave`
+annotation is executed after the update of an entity).
 
 ### Validations
+Validations are implemented in several places. Format validations are implemented on entities level
+by bean validations. Some Validator classes dedicated to specific entities do further game validations.
+The CardValidator class for example ensures that a player can not play two cards in the same round.
+
+Validation errors as well as technical exceptions from Java or Hibernate are catched and transformed 
+in appropriate HTTP status codes with informal exception messages to prevent technical errors in the
+frontend.
 
 ### Security
+#### Authentication
+For entering the game lobby, creating and/or participating in a game an authenticated instance of a player
+is required. On the starting page a visitor can register as a player. At this moment a security context is
+established created with an authentication token. This transferred between frontend and backend by cookies
+within the http requests.
+
+All interactions on entities which are exposed for http requests are protected the WebSecurity configuration
+which only allows to call the /players endpoint without any valid authentication.
+
+#### Authorization
+An authenticated instance does not automatically allow interaction with the backend. Data is protected by
+expression-based access control. Without the role 'PLAYER' no data can be saved or deleted.
+
+There is more game specific authorization implemented. It must be ensured that players can only see their
+own cards.
+
+(.....)
 
 ### Serialization/Deserialization
 
