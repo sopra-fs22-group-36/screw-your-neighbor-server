@@ -102,8 +102,9 @@ frontend.
 ### Security
 #### Authentication
 For entering the game lobby, creating and/or participating in a game an authenticated instance of a player
-is required. On the starting page a visitor can register as a player. At this moment a security context is
-established created with an authentication token. This transferred between frontend and backend by cookies
+is required. On the starting page a visitor can register as a player. At the moment of storing a player, 
+a security context with a dedicated authentication token is established with spring security libraries.
+ This transferred between frontend and backend by cookies
 within the http requests.
 
 All interactions on entities which are exposed for http requests are protected the WebSecurity configuration
@@ -113,14 +114,25 @@ which only allows to call the /players endpoint without any valid authentication
 An authenticated instance does not automatically allow interaction with the backend. Data is protected by
 expression-based access control. Without the role 'PLAYER' no data can be saved or deleted.
 
-There is more game specific authorization implemented. It must be ensured that players can only see their
-own cards.
+There is more game specific authorization logic implemented.
 
-(.....)
+| Name      | Authorization                            | Description                                                                                             |
+|-----------|------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| playsIn   | Participates in a specific a game. | Interaction on any object of a game is only allowed for players being part of the same game themselves. |
+| isOwnCard | Card entity in the hand of a player.     | Whether a card can be read or updated depends on the ownership of the card.                             |
+
+The two authorizations, especially IsOwnCard, end up in a precisely determined ruleset on task can be executed or not at which point in time. The most
+important rules are implemented by the following methods.
 
 ### Serialization/Deserialization
+Data transmission is done with Jackson JSON serializer and deserializer. Only for transmission of card objects
+the serializer is overwritten by a special serializer (CardSerializer). The reason for that is that displaying
+cards to a user depends on the round. Normally players can see their own cards and cards of the other players
+are hidden. In the round 5 where only one card is distributed per player, it's in reverse. Therefore serialize
+method had to be overwritten such that players can't see their own cards but all the other player's cards instead.
 
 ## Launch & Deployment
+@Lucius? :)
 
 ## Roadmap
 ### Top features to contribute
