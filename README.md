@@ -30,7 +30,7 @@ World famous card game played with 36 Swiss "Jasskarten".
 
 ![gradle](./doc/img/gradle.png)
 
-For building and deploying the software we used Gradle. We used the following plugins
+For building and deploying the software Gradle was in use with the following plugins:
 - Spring Boot (Spring Boot support in Gradle)
 - Spring Dependency Management (project's dependencies version control)
 - Spotless for code validation (clean code, adhering to coding standard)
@@ -38,7 +38,7 @@ For building and deploying the software we used Gradle. We used the following pl
 - JaCoCo (Code coverage)
 - SonarQube (static code analysis and technical code quality evaluation)
 
-### Spring Framework, Spring Boot
+### Spring Framework
 ![spring](./doc/img/spring.png) 
 
 #### Spring Boot
@@ -69,16 +69,16 @@ entries in an object oriented context.
 ### PlantUML
 ![plant](./doc/img/plant_uml.png)
 
-We used the PlantUML plain text language to create our UML diagrams.
+UML diagrams were created with PlantUML plain text language.
 
 ### Git, Github
-The versioning of our source code and other files was maintained by Git ont the GitHub platform.
-We used the GitHubs Actions feature for automated build, test and deployment of the software.
+The versioning of the source code and other files was maintained by Git ont the GitHub platform.
+The GitHubs Actions feature was used for automated build, test and deployment of the software.
 
 ## High-level components
 ### Database
-We persisted all the entities used for the game. We decided to do so, because Spring Data REST offered
-various possibilities to implement validations and side effects in an easy way.
+All entities used for the game are persisted during a running game. The main reason is that Spring Data REST
+offers various possibilities to implement validations and side effects in an easy way.
 - Bean validation (uniqueness, not null, format etc.)
 - Ensure referential integrity
 - Locking data for updates (ensure consistency)
