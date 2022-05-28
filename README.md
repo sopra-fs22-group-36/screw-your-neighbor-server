@@ -153,9 +153,9 @@ way to go. UML diagrams can be pushed as .puml files. The CI pipeline in Github 
 .md files where they are referenced.
 
 To **deploy and release source code to production** the code has to be merged from a feature branch to the main branch. Pushing directly
-to the main branch is not possible because any code being published on the main branch is automatically deployed to Heroku. Standard process
-is to create a pull request which can be merged when at least one other developer gave their approval. Merging is not blocked without,
-but individual deployment without code review and approval is not appreciated by the team.
+to the main branch is not possible because any code being published on the main branch is automatically deployed by a CD pipeline to Heroku.
+Standard process is to create a pull request which can be merged when at least one other developer gave their approval. Merging is not blocked
+without, but individual deployment without code review and approval is not appreciated by the team.
 
 ## Roadmap
 ### Top features to contribute
