@@ -28,7 +28,7 @@ For the first match, every player gets 5 cards.
 Then one player after the other must announce how many tricks ("Stich", according to https://en.wikipedia.org/wiki/Jass) 
 they will make in this match, 
 starting from the player right from the current dealer. 
-The last one announcing the number of his tricks for this match must announce several tricks such that the total 
+The last one announcing the number of his tricks for this match must announce as many tricks such that the total 
 sum of announced tricks is not equal to the number of cards distributed per player in this match.
 
 
