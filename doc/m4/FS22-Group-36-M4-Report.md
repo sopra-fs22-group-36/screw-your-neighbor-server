@@ -34,7 +34,7 @@ sum of announced tricks is not equal to the number of cards distributed per play
 
 When the trick announcing round is completed, the game starts. The player to the right of the current dealer starts. 
 The suits don’t matter in this game, just the rank, and there is no trump. The player who played the highest 
-rank in a match, i.e. wins the trick and has to deal the first card for the next trick.
+rank in a match, i.e. wins the trick, has to play the first card for the next trick.
 If there are 2 or more highest ranks in the trick, the next trick stacks on top of the current. In this case, 
 the player who started the current trick has to start the next one too. If the last trick was stacked, the players 
 who played the highest cards draw another card and continue the next trick with these. This may continue until 
