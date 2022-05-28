@@ -62,13 +62,15 @@ The illustrations are based on a resolution of 1366 x 768px on the target platfo
 We have limited ourselves to the essential views.
 
 ### 2.1 Landing page
-![Landing page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Landing_page.png)
+![Landing page](Landing_page.png)
 
 ### 2.2 Lobby & Room
-![Lobby](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Lobby.png)
+![Lobby](Lobby.png)
+
+![Room](Room.png)
 
 ### 2.3 Game announcing round
-![Game announcing round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Announcing_stage.png)
+![Game announcing round](Announcing_stage.png)
 
 ### 2.4 Game playing
 There are main three different types of game rounds. This is the standard round, where the highest card win the round. 
@@ -77,18 +79,18 @@ Afterwards is a stacked round where two cards have the same rank, and the next r
 but all other ones. 
 
 #### 2.4.1 Standard round
-![Game playing: standard round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Standard_round.png)
+![Game playing: standard round](Standard_round.png)
 
 #### 2.4.2 Stacked round
-![Game playing: stacked round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Stacked_round.png)
+![Game playing: stacked round](Stacked_round.png)
 
 #### 2.4.3 One-card-round
-![Game playing: one-card-round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Round_with_one_card.png)
+![Game playing: one-card-round](Round_with_one_card.png)
 
 ### 2.5 Winner :tada: / Looser :screwdriver::facepalm: page 
-![End of game: winner page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Winner_screen.png) [^4]
+![End of game: winner page](Winner_screen.png) [^4]
 
-![end of game: looser page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Loser_screen.png) [^4]
+![end of game: looser page](Loser_screen.png) [^4]
 
 [^4]: Design by Carmen Kirchdorfer @CarmenUZH
 
