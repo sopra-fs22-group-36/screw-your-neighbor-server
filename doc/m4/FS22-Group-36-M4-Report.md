@@ -17,6 +17,8 @@ Moris Camporesi (19-764-349)
 \newpage
 \raggedright
 ## 1.  Introduction to the game
+
+### 1.1 The rule set
 Our game can be played by two up to five people. The goal for every player is to gain as 
 many points as possible during the game. Every player plays for himself, 
 there are no teams. The game is played with a “Swiss Jass” card set of 36 cards with four suits.
@@ -54,6 +56,11 @@ For the match with only 1 card there is a special rule. The players don’t see 
 with the front revealed on their forehead, so only the other players can see the card, but not the player himself. 
 After the 9 matches, the player with the highest score wins.
 
+### 1.2 Motivation
+At the beginning of SoPra we discussed various options for a project among ourselves. Since three out of five people 
+already knew the game and after a match with the other two, it quickly became clear that we would choose this game. 
+It is varied to play and is even more fun when the camera is on.
+
 ## 2. Game view
 The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
 are not listed. The only difference to the five-card match is the number of cards.
@@ -61,33 +68,35 @@ At the end of the game, the winner gets the cup which was well-designed by Carme
 The illustrations are based on a resolution of 1366 x 768px on the target platform Google Chrome Version 99. 
 We have limited ourselves to the essential views.
 
-### 2.1 Landing page
+### 2.1 Enter the game
+To enter the game, a player name must first be chosen. A new game can then be created in the lobby or an existing 
+one can be joined. A player who creates a new game is automatically forwarded to the anteroom and can wait there 
+until other players join the game or send an invitation link.
+
 ![Landing page](Landing_page.png)
 
-### 2.2 Lobby & Room
 ![Lobby](Lobby.png)
 
 ![Room](Room.png)
 
-### 2.3 Game announcing round
-![Game announcing round](Announcing_stage.png)
-
-### 2.4 Game playing
+### 2.2 Game playing
 There are main three different types of game rounds. This is the standard round, where the highest card win the round. 
 Afterwards is a stacked round where two cards have the same rank, and the next round will determine who has won both 
 (or more) rounds. At the end there is the special round with only one card, where each player can't see his own card 
 but all other ones. 
 
-#### 2.4.1 Standard round
+![Game announcing round](Announcing_stage.png)
+
 ![Game playing: standard round](Standard_round.png)
 
-#### 2.4.2 Stacked round
 ![Game playing: stacked round](Stacked_round.png)
 
-#### 2.4.3 One-card-round
 ![Game playing: one-card-round](Round_with_one_card.png)
 
-### 2.5 Winner :tada: / Looser :screwdriver::facepalm: page 
+### 2.2 Game ending
+At the end of the game it is evaluated who has reached the most points. Different scenarios are visualized in 
+different players.
+
 ![End of game: winner page](Winner_screen.png) [^4]
 
 ![end of game: looser page](Loser_screen.png) [^4]
