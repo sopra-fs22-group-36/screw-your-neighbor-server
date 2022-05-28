@@ -86,7 +86,7 @@ offers various possibilities to implement validations and side effects in an eas
 
 ### Game Logic (side effects)
 The game logic was mainly part of the EventHandlers. They implemented so-called side effects which were triggered
-by certain database interactions. Spring ApplicationListener listens to creating, saving and deleting
+by certain database interactions. Spring ApplicationListener listens to database creating, saving and deleting
 events and executes then the logic with the corresponding annotation (e.g. a method with the `@HandleAfterSave`
 annotation is executed after the update of an entity).
 
@@ -103,36 +103,59 @@ frontend.
 #### Authentication
 For entering the game lobby, creating and/or participating in a game an authenticated instance of a player
 is required. On the starting page a visitor can register as a player. At the moment of storing a player, 
-a security context with a dedicated authentication token is established with spring security libraries.
- This transferred between frontend and backend by cookies
-within the http requests.
+a security context with a dedicated authentication token is established with spring security libraries. 
+This transferred between frontend and backend by cookies within the http requests.
 
 All interactions on entities which are exposed for http requests are protected the WebSecurity configuration
 which only allows to call the /players endpoint without any valid authentication.
 
+| File                                                                                                                                                                                                  | Responsability                                                                                                    |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| [PlayerEventHandler](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/sideeffects/PlayerEventHandler.java) | Creates security context with authentication token when a new player is created.                                  |
+| [WebSecurityConfig](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/security/WebSecurityConfig.java)      | Controls requests access. Declares which endpoints can be called non-authenticated and which need authentication. |
+
+
 #### Authorization
 An authenticated instance does not automatically allow interaction with the backend. Data is protected by
-expression-based access control. Without the role 'PLAYER' no data can be saved or deleted.
+expression-based access control. Save or delete acces is only granted to objects with the role 'PLAYER'.
+Methods are protected with the `@PreAuthorize("hasRole('PLAYER')")` annotation.
 
 There is more game specific authorization logic implemented.
 
-| Name      | Authorization                            | Description                                                                                             |
-|-----------|------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| playsIn   | Participates in a specific a game. | Interaction on any object of a game is only allowed for players being part of the same game themselves. |
-| isOwnCard | Card entity in the hand of a player.     | Whether a card can be read or updated depends on the ownership of the card.                             |
-
-The two authorizations, especially IsOwnCard, end up in a precisely determined ruleset on task can be executed or not at which point in time. The most
-important rules are implemented by the following methods.
+| File                                                                                                                                                                                                                                               | Authorization                                          | Responsibility                                                                                           | Usage                            |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|----------------------------------------------------------------------------------------------------------|----------------------------------|
+| [CustomMethodSecurity ExpressionHandler](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/security/expressions/CustomMethodSecurityExpressionRoot.java) | playsIn: Participates in a specific a game.            | Interaction on any object of a game is only allowed for players being part of this game themselves. | GameRepository                   |
+| [CustomMethodSecurity ExpressionHandler](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/security/expressions/CustomMethodSecurityExpressionRoot.java) | isOwnCard: Card entity belongs to the hand of a player. | Whether a card can be read or updated depends on the ownership of the card.                              | CardValidator<br/>CardSerializer |
 
 ### Serialization/Deserialization
-Data transmission is done with Jackson JSON serializer and deserializer. Only for transmission of card objects
-the serializer is overwritten by a special serializer (CardSerializer). The reason for that is that displaying
+Data transfer is done with Jackson JSON serializer and deserializer. Only for transfer of card objects
+the serializer is overwritten by a special serializer ([CardSerializer](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/serialization/CardSerializer.java)). The reason for that is that displaying
 cards to a user depends on the round. Normally players can see their own cards and cards of the other players
-are hidden. In the round 5 where only one card is distributed per player, it's in reverse. Therefore serialize
-method had to be overwritten such that players can't see their own cards but all the other player's cards instead.
+are hidden. In round 5 where only one card is distributed per player, the rule is reversed. As a consequence no default
+rule of displaying cards can be applied. Therefore the serialize method had to be overwritten for round 5 such that
+players can't see their own cards but all the other player's cards instead.
 
 ## Launch & Deployment
-@Lucius? :)
+For developers using Intellij, the backend project can be set up by simply importing it. Gradle ensures the dependencies
+setup and the IDEA plugin guarantees a proper import with Intellij.
+
+To **build the project**, run the [build.gradle file](https://github.com/sopra-fs22-group-36/screw-your-neighbor-server/blob/main/build.gradle).
+It does not only build the source code, it also runs tests and checks adherance to code quality standards.
+
+To **run the tests** in isolation, one can run the test folder or one specific test file.
+
+To **run the project**, locally all that needs to be done is to execute the command `./gradlew bootrun`. The already mentioned Spring
+Boot Gradle Plugin manages the projects dependencies, packages and runs the application. New dependencies have to be added to the 
+build.gardle file.
+
+To **enhance the documentation**, adding an .md file to the doc folder or any subfolder or adding contents to an existing .md file is the
+way to go. UML diagrams can be pushed as .puml files. The CI pipeline in Github will convert them to .svg files and include them into the
+.md files where they are referenced.
+
+To **deploy and release source code to production** the code has to be merged from a feature branch to the main branch. Pushing directly
+to the main branch is not possible because any code being published on the main branch is automatically deployed to Heroku. Standard process
+is to create a pull request which can be merged when at least one other developer gave their approval. Merging is not blocked without,
+but individual deployment without code review and approval is not appreciated by the team.
 
 ## Roadmap
 ### Top features to contribute
