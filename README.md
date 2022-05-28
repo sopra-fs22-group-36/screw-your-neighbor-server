@@ -23,7 +23,9 @@
 Start the application and visit /swagger-ui.html to see a swagger ui with the api documentation.
 
 ## Introduction
-World famous card game played with 36 Swiss "Jasskarten". 
+We are developing an online version of the world-famous card game "Härdöpfle" also known as "Screw your neighbour" 
+played with the 36 Swiss "Jasskarten". All main functions are implemented as well as the stack rule, and the special round with 
+only one card. The game is build for two up to five players. 
 
 ## Technologies
 ### Gradle
