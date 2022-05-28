@@ -59,7 +59,7 @@ The order of the screenshots corresponds to the flow of the game, if possible. M
 are not listed. The only difference to the five-card match is the number of cards.
 At the end of the game, the winner gets the cup which was well-designed by Carmen.
 
-## 3. Lessen learned
+## 3. Lessons learned
 We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
 
 ### 3.1 Challenges
