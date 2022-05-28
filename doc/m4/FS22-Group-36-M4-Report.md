@@ -58,6 +58,39 @@ After the 9 matches, the player with the highest score wins.
 The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
 are not listed. The only difference to the five-card match is the number of cards.
 At the end of the game, the winner gets the cup which was well-designed by Carmen.
+The illustrations are based on a resolution of 1366 x 768px on the target platform Google Chrome Version 99. 
+We have limited ourselves to the essential views.
+
+### Landing page
+![Landing page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Landing_page.png)
+
+### Lobby & Room
+![Lobby](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Lobby.png)
+
+### Game announcing round
+![Game announcing round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Announcing_stage.png)
+
+### Game playing
+There are main three different types of game rounds. This is the standard round, where the highest card win the round. 
+Afterwards is a stacked round where two cards have the same rank, and the next round will determine who has won both 
+(or more) rounds. At the end there is the special round with only one card, where each player can't see his own card 
+but all other ones. 
+
+#### Standard round
+![Game playing: standard round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Standard_round.png)
+
+#### Stacked round
+![Game playing: stacked round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Stacked_round.png)
+
+#### One-card-round
+![Game playing: one-card-round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Round_with_one_card.png)
+
+### Winner :tada: / Looser :screwdriver::facepalm: page 
+![End of game: winner page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Winner_screen.png) [^4]
+
+![end of game: looser page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Loser_screen.png) [^4]
+
+[^4]: Design by Carmen Kirchdorfer @CarmenUZH
 
 ## 3. Lessons learned
 We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
@@ -104,6 +137,7 @@ efficiently, the main feature of Git we used was:
 
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
+
 ![image](https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
 
 ### 4. Conclusion 
