@@ -21,7 +21,7 @@ Our game can be played by two up to five people. The goal for every player is to
 many points as possible during the game. Every player plays for himself, 
 there are no teams. The game is played with a “Swiss Jass” card set of 36 cards with four suits.
 
-The game is divided into 9 matches (Runden) with changing number of distributed cards per player 
+The game is divided into 9 matches with changing number of distributed cards per player 
 (5,4,3,2,1,2,3,4,5), and for every match points are distributed.
 
 For the first match, every player gets 5 cards. 
