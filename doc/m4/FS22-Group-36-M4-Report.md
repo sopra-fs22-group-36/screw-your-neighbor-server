@@ -100,6 +100,7 @@ one ear.
 efficiently, the main feature of Git we used was: 
     1. Pull-request
     2. Feature-Branch 
+    3. Github Actions
 
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
