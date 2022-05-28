@@ -61,31 +61,31 @@ At the end of the game, the winner gets the cup which was well-designed by Carme
 The illustrations are based on a resolution of 1366 x 768px on the target platform Google Chrome Version 99. 
 We have limited ourselves to the essential views.
 
-### Landing page
+### 2.1 Landing page
 ![Landing page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Landing_page.png)
 
-### Lobby & Room
+### 2.2 Lobby & Room
 ![Lobby](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Lobby.png)
 
-### Game announcing round
+### 2.3 Game announcing round
 ![Game announcing round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Announcing_stage.png)
 
-### Game playing
+### 2.4 Game playing
 There are main three different types of game rounds. This is the standard round, where the highest card win the round. 
 Afterwards is a stacked round where two cards have the same rank, and the next round will determine who has won both 
 (or more) rounds. At the end there is the special round with only one card, where each player can't see his own card 
 but all other ones. 
 
-#### Standard round
+#### 2.4.1 Standard round
 ![Game playing: standard round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Standard_round.png)
 
-#### Stacked round
+#### 2.4.2 Stacked round
 ![Game playing: stacked round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Stacked_round.png)
 
-#### One-card-round
+#### 2.4.3 One-card-round
 ![Game playing: one-card-round](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Round_with_one_card.png)
 
-### Winner :tada: / Looser :screwdriver::facepalm: page 
+### 2.5 Winner :tada: / Looser :screwdriver::facepalm: page 
 ![End of game: winner page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Winner_screen.png) [^4]
 
 ![end of game: looser page](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/feature_ReadMe/src/img/views_screeshots/Loser_screen.png) [^4]
@@ -101,8 +101,8 @@ We have divided our learnings into two chapters, Challenges and Notes on Teamwor
 While this was a time-consuming process, it helps to understand the code and how the program works.
 Thus, with each pull request, several people knew how far the user stories were implemented.
 - We have mixed feelings about using HATEOAS. On one hand every object had it's
-[IRI](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier) as identifier and the relations to other objects
-was clear. On the other hand the serialization was not consistent with embedded entities, and we had
+[IRI](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier) as identifier, and the relations to other 
+objects was clear. On the other hand the serialization was not consistent with embedded entities, and we had
 to use a workaround that we don't have to handle this everywhere in the frontend.
 ([embedProxy.ts](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/main/src/util/embedProxy.ts))
 - We did not evaluate and specify how we want to style our application. Now we have material-ui as the design framework
@@ -125,9 +125,9 @@ huge advantages:
     1. It supported our team building process
     2. We test our game online every week
 
-- Weekly meetings of the whole group at the Irchel have simplified communication. Meeting in person has the advantage 
-that problems can be discussed bilaterally and the others can continue to work, but at the same time can listen with 
-one ear.
+- Weekly meetings of the whole group at the Irchel campus have simplified communication. Meeting in person has the 
+advantage that problems can be discussed bilaterally, and the others can continue to work, but at the same time can 
+listen with one ear.
 	
 - The use of Git and the clarification of how we work with this tool has made it much easier to edit the software 
 efficiently, the main feature of Git we used was: 
@@ -142,6 +142,8 @@ efficiently, the main feature of Git we used was:
 
 ### 4. Conclusion 
 We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
-developers and those who acquired broad knowledge during the semester. In particular, the people for whom this 
+developers, and those who acquired broad knowledge during the semester. In particular, the people for whom this 
 topic requires extensive experience in the field of programming. We all learned a lot about working together in a
-software team.
+software team.It is definitely one of the most complex and demanding modules in the bachelor's level, but also the 
+one we enjoy the most and which best prepares us for our everyday work as a software developer. We found the 
+module to be very practical.
