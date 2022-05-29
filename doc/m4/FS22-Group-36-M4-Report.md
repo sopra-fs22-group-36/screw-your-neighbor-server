@@ -4,14 +4,14 @@
 
 Report for Milestone 3 of Sopra FS22, Group 36
 
-![cover (source B. Furrer)](../header/jass-image.png)
+![cover (source B. Furrer)](../img/titelbild.jpg)
 
 **Members**
 
 Carmen Kirchdorfer (20-720-132)  
 Salome Wildermuth (10-289-544)  
 Beat Furrer, group leader (07-542-392)  
-Lucius Bachmann (11-060-274)  
+Lucius Simon Bachmann (11-060-274)  
 Moris Camporesi (19-764-349)
 
 \newpage
@@ -97,14 +97,14 @@ but all other ones.
 At the end of the game it is evaluated who has reached the most points. Different scenarios are visualized in 
 different players.
 
-![End of game: winner page](Winner_screen.png) [^4]
+![End of game: winner page](Winner_screen.png) [^1]
 
-![end of game: looser page](Loser_screen.png) [^4]
+![end of game: looser page](Loser_screen.png)
 
-[^4]: Design by Carmen Kirchdorfer @CarmenUZH
+[^1]: Design by Carmen Kirchdorfer @CarmenUZH
 
 ## 3. Lessons learned
-We have divided our learnings into two chapters, Challenges and Notes on Teamwork.
+We have divided our learnings into three chapters, Challenges, success stories and notes on teamwork.
 
 ### 3.1 Challenges
 - The most challenging part was to learn the tech stack in an appropriate time.
@@ -117,15 +117,18 @@ objects was clear. On the other hand the serialization was not consistent with e
 to use a workaround that we don't have to handle this everywhere in the frontend.
 ([embedProxy.ts](https://github.com/sopra-fs22-group-36/screw-your-neighbor-react/blob/main/src/util/embedProxy.ts))
 - We did not evaluate and specify how we want to style our application. Now we have material-ui as the design framework
-but don't use it often and had to restyle material components occasionally. And we have a mix of
+but don't use it often and had to restyle material components occasionally. Furthermore, we have a mix of
 global css, css for a single component, shared css between components, shared scss variables
 and components styled with the "style" property.
 Next time we should evaluate the different ways and then stick to one way of structuring styling.
+- One challenge was to understanding the role of the TA. We understood that the TA should be the scrum-master. 
+He always answered our questions quickly. However, the organization of the project was our responsibility. 
+For us, the distribution of roles was not clear at all times.
 
 ### 3.2 Success Stories
 - The Spring Data Rest Framework helped us with structuring our code and let us set up the api by
 just writing the entities and relations. Sometimes we needed to debug the framework because the
-documentation was not always clear. But overall it helped more than it increased the complexity.
+documentation was not always clear. Overall it helped more than it increased the complexity.
 - The MobX state management library helped us with structuring our code in the frontend. We could separate 
 the parts storing state, the "controller" logic making api requests and the TSX components rendering the ui.
 
@@ -149,7 +152,8 @@ efficiently, the main feature of Git we used was:
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
 
-![image](https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
+![The picture symbolizes that we always get "die Kohle aus dem Feuer" for each other.]
+(https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
 
 ### 4. Conclusion 
 We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
@@ -158,3 +162,7 @@ topic requires extensive experience in the field of programming. We all learned 
 software team.It is definitely one of the most complex and demanding modules in the bachelor's level, but also the 
 one we enjoy the most and which best prepares us for our everyday work as a software developer. We found the 
 module to be very practical.
+
+At the end we summarize that in our opinion the social and methodical skills have contributed to the successful 
+implementation of the game. At the same time, we have - of course at different levels - expanded our specialist 
+skills quickly and massively. We are proud for this experience. 
