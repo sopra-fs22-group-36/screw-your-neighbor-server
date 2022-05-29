@@ -59,7 +59,7 @@ Side effects were also done with Spring event handlers.
 ![hibernate](./doc/img/hibernate.png)
 ![h2](./doc/img/h2.png)
 
-The data was stored in a h2 database. The data is accessed through the Object Relational Mapper hibernate.
+The data is stored in a H2 database. The data is accessed through the Object Relational Mapper of the Hibernate framework.
 
 ### PlantUML
 ![plant](./doc/img/plant_uml.png)
