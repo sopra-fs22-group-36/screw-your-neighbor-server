@@ -55,7 +55,7 @@ PagingAndSortingRepositories and the corresponding entities provide everything f
 Validation was implemented with Bean validations and if necessary with Spring event handlers.
 Side effects were also done with Spring event handlers.
 
-### Hibernate
+### Hibernate & H2
 ![hibernate](./doc/img/hibernate.png)
 ![h2](./doc/img/h2.png)
 

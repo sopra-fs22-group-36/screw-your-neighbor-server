@@ -62,7 +62,7 @@ already knew the game and after a match with the other two, it quickly became cl
 It is varied to play and is even more fun when the camera is on.
 
 ## 2. Game view
-The order of the screenshots corresponds to the flow of the game, if possible. Matches 4, 3, 2 and the last match 
+The order of the screenshots corresponds to the flow of the game, if possible. Round 4, 3, 2 and the last match 
 are not listed. The only difference to the five-card match is the number of cards.
 At the end of the game, the winner gets the cup which was well-designed by Carmen.
 The illustrations are based on a resolution of 1366 x 768px on the target platform Google Chrome Version 99. 
