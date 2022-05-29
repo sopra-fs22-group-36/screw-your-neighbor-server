@@ -100,7 +100,7 @@ different players.
 
 ![End of game: winner page](Winner_screen.png) [^1]
 
-![end of game: looser page](Loser_screen.png)
+![End of game: looser page](Loser_screen.png)
 
 [^1]: Design by Carmen Kirchdorfer @CarmenUZH
 
