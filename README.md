@@ -57,6 +57,7 @@ Side effects were also done with Spring event handlers.
 
 ### Hibernate
 ![hibernate](./doc/img/hibernate.png)
+![h2](./doc/img/h2.png)
 
 The data was stored in a h2 database. The data is accessed through the Object Relational Mapper hibernate.
 
@@ -67,7 +68,7 @@ UML diagrams were created with PlantUML.
 
 ## High-level components
 ### Database
-We use an in memory h2 database for persistence. The schema is defined with the 
+We use an in memory H2 database for persistence. The schema is defined with the 
 [entities](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/entity). The data can be accessed with
 the [repositories](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/repository).
 
@@ -81,7 +82,7 @@ the corresponding annotation (e.g. a method with the `@HandleAfterSave` annotati
 Validations are implemented in several places. Format validations are implemented on entities level
 by bean validations. Some Validator classes dedicated to specific entities do further game validations.
 They can be found in the [validation package](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/validation).
-The CardValidator class for example ensures that a player can not play two cards in the same round.
+The CardValidator class for example ensures (amongst other things) that a player can not play two cards in the same round.
 
 Validation errors as well as technical exceptions from Java or Hibernate are catched and transformed 
 in appropriate HTTP status codes with informal exception messages to prevent technical errors in the
@@ -92,10 +93,10 @@ frontend.
 For entering the game lobby, creating and/or participating in a game an authenticated instance of a player
 is required. On the starting page a visitor can register as a player. At the moment of storing a player, 
 a security context with a dedicated authentication token is established with spring security libraries. 
-This transferred between frontend and backend by cookies within the http requests.
+This token is transferred between frontend and backend by cookies within the http requests.
 
-All interactions on entities which are exposed for http requests are protected the WebSecurity configuration
-which only allows to call the /players endpoint without any valid authentication.
+All interactions on entities which are exposed for http requests are protected according to the WebSecurityConfiguration
+file which only allows to call the /players endpoint without any valid authentication.
 
 | File                                                                                                                      | Responsability                                                                                                    |
 |---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
@@ -104,14 +105,14 @@ which only allows to call the /players endpoint without any valid authentication
 
 
 #### Authorization
-An authenticated instance does not automatically allow interaction all resources. Data is protected by
+An authenticated instance is not automatically allowed for interaction on all resources. Data is protected by
 expression-based access control. Most endpoints need an authentication, and some have stricter requirements for access
 like PATCH /cards/{id}, which only allows players to update their own card.
 This is done with SPeL (Spring Security Expression Language), which is added to the @HandleBefore(Save,Create) methods
 as in [CardValidator](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/validation/CardValidator.java),
 and on the corresponding methods in the repositories (e.g. [CardRepository](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/repository/CardRepository.java)).
 
-There is more game specific authorization logic implemented.
+Game logic steering authorizations:
 
 | File                                                                                                                                                                   | Authorization                                           | Responsibility                                                                                      | Usage                            |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------|----------------------------------|
@@ -119,7 +120,7 @@ There is more game specific authorization logic implemented.
 | [CustomMethodSecurity ExpressionHandler](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/security/expressions/CustomMethodSecurityExpressionRoot.java) | isOwnCard: Card entity belongs to the hand of a player. | Whether a card can be read or updated depends on the ownership of the card.                         | CardValidator<br/>CardSerializer |
 
 ### Serialization/Deserialization
-Data transfer is done with Jackson JSON serializer and deserializer. Only for transfer of card objects
+Data transfer is done with Jackson JSON serializer and deserializer. For transfer of card objects
 the serializer is overwritten by a special serializer ([CardSerializer](src/main/java/ch/uzh/ifi/hase/soprafs22/screwyourneighborserver/serialization/CardSerializer.java)).
 The reason for that is that displaying
 cards to a user depends on the round. Normally players can see their own cards and cards of the other players
