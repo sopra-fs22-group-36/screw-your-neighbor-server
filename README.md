@@ -55,7 +55,7 @@ PagingAndSortingRepositories and the corresponding entities provide everything f
 Validation was implemented with Bean validations and if necessary with Spring event handlers.
 Side effects were also done with Spring event handlers.
 
-### Hibernate
+### Hibernate & H2
 ![hibernate](./doc/img/hibernate.png)
 
 The data was stored in a h2 database. The data is accessed through the Object Relational Mapper hibernate.
