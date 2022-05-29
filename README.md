@@ -162,6 +162,7 @@ without, but individual deployment without code review and approval is not appre
 ### Top features to contribute
 - Implement different manners of score point calculation
 - User profiles to store players performance
+- Validations for announcing the score
 
 ## Contributors
 Screw your neighbor application was developed in context of the SoPra (Software Praktikum / Software Engineerin Lab)

@@ -57,7 +57,8 @@ with the front revealed on their forehead, so only the other players can see the
 After the 9 matches, the player with the highest score wins.
 
 ### 1.2 Motivation
-At the beginning of SoPra we discussed various options for a project among ourselves. Since three out of five people 
+First of all we're a loosely knit group. We don't know each other. At the beginning of SoPra we discussed various 
+options for a project among ourselves. Since three out of five people 
 already knew the game and after a match with the other two, it quickly became clear that we would choose this game. 
 It is varied to play and is even more fun when the camera is on.
 
@@ -134,6 +135,8 @@ the parts storing state, the "controller" logic making api requests and the TSX 
 
 
 ### 3.3 About teamwork
+![Team event: Sechseläuten 2022](Sechselauten_3.png)
+
 - What we enjoyed the most was playing the game in real life on a map and then later online every week, which has two 
 huge advantages:
     1. It supported our team building process
@@ -152,8 +155,7 @@ efficiently, the main feature of Git we used was:
 - As a small team building event, where of course the subject SoPra was extensively discussed, we met for the
 "Sechseläuten". Coincidentally, there was a team member from the canton of Uri, which was also the guest canton.
 
-![The picture symbolizes that we always get "die Kohle aus dem Feuer" for each other.]
-(https://user-images.githubusercontent.com/45465496/169947777-4eb655b9-e3f0-4c64-8a7a-de4156249687.png)
+![The picture symbolizes that we always get "die Kohle aus dem Feuer" for each other.](Sechselauten.gif)
 
 ### 4. Conclusion 
 We are extremely satisfied with our performance as a group. We had an ideal mixture of very experienced software 
