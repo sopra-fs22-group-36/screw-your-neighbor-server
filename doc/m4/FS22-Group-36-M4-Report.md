@@ -98,11 +98,9 @@ but all other ones.
 At the end of the game it is evaluated who has reached the most points. Different scenarios are visualized in 
 different players.
 
-![End of game: winner page[^1]](Winner_screen.png)
+![End of game: winner page](Winner_screen.png)
 
 ![End of game: looser page](Loser_screen.png)
-
-[^1]: Design by Carmen Kirchdorfer @CarmenUZH
 
 ## 3. Lessons learned
 We have divided our learnings into three chapters, Challenges, success stories and notes on teamwork.
